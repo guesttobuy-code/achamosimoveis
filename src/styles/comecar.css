@@ -1,0 +1,97 @@
+/* ============================================
+   Page-specific styles — Comecar (journey chooser)
+   ============================================ */
+
+.comecar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width: 920px) { .comecar-grid { grid-template-columns: 1fr; } }
+
+.comecar-card {
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 32px 28px 26px;
+  background: var(--paper-card);
+  cursor: pointer;
+  transition: transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 220ms;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.comecar-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--brand);
+}
+
+.comecar-card-1 {
+  background: linear-gradient(160deg, color-mix(in oklab, var(--brand) 22%, var(--paper-card)), var(--paper-card) 70%);
+  border-color: var(--brand);
+}
+.comecar-card-1 .comecar-card-num { color: var(--brand); }
+[data-theme="dark"] .comecar-card-1 .comecar-card-num { color: #C5A3FF; }
+
+.comecar-card-2 .comecar-card-num { color: var(--ink-mute); }
+
+.comecar-card-3 {
+  background: linear-gradient(160deg, color-mix(in oklab, var(--accent) 18%, var(--paper-card)), var(--paper-card) 70%);
+  border-color: color-mix(in oklab, var(--accent) 60%, var(--line));
+}
+.comecar-card-3 .comecar-card-num { color: var(--accent); }
+.comecar-card-3 .comecar-card-cta { color: var(--accent); }
+.comecar-card-3 .comecar-card-cta-circle { background: color-mix(in oklab, var(--accent) 22%, transparent); }
+.comecar-card-3 .comecar-card-name em { color: var(--accent); font-style: normal; }
+
+.comecar-card-num {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.comecar-card-name {
+  font-family: var(--f-display);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 14px 0 12px;
+  text-wrap: balance;
+}
+.comecar-card-name em { font-style: normal; color: var(--brand); }
+
+.comecar-card-desc {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 28ch;
+}
+
+.comecar-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  color: var(--brand);
+  font-weight: 600;
+  font-size: 14px;
+}
+[data-theme="dark"] .comecar-card-cta { color: #C5A3FF; }
+.comecar-card-2 .comecar-card-cta { color: var(--ink); }
+
+.comecar-card-cta-circle {
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  display: grid;
+  place-items: center;
+  transition: transform 200ms;
+}
+.comecar-card-2 .comecar-card-cta-circle { background: var(--paper-warm); }
+
+.comecar-card:hover .comecar-card-cta-circle {
+  transform: translate(3px, -3px);
+}
