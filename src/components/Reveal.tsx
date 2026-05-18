@@ -27,6 +27,5 @@ export default function Reveal({ children, delay = 0, as: As = 'div', className 
     return () => io.disconnect()
   }, [delay])
 
-  // @ts-expect-error — dynamic element ref typing
   return <As ref={ref} className={`reveal ${shown ? 'in' : ''} ${className}`} {...rest}>{children}</As>
 }
