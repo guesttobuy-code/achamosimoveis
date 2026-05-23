@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achamos Imóveis — Documentos Estratégicos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #6F2DE1;
+    --brand-soft: #F4EDFF;
+    --brand-dark: #4B1FA6;
+    --ink: #201F1F;
+    --ink-soft: #5A5959;
+    --ink-mute: #8B8989;
+    --paper: #F4F0EB;
+    --paper-soft: #FAF7F2;
+    --white: #FFFFFF;
+    --line: #E8E2D8;
+    --line-soft: #F0EBE3;
+    --green: #16A34A;
+    --red: #DC2626;
+    --yellow: #EAB308;
+    --f-display: 'Bricolage Grotesque', sans-serif;
+    --f-body: 'Plus Jakarta Sans', sans-serif;
+    --f-mono: 'JetBrains Mono', monospace;
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 20px;
+    --r-xl: 28px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: var(--f-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER GLOBAL */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .topbar-brand img { height: 32px; }
+  .topbar-meta {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: rgba(244, 240, 235, 0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--ink) 0%, #2D1F4A 70%, var(--brand-dark) 100%);
+    color: var(--paper);
+    padding: 80px 32px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(111, 45, 225, 0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 32px;
+    filter: brightness(1.1);
+  }
+  .hero h1 {
+    font-family: var(--f-display);
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    text-wrap: balance;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 em {
+    color: var(--brand);
+    font-style: normal;
+  }
+  .hero p {
+    font-size: 20px;
+    color: rgba(244, 240, 235, 0.8);
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(111, 45, 225, 0.2);
+    border: 1px solid rgba(111, 45, 225, 0.5);
+    color: var(--paper);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brand);
+    box-shadow: 0 0 12px var(--brand);
+  }
+
+  /* NAV TABS */
+  .doc-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    position: sticky;
+    top: 60px;
+    z-index: 90;
+    box-shadow: 0 2px 8px rgba(32, 31, 31, 0.04);
+  }
+  .doc-nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding: 0 32px;
+  }
+  .doc-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 18px 24px;
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .doc-nav a:hover { color: var(--brand); background: var(--brand-soft); }
+  .doc-nav a.active {
+    color: var(--brand);
+    border-bottom-color: var(--brand);
+    font-weight: 700;
+  }
+
+  /* MAIN CONTAINER */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ARTICLE */
+  .doc-section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .doc-section:last-child { border-bottom: none; }
+
+  .doc-header {
+    background: linear-gradient(135deg, var(--brand-soft) 0%, var(--paper-soft) 100%);
+    border-radius: var(--r-xl);
+    padding: 48px 40px;
+    margin-bottom: 48px;
+    text-align: center;
+    border: 1px solid var(--brand-soft);
+  }
+  .doc-header .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--brand);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+  .doc-header img {
+    height: 60px;
+    margin: 16px 0;
+  }
+
+  /* HEADINGS */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--f-display);
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-top: 48px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; }
+  h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; color: var(--ink); margin-top: 64px; }
+  h2::before {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 4px;
+    background: var(--brand);
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  h3 { font-size: 22px; font-weight: 700; margin-top: 40px; color: var(--ink); }
+  h3 strong { color: var(--brand); }
+  h4 { font-size: 18px; font-weight: 700; margin-top: 28px; color: var(--ink); }
+
+  /* PARAGRAPHS */
+  p {
+    margin-bottom: 16px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  p strong { color: var(--ink); font-weight: 700; }
+  p em { color: var(--ink-soft); }
+
+  /* BLOCKQUOTE */
+  blockquote {
+    background: var(--white);
+    border-left: 4px solid var(--brand);
+    padding: 24px 32px;
+    margin: 32px 0;
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    box-shadow: 0 2px 12px rgba(32, 31, 31, 0.05);
+  }
+  blockquote p {
+    margin-bottom: 8px;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  blockquote p:last-child { margin-bottom: 0; }
+  blockquote strong { color: var(--brand); }
+  blockquote em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  /* LISTS */
+  ul, ol {
+    margin: 16px 0 24px 0;
+    padding-left: 28px;
+  }
+  li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  li strong { color: var(--ink); }
+
+  /* TABLES */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0 32px 0;
+    border-radius: var(--r-md);
+    box-shadow: 0 2px 16px rgba(32, 31, 31, 0.06);
+    border: 1px solid var(--line);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: var(--white);
+  }
+  thead {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 14px 16px;
+    border-top: 1px solid var(--line-soft);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  tr:nth-child(even) td { background: var(--paper-soft); }
+  td strong { color: var(--ink); font-weight: 700; }
+
+  /* CODE BLOCKS / PRE */
+  pre {
+    background: var(--ink);
+    color: #E8E2D8;
+    padding: 24px;
+    border-radius: var(--r-md);
+    overflow-x: auto;
+    margin: 24px 0;
+    font-family: var(--f-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    box-shadow: 0 4px 20px rgba(32, 31, 31, 0.15);
+    border: 1px solid #2A2929;
+  }
+  code {
+    font-family: var(--f-mono);
+    background: var(--brand-soft);
+    color: var(--brand-dark);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  /* HR */
+  hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--line), transparent);
+    margin: 48px 0;
+  }
+
+  /* CALLOUT BOXES */
+  .callout {
+    background: var(--white);
+    border-radius: var(--r-md);
+    padding: 24px;
+    margin: 24px 0;
+    box-shadow: 0 2px 12px rgba(32, 31, 31, 0.05);
+    border: 1px solid var(--line);
+  }
+  .callout-purple {
+    background: linear-gradient(135deg, var(--brand-soft) 0%, var(--white) 100%);
+    border-left: 4px solid var(--brand);
+  }
+  .callout-warning {
+    background: #FFF7E5;
+    border-left: 4px solid var(--yellow);
+  }
+
+  /* LINKS */
+  a {
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(244, 240, 235, 0.7);
+    padding: 60px 32px 40px;
+    text-align: center;
+    margin-top: 60px;
+  }
+  footer p {
+    color: rgba(244, 240, 235, 0.6);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  footer .footer-logo {
+    height: 40px;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 50px;
+    height: 50px;
+    background: var(--brand);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 4px 20px rgba(111, 45, 225, 0.4);
+    transition: all 0.2s;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 95;
+    border: none;
+  }
+  .scroll-top.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .scroll-top:hover { transform: translateY(-3px); }
+
+  /* LIBRARY GRID (Biblioteca) */
+  .library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .lib-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 24px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .lib-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--brand);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.25s ease;
+  }
+  .lib-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(111, 45, 225, 0.15);
+    border-color: var(--brand);
+    text-decoration: none;
+  }
+  .lib-card:hover::before { transform: scaleY(1); }
+  .lib-num {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--brand);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .lib-title {
+    font-family: var(--f-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .lib-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+  .lib-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .lib-badge {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .lib-badge.ready { background: #DCFCE7; color: #166534; }
+  .lib-badge.draft { background: #FEF3C7; color: #92400E; }
+  .lib-arrow {
+    color: var(--brand);
+    font-size: 18px;
+    font-weight: 700;
+    transition: transform 0.2s ease;
+  }
+  .lib-card:hover .lib-arrow { transform: translateX(4px); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .topbar { padding: 12px 20px; flex-wrap: wrap; gap: 8px; }
+    .topbar-meta { font-size: 10px; }
+    .container { padding: 0 20px; }
+    .doc-nav-inner { padding: 0 20px; }
+    .doc-nav a { padding: 14px 16px; font-size: 13px; }
+    .doc-header { padding: 32px 24px; }
+    .doc-section { padding: 48px 0; }
+    h2 { font-size: 28px; margin-top: 48px; }
+    pre { padding: 16px; font-size: 12px; }
+    th, td { padding: 10px 12px; font-size: 13px; }
+  }
+
+  /* PRINT */
+  @media print {
+    .topbar, .doc-nav, .scroll-top { display: none; }
+    body { background: white; }
+    .doc-section { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <img src="./apresentacao/assets/logo_achamos.svg" alt="Achamos Imóveis">
+    <span>Documentos Estratégicos</span>
+  </div>
+  <div class="topbar-meta">v1.0 · 2026-05-23</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="./apresentacao/assets/logo_achamos.svg" alt="Achamos Imóveis" class="hero-logo">
+  <div class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    Documentos Estratégicos · Confidencial
+  </div>
+  <h1>Os 3 documentos que <em>decidem</em><br>o jogo da Achamos.</h1>
+  <p>Mapa estratégico, proposta de valor irresistível ao comprador e protocolo anti-pulo. Tudo organizado pra leitura linear, sem perder uma vírgula.</p>
+</section>
+
+<!-- DOC NAV -->
+<nav class="doc-nav">
+  <div class="doc-nav-inner">
+    <a href="#mapa" class="active">📘 Mapa das Frentes</a>
+    <a href="#proposta">🟣 Proposta de Valor — Comprador</a>
+    <a href="#antipulo">🛡️ Protocolo Anti-Pulo</a>
+    <a href="#biblioteca">📚 Biblioteca (12 docs)</a>
+  </div>
+</nav>
+
+<main class="container">
+
+<!-- ============================================================== -->
+<!-- DOCUMENTO 1 — MAPA DAS FRENTES                                  -->
+<!-- ============================================================== -->
+<article id="mapa" class="doc-section">
+
+  <div class="doc-header">
+    <div class="eyebrow">Documento 00</div>
+    <img src="./apresentacao/assets/logo_achamos.svg" alt="Achamos Imóveis">
+    <h1>ACHAMOS IMÓVEIS — Mapa das Frentes para Vencer</h1>
+    <blockquote style="background: transparent; box-shadow: none; border-left: none; padding: 16px 0; margin: 16px 0 0 0;">
+      <p><strong>Documento mestre.</strong> Fora a captação de investidor (Fase 16, já mapeada), estas são todas as frentes em que precisamos ganhar.</p>
+      <p>v1.0 · 2026-05-23 · Achamos Imóveis · BVM LTDA</p>
+    </blockquote>
+  </div>
+
+  <hr>
+
+  <h2>🎯 As 7 Grandes Frentes</h2>
+
+  <pre>┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   🟣 ACHAMOS IMÓVEIS — 7 FRENTES SIMULTÂNEAS                   │
+│                                                                 │
+│   1. PRODUTO          → site + portal + chatbot + matching     │
+│   2. CONTRATOS        → 3 do produto + termos + LGPD           │
+│   3. PROPOSTA DE VALOR → comprador irresistível + vendedor     │
+│   4. MARKETING        → social paga + PR + orgânico + eventos  │
+│   5. OPERAÇÃO         → equipe + processo + CRM + SLA          │
+│   6. ANTI-PULO        → contrato + operacional + tech          │
+│   7. EXPANSÃO         → cidade 1 → 2 → 3 → 4                   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘</pre>
+
+  <p>Cada frente tem cláusulas e batalhas próprias. Vou destrinchar cada uma com o que está pronto, o que está pendente, e onde mora a vitória.</p>
+
+  <hr>
+
+  <h2>FRENTE 1 — PRODUTO (o portal funcional)</h2>
+
+  <h3>O que é</h3>
+  <p>O site Achamos + portal logado onde o leilão reverso acontece. Hoje existe um site institucional placeholder; precisa virar produto real.</p>
+
+  <h3>Componentes a construir</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Componente</th><th>Estado</th><th>Onde está</th></tr></thead>
+    <tbody>
+      <tr><td>Site institucional v2 (storytelling leilão reverso)</td><td>🔴 Pendente</td><td>Fase 2 do roadmap</td></tr>
+      <tr><td>Página Comprador com 3 tiers (Light/Spotlight/Hunt)</td><td>🔴 Pendente</td><td>Fase 3 do roadmap</td></tr>
+      <tr><td>Página Vendedor com Painel Radar (compradores por rua)</td><td>🔴 Pendente</td><td>Fase 4 do roadmap</td></tr>
+      <tr><td>Chatbot Mandato (KYC + briefing + pagamento)</td><td>🟡 Parcial (chatbot básico existe)</td><td>Fase 3</td></tr>
+      <tr><td>Sistema de Candidatura do Vendedor</td><td>🔴 Pendente</td><td>Fase 4</td></tr>
+      <tr><td>Match Score + curadoria humana</td><td>🔴 Pendente</td><td>Fase 6</td></tr>
+      <tr><td>Fluxo de oferta/contraoferta intermediado</td><td>🔴 Pendente</td><td>Fase 6</td></tr>
+      <tr><td>Compromisso de compra e venda eletrônico</td><td>🔴 Pendente</td><td>Fase 7</td></tr>
+      <tr><td>Integração "Se hospede para comprar" (Rendizy)</td><td>🔴 Pendente</td><td>Fase 11</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Onde mora a vitória</h3>
+  <p><strong>A página do comprador é o pulmão.</strong> Se o comprador entra, entende em 30 segundos e clica em "iniciar mandato Spotlight", o resto funciona. Se ele rola e sai, nada do resto importa.</p>
+  <p>Prioridade absoluta: <strong>storytelling + UX da página comprador</strong>.</p>
+
+  <h3>Próximos passos</h3>
+  <ul>
+    <li>Detalhamento do storytelling em <a href="#proposta">01_PROPOSTA_VALOR_COMPRADOR.md</a></li>
+    <li>Mockups Figma a fazer (Fase 3 do roadmap)</li>
+    <li>Implementação ~6-8 semanas pós-aporte</li>
+  </ul>
+
+  <hr>
+
+  <h2>FRENTE 2 — CONTRATOS (proteção jurídica)</h2>
+
+  <h3>O que é</h3>
+  <p>Documentos que travam o leilão reverso. Sem eles, vocês podem ser passados pra trás a qualquer momento.</p>
+
+  <h3>Os 3 contratos do produto</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Contrato</th><th>Quem assina</th><th>Quando</th><th>Onde está minutado</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Mandato de Busca</strong></td><td>Comprador</td><td>Ao ativar Spotlight/Hunt</td><td>03_CONTRATO_MANDATO_BUSCA_COMPRADOR.md</td></tr>
+      <tr><td><strong>Termo de Apresentação</strong></td><td>Vendedor</td><td>Ao candidatar a mandato</td><td>04_CONTRATO_TERMO_APRESENTACAO_VENDEDOR.md</td></tr>
+      <tr><td><strong>Termo de Captação Exclusiva</strong></td><td>Vendedor Exclusive</td><td>Quando opta por exclusividade 90d</td><td>A criar</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Documentos complementares</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Documento</th><th>Estado</th><th>Onde criar</th></tr></thead>
+    <tbody>
+      <tr><td>Termos de Uso do Portal</td><td>🔴 Pendente</td><td>A criar</td></tr>
+      <tr><td>Política de Privacidade (LGPD)</td><td>🔴 Pendente</td><td>A criar</td></tr>
+      <tr><td>Política de Devolução</td><td>🟡 Coberta no Mandato</td><td>OK</td></tr>
+      <tr><td>Acordo de Afiliados (corretor parceiro)</td><td>🔴 Pendente</td><td>A criar (Fase 13)</td></tr>
+      <tr><td>Acordo de Confidencialidade interna (equipe)</td><td>🔴 Pendente</td><td>A criar</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Onde mora a vitória</h3>
+  <p><strong>Tail clause + comunicação 100% intermediada.</strong> São as duas travas que diferenciam Achamos de qualquer corretor autônomo. Se um vendedor que se candidatou tenta fechar fora, paga 6% mesmo assim.</p>
+
+  <h3>Próximos passos</h3>
+  <ul>
+    <li>2 contratos principais já minutados (Mandato + Termo de Apresentação) — ver arquivos acima</li>
+    <li>Revisão por advogado especialista em imobiliário/CRECI (R$ 3-8k)</li>
+    <li>Configurar Rendizy/gov.br para assinatura eletrônica (decisão D11)</li>
+  </ul>
+
+  <hr>
+
+  <h2>FRENTE 3 — PROPOSTA DE VALOR (o irresistível)</h2>
+
+  <h3>O que é</h3>
+  <p>A história que faz o comprador pagar R$ 2.500 e o vendedor candidatar seu imóvel SEM hesitar.</p>
+
+  <h3>Documentos chave</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Doc</th><th>Quem é o foco</th><th>Onde está</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Proposta de Valor Comprador</strong></td><td>Comprador endinheirado</td><td><a href="#proposta">01_PROPOSTA_VALOR_COMPRADOR.md</a></td></tr>
+      <tr><td><strong>Proposta de Valor Vendedor</strong></td><td>Vendedor motivado</td><td>02_PROPOSTA_VALOR_VENDEDOR.md</td></tr>
+      <tr><td>Storytelling de marca</td><td>Ambos</td><td>Fase 2 do roadmap (a fazer)</td></tr>
+      <tr><td>Manifesto Achamos</td><td>Público em geral</td><td>Fase 2 (parcialmente no site atual)</td></tr>
+      <tr><td>Psicologia do Comprador</td><td>Time interno</td><td>A criar</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Onde mora a vitória</h3>
+  <p><strong>Comprador endinheirado tem que ler o site em 30s e dizer "isso é pra mim".</strong> Vendedor tem que ver o Painel Radar e dizer "tem comprador me esperando, não vou perder essa".</p>
+  <p>A proposta tem que ser literalmente irresistível — não "boa", <strong>irresistível</strong>. Onde "irresistível" significa: quem entende a proposta E está no perfil compra na hora.</p>
+
+  <h3>Bullet point da proposta irresistível pro comprador</h3>
+  <pre>🟣 Você diz o que quer.
+🟣 A gente anuncia VOCÊ pra cidade inteira.
+🟣 Vendedores motivados se candidatam.
+🟣 Você escolhe entre os melhores.
+🟣 Os R$ 2.500 voltam quando fechar.
+🟣 Se não achar, devolve.</pre>
+
+  <p>Detalhe completo em <a href="#proposta">01_PROPOSTA_VALOR_COMPRADOR.md</a>.</p>
+
+  <hr>
+
+  <h2>FRENTE 4 — MARKETING (o motor)</h2>
+
+  <h3>O que é</h3>
+  <p>Mídia paga + PR + orgânico + eventos. É o coração da máquina de aquisição.</p>
+
+  <h3>Canais</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Canal</th><th>Função</th><th>Investimento mensal estimado</th></tr></thead>
+    <tbody>
+      <tr><td>Meta Ads (Insta + FB)</td><td>Captação de comprador + de vendedor candidato</td><td>R$ 40k/mês</td></tr>
+      <tr><td>Google Ads</td><td>Cauda longa "buyer's agent", "imobiliária comprador"</td><td>R$ 10k/mês</td></tr>
+      <tr><td>TikTok Ads</td><td>Alto padrão jovem + viralização</td><td>R$ 15k/mês</td></tr>
+      <tr><td>LinkedIn Ads</td><td>Comprador B2B/executivos</td><td>R$ 10k/mês</td></tr>
+      <tr><td>PR / Assessoria de imprensa</td><td>Brazil Journal, NeoFeed, Pipeline</td><td>R$ 13k/mês</td></tr>
+      <tr><td>Conteúdo orgânico (blog + YouTube + Insta)</td><td>Long-term moat</td><td>R$ 8k/mês</td></tr>
+      <tr><td>Eventos (RD, Web Summit, Secovi)</td><td>Network + leads premium</td><td>R$ 10k/mês média</td></tr>
+      <tr><td>Influencers/micro-influencers imobiliário</td><td>Confiança setor</td><td>R$ 5k/mês</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Conteúdos críticos</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Peça</th><th>Estado</th><th>Onde</th></tr></thead>
+    <tbody>
+      <tr><td>Vídeo "O Jogo Virou" (15s, 60s, 90s)</td><td>🟡 HTML motion existe (na sua pasta)</td><td>Anexo C do roadmap</td></tr>
+      <tr><td>Reels Insta formato leilão</td><td>🔴 Pendente</td><td>A produzir</td></tr>
+      <tr><td>Posts feed Insta (fichas anonimizadas)</td><td>🔴 Pendente</td><td>A produzir</td></tr>
+      <tr><td>Stories countdown</td><td>🔴 Pendente</td><td>A produzir</td></tr>
+      <tr><td>Blog SEO (10 artigos pillar)</td><td>🔴 Pendente</td><td>A produzir</td></tr>
+      <tr><td>YouTube canal</td><td>🔴 Pendente</td><td>A criar</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Onde mora a vitória</h3>
+  <p><strong>A vantagem aqui é estrutural:</strong> o founder TEM agência de marketing própria. Mídia paga É o produto. Concorrentes teriam que terceirizar.</p>
+
+  <h3>Próximos passos</h3>
+  <ul>
+    <li>Aprovar criativos modelo do Pitch Deck (Anexo B do roadmap)</li>
+    <li>Definir tom editorial pro YouTube + Insta</li>
+    <li>Calendário de eventos do segundo semestre</li>
+    <li>Plano de PR pós-closing (alinhado com blackout até closing — decisão 16.3.1)</li>
+  </ul>
+
+  <hr>
+
+  <h2>FRENTE 5 — OPERAÇÃO (a engrenagem que entrega)</h2>
+
+  <h3>O que é</h3>
+  <p>Equipe + processo + ferramentas que fazem o leilão acontecer ponta a ponta sem furo.</p>
+
+  <h3>Equipe (decisão D14)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Papel</th><th>Estado</th><th>Quando</th></tr></thead>
+    <tbody>
+      <tr><td>Rafael — Founder/CEO</td><td>✅</td><td>Hoje</td></tr>
+      <tr><td>Corretor Sênior RJ</td><td>🔴 Contratar</td><td>M1 pós-aporte</td></tr>
+      <tr><td>Coordenador de Operações</td><td>🔴 Contratar</td><td>M1 pós-aporte</td></tr>
+      <tr><td>Dev part-time (PJ)</td><td>🟡 A definir</td><td>M1 pós-aporte</td></tr>
+      <tr><td>Marketing</td><td>✅ Agência interna Rafael</td><td>Já existe</td></tr>
+      <tr><td>Jurídico/CRECI</td><td>🟡 Parceria a fechar</td><td>M0-M1</td></tr>
+      <tr><td>2º Corretor RJ</td><td>🔴 Contratar</td><td>M5-M7</td></tr>
+      <tr><td>SP — primeiro time</td><td>🔴 Contratar</td><td>M9-M10</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Processos a montar</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Processo</th><th>Estado</th><th>Onde formalizar</th></tr></thead>
+    <tbody>
+      <tr><td>Onboarding de Mandato (Light/Spotlight/Hunt)</td><td>🔴</td><td>Playbook interno</td></tr>
+      <tr><td>KYC manual + validação documental</td><td>🔴</td><td>Playbook + checklist</td></tr>
+      <tr><td>Curadoria do top 3</td><td>🔴</td><td>Playbook + critérios Match Score</td></tr>
+      <tr><td>Agendamento de visitas</td><td>🔴</td><td>Playbook + ferramenta</td></tr>
+      <tr><td>Negociação oferta/contraoferta</td><td>🔴</td><td>Playbook + scripts</td></tr>
+      <tr><td>Fechamento (documentação)</td><td>🔴</td><td>Playbook + checklist</td></tr>
+      <tr><td>Pós-venda (NPS + cross-sell)</td><td>🔴</td><td>Playbook</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Ferramentas</h3>
+  <ul>
+    <li>CRM Rendizy (existente, reaproveitar)</li>
+    <li>WhatsApp Business via WAHA/Evolution (existente)</li>
+    <li>Notion ou similar (centralizar playbooks)</li>
+    <li>Stripe/Pagar.me (pagamentos — D10)</li>
+    <li>Rendizy/gov.br (assinatura eletrônica — D11)</li>
+    <li>Idwall ou similar (KYC futuro — D12 pendência)</li>
+  </ul>
+
+  <h3>Onde mora a vitória</h3>
+  <p><strong>SLA de 48-72h pra primeira candidatura qualificada.</strong> Comprador pagou R$ 2.500 esperando velocidade. Se demorar 2 semanas, marca queima.</p>
+
+  <h3>Próximos passos</h3>
+  <ul>
+    <li>Definir SLAs (primeira candidatura, primeira visita, fechamento)</li>
+    <li>Montar playbook em Notion</li>
+    <li>Treinamento do corretor pós-contratação</li>
+  </ul>
+
+  <hr>
+
+  <h2>FRENTE 6 — ANTI-PULO (defesa contra ser passado pra trás)</h2>
+
+  <h3>O que é</h3>
+  <p>Sistema de 4 camadas que impede comprador OU vendedor de fechar fora da Achamos depois do match.</p>
+
+  <h3>As 4 camadas</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Camada</th><th>Como protege</th><th>Detalhe</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Contratual</strong></td><td>Mandato + Termo de Apresentação + Captação Exclusiva</td><td>Ver <a href="#antipulo">09_PROTOCOLO_ANTI_PULO.md</a></td></tr>
+      <tr><td><strong>Operacional</strong></td><td>Comunicação 100% intermediada + visita acompanhada + endereço revelado tarde</td><td>Ver protocolo</td></tr>
+      <tr><td><strong>Tecnológica</strong></td><td>Log imutável, anonimização, watermark em fotos, hash de apresentação</td><td>Ver protocolo</td></tr>
+      <tr><td><strong>Cultural/Equipe</strong></td><td>Cláusula não-aliciamento 24m + ressarcimento (D20)</td><td>Ver protocolo</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Cenários cobertos</h3>
+  <ul>
+    <li>Vendedor anota endereço e bate direto na porta do proprietário → Tail Clause 12m + cláusula penal 6%</li>
+    <li>Comprador anota dados dos 5 candidatos e fecha fora → Mandato exclusividade reversa 90-180d + tail</li>
+    <li>Corretor interno sai e leva carteira → 24m de não-aliciamento + ressarcimento</li>
+    <li>Comprador e vendedor combinam fora do canal Achamos → comunicação 100% intermediada + auditoria</li>
+  </ul>
+
+  <h3>Onde mora a vitória</h3>
+  <p><strong>Se anti-pulo não for SÉRIO, o modelo morre em 6 meses.</strong> Cada pulo é venda perdida + queda de moral da equipe + sinal pro mercado que dá pra burlar.</p>
+
+  <h3>Próximos passos</h3>
+  <ul>
+    <li>Implementação técnica do log imutável</li>
+    <li>Treinamento da equipe nos protocolos</li>
+    <li>Cláusulas dos contratos revisadas por advogado</li>
+  </ul>
+
+  <hr>
+
+  <h2>FRENTE 7 — EXPANSÃO (a multiplicação)</h2>
+
+  <h3>O que é</h3>
+  <p>Replicar o playbook em mais cidades. O verdadeiro tamanho da Achamos.</p>
+
+  <h3>Cronograma (decisão D6)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Cidade</th><th>Quando</th><th>Por que essa ordem</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Rio de Janeiro</strong></td><td>M1-M6 (piloto)</td><td>Sede Rendizy, mercado conhecido, +150 imóveis na rede, ticket alto</td></tr>
+      <tr><td><strong>São Paulo</strong></td><td>M9-M15</td><td>Maior mercado, ticket altíssimo, playbook RJ validado</td></tr>
+      <tr><td><strong>Belo Horizonte</strong></td><td>M15-M21</td><td>Custo menor, mercado médio padrão, possível origem founders</td></tr>
+      <tr><td><strong>Brasília</strong></td><td>M21-M27</td><td>Renda alta, mercado fechado, oportunidade</td></tr>
+      <tr><td><strong>Florianópolis / Curitiba</strong></td><td>M27-M36</td><td>Sul, classe média robusta</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Critério pra abrir nova cidade</h3>
+  <ul>
+    <li>Cidade atual com EBITDA positivo há 2+ meses</li>
+    <li>Playbook documentado (Notion)</li>
+    <li>Pelo menos 3 compradores pré-cadastrados na nova cidade</li>
+    <li>Corretor sênior local contratado (CRECI ativo na cidade)</li>
+    <li>Custo de mídia local mapeado (Meta Ads CPL)</li>
+  </ul>
+
+  <h3>Onde mora a vitória</h3>
+  <p><strong>Não abrir cidade nova antes de fechar a anterior.</strong> Cold start envergonhado mata marca. Painel Radar com "0 compradores em Curitiba" é morte instantânea.</p>
+
+  <hr>
+
+  <h2>📋 MAPA RESUMIDO — O QUE ENTREGAR (esta semana × este mês × este trimestre)</h2>
+
+  <h3>Esta semana (próximos 7 dias)</h3>
+  <ul>
+    <li>Você lê a <a href="#proposta">Proposta de Valor Comprador</a> e me dá feedback</li>
+    <li>Você lê o Mandato de Busca e o Termo de Apresentação</li>
+    <li>Você lê o <a href="#antipulo">Protocolo Anti-Pulo</a></li>
+    <li>Listar advogado especialista CRECI/imobiliário pra revisar contratos</li>
+    <li>Começar a montar mockup da Página Comprador (Figma ou wireframe)</li>
+  </ul>
+
+  <h3>Este mês (próximos 30 dias)</h3>
+  <ul>
+    <li>Storytelling do site finalizado (Fase 2)</li>
+    <li>Página Comprador prototipada (Fase 3)</li>
+    <li>Página Vendedor prototipada (Fase 4)</li>
+    <li>Contratos revisados por advogado</li>
+    <li>Definir tom da campanha social (criativos modelo)</li>
+    <li>Playbook operacional v1 (Notion)</li>
+  </ul>
+
+  <h3>Este trimestre (próximos 90 dias)</h3>
+  <ul>
+    <li>Site Achamos v2 no ar</li>
+    <li>Portal logado funcionando (mandato + candidatura + matching)</li>
+    <li>CRM Rendizy integrado</li>
+    <li>Equipe contratada (RJ)</li>
+    <li>Primeira campanha social rodando</li>
+    <li>Primeiro Mandato Spotlight ativo</li>
+    <li>Primeira candidatura recebida</li>
+    <li>Primeira visita acompanhada</li>
+  </ul>
+
+  <hr>
+
+  <h2>🏁 ONDE A GUERRA SE GANHA</h2>
+
+  <p>Cada frente tem sua batalha, mas a verdade é que <strong>a vitória decisiva acontece nas 3 frentes seguintes</strong>:</p>
+
+  <h3>🥇 1. PROPOSTA DE VALOR DO COMPRADOR</h3>
+  <p>Se o comprador entende em 30s, paga R$ 2.500 e ativa Spotlight, o resto do leilão acontece. Sem isso, a engrenagem nunca gira.</p>
+  <p>📁 Aprofundamento → <a href="#proposta">01_PROPOSTA_VALOR_COMPRADOR.md</a></p>
+
+  <h3>🥈 2. CONTRATOS COM TAIL CLAUSE</h3>
+  <p>Se o vendedor pode pular sem custo, comissão zero. Se o comprador pode anotar dados e fechar fora, comissão zero. Os contratos travam isso.</p>
+  <p>📁 Aprofundamento → 03_CONTRATO_MANDATO_BUSCA_COMPRADOR.md + 04_CONTRATO_TERMO_APRESENTACAO_VENDEDOR.md</p>
+
+  <h3>🥉 3. PAINEL RADAR DO VENDEDOR</h3>
+  <p>Sem o Painel mostrando "5 compradores ativos em Botafogo", vendedor não se candidata. Sem candidatos, mandato morre.</p>
+  <p>📁 Aprofundamento → 02_PROPOSTA_VALOR_VENDEDOR.md + Fase 4 do roadmap</p>
+
+  <hr>
+
+  <blockquote>
+    <p><strong>🟣 As outras 4 frentes (Marketing, Operação, Anti-Pulo, Expansão) são o que sustenta a guerra.</strong></p>
+    <p><strong>As 3 acima são onde a guerra é ganha ou perdida.</strong></p>
+  </blockquote>
+
+  <hr>
+
+  <h2>🗺️ COMO USAR ESTE MAPA</h2>
+  <ol>
+    <li><strong>Hoje:</strong> leia este arquivo (10 min). Entenda o tabuleiro.</li>
+    <li><strong>Amanhã:</strong> leia os 3 principais (Proposta Comprador + Contratos + Anti-Pulo).</li>
+    <li><strong>Esta semana:</strong> liste o que falta pra cada frente sair do papel.</li>
+    <li><strong>Próxima conversa comigo:</strong> escolhe 1 frente e vamos a fundo.</li>
+  </ol>
+
+  <hr>
+
+  <p style="text-align: center; color: var(--ink-mute); font-style: italic; font-size: 14px;">
+    v1.0 · 2026-05-23 · Mapa Estratégico Achamos Imóveis<br>
+    Atualize a cada marco entregue.
+  </p>
+</article>
+
+<!-- ============================================================== -->
+<!-- DOCUMENTO 2 — PROPOSTA DE VALOR COMPRADOR                       -->
+<!-- ============================================================== -->
+<article id="proposta" class="doc-section">
+
+  <div class="doc-header">
+    <div class="eyebrow">Documento 01</div>
+    <img src="./apresentacao/assets/logo_achamos.svg" alt="Achamos Imóveis">
+    <h1>🟣 Proposta de Valor Irresistível — Comprador</h1>
+    <blockquote style="background: transparent; box-shadow: none; border-left: none; padding: 16px 0; margin: 16px 0 0 0;">
+      <p><strong>A peça mais importante deste projeto.</strong></p>
+      <p>Se este documento estiver certo, todo o resto funciona. Se estiver fraco, nada do resto importa.</p>
+      <p>v1.0 · 2026-05-23 · Achamos Imóveis</p>
+    </blockquote>
+  </div>
+
+  <hr>
+
+  <h2>🎯 A TESE EM UMA FRASE</h2>
+
+  <blockquote>
+    <p><strong>"O comprador qualificado é leiloado entre vendedores motivados.<br>Você diz o que quer. Eles vão atrás de você."</strong></p>
+  </blockquote>
+
+  <p>A inversão é essa: no modelo tradicional, vendedor anuncia e comprador caça. No modelo Achamos, <strong>o comprador anuncia e vendedores se candidatam</strong>.</p>
+
+  <hr>
+
+  <h2>1. AS 5 DORES DO COMPRADOR ENDINHEIRADO</h2>
+  <p>Antes de propor solução, vamos olhar bem a dor real.</p>
+
+  <h3>Dor 1 — Fadiga de feed</h3>
+  <p>O comprador com R$ 3 milhões pra gastar passa 30+ horas em portais (Zap, VivaReal, ImovelWeb). 80% dos imóveis são "ruído": foto enganosa, preço fora, vendedor que não responde. Resultado: ele desiste de 90% dos imóveis antes de visitar.</p>
+
+  <h3>Dor 2 — Acesso ao "que não está no portal"</h3>
+  <p>A melhor parte do mercado é <strong>off-market</strong> — imóveis que NUNCA aparecem em portal nenhum. Herança, divórcio, mudança internacional, proprietário que vendia "se aparecesse a oferta certa". Esse mercado existe mas é trancado a 7 chaves: você precisa ser amigo do corretor, do síndico, do zelador. Comprador externo NUNCA acessa.</p>
+
+  <h3>Dor 3 — Negociação assimétrica</h3>
+  <p>Quando ele finalmente acha o imóvel, está sozinho. Do outro lado: vendedor + corretor experiente (do vendedor) + às vezes mais 2-3 corretores tentando intermediar. O comprador é minoria em qualquer negociação. Resultado: paga "preço cheio" sem conseguir abater.</p>
+
+  <h3>Dor 4 — Tempo perdido</h3>
+  <p>Do "estou procurando" até "tenho as chaves" é tipicamente 60-120 dias em capitais. Pra quem tem prazo (mudança de cidade, fim de aluguel, divórcio, gravidez), isso é insuportável.</p>
+
+  <h3>Dor 5 — Medo de cair em armadilha</h3>
+  <p>Sem assessoria do lado dele, o comprador tem medo de: imóvel com documentação irregular, herança não-resolvida, vícios construtivos escondidos, preço inflado, vendedor problemático. Resultado: paralisia.</p>
+
+  <hr>
+
+  <h2>2. A VIRADA — O QUE A ACHAMOS RESOLVE</h2>
+  <p>Pra cada dor, uma resposta:</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>Dor</th><th>Solução Achamos</th></tr></thead>
+    <tbody>
+      <tr><td>Fadiga de feed</td><td>Você <strong>não rola mais nada</strong>. A gente traz top 3 já filtrados.</td></tr>
+      <tr><td>Acesso off-market</td><td>A mídia paga <strong>anuncia o seu perfil</strong>. Proprietários que nunca pensaram em vender se candidatam.</td></tr>
+      <tr><td>Negociação assimétrica</td><td>Você fica em <strong>cadeira privilegiada</strong> com 5 candidatos. O leilão joga a favor do seu preço.</td></tr>
+      <tr><td>Tempo perdido</td><td>Primeira candidatura em <strong>48-72h</strong>. Fechamento médio em <strong>30 dias</strong> (vs 60-120 portal).</td></tr>
+      <tr><td>Medo de cair em armadilha</td><td>Cada candidato passa por <strong>curadoria documental</strong>. Avaliação técnica, due diligence inicial, visita acompanhada, negociação intermediada.</td></tr>
+    </tbody>
+  </table></div>
+
+  <hr>
+
+  <h2>3. OS 3 NÍVEIS DE SERVIÇO — UMA PROMESSA PARA CADA PERFIL</h2>
+  <p>A Achamos vende serviço com 3 tiers — porque o comprador "preciso de imóvel agora" é diferente do "tô só pesquisando":</p>
+
+  <pre>┌────────────────────────────────────────────────────────────┐
+│                                                            │
+│   🟣 ACHAMOS LIGHT                                R$ 0     │
+│   "Cadastro e tô esperando"                                │
+│   Mostro a carteira atual + parceiros                      │
+│   Sem campanha social                                      │
+│   Sem KYC formal                                           │
+│   ───────────────────────────────────────────────────       │
+│   Pra quem: comprador "explorando", sem urgência           │
+│                                                            │
+├────────────────────────────────────────────────────────────┤
+│                                                            │
+│   🟣🟣 ACHAMOS SPOTLIGHT                R$ 2.500 ⭐         │
+│   "Sua busca vira anúncio"                                 │
+│   Campanha social 30 dias direcionada                      │
+│   KYC validado, ficha pública anonimizada                  │
+│   Mínimo 3 candidatos qualificados                         │
+│   Top 3 com curadoria humana                               │
+│   1 visita acompanhada por finalista                       │
+│   SLA primeira candidatura: 7 dias                         │
+│   100% creditado no fechamento                             │
+│   Devolução parcial se &lt; 3 candidatos                      │
+│   ───────────────────────────────────────────────────       │
+│   Pra quem: comprador com prazo, decidido a fechar         │
+│                                                            │
+├────────────────────────────────────────────────────────────┤
+│                                                            │
+│   🟣🟣🟣 ACHAMOS HUNT                  R$ 7.500             │
+│   "Prospecção cirúrgica + alto padrão"                     │
+│   Tudo do Spotlight +                                      │
+│   Prospecção ativa porta a porta                           │
+│   Síndicos + zeladores + proprietários conhecidos          │
+│   Campanha premium com vídeo                               │
+│   SLA primeira candidatura: 7 dias                         │
+│   Mínimo 5 candidatos qualificados                         │
+│   Avaliação técnica de cada finalista                      │
+│   Conexão bancária pra financiamento                       │
+│   Negociação especialista (não só corretor)                │
+│   ───────────────────────────────────────────────────       │
+│   Pra quem: alto padrão (R$ 3M+), urgência, exigência      │
+│                                                            │
+└────────────────────────────────────────────────────────────┘</pre>
+
+  <h3>Por que o Spotlight é a venda principal</h3>
+  <p>O Spotlight é desenhado pra ser <strong>irresistível</strong>. Vamos decompor:</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>Item</th><th>O que o comprador pensa</th><th>Pensamento real do comprador</th></tr></thead>
+    <tbody>
+      <tr><td>R$ 2.500 antecipado</td><td>"Caro?"</td><td>Em imóvel de R$ 1M, comissão é R$ 60k pelo vendedor. R$ 2.500 = 0,25% do imóvel.</td></tr>
+      <tr><td>Creditável</td><td>"E se eu fechar?"</td><td>Volta tudo. Custo real ZERO pra quem fecha.</td></tr>
+      <tr><td>3 candidatos qualificados</td><td>"E se ninguém aparecer?"</td><td>Devolução parcial garantida. Risco do Achamos, não do comprador.</td></tr>
+      <tr><td>Curadoria humana</td><td>"Vai chegar imóvel ruim?"</td><td>Top 3 já é filtrado. Você não rola lixo.</td></tr>
+      <tr><td>Visita acompanhada</td><td>"Vou junto sozinho?"</td><td>Corretor da Achamos vai com você. Faz as perguntas certas.</td></tr>
+      <tr><td>SLA 7 dias</td><td>"Quanto tempo demora?"</td><td>Em 1 semana você tem opção.</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>A psicologia da decisão:</strong> R$ 2.500 não é "gastar". É "investir em ganhar 50 horas de vida + R$ 100-200k de barganha + chance real de off-market".</p>
+  <p>Comprador que entende isso paga em 5 minutos.</p>
+
+  <hr>
+
+  <h2>4. AS 6 PROMESSAS CRAVADAS — O QUE O SPOTLIGHT GARANTE</h2>
+
+  <pre>✅ Sua busca vira anúncio nas redes sociais em até 48h
+✅ Primeira candidatura qualificada em até 7 dias
+✅ Mínimo de 3 finalistas curados em até 30 dias
+✅ Visita acompanhada por corretor Achamos
+✅ Negociação intermediada (oferta + contraoferta via portal)
+✅ Os R$ 2.500 voltam 100% se você fechar — ou 60% se não houver candidatos</pre>
+
+  <p><strong>Cada uma dessas é uma trincheira de credibilidade.</strong> Se quebrar uma, marca queima. Se entregar todas, virilus.</p>
+
+  <hr>
+
+  <h2>5. COMPARATIVO BRUTAL — ACHAMOS vs ALTERNATIVAS</h2>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>Critério</th><th>Portal (Zap/VivaReal)</th><th>Corretor Autônomo</th><th>Imobiliária Tradicional</th><th>🟣 ACHAMOS SPOTLIGHT</th></tr></thead>
+    <tbody>
+      <tr><td>Custo pro comprador</td><td>R$ 0</td><td>R$ 0</td><td>R$ 0</td><td>R$ 2.500 (creditável)</td></tr>
+      <tr><td>Tempo médio até fechamento</td><td>60-120 dias</td><td>60-90 dias</td><td>60-90 dias</td><td><strong>30-60 dias</strong></td></tr>
+      <tr><td>Acesso a off-market</td><td>❌ Não</td><td>🟡 Limitado (rede pessoal)</td><td>🟡 Limitado</td><td>✅ <strong>Sim, via mídia paga</strong></td></tr>
+      <tr><td>Curadoria por seu perfil</td><td>❌ Você filtra</td><td>🟡 Subjetivo</td><td>🟡 Subjetivo</td><td>✅ <strong>Match Score + corretor</strong></td></tr>
+      <tr><td>Negociação a seu favor</td><td>❌ Você sozinho</td><td>🟡 Conflito de interesse (comissão do vendedor)</td><td>🟡 Conflito de interesse</td><td>✅ <strong>Mandato é seu</strong></td></tr>
+      <tr><td>Garantia de candidatos</td><td>❌ Zero</td><td>❌ Zero</td><td>❌ Zero</td><td>✅ <strong>Devolução parcial garantida</strong></td></tr>
+      <tr><td>SLA primeira oferta</td><td>N/A</td><td>"Algum dia"</td><td>"Em algumas semanas"</td><td>✅ <strong>7 dias garantido</strong></td></tr>
+      <tr><td>Anonimato preservado</td><td>❌ Você expõe orçamento</td><td>✅ Sim</td><td>✅ Sim</td><td>✅ <strong>Sim — ficha anonimizada</strong></td></tr>
+      <tr><td>Visita acompanhada técnica</td><td>❌ Não</td><td>🟡 Comissão do vendedor lá</td><td>🟡 Comissão do vendedor lá</td><td>✅ <strong>Achamos do SEU lado</strong></td></tr>
+      <tr><td>Quem o corretor representa</td><td>N/A</td><td>Vendedor (paga comissão)</td><td>Vendedor (paga comissão)</td><td>✅ <strong>VOCÊ comprador</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>A linha que decide</h3>
+  <blockquote>
+    <p><strong>Achamos é o ÚNICO modelo no Brasil onde o corretor trabalha PELO comprador.</strong> Todos os outros têm conflito de interesse — quem paga a comissão é o vendedor.</p>
+  </blockquote>
+  <p>Essa linha cabe em 1 frase no site. É a venda inteira.</p>
+
+  <hr>
+
+  <h2>6. STORYBOARD — UM CASO REAL PRO COMPRADOR ENTENDER</h2>
+
+  <p><strong>Persona:</strong> João, 38, CFO, vendeu uma empresa. Tem R$ 3,2 milhões líquidos. Quer 3 dorms em Ipanema/Leblon. Prazo: 60 dias. Forma de pagamento: à vista.</p>
+
+  <h3>Sem Achamos (cenário tradicional)</h3>
+  <pre>Dia 1-7      João abre Zap. 200 imóveis. 30 com fotos OK.
+Dia 7-21     Visita 8 imóveis. 4 já vendidos. 2 fora do perfil.
+Dia 21-45    Encontra 2 que servem. Negocia com 2 corretores diferentes.
+Dia 45-75    Negociação travada. Vendedor 1 desistiu. Vendedor 2 subiu o preço.
+Dia 75-120   Acha um terceiro imóvel via amigo. Fecha por R$ 3,15M.
+Dia 120      120 dias depois, 80 horas perdidas, R$ 150k acima do justo.</pre>
+
+  <h3>Com Achamos Spotlight</h3>
+  <pre>Dia 1        João paga R$ 2.500, ativa Spotlight.
+Dia 2        Ficha #4827 ao ar nas redes sociais.
+             "Procura-se: 3 dorms Ipanema/Leblon, R$ 3,2M, à vista, prazo 60d."
+Dia 4        Primeira candidatura: Maria (71, viúva, Ipanema, 4 dorms).
+Dia 5-10     +4 candidatos. Total: 5 candidatos.
+Dia 11       Achamos curadoria: top 3 entregues.
+Dia 14       Visitas acompanhadas (2 imóveis).
+Dia 15       João escolhe o apto da Maria. Oferta R$ 2,9M.
+Dia 16       Contraoferta Maria: R$ 3,1M.
+Dia 17       Negociação intermediada. Fechado em R$ 3M.
+Dia 30       Escritura. Maria paga 6% comissão. João recebe R$ 2.500 de volta.
+
+Resultado:
+- 30 dias em vez de 120 (4x mais rápido)
+- Pagou R$ 3M em vez de R$ 3,15M (R$ 150k economizados)
+- ZERO custo líquido (R$ 2.500 voltou)
+- Acessou imóvel off-market (Maria nunca anunciaria em portal)</pre>
+
+  <p><strong>Esse storyboard cabe em uma página visual no site. Vira a venda inteira em 60 segundos.</strong></p>
+
+  <hr>
+
+  <h2>7. POR QUE É IRRESISTÍVEL — DECOMPOSIÇÃO PSICOLÓGICA</h2>
+  <p>Um produto é "irresistível" quando atinge 4 zonas psicológicas simultaneamente:</p>
+
+  <h3>7.1 Risco baixo</h3>
+  <ul>
+    <li>R$ 2.500 é creditável → custo real zero pra quem fecha</li>
+    <li>Devolução parcial garantida → risco máximo é R$ 1.000 (perda da taxa de operação)</li>
+    <li>Sem long-term commitment (90 dias de exclusividade reversa, depois livre)</li>
+  </ul>
+
+  <h3>7.2 Ganho alto</h3>
+  <ul>
+    <li>Tempo: 4x mais rápido</li>
+    <li>Dinheiro: 5-15% de barganha</li>
+    <li>Acesso: off-market é onde mora o ouro</li>
+  </ul>
+
+  <h3>7.3 Identidade reforçada</h3>
+  <ul>
+    <li>"Pago pra ser representado" = ele se sente pessoa importante</li>
+    <li>"Tenho corretor pessoal" = sinal de status</li>
+    <li>Diferente de "rolar Zap igual qualquer um"</li>
+  </ul>
+
+  <h3>7.4 Defesa contra arrependimento</h3>
+  <ul>
+    <li>Curadoria humana (não fui burro de escolher errado)</li>
+    <li>Visita acompanhada (não fui enganado por foto)</li>
+    <li>Negociação intermediada (não paguei além do justo)</li>
+  </ul>
+
+  <p><strong>Quando esses 4 estão ativos, o comprador paga.</strong></p>
+
+  <hr>
+
+  <h2>8. AS OBJEÇÕES DO COMPRADOR — E AS RESPOSTAS</h2>
+
+  <h3>"Mas se é grátis pra mim, vocês trabalham pra quem?"</h3>
+  <blockquote><p><em>"Ótima pergunta. Pra você. Diferente do corretor tradicional que ganha do vendedor, nossa estrutura tem você como cliente principal. A R$ 2.500 garante que estamos comprometidos com a sua busca — não com fechar QUALQUER venda."</em></p></blockquote>
+
+  <h3>"Por que pagar se posso só usar o site grátis?"</h3>
+  <blockquote><p><em>"Pode. O Light é grátis. Mostra nossa carteira atual + parceiros. Mas SEM campanha social = sem acesso aos vendedores off-market. O Spotlight é pra quem quer ACESSO + VELOCIDADE."</em></p></blockquote>
+
+  <h3>"E se eu não fechar nada?"</h3>
+  <blockquote><p><em>"Política de devolução clara: &lt; 3 candidatos qualificados em 30 dias = R$ 1.500 de volta. ZERO candidatos = R$ 2.500 de volta. Você só assume risco residual de R$ 1.000 — o custo operacional."</em></p></blockquote>
+
+  <h3>"Como sei que os candidatos são reais?"</h3>
+  <blockquote><p><em>"Cada vendedor que se candidata assina contrato eletrônico (Termo de Apresentação). Documentação validada antes de visita. Vendedor 'fantasia' não chega no seu top 3."</em></p></blockquote>
+
+  <h3>"Como sei que vocês não vão me empurrar qualquer coisa?"</h3>
+  <blockquote><p><em>"Aqui é importante: nosso corretor ganha mais quando o comprador volta (cross-sell, indicação). NPS do comprador é métrica primária. Empurrar imóvel ruim = NPS cai = bônus corretor cai. Modelo desenhado pra alinhar interesse."</em></p></blockquote>
+
+  <h3>"Posso negociar direto com o vendedor que vocês apresentaram?"</h3>
+  <blockquote><p><em>"Não. Por contrato, comunicação é 100% intermediada até a escritura. Isso protege VOCÊ tanto quanto a nós: nada de assédio fora de horário, nada de manobra debaixo do pano. Tudo via plataforma + e-mail + WhatsApp Achamos."</em></p></blockquote>
+
+  <h3>"Quanto tempo de exclusividade vou ter com vocês?"</h3>
+  <blockquote><p><em>"90 dias (Spotlight) ou 180 dias (Hunt). Durante esse prazo, você não pode buscar pelo MESMO PERFIL com outras imobiliárias. Mas pode rodar buscas paralelas se forem perfis diferentes (ex: apto pra morar + casa de praia)."</em></p></blockquote>
+
+  <h3>"E se eu encontrar imóvel sozinho durante o Spotlight?"</h3>
+  <blockquote><p><em>"Conversa franca: se for um imóvel que apresentamos a você (na lista do mandato), comissão devida. Se for genuinamente outro imóvel que apareceu independente, sem problema. Tail clause cobre só o que apresentamos."</em></p></blockquote>
+
+  <h3>"Vocês têm CRECI?"</h3>
+  <blockquote><p><em>"Sim, ativo. BVM LTDA (controladora) é imobiliária formal há 8 anos. CRECI nº [inserir] em dia."</em></p></blockquote>
+
+  <h3>"E LGPD? Meus dados ficam onde?"</h3>
+  <blockquote><p><em>"Sua ficha pública é ANONIMIZADA por padrão (#código, faixa, bairros). Sua identidade real só revelada na fase de visita, com termo de confidencialidade do vendedor. Dados armazenados em servidores brasileiros, com DPO designado, RIPD em compliance LGPD."</em></p></blockquote>
+
+  <hr>
+
+  <h2>9. A CHAMADA — TEXTOS QUE VENDEM</h2>
+
+  <h3>Headline principal do site (proposta de várias variações)</h3>
+  <pre>A) Pare de caçar imóvel.
+   A gente leilona compradores. Você é a estrela.
+
+B) Você diz o que quer.
+   Vendedores motivados se candidatam.
+   Você escolhe entre os melhores.
+
+C) Imobiliária que trabalha pelo COMPRADOR.
+   Não pelo vendedor.
+
+D) O recurso mais escasso do mercado imobiliário
+   não é imóvel — é comprador qualificado.
+   E você É um.
+
+E) Bem-vindo ao leilão reverso.
+   O vendedor te procura.</pre>
+
+  <p>🟣 <strong>Recomendação:</strong> combinar (E) como hero principal + (C) como subtítulo. Ataca dois ângulos: o conceito novo (leilão reverso) + o diferencial estrutural (corretor do comprador).</p>
+
+  <h3>Sub-headlines (segunda camada de texto)</h3>
+  <pre>🟣 "Sua busca vira anúncio."
+🟣 "Top 3 já filtrado, sem rolagem."
+🟣 "Negociação a seu favor."
+🟣 "Off-market acessível pela primeira vez."
+🟣 "Os R$ 2.500 voltam quando você fechar."</pre>
+
+  <h3>CTAs (Call to Action)</h3>
+  <pre>Botão primário:  🟣 Iniciar minha busca
+Botão alternativo: Ver como funciona (1 min de vídeo)
+Botão secundário:  Falar com a equipe</pre>
+
+  <hr>
+
+  <h2>10. AS 3 PROVAS QUE A GENTE PRECISA PRA SER REAL</h2>
+  <p>Comprador desconfia de propaganda. Pra ele acreditar, a gente precisa:</p>
+
+  <h3>Prova 1 — KYC visível</h3>
+  <p>Selo "KYC Achamos validado" público na ficha. Site explica: "100% dos compradores publicados passaram por verificação documental (extrato bancário OU pré-aprovação OU declaração patrimonial)."</p>
+
+  <h3>Prova 2 — Storyboard real</h3>
+  <p>Caso João + Maria (sem nomes reais, com aprovação) no site, completo com timeline visual.</p>
+
+  <h3>Prova 3 — Garantias contratuais</h3>
+  <ul>
+    <li>"Devolução parcial em 30 dias" — visível no site</li>
+    <li>"SLA primeira candidatura 7 dias" — visível</li>
+    <li>"Comunicação 100% intermediada" — visível</li>
+  </ul>
+  <p>Sem essas 3 provas visíveis, o site vende menos da metade.</p>
+
+  <hr>
+
+  <h2>11. NÚMEROS QUE COMUNICAM (na home do site)</h2>
+  <p>A home precisa de 3-4 números que comuniquem credibilidade:</p>
+
+  <pre>┌─────────────────────────────────────────────────────────┐
+│                                                         │
+│   124 compradores ativos esta semana          [Live]    │
+│   +150 imóveis na rede (Rendizy + parceiros)            │
+│   48-72h pra primeira candidatura qualificada           │
+│   30 dias média até as chaves                           │
+│                                                         │
+└─────────────────────────────────────────────────────────┘</pre>
+
+  <div class="callout callout-warning">
+    <p>⚠️ <strong>Importante:</strong> alguns desses números são placeholder. Eles precisam ser <strong>honestos</strong> no lançamento. Sugestão de inicialização:</p>
+    <ul>
+      <li>"124 compradores" → começa com "Compradores ativos: [contagem real]" e cresce honestamente</li>
+      <li>"+150 imóveis na rede" → verdade (Rendizy)</li>
+      <li>"48-72h" → meta operacional comprometida</li>
+      <li>"30 dias" → meta operacional, comunicar como "Média: 30-60 dias"</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h2>12. PRINCÍPIOS DE COMUNICAÇÃO COM COMPRADOR</h2>
+
+  <h3>Tom de voz</h3>
+  <ul>
+    <li>Direto, sem juridiquês</li>
+    <li>Confiante, sem prepotência</li>
+    <li>Humano, sem condescendência</li>
+    <li>"Você" e "a gente" — nunca "Vossa Senhoria" ou "Achamos Imóveis trabalha"</li>
+  </ul>
+
+  <h3>Bandeiras vermelhas (NUNCA fazer)</h3>
+  <ul>
+    <li>Não use "barganha", "barato", "preço de banana" — desvaloriza</li>
+    <li>Não use "exclusivo", "VIP", "premium" como adjetivos vazios — vira marketing oco</li>
+    <li>Não prometa preço específico ("vamos achar a R$ 2M") — risco regulatório</li>
+    <li>Não use ícones de ostentação (carro de luxo, jato) — comprador endinheirado acha cafona</li>
+  </ul>
+
+  <h3>Bandeiras verdes (SEMPRE fazer)</h3>
+  <ul>
+    <li>Mostre TEMPO economizado em horas (não em "rapidez")</li>
+    <li>Mostre BARGANHA em valor (R$ 100k off justo) — não em %</li>
+    <li>Mostre PROCESSO em passos visuais (não em "vamos cuidar de tudo")</li>
+    <li>Mostre PROVA em depoimento real (não em "muitos clientes felizes")</li>
+  </ul>
+
+  <hr>
+
+  <h2>13. O QUE ESTE DOC NÃO COBRE (mas precisa ser feito)</h2>
+  <ul>
+    <li><strong>Mockups Figma da página comprador</strong> (Fase 3 do roadmap)</li>
+    <li><strong>Vídeo "O Jogo Virou"</strong> finalizado em 3 cortes (15s/60s/90s)</li>
+    <li><strong>A/B testing de headlines</strong> após lançamento</li>
+    <li><strong>Lista de FAQ extensa</strong> no site (este doc cobre 9 das objeções principais)</li>
+    <li><strong>Política de Devolução</strong> formalizada (terá doc separado quando estiver pronto)</li>
+  </ul>
+
+  <hr>
+
+  <h2>🎯 PRÓXIMOS PASSOS</h2>
+  <ol>
+    <li><strong>Você (Rafael) lê este doc inteiro</strong> (20-30 min) e marca o que concorda / o que ajustaria.</li>
+    <li><strong>Você define o tom final das headlines</strong> (escolha entre as 5 variações).</li>
+    <li><strong>Você valida o storyboard João + Maria</strong> — quer usar caso real, fictício ou compor?</li>
+    <li><strong>Marcamos próxima conversa pra ir pra:</strong>
+      <ul>
+        <li>Mockup Figma da home + página comprador (visual)</li>
+        <li>OU contratos (sequência lógica: definir produto → travar juridicamente)</li>
+        <li>OU campanha social (criativos modelo)</li>
+      </ul>
+    </li>
+  </ol>
+
+  <hr>
+
+  <blockquote class="callout-purple" style="background: linear-gradient(135deg, var(--brand-soft) 0%, var(--white) 100%);">
+    <p><strong>🟣 A proposta de valor irresistível NÃO é descoberta — é construída.</strong></p>
+    <p><strong>Cada palavra deste doc foi escolhida pra ressoar com o comprador que tem R$ 3M na mão.</strong></p>
+    <p><strong>Se ele lê e diz "isso é pra mim", a gente venceu.</strong></p>
+  </blockquote>
+
+  <hr>
+
+  <p style="text-align: center; color: var(--ink-mute); font-style: italic; font-size: 14px;">
+    v1.0 · 2026-05-23 · Proposta de Valor Comprador Achamos<br>
+    Atualize após primeiros 10 mandatos reais — feedback do cliente vira a v2.0.
+  </p>
+</article>
+
+<!-- ============================================================== -->
+<!-- DOCUMENTO 3 — PROTOCOLO ANTI-PULO                               -->
+<!-- ============================================================== -->
+<article id="antipulo" class="doc-section">
+
+  <div class="doc-header">
+    <div class="eyebrow">Documento 09</div>
+    <img src="./apresentacao/assets/logo_achamos.svg" alt="Achamos Imóveis">
+    <h1>🟣 Protocolo Anti-Pulo — Operacional + Tecnológico + Cultural</h1>
+    <blockquote style="background: transparent; box-shadow: none; border-left: none; padding: 16px 0; margin: 16px 0 0 0;">
+      <p><strong>A guerra que ninguém fala — mas decide se a Achamos sobrevive.</strong></p>
+      <p>Cada pulo (vendedor ou comprador fechar fora) é venda perdida + queda de moral + sinal pro mercado que dá pra burlar.</p>
+      <p>Este protocolo define as 4 camadas de proteção em detalhe.</p>
+      <p>v1.0 · 2026-05-23 · Achamos Imóveis</p>
+    </blockquote>
+  </div>
+
+  <hr>
+
+  <h2>🎯 A REALIDADE</h2>
+  <p>A Achamos é uma intermediária. Os contratos travam parte do risco. Mas o <strong>comportamento humano</strong> é onde o ataque acontece.</p>
+
+  <blockquote>
+    <p><strong>"Comissão devida = sim pelo contrato. Mas como você descobre o pulo? Como você prova? Como você impede ANTES?"</strong></p>
+  </blockquote>
+
+  <p>Este protocolo responde essas 3 perguntas.</p>
+
+  <hr>
+
+  <h2>🛡️ AS 4 CAMADAS DE PROTEÇÃO</h2>
+
+  <pre>┌──────────────────────────────────────────────────────┐
+│  CAMADA 1: CONTRATUAL                                │
+│  → Mandato + Termo de Apresentação + Tail Clause     │
+│  → Cláusulas penais + foro + honorários              │
+├──────────────────────────────────────────────────────┤
+│  CAMADA 2: OPERACIONAL                               │
+│  → Comunicação 100% intermediada                     │
+│  → Revelação progressiva (endereço/identidade)       │
+│  → Visita SEMPRE acompanhada                         │
+├──────────────────────────────────────────────────────┤
+│  CAMADA 3: TECNOLÓGICA                               │
+│  → Log imutável de apresentações                     │
+│  → Watermark em fotos                                │
+│  → Hash de identificação                             │
+│  → Auditoria de acesso                               │
+├──────────────────────────────────────────────────────┤
+│  CAMADA 4: CULTURAL/EQUIPE                           │
+│  → Não-aliciamento 24 meses                          │
+│  → Treinamento equipe                                │
+│  → Cultura "ninguém é maior que o sistema"           │
+└──────────────────────────────────────────────────────┘</pre>
+
+  <p>Cada camada vou destrinchar abaixo.</p>
+
+  <hr>
+
+  <h2>CAMADA 1 — CONTRATUAL</h2>
+
+  <h3>O que faz</h3>
+  <p>Trava jurídica. Quando descoberto o pulo, há base legal pra cobrar.</p>
+
+  <h3>Componentes</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Documento</th><th>Função</th><th>Cláusula crítica</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Mandato de Busca (Comprador)</strong></td><td>Trava comprador contra fechar fora</td><td>Cláusula 5 (Exclusividade Reversa) + Cláusula 8 (Tail 12m)</td></tr>
+      <tr><td><strong>Termo de Apresentação (Vendedor)</strong></td><td>Trava vendedor contra pulo</td><td>Cláusula 5 (Tail 12m) + Cláusula 5.3 (Cláusula Penal 2% + R$ 50k)</td></tr>
+      <tr><td><strong>Termo de Captação Exclusiva (Vendedor Exclusive)</strong></td><td>Trava vendedor com exclusividade ampla</td><td>Exclusividade 90d + investimento Achamos no imóvel</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Limitações</h3>
+  <ul>
+    <li>Contrato sozinho não impede o pulo, só permite cobrar depois</li>
+    <li>Provar quem foi a Achamos versus "ele descobriu sozinho" exige evidência (log da Camada 3)</li>
+    <li>Custo de litígio pode superar a comissão se o caso for pequeno</li>
+  </ul>
+
+  <h3>Estratégia</h3>
+  <p>Contratos são <strong>dissuasores</strong>. Quem leu a cláusula 5.3 do Termo de Apresentação ("2% + R$ 50k + honorários 20% + IPCA + juros 1%/mês") pensa duas vezes antes de pular.</p>
+
+  <hr>
+
+  <h2>CAMADA 2 — OPERACIONAL</h2>
+
+  <h3>O que faz</h3>
+  <p>Reduz a OPORTUNIDADE de pular. Mesmo se o vendedor quiser, não tem como.</p>
+
+  <h3>2.1 — Comunicação 100% intermediada</h3>
+  <p><strong>Princípio:</strong> comprador e vendedor NUNCA trocam contato direto até o compromisso de compra e venda.</p>
+  <p><strong>Implementação:</strong></p>
+  <ul>
+    <li>Todo contato passa pelo portal achamosimoveis.com.br</li>
+    <li>WhatsApp Business da Achamos no meio (não WhatsApp pessoal de ninguém)</li>
+    <li>E-mail certificado com cópia obrigatória pro corretor</li>
+    <li>Log automático no CRM Rendizy</li>
+  </ul>
+  <p><strong>Sanção interna:</strong></p>
+  <ul>
+    <li>Corretor que facilita troca direta = afastamento imediato + ressarcimento por dano (Cláusula D20 do roadmap)</li>
+    <li>Cliente que tenta contato direto = aviso formal + suspensão se reincidir</li>
+  </ul>
+
+  <h3>2.2 — Revelação progressiva (a "cortina")</h3>
+  <p>A informação é revelada em <strong>camadas</strong>, conforme avança o relacionamento. Tabela:</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>Fase</th><th>O que Vendedor vê do Comprador</th><th>O que Comprador vê do Vendedor</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Mandato publicado</strong></td><td>Ficha anonimizada (#4827, faixa, bairros, prazo)</td><td>—</td></tr>
+      <tr><td><strong>Candidatura enviada</strong></td><td>+ Que ele é candidato</td><td>—</td></tr>
+      <tr><td><strong>Top 3 entregue</strong></td><td>+ Que ele foi finalista</td><td>Fotos do imóvel + endereço aproximado (rua + faixa de número)</td></tr>
+      <tr><td><strong>Visita agendada</strong></td><td>Identidade real do Comprador (sob NDA do Termo de Apresentação)</td><td>Endereço completo do imóvel</td></tr>
+      <tr><td><strong>Oferta feita</strong></td><td>Pode contatar via portal pra negociação</td><td>—</td></tr>
+      <tr><td><strong>Compromisso assinado</strong></td><td>Contato direto liberado</td><td>Contato direto liberado</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>Resultado:</strong> vendedor que receber fotos + endereço aproximado ainda não pode bater na porta. Comprador que ver perfil anonimizado não sabe quem é até a visita.</p>
+
+  <h3>2.3 — Visita sempre acompanhada</h3>
+  <p><strong>Princípio:</strong> TODA visita aos imóveis Finalistas é com presença de corretor habilitado da Achamos.</p>
+  <p><strong>Por que:</strong></p>
+  <ul>
+    <li>Corretor da Achamos faz as perguntas certas (estado, ônus, herança não-resolvida)</li>
+    <li>Evita troca de contato fora dos protocolos</li>
+    <li>Documenta a visita (foto + ata interna)</li>
+    <li>Mostra ao Comprador que a Achamos está do lado dele</li>
+    <li>Mostra ao Vendedor que a Achamos é "presente"</li>
+  </ul>
+  <p><strong>Sanção interna:</strong></p>
+  <ul>
+    <li>Comprador que faz visita sozinha (sem corretor) — aviso + suspensão de novos imóveis se reincidir</li>
+    <li>Vendedor que aceita visita sem corretor — risco de descredenciamento + Tail Clause aplicável</li>
+  </ul>
+
+  <h3>2.4 — Negociação intermediada</h3>
+  <p><strong>Princípio:</strong> todas as ofertas, contraofertas, propostas e contraprops PASSAM pela plataforma.</p>
+  <p><strong>Vantagem operacional:</strong></p>
+  <ul>
+    <li>Negociação eficiente (corretor sugere movimentos)</li>
+    <li>Histórico documentado (importante em caso de disputa pós-venda)</li>
+    <li>Anti-fraude (ninguém combina por fora)</li>
+  </ul>
+
+  <h3>2.5 — Pós-fechamento monitorado</h3>
+  <p><strong>Até a escritura definitiva</strong> (que pode acontecer 30-60 dias após compromisso), a Achamos:</p>
+  <ul>
+    <li>Acompanha pagamento de sinais e parcelas</li>
+    <li>Acompanha documentação cartorial</li>
+    <li>Cobra comissão no compromisso, não na escritura</li>
+    <li>Mantém canal aberto pra resolução de imprevistos</li>
+  </ul>
+
+  <hr>
+
+  <h2>CAMADA 3 — TECNOLÓGICA</h2>
+
+  <h3>O que faz</h3>
+  <p>Cria EVIDÊNCIA. Quando descoberto o pulo, prova judicial é blindada.</p>
+
+  <h3>3.1 — Log imutável de apresentações</h3>
+  <p><strong>Como funciona:</strong></p>
+  <ul>
+    <li>Cada apresentação de ficha de comprador ao vendedor candidato é registrada em log com:
+      <ul>
+        <li>Timestamp (data + hora exatas)</li>
+        <li>Hash criptográfico do conteúdo (impossível alterar sem detecção)</li>
+        <li>IP de acesso do vendedor</li>
+        <li>Identidade do comprador (#código)</li>
+        <li>Identidade do vendedor (CPF)</li>
+        <li>Conteúdo apresentado (texto, fotos, ficha)</li>
+      </ul>
+    </li>
+    <li>Log armazenado em <strong>banco de dados separado</strong>, com replicação em servidor secundário</li>
+    <li>Acesso só pra time interno autorizado + via API auditada</li>
+  </ul>
+  <p><strong>Uso em disputa:</strong></p>
+  <ul>
+    <li>Em ação judicial, log serve como evidência da apresentação</li>
+    <li>Hash criptográfico defende contra alegações de "vocês fabricaram esse log"</li>
+    <li>Timestamp serve como prova temporal (vendedor já tinha conhecimento na data X)</li>
+  </ul>
+
+  <h3>3.2 — Watermark em fotos enviadas</h3>
+  <p><strong>Princípio:</strong> cada foto compartilhada com o vendedor tem <strong>watermark digital embutido</strong> com:</p>
+  <ul>
+    <li>ID da apresentação (ex.: "M4827-V0012")</li>
+    <li>Timestamp</li>
+    <li>Aviso "PROPRIEDADE INTELECTUAL ACHAMOS — REPRODUÇÃO PROIBIDA"</li>
+  </ul>
+  <p><strong>Por que importa:</strong></p>
+  <ul>
+    <li>Se foto da Achamos aparecer em outro portal/anúncio = prova de pulo</li>
+    <li>Vendedor não consegue facilmente "limpar" watermark</li>
+    <li>Inibe vendedor de capturar dados pra usar fora</li>
+  </ul>
+
+  <h3>3.3 — Hash de identificação anonimizada</h3>
+  <p><strong>Princípio:</strong> o código <code>#4827</code> do Comprador é gerado por algoritmo determinístico (hash criptográfico) que combina:</p>
+  <ul>
+    <li>CPF do comprador</li>
+    <li>Timestamp do Mandato</li>
+    <li>Salt secreto da Achamos</li>
+  </ul>
+  <p><strong>Resultado:</strong></p>
+  <ul>
+    <li>Vendedor não consegue derivar CPF do código</li>
+    <li>Achamos pode reverter o código pra identidade real (com chave privada)</li>
+    <li>Mesma pessoa cadastrando novo Mandato gera novo código (anti-rastreamento cruzado)</li>
+  </ul>
+
+  <h3>3.4 — Auditoria de acesso</h3>
+  <p><strong>Toda visualização de dados sensíveis é loggada:</strong></p>
+  <ul>
+    <li>Quem viu (corretor X, vendedor Y, comprador Z)</li>
+    <li>O quê (ficha, foto, contato)</li>
+    <li>Quando</li>
+    <li>De onde (IP, device)</li>
+  </ul>
+  <p><strong>Uso:</strong></p>
+  <ul>
+    <li>Detectar comportamento suspeito (ex.: corretor visualizando 50 fichas em 1 minuto = exfiltração de dados)</li>
+    <li>Auditoria interna mensal</li>
+    <li>Prova judicial em caso de aliciamento ou vazamento</li>
+  </ul>
+
+  <h3>3.5 — Cadeira de admin única</h3>
+  <p><strong>Princípio:</strong> apenas Rafael (founder) + 1 coordenador de operações têm acesso COMPLETO ao banco de dados.</p>
+  <p><strong>Razão:</strong></p>
+  <ul>
+    <li>Reduz superfície de risco</li>
+    <li>Vazamento de credenciais não compromete operação inteira</li>
+    <li>Decisões sensíveis (descredenciar vendedor, devolver mandato) passam por 2 pessoas</li>
+  </ul>
+
+  <h3>3.6 — Backup encriptado offsite</h3>
+  <p><strong>Princípio:</strong> todo log e dado sensível tem backup encriptado em provedor distinto do primário.</p>
+  <p><strong>Implementação:</strong></p>
+  <ul>
+    <li>Primário: Supabase (Rendizy stack atual)</li>
+    <li>Backup: Cloudflare R2 ou AWS S3 com encriptação at-rest</li>
+    <li>Frequência: diária</li>
+    <li>Retenção: 7 anos (alinhado com tail clause 12m + processos prescricionais)</li>
+  </ul>
+
+  <hr>
+
+  <h2>CAMADA 4 — CULTURAL/EQUIPE</h2>
+
+  <h3>O que faz</h3>
+  <p>Evita o pior pulo de todos: <strong>o de dentro de casa</strong>.</p>
+
+  <h3>4.1 — Cláusula de não-aliciamento</h3>
+  <p><strong>Aplicação:</strong></p>
+  <ul>
+    <li>Todo corretor/ops/dev contratado assina cláusula de não-aliciamento por <strong>24 meses pós-desligamento</strong> (alinhado D20)</li>
+    <li>Inclui:
+      <ul>
+        <li>Não levar carteira de clientes para outra imobiliária</li>
+        <li>Não contatar Compradores ou Vendedores da Achamos por 24m</li>
+        <li>Não usar dados ou processos da Achamos em projetos paralelos</li>
+        <li>Multa de 12x salário em caso de quebra + ressarcimento</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>4.2 — Treinamento contínuo</h3>
+  <p><strong>Onboarding obrigatório (8h):</strong></p>
+  <ul>
+    <li>Tese da Achamos (leilão reverso, comprador como estrela)</li>
+    <li>Os 3 contratos do produto</li>
+    <li>Protocolo Anti-Pulo (este documento)</li>
+    <li>LGPD prático (como tratar dados)</li>
+    <li>Cultura "honestidade brutal" (princípios)</li>
+  </ul>
+  <p><strong>Reciclagem semestral (4h):</strong></p>
+  <ul>
+    <li>Cases recentes (pulos identificados, lições)</li>
+    <li>Atualizações de produto e processo</li>
+    <li>Q&A jurídico com advogado parceiro</li>
+  </ul>
+
+  <h3>4.3 — Cultura "ninguém é maior que o sistema"</h3>
+  <p><strong>Princípio:</strong> mesmo Rafael (founder) cumpre os mesmos protocolos. Sem exceção.</p>
+  <p><strong>Mensagem interna:</strong></p>
+  <blockquote><p><em>"Aqui ninguém pula a fila. Ninguém atende em paralelo. Ninguém faz favor pra amigo. O sistema protege todos nós — inclusive o founder."</em></p></blockquote>
+  <p><strong>Sinais visíveis:</strong></p>
+  <ul>
+    <li>Rafael publica métricas de cumprimento de SLA mensalmente</li>
+    <li>Decisões de afastamento de funcionário por quebra de protocolo são comunicadas (sem nome, mas com fato)</li>
+    <li>Recompensa interna por reportar tentativa de pulo (mesmo de cliente)</li>
+  </ul>
+
+  <h3>4.4 — Programa de afiliados controlado</h3>
+  <p><strong>Quando corretor externo trouxer lead:</strong></p>
+  <ul>
+    <li>Contrato de afiliação assinado</li>
+    <li>Comissão clara (1% sobre Spotlight + parte da comissão de venda)</li>
+    <li>Não-aliciamento aplicado a afiliados também</li>
+    <li>Termo de confidencialidade</li>
+  </ul>
+
+  <hr>
+
+  <h2>🎯 OS 8 CENÁRIOS DE TENTATIVA DE PULO — E COMO MITIGAR</h2>
+
+  <h3>Cenário 1 — Vendedor anota endereço, bate na porta do Comprador</h3>
+  <p><strong>Probabilidade:</strong> baixa (Comprador é anonimizado, vendedor não tem endereço)</p>
+  <p><strong>Mitigação:</strong></p>
+  <ul>
+    <li>Endereço NUNCA fornecido ao Vendedor (Camada 2.2)</li>
+    <li>Vendedor não tem como localizar Comprador</li>
+  </ul>
+  <p><strong>Status:</strong> Bloqueado pela arquitetura.</p>
+
+  <h3>Cenário 2 — Vendedor anota dados das fotos (vendedor #2 viu foto da casa do candidato vendedor #1)</h3>
+  <p><strong>Probabilidade:</strong> N/A (Vendedor não vê outras candidaturas)</p>
+  <p><strong>Mitigação:</strong></p>
+  <ul>
+    <li>Vendedor só vê SEU próprio status</li>
+  </ul>
+  <p><strong>Status:</strong> Bloqueado pela arquitetura.</p>
+
+  <h3>Cenário 3 — Comprador anota endereço dos finalistas, vai sozinho, fecha direto</h3>
+  <p><strong>Probabilidade:</strong> média</p>
+  <p><strong>Mitigação:</strong></p>
+  <ul>
+    <li>Comprador só recebe endereço aproximado até visita agendada</li>
+    <li>Visita SEMPRE acompanhada</li>
+    <li>Tail Clause 12m no Mandato (qualquer fechamento com Finalista apresentado = comissão devida)</li>
+    <li>Log imutável da apresentação</li>
+  </ul>
+  <p><strong>Status:</strong> Protegido juridicamente + reduzido operacionalmente.</p>
+
+  <h3>Cenário 4 — Comprador anota dados, indica primo pra comprar</h3>
+  <p><strong>Probabilidade:</strong> baixa-média</p>
+  <p><strong>Mitigação:</strong></p>
+  <ul>
+    <li>Cláusula 5.1 do Termo de Apresentação cobre "pessoa indicada pelo comprador"</li>
+    <li>Cláusula 8 do Mandato cobre "interposta pessoa"</li>
+    <li>Investigação documental pós-fechamento (Cartório + Receita Federal)</li>
+  </ul>
+  <p><strong>Status:</strong> Protegido juridicamente, risco operacional residual.</p>
+
+  <h3>Cenário 5 — Vendedor que NÃO se candidatou, vê post de Insta e bate na porta direto do Comprador</h3>
+  <p><strong>Probabilidade:</strong> muito baixa (Comprador é anonimizado em todos os anúncios)</p>
+  <p><strong>Mitigação:</strong></p>
+  <ul>
+    <li>Anonimização forte da Ficha Pública (Camada 2.2)</li>
+    <li>Indicação clara que candidaturas são SOMENTE via plataforma</li>
+  </ul>
+  <p><strong>Status:</strong> Bloqueado pela arquitetura.</p>
+
+  <h3>Cenário 6 — Corretor da Achamos sai, leva carteira</h3>
+  <p><strong>Probabilidade:</strong> alta sem proteção</p>
+  <p><strong>Mitigação:</strong></p>
+  <ul>
+    <li>Cláusula não-aliciamento 24m (Camada 4.1)</li>
+    <li>Treinamento + cultura (Camada 4.2 + 4.3)</li>
+    <li>Auditoria de acesso (Camada 3.4)</li>
+  </ul>
+  <p><strong>Status:</strong> Protegido jurídico + cultural.</p>
+
+  <h3>Cenário 7 — Comprador e Vendedor combinam pelo WhatsApp pessoal fora da Achamos</h3>
+  <p><strong>Probabilidade:</strong> média (precisa que troquem contato direto)</p>
+  <p><strong>Mitigação:</strong></p>
+  <ul>
+    <li>Comunicação 100% intermediada (Camada 2.1)</li>
+    <li>Visita acompanhada (corretor presente, dificulta troca direta de número)</li>
+    <li>Termo do Vendedor (Cláusula 6.2) proíbe aceitar contato direto</li>
+    <li>Sanção: descredenciamento + cláusula penal</li>
+  </ul>
+  <p><strong>Status:</strong> Protegido contratualmente + operacionalmente.</p>
+
+  <h3>Cenário 8 — Vendedor candidata, fecha DESPOIS de 12 meses (pós-Tail)</h3>
+  <p><strong>Probabilidade:</strong> baixa (Tail é longo)</p>
+  <p><strong>Mitigação:</strong></p>
+  <ul>
+    <li>Tail Clause de 12 meses é o equilíbrio entre proteção e defensibilidade legal</li>
+    <li>Para casos de alto valor, considerar Tail de 18 meses no Termo (advogado avalia)</li>
+  </ul>
+  <p><strong>Status:</strong> Aceitável — após 12 meses, fim da proteção é razoável.</p>
+
+  <hr>
+
+  <h2>📊 DASHBOARD DE MONITORAMENTO ANTI-PULO</h2>
+
+  <h3>Métricas que a Achamos rastreia mensalmente:</h3>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>Métrica</th><th>Como medir</th><th>Meta</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Mandatos com Tail Clause ativa</strong></td><td># de mandatos cuja apresentação ocorreu nos últimos 12m</td><td>tracking contínuo</td></tr>
+      <tr><td><strong>Tentativas de troca de contato fora do canal</strong></td><td>Mensagens em WhatsApp Business com palavras-chave ("meu número direto", "vamos falar fora")</td><td>&lt; 5% das comunicações</td></tr>
+      <tr><td><strong>Visitas sem corretor (não-conformidade)</strong></td><td>Visitas registradas pelo sistema sem corretor</td><td>&lt; 1%</td></tr>
+      <tr><td><strong>Casos de pulo confirmado</strong></td><td>Investigação pós-fechamento que identificou pulo</td><td>&lt; 2% das vendas potenciais</td></tr>
+      <tr><td><strong>Casos de pulo cobrado (judicial ou amigável)</strong></td><td>Cláusula penal aplicada e paga</td><td>tracking</td></tr>
+      <tr><td><strong>Tempo médio entre apresentação e fechamento</strong></td><td>Para detectar fechamentos pós-Tail "estranhamente próximos"</td><td>analítico</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sinais de alerta (red flags) pra investigar:</h3>
+  <ul>
+    <li>Vendedor que candidata em 5+ mandatos e nunca fecha (provável "espião")</li>
+    <li>Comprador que dá briefing muito específico (parece já saber o imóvel)</li>
+    <li>Vendedor que cancela após ver finalistas e some</li>
+    <li>Comprador que pede pra "ver mais informações antes de visitar"</li>
+    <li>Imóvel candidatado que aparece vendido publicamente sem passar pelo portal</li>
+  </ul>
+
+  <hr>
+
+  <h2>🚨 PLANO DE AÇÃO EM CASO DE PULO IDENTIFICADO</h2>
+
+  <h3>Passo 1 — Investigação interna (7 dias)</h3>
+  <ul>
+    <li>Recuperar log imutável da apresentação</li>
+    <li>Verificar matrícula atualizada do imóvel pulado (cartório online)</li>
+    <li>Identificar comprador final</li>
+    <li>Cruzar dados (CPF, parentesco, empresa)</li>
+  </ul>
+
+  <h3>Passo 2 — Notificação extrajudicial (15 dias)</h3>
+  <ul>
+    <li>Carta registrada via advogado parceiro</li>
+    <li>Apresentar evidências (log + matrícula + análise documental)</li>
+    <li>Propor pagamento amigável (comissão + cláusula penal)</li>
+    <li>Prazo de 10 dias para resposta</li>
+  </ul>
+
+  <h3>Passo 3 — Negociação amigável (30 dias)</h3>
+  <ul>
+    <li>Reunião com advogado da outra parte (se houver)</li>
+    <li>Possível desconto na cláusula penal (não na comissão) se pagamento imediato</li>
+    <li>Acordo extrajudicial formalizado</li>
+  </ul>
+
+  <h3>Passo 4 — Ação judicial (caso amigável falhe)</h3>
+  <ul>
+    <li>Ação de cobrança ordinária ou indenizatória</li>
+    <li>Petição inicial com TODAS as evidências (log, contrato, matrícula)</li>
+    <li>Pedido de bloqueio de valores (BACENJUD) se justificado</li>
+    <li>Foro Rio de Janeiro - Capital (decisão D9)</li>
+  </ul>
+
+  <h3>Passo 5 — Pós-ação</h3>
+  <ul>
+    <li>Atualizar protocolo se gap identificado</li>
+    <li>Comunicar internamente o aprendizado (sem nome do caso)</li>
+    <li>Atualizar cláusulas se advogado recomendar</li>
+  </ul>
+
+  <hr>
+
+  <h2>🟣 PRINCÍPIO DIRETOR</h2>
+
+  <blockquote class="callout-purple" style="background: linear-gradient(135deg, var(--brand-soft) 0%, var(--white) 100%);">
+    <p><strong>A Achamos NÃO é uma plataforma open. É um leilão controlado.</strong></p>
+    <p>Cada apresentação é uma transação valiosa.</p>
+    <p>Cada apresentação tem trava jurídica + operacional + tecnológica + cultural.</p>
+    <p>Pular = caro. Pular = arriscado. Pular = improvável.</p>
+  </blockquote>
+
+  <p>Esse é o sinal que o mercado precisa receber <strong>nos primeiros 6 meses</strong>. Quando 1-2 casos de pulo virarem processo público (com cobrança bem-sucedida), o ecossistema entende: <strong>não dá pra burlar a Achamos</strong>.</p>
+  <p>A partir daí, o protocolo se autossustenta. Vendedores e Compradores entram já sabendo que o jogo é limpo (pra ambos os lados).</p>
+
+  <hr>
+
+  <h2>⚙️ IMPLEMENTAÇÃO TÉCNICA (próximos passos)</h2>
+
+  <h3>Sprint 1 (Camada 3 — Log e watermark)</h3>
+  <ul>
+    <li>Implementar tabela <code>presentation_logs</code> no Supabase com hash criptográfico</li>
+    <li>Implementar geração de watermark digital em fotos (server-side)</li>
+    <li>Implementar audit log de acessos</li>
+  </ul>
+
+  <h3>Sprint 2 (Camada 2 — Comunicação intermediada)</h3>
+  <ul>
+    <li>Construir plataforma de mensagens interna (chat embed)</li>
+    <li>Integrar WhatsApp Business via WAHA/Evolution (reaproveitar Rendizy)</li>
+    <li>Implementar redação automática de "ofertas" via formulário, não chat livre</li>
+  </ul>
+
+  <h3>Sprint 3 (Camada 4 — Cultural)</h3>
+  <ul>
+    <li>Criar onboarding em vídeo (8h)</li>
+    <li>Documentar protocolo em Notion público pra equipe</li>
+    <li>Implementar dashboard de KPIs de protocolo</li>
+  </ul>
+
+  <h3>Sprint 4 (Camada 1 — Contratual)</h3>
+  <ul>
+    <li>Contratos finalizados pelo advogado</li>
+    <li>Integração com Rendizy/gov.br pra assinatura eletrônica</li>
+    <li>Fluxo de aceitação no portal (modal de leitura + check + assinatura)</li>
+  </ul>
+
+  <hr>
+
+  <p style="text-align: center; color: var(--ink-mute); font-style: italic; font-size: 14px;">
+    v1.0 · 2026-05-23 · Protocolo Anti-Pulo Achamos<br>
+    Atualize a cada novo case identificado. Versão viva.
+  </p>
+</article>
+
+<!-- ============================================================== -->
+<!-- BIBLIOTECA — 12 DOCUMENTOS                                      -->
+<!-- ============================================================== -->
+<article id="biblioteca" class="doc-section">
+
+  <div class="doc-header">
+    <div class="eyebrow">Biblioteca completa</div>
+    <img src="./apresentacao/assets/logo_achamos.svg" alt="Achamos Imóveis">
+    <h1>📚 Todos os 12 Documentos</h1>
+    <blockquote style="background: transparent; box-shadow: none; border-left: none; padding: 16px 0; margin: 16px 0 0 0;">
+      <p>Pasta produto completa. Clique em qualquer documento — abre em <strong>nova aba</strong> renderizado com a identidade da marca.</p>
+      <p>Atualizações futuras: sobrescrever o <code>.md</code> em <code>public/apresentacao/docs/</code> no GitHub, push, Vercel rebuilda em segundos.</p>
+    </blockquote>
+  </div>
+
+  <div class="library-grid">
+
+    <a href="./apresentacao/viewer.html?doc=00_MAPA_FRENTES_VENCER.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 00</span>
+      <span class="lib-title">📘 Mapa das Frentes para Vencer</span>
+      <span class="lib-desc">Visão estratégica das 7 frentes simultâneas para ganhar — produto, contratos, proposta de valor, marketing, operação, anti-pulo, expansão.</span>
+      <div class="lib-meta">
+        <span class="lib-badge ready">✅ Pronto</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=01_PROPOSTA_VALOR_COMPRADOR.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 01</span>
+      <span class="lib-title">🟣 Proposta de Valor — Comprador</span>
+      <span class="lib-desc">A peça mais importante. 3 tiers, 6 promessas, 5 headlines, 9 objeções, storyboard João + Maria.</span>
+      <div class="lib-meta">
+        <span class="lib-badge ready">✅ Pronto</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=02_PROPOSTA_VALOR_VENDEDOR.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 02</span>
+      <span class="lib-title">🟣 Proposta de Valor — Vendedor</span>
+      <span class="lib-desc">Painel Radar + jornada do vendedor candidato. Como atrair candidatos motivados sem mensalidade.</span>
+      <div class="lib-meta">
+        <span class="lib-badge ready">✅ Pronto</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=03_CONTRATO_MANDATO_BUSCA_COMPRADOR.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 03</span>
+      <span class="lib-title">📜 Mandato de Busca — Comprador</span>
+      <span class="lib-desc">Minuta robusta. Exclusividade reversa + tail clause 12 meses + cláusula penal. Pendente revisão jurídica.</span>
+      <div class="lib-meta">
+        <span class="lib-badge draft">📝 Minuta</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=04_CONTRATO_TERMO_APRESENTACAO_VENDEDOR.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 04</span>
+      <span class="lib-title">📜 Termo de Apresentação — Vendedor</span>
+      <span class="lib-desc">Trava principal contra pulo. Cláusula penal 2% + R$ 50k. Pendente revisão jurídica.</span>
+      <div class="lib-meta">
+        <span class="lib-badge draft">📝 Minuta</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=05_CONTRATO_CAPTACAO_EXCLUSIVA_VENDEDOR.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 05</span>
+      <span class="lib-title">📜 Captação Exclusiva — Vendedor</span>
+      <span class="lib-desc">Exclusividade ampla 90 dias com investimento Achamos extra (fotos pro, mídia paga, corretor dedicado).</span>
+      <div class="lib-meta">
+        <span class="lib-badge draft">📝 Minuta</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=06_TERMOS_USO_PORTAL.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 06</span>
+      <span class="lib-title">📋 Termos de Uso — Portal</span>
+      <span class="lib-desc">Regras de conduta no portal. Quem pode usar, o que é proibido, sanções por violação.</span>
+      <div class="lib-meta">
+        <span class="lib-badge draft">📝 Minuta</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=07_POLITICA_PRIVACIDADE_LGPD.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 07</span>
+      <span class="lib-title">🔐 Política de Privacidade — LGPD</span>
+      <span class="lib-desc">Compliance LGPD completo. Como coletamos, usamos, protegemos dados pessoais. Direitos dos titulares.</span>
+      <div class="lib-meta">
+        <span class="lib-badge draft">📝 Minuta</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=08_FLUXO_OPERACIONAL_COMPLETO.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 08</span>
+      <span class="lib-title">⚙️ Fluxo Operacional Completo</span>
+      <span class="lib-desc">Engrenagem ponta a ponta. 12 etapas com responsáveis, SLAs e ferramentas. Material de treinamento.</span>
+      <div class="lib-meta">
+        <span class="lib-badge ready">✅ Pronto</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=09_PROTOCOLO_ANTI_PULO.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 09</span>
+      <span class="lib-title">🛡️ Protocolo Anti-Pulo</span>
+      <span class="lib-desc">4 camadas de defesa: contratual + operacional + tecnológica + cultural. 8 cenários de tentativa de pulo cobertos.</span>
+      <div class="lib-meta">
+        <span class="lib-badge ready">✅ Pronto</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=10_PSICOLOGIA_DO_COMPRADOR.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 10</span>
+      <span class="lib-title">🧠 Psicologia do Comprador</span>
+      <span class="lib-desc">4 personas + linguagem que vende + frases que matam + objeções + biases cognitivos. Material de treinamento.</span>
+      <div class="lib-meta">
+        <span class="lib-badge ready">✅ Pronto</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="./apresentacao/viewer.html?doc=11_INDEX_LEIA_PRIMEIRO.md" target="_blank" rel="noopener noreferrer" class="lib-card">
+      <span class="lib-num">Doc 11</span>
+      <span class="lib-title">📖 Index — Leia Primeiro</span>
+      <span class="lib-desc">Mapa de navegação da pasta produto. Ordem de leitura recomendada + status de cada doc + checklist.</span>
+      <div class="lib-meta">
+        <span class="lib-badge ready">✅ Pronto</span>
+        <span class="lib-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <p style="margin-top: 48px; text-align: center; color: var(--ink-mute); font-style: italic; font-size: 14px;">
+    Cada documento é renderizado pelo viewer universal — abre em nova aba mantendo identidade visual da marca.<br>
+    Pra atualizar: edita o <code>.md</code> em <code>public/apresentacao/docs/</code>, faz push pro GitHub, Vercel rebuilda em segundos.
+  </p>
+
+</article>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <img src="./apresentacao/assets/logo_achamos.svg" alt="Achamos Imóveis" class="footer-logo">
+  <p><strong>ACHAMOS IMÓVEIS</strong> · Bora Vender Muito BVM Aceleradora de Vendas LTDA</p>
+  <p>CNPJ 46.908.483/0001-28 · v1.0 · 2026-05-23</p>
+  <p style="margin-top: 16px; font-size: 12px; color: rgba(244,240,235,0.4);">
+    Documento confidencial · Reprodução, distribuição ou cópia não autorizadas são proibidas.
+  </p>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  // Scroll to top
+  const scrollBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 600) scrollBtn.classList.add('visible');
+    else scrollBtn.classList.remove('visible');
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('.doc-section');
+  const navLinks = document.querySelectorAll('.doc-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

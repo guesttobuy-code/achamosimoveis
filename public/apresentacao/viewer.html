@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achamos Imóveis — Visualizador de Documento</title>
+<link rel="icon" type="image/svg+xml" href="./assets/logo_achamos.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+<style>
+  :root {
+    --brand: #6F2DE1;
+    --brand-soft: #F4EDFF;
+    --brand-dark: #4B1FA6;
+    --ink: #201F1F;
+    --ink-soft: #5A5959;
+    --ink-mute: #8B8989;
+    --paper: #F4F0EB;
+    --paper-soft: #FAF7F2;
+    --white: #FFFFFF;
+    --line: #E8E2D8;
+    --line-soft: #F0EBE3;
+    --yellow: #EAB308;
+    --green: #16A34A;
+    --f-display: 'Bricolage Grotesque', sans-serif;
+    --f-body: 'Plus Jakarta Sans', sans-serif;
+    --f-mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: var(--f-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--paper);
+  }
+  .topbar-brand img { height: 32px; }
+  .topbar-brand-text {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+  }
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .topbar-btn {
+    background: var(--brand);
+    color: var(--white);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .topbar-btn:hover {
+    background: var(--brand-dark);
+    transform: translateY(-1px);
+  }
+  .topbar-btn.ghost {
+    background: transparent;
+    color: var(--paper);
+    border: 1px solid rgba(244,240,235,0.3);
+  }
+  .topbar-btn.ghost:hover {
+    background: rgba(244,240,235,0.1);
+    border-color: rgba(244,240,235,0.6);
+  }
+
+  /* DOC META BAR */
+  .doc-meta-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 32px;
+    box-shadow: 0 2px 8px rgba(32, 31, 31, 0.03);
+  }
+  .doc-meta-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .doc-meta-label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--brand);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .doc-meta-name {
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  /* CONTAINER */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* LOADER */
+  .loader {
+    text-align: center;
+    padding: 100px 20px;
+    color: var(--ink-mute);
+  }
+  .loader-spinner {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--line);
+    border-top-color: var(--brand);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ERROR */
+  .error {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--ink-soft);
+  }
+  .error h2 {
+    color: var(--ink);
+    font-family: var(--f-display);
+    margin-bottom: 16px;
+  }
+  .error a {
+    display: inline-block;
+    margin-top: 24px;
+    background: var(--brand);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* MARKDOWN CONTENT */
+  #content { display: none; }
+  #content.loaded { display: block; }
+
+  #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
+    font-family: var(--f-display);
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-top: 48px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  #content h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--line);
+    margin-top: 0;
+  }
+  #content h2 {
+    font-size: clamp(26px, 3.5vw, 36px);
+    font-weight: 700;
+    margin-top: 56px;
+  }
+  #content h2::before {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 4px;
+    background: var(--brand);
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+  #content h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 36px;
+    color: var(--ink);
+  }
+  #content h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 24px;
+  }
+
+  #content p {
+    margin-bottom: 16px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  #content p strong { color: var(--ink); font-weight: 700; }
+  #content p em { color: var(--ink-soft); font-style: italic; }
+
+  #content blockquote {
+    background: var(--white);
+    border-left: 4px solid var(--brand);
+    padding: 20px 28px;
+    margin: 28px 0;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 0 2px 12px rgba(32, 31, 31, 0.05);
+  }
+  #content blockquote p {
+    margin-bottom: 8px;
+    font-size: 17px;
+  }
+  #content blockquote p:last-child { margin-bottom: 0; }
+  #content blockquote strong { color: var(--brand); }
+
+  #content ul, #content ol {
+    margin: 16px 0 24px 0;
+    padding-left: 28px;
+  }
+  #content li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  #content li > ul, #content li > ol {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  #content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: var(--white);
+    margin: 24px 0 32px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(32, 31, 31, 0.06);
+    border: 1px solid var(--line);
+  }
+  #content thead {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  #content th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  #content td {
+    padding: 14px 16px;
+    border-top: 1px solid var(--line-soft);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  #content tr:nth-child(even) td { background: var(--paper-soft); }
+
+  #content pre {
+    background: var(--ink);
+    color: #E8E2D8;
+    padding: 22px;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 24px 0;
+    font-family: var(--f-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    box-shadow: 0 4px 20px rgba(32, 31, 31, 0.15);
+    border: 1px solid #2A2929;
+  }
+  #content code {
+    font-family: var(--f-mono);
+    background: var(--brand-soft);
+    color: var(--brand-dark);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  #content pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: 13px;
+  }
+
+  #content hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--line), transparent);
+    margin: 48px 0;
+  }
+
+  #content a {
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dashed var(--brand);
+    transition: all 0.15s;
+  }
+  #content a:hover {
+    color: var(--brand-dark);
+    border-bottom-style: solid;
+  }
+
+  #content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+  #content img[src*="logo_achamos"] {
+    height: 60px;
+    width: auto;
+    margin: 8px 0;
+  }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 50px;
+    height: 50px;
+    background: var(--brand);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 4px 20px rgba(111, 45, 225, 0.4);
+    transition: all 0.2s;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 95;
+    border: none;
+  }
+  .scroll-top.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .scroll-top:hover { transform: translateY(-3px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(244, 240, 235, 0.7);
+    padding: 40px 32px;
+    text-align: center;
+    margin-top: 80px;
+  }
+  footer p {
+    color: rgba(244, 240, 235, 0.6);
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .topbar { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
+    .topbar-brand-text { display: none; }
+    .topbar-actions { gap: 8px; }
+    .topbar-btn { padding: 6px 12px; font-size: 12px; }
+    .doc-meta-bar { padding: 12px 16px; }
+    main { padding: 32px 20px 60px; }
+    #content h1 { font-size: 30px; }
+    #content h2 { font-size: 24px; }
+    #content pre { padding: 14px; font-size: 12px; }
+    #content th, #content td { padding: 10px 12px; font-size: 13px; }
+  }
+
+  @media print {
+    .topbar, .doc-meta-bar, .scroll-top, footer { display: none; }
+    body { background: white; }
+    main { padding: 0; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="/apresentacao.html" class="topbar-brand">
+    <img src="./assets/logo_achamos.svg" alt="Achamos Imóveis">
+    <span class="topbar-brand-text">Documentos Estratégicos</span>
+  </a>
+  <div class="topbar-actions">
+    <a href="/apresentacao.html" class="topbar-btn ghost">← Voltar à apresentação</a>
+    <a href="#" class="topbar-btn" onclick="window.print(); return false;">🖨️ Imprimir</a>
+  </div>
+</header>
+
+<!-- DOC META BAR -->
+<div class="doc-meta-bar">
+  <div class="doc-meta-inner">
+    <div>
+      <span class="doc-meta-label">Documento</span>
+      <span class="doc-meta-name" id="docName">Carregando...</span>
+    </div>
+    <div>
+      <span class="doc-meta-label" style="color: var(--ink-mute);">Achamos Imóveis · BVM LTDA</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader-spinner"></div>
+    <p>Carregando documento...</p>
+  </div>
+
+  <!-- Error -->
+  <div class="error" id="error" style="display:none;">
+    <h2>📄 Documento não encontrado</h2>
+    <p id="errorMsg">Verifique o link e tente novamente.</p>
+    <a href="/apresentacao.html">← Voltar à apresentação</a>
+  </div>
+
+  <!-- Content -->
+  <article id="content"></article>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>ACHAMOS IMÓVEIS</strong> · Bora Vender Muito BVM Aceleradora de Vendas LTDA</p>
+  <p>CNPJ 46.908.483/0001-28</p>
+  <p style="margin-top: 12px; font-size: 11px; color: rgba(244,240,235,0.4);">
+    Documento confidencial · Reprodução não autorizada proibida
+  </p>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  // Pega doc da URL
+  const params = new URLSearchParams(window.location.search);
+  const docFile = params.get('doc');
+  const loader = document.getElementById('loader');
+  const errorDiv = document.getElementById('error');
+  const errorMsg = document.getElementById('errorMsg');
+  const content = document.getElementById('content');
+  const docName = document.getElementById('docName');
+
+  if (!docFile) {
+    loader.style.display = 'none';
+    errorDiv.style.display = 'block';
+    errorMsg.textContent = 'Nenhum documento especificado na URL. Use ?doc=XXX.md';
+  } else if (!/^[\w_\-\.]+\.md$/.test(docFile)) {
+    // Validação simples — só permite arquivos .md sem path traversal
+    loader.style.display = 'none';
+    errorDiv.style.display = 'block';
+    errorMsg.textContent = 'Nome de documento inválido.';
+  } else {
+    // Atualiza meta
+    const pretty = docFile.replace('.md','').replace(/^\d+_/, '').replace(/_/g, ' ');
+    docName.textContent = docFile;
+    document.title = pretty + ' — Achamos Imóveis';
+
+    // Configura marked
+    marked.setOptions({
+      gfm: true,
+      breaks: false,
+      headerIds: true,
+      mangle: false
+    });
+
+    // Fetch + render
+    fetch('./docs/' + docFile)
+      .then(r => {
+        if (!r.ok) throw new Error('Status ' + r.status);
+        return r.text();
+      })
+      .then(md => {
+        const html = marked.parse(md);
+        content.innerHTML = html;
+        content.classList.add('loaded');
+        loader.style.display = 'none';
+
+        // Faz links externos abrirem em nova aba
+        content.querySelectorAll('a').forEach(a => {
+          const href = a.getAttribute('href') || '';
+          if (href.startsWith('http') || href.startsWith('//')) {
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener noreferrer');
+          } else if (href.endsWith('.md')) {
+            // Link interno pra outro .md → reescreve pro viewer
+            a.setAttribute('href', './viewer.html?doc=' + href.replace(/^\.\//,''));
+            a.setAttribute('target', '_blank');
+          }
+        });
+      })
+      .catch(err => {
+        loader.style.display = 'none';
+        errorDiv.style.display = 'block';
+        errorMsg.textContent = 'Não foi possível carregar "' + docFile + '". (' + err.message + ')';
+      });
+  }
+
+  // Scroll to top
+  const scrollBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 600) scrollBtn.classList.add('visible');
+    else scrollBtn.classList.remove('visible');
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
