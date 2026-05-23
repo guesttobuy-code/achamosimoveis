@@ -1,3 +1,11 @@
+/**
+ * @env-aware
+ * Site institucional Achamos Imóveis — sem backend, sem Supabase.
+ * Sem detecção de ambiente porque deploy é só pra main (produção).
+ * Branches feature/* viram preview Vercel automático.
+ *
+ * Contrato canônico: Pasta oficial Rendizy/governance/ENVIRONMENT_CONTRACT.md (§5.2)
+ */
 import { useEffect } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 
