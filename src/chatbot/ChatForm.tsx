@@ -4,6 +4,14 @@ import CardIcon from './CardIcon'
 import { BUYER_STEPS, SELLER_STEPS, buildSummary, maskPhone } from './steps'
 import type { Answers, Step, StepOption } from './steps'
 import type { NavigateFn } from '../types'
+import {
+  upsertContact,
+  sendBriefingProgress,
+  sendListingProgress,
+  writePreAuthSession,
+  readPreAuthSession,
+  clearPreAuthSession,
+} from './api'
 
 type ChatFormProps = {
   role: 'buyer' | 'seller'
@@ -20,8 +28,12 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
   const [text, setText] = useState('')
   const [typing, setTyping] = useState(false)
   const [done, setDone] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
   const stepIdxRef = useRef(0)
+  // pre_auth_token vive em sessionStorage + ref local pra evitar re-render
+  const preAuthRef = useRef<{ token: string; contactId: string } | null>(null)
 
   const resolvePrompt = (step: Step, ans: Answers): string[] => {
     const p = typeof step.prompts === 'function' ? step.prompts(ans) : step.prompts
@@ -84,10 +96,58 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
     return idx
   }
 
+  /**
+   * Recupera sessão pre-auth do sessionStorage (sobrevive reload).
+   * Restaurada na primeira render, antes do user mexer.
+   */
+  useEffect(() => {
+    const cached = readPreAuthSession()
+    if (cached && cached.role === role) {
+      preAuthRef.current = { token: cached.pre_auth_token, contactId: cached.contact_id }
+    }
+  }, [role])
+
+  /**
+   * Cria/recupera contato pre-auth quando nome + whatsapp estão preenchidos.
+   * Idempotente: rePOST com mesmo telefone retorna mesmo contact_id e token.
+   */
+  async function ensurePreAuthContact(ans: Answers): Promise<void> {
+    const nome = (ans.nome || '').trim()
+    const whatsapp = (ans.whatsapp || '').trim()
+    if (!nome || nome.length < 2 || !whatsapp || whatsapp.replace(/\D/g, '').length < 10) {
+      return
+    }
+    if (preAuthRef.current) return // já temos token desta sessão
+    try {
+      const result = await upsertContact({
+        full_name: nome,
+        phone: whatsapp,
+        email: (ans.email || '').trim() || undefined,
+        role,
+      })
+      preAuthRef.current = { token: result.pre_auth_token, contactId: result.contact_id }
+      writePreAuthSession({
+        contact_id: result.contact_id,
+        pre_auth_token: result.pre_auth_token,
+        phone_normalized: whatsapp,
+        role,
+        created_at: new Date().toISOString(),
+      })
+    } catch (err) {
+      // Não bloqueia o chatbot — fluxo continua sem persistência.
+      // Submit final tenta de novo.
+      console.error('[chatbot] upsertContact error:', err)
+    }
+  }
+
   async function commitAnswer(step: Step, value: string, displayLabel: string) {
     setHistory(h => [...h, { who: 'user', text: displayLabel }])
     const nextAns: Answers = { ...answers, [step.id]: value }
     setAnswers(nextAns)
+    // Quando whatsapp acabou de ser preenchido, dispara upsert em background
+    if (step.id === 'whatsapp') {
+      void ensurePreAuthContact(nextAns)
+    }
     if (step.kind === 'summary') return
     const nextIdx = findNextRelevantStepIdx(stepIdxRef.current + 1, nextAns)
     setStepIdx(nextIdx)
@@ -118,10 +178,35 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
     void commitAnswer(currentStep, opt.value, opt.label)
   }
 
-  function handleSubmitFinal() {
-    setDone(true)
-    // TODO: integrate with Rendizy CRM webhook here
-    // POST { role, answers } to import.meta.env.VITE_CRM_WEBHOOK_URL
+  async function handleSubmitFinal() {
+    setSubmitError(null)
+    setSubmitting(true)
+    try {
+      // Garante que o contact existe (caso o upsert no whatsapp tenha falhado)
+      await ensurePreAuthContact(answers)
+      const token = preAuthRef.current?.token
+      if (!token) {
+        throw new Error('Não foi possível criar contato pré-cadastro. Tente novamente.')
+      }
+      const payload = { pre_auth_token: token, partial_answers: answers, finalize: true }
+      if (role === 'buyer') {
+        await sendBriefingProgress(payload)
+      } else {
+        await sendListingProgress(payload)
+      }
+      // Submissão OK → limpa sessão pra próxima conversa começar limpa
+      clearPreAuthSession()
+      setDone(true)
+    } catch (err) {
+      console.error('[chatbot] submitFinal error:', err)
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : 'Algo deu errado ao enviar. Tenta de novo daqui a pouquinho?',
+      )
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   /* render interactive control */
@@ -164,12 +249,28 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
               <span>{v}</span>
             </div>
           ))}
+          {submitError && (
+            <div style={{
+              marginTop: 12,
+              padding: '10px 12px',
+              background: '#fef2f2',
+              color: '#991b1b',
+              border: '1px solid #fecaca',
+              borderRadius: 8,
+              fontSize: 14,
+            }} role="alert">
+              {submitError}
+            </div>
+          )}
           <div className="chat-confirm" style={{ marginTop: 16 }}>
-            <button className="btn btn-ghost btn-sm" onClick={() => { setStepIdx(1); setHistory([]); setAnswers({}); void runStep(1, {}) }}>
+            <button className="btn btn-ghost btn-sm" disabled={submitting} onClick={() => { setStepIdx(1); setHistory([]); setAnswers({}); clearPreAuthSession(); preAuthRef.current = null; void runStep(1, {}) }}>
               Refazer
             </button>
-            <button className="btn btn-brand" onClick={handleSubmitFinal}>
-              {role === 'seller' ? 'Anunciar meu imóvel' : 'Enviar pra equipe'} <ArrowRight />
+            <button className="btn btn-brand" onClick={handleSubmitFinal} disabled={submitting}>
+              {submitting
+                ? 'Enviando…'
+                : role === 'seller' ? 'Anunciar meu imóvel' : 'Enviar pra equipe'}
+              {!submitting && <ArrowRight />}
             </button>
           </div>
         </div>
