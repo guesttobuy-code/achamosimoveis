@@ -61,12 +61,35 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
     stepIdxRef.current = stepIdx
   }, [stepIdx])
 
+  /**
+   * Resolve qual step deve ser exibido a seguir, pulando os que não se aplicam.
+   * Hoje cobre:
+   *   - valor_modo='exato' → pula step 'valor' (faixa)
+   *   - valor_modo='faixa' → pula step 'valor_exato'
+   */
+  function findNextRelevantStepIdx(startIdx: number, ans: Answers): number {
+    let idx = startIdx
+    while (idx < steps.length) {
+      const s = steps[idx]
+      if (s.id === 'valor_exato' && ans.valor_modo !== 'exato') {
+        idx++
+        continue
+      }
+      if (s.id === 'valor' && ans.valor_modo !== 'faixa') {
+        idx++
+        continue
+      }
+      return idx
+    }
+    return idx
+  }
+
   async function commitAnswer(step: Step, value: string, displayLabel: string) {
     setHistory(h => [...h, { who: 'user', text: displayLabel }])
     const nextAns: Answers = { ...answers, [step.id]: value }
     setAnswers(nextAns)
     if (step.kind === 'summary') return
-    const nextIdx = stepIdxRef.current + 1
+    const nextIdx = findNextRelevantStepIdx(stepIdxRef.current + 1, nextAns)
     setStepIdx(nextIdx)
     if (nextIdx < steps.length) await runStep(nextIdx, nextAns)
   }

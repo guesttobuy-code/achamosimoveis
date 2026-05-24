@@ -206,15 +206,44 @@ export const SELLER_STEPS: Step[] = [
   },
   { id: 'area', prompts: ['Qual a área útil (em m²)?'], kind: 'text', placeholder: 'Ex: 120' },
   {
-    id: 'valor',
-    prompts: ['Qual valor pretendido?'],
+    id: 'valor_modo',
+    prompts: [
+      'Por quanto você quer anunciar?',
+      'Você pode informar o valor exato ou escolher uma faixa — fica a seu critério.',
+    ],
     kind: 'cards',
     options: [
-      { value: 'A', label: 'Até R$ 400 mil',          icon: 'wallet' },
-      { value: 'B', label: 'R$ 400 mil – R$ 800 mil', icon: 'wallet' },
-      { value: 'C', label: 'R$ 800 mil – R$ 1,5 mi',  icon: 'wallet' },
-      { value: 'D', label: 'R$ 1,5 mi – R$ 3 mi',     icon: 'wallet' },
-      { value: 'E', label: 'Acima de R$ 3 mi',        icon: 'wallet' },
+      { value: 'exato', label: 'Quero informar o valor exato', sub: 'Ex: R$ 850.000', icon: 'wallet' },
+      { value: 'faixa', label: 'Prefiro uma faixa',             sub: '5 opções amplas', icon: 'check' },
+    ],
+  },
+  {
+    id: 'valor_exato',
+    // Só aparece se valor_modo === 'exato' — ChatForm pula este step caso contrário
+    prompts: ['Qual o valor exato em reais? (só números, ex: 850000)'],
+    kind: 'text',
+    placeholder: 'R$ 850.000',
+    validate: (v) => {
+      const n = Number(String(v).replace(/[^0-9]/g, ''))
+      if (!n || n < 50_000) return 'Digite um valor maior que R$ 50.000'
+      if (n > 200_000_000) return 'Valor parece muito alto — confira'
+      return true
+    },
+  },
+  {
+    id: 'valor',
+    // Só aparece se valor_modo === 'faixa' — ChatForm pula caso contrário
+    prompts: ['Qual a faixa de valor?'],
+    kind: 'cards',
+    options: [
+      { value: 'A', label: 'Até R$ 300 mil',          icon: 'wallet' },
+      { value: 'B', label: 'R$ 300 mil – R$ 500 mil', icon: 'wallet' },
+      { value: 'C', label: 'R$ 500 mil – R$ 800 mil', icon: 'wallet' },
+      { value: 'D', label: 'R$ 800 mil – R$ 1,2 mi',  icon: 'wallet' },
+      { value: 'E', label: 'R$ 1,2 mi – R$ 2 mi',     icon: 'wallet' },
+      { value: 'F', label: 'R$ 2 mi – R$ 3,5 mi',     icon: 'wallet' },
+      { value: 'G', label: 'R$ 3,5 mi – R$ 6 mi',     icon: 'wallet' },
+      { value: 'H', label: 'Acima de R$ 6 mi',        icon: 'wallet' },
     ],
   },
   {
@@ -271,8 +300,20 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
     MG_INT: 'Interior de Minas Gerais',
   }
   const faixaMap: Record<string, string> = {
+    // Buyer (5 faixas amplas, mantém compat)
     A: 'Até R$ 400 mil', B: 'R$ 400 mil – R$ 800 mil', C: 'R$ 800 mil – R$ 1,5 mi',
     D: 'R$ 1,5 mi – R$ 3 mi', E: 'Acima de R$ 3 mi',
+  }
+  const faixaSellerMap: Record<string, string> = {
+    A: 'Até R$ 300 mil', B: 'R$ 300 mil – R$ 500 mil', C: 'R$ 500 mil – R$ 800 mil',
+    D: 'R$ 800 mil – R$ 1,2 mi', E: 'R$ 1,2 mi – R$ 2 mi', F: 'R$ 2 mi – R$ 3,5 mi',
+    G: 'R$ 3,5 mi – R$ 6 mi', H: 'Acima de R$ 6 mi',
+  }
+  function formatExactBrl(raw: string | undefined): string {
+    if (!raw) return '—'
+    const n = Number(String(raw).replace(/[^0-9]/g, ''))
+    if (!n) return '—'
+    return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
   }
   const prazoMap: Record<string, string> = { urg: 'Até 3 meses', med: '3 a 6 meses', cal: 'Mais de 6 meses', rs: 'Sem prazo definido' }
   const pagMap: Record<string, string> = { AV: 'À vista', FIN: 'Financiamento', MIX: 'Misto', NSEI: 'Ainda decidindo' }
@@ -293,6 +334,9 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
       ['WhatsApp',     a.whatsapp || '—'],
     ]
   }
+  const valorLabel = a.valor_modo === 'exato' && a.valor_exato
+    ? formatExactBrl(a.valor_exato)
+    : (faixaSellerMap[a.valor] || faixaMap[a.valor] || '—')
   return [
     ['Nome',             a.nome || '—'],
     ['Tipo',             tipoMap[a.tipo] || '—'],
@@ -300,7 +344,7 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
     ['Bairro',           a.bairro || '—'],
     ['Dormitórios',      a.dorms || '—'],
     ['Área útil',        a.area ? `${a.area} m²` : '—'],
-    ['Valor pretendido', faixaMap[a.valor] || '—'],
+    ['Valor pretendido', valorLabel],
     ['Exclusividade',    exclMap[a.exclusividade] || '—'],
     ['Fotos',            fotoMap[a.fotos] || '—'],
     ['WhatsApp',         a.whatsapp || '—'],
