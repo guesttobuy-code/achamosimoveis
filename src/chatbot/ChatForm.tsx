@@ -30,6 +30,9 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
   const [done, setDone] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  // Token preservado no estado "done" pra construir link "Acompanhar no portal".
+  // Difere do preAuthRef que é limpo em clearPreAuthSession() após submit.
+  const [doneToken, setDoneToken] = useState<string | null>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
   const stepIdxRef = useRef(0)
   // pre_auth_token vive em sessionStorage + ref local pra evitar re-render
@@ -194,7 +197,9 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
       } else {
         await sendListingProgress(payload)
       }
-      // Submissão OK → limpa sessão pra próxima conversa começar limpa
+      // Preserva token pro link "Acompanhar no portal" do done state ANTES
+      // de limpar a sessão (clearPreAuthSession remove o cache).
+      setDoneToken(token)
       clearPreAuthSession()
       setDone(true)
     } catch (err) {
@@ -310,7 +315,18 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
                   <strong style={{ color: 'var(--ink)' }}>3.</strong> A gente trabalha pra você
                 </div>
               </div>
-              <div className="chat-confirm">
+              <div className="chat-confirm" style={{ flexDirection: 'column', gap: 12 }}>
+                {doneToken && (
+                  <a
+                    className="btn btn-brand"
+                    href={`${(import.meta.env.VITE_PORTAL_URL as string | undefined) || 'https://portalimobiliario-whitelabel.vercel.app'}/?pre_auth=${doneToken}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ width: '100%', textAlign: 'center' }}
+                  >
+                    🔗 Acompanhar no Portal Achamos+
+                  </a>
+                )}
                 <button className="btn btn-ghost" onClick={() => navigate('home')}>
                   Voltar pro início
                 </button>
