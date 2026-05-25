@@ -310,6 +310,14 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
 
   if (done) {
     const firstName = (answers.nome || '').split(' ')[0] || 'você'
+    const portalBase = (import.meta.env.VITE_PORTAL_URL as string | undefined) || 'https://portalimobiliario-whitelabel.vercel.app'
+    // Deep-link cacheado: após signup/login no portal, redireciona pro radar
+    // (vendedor) ou oportunidades (comprador). PortalApp lê o param 'redirect'
+    // ou sessionStorage 'post_login_redirect'.
+    const targetRoute = role === 'seller' ? '/app/radar-compradores' : '/app/oportunidades'
+    const portalHref = doneToken
+      ? `${portalBase}/?pre_auth=${doneToken}&redirect=${encodeURIComponent(targetRoute)}`
+      : `${portalBase}/signup?redirect=${encodeURIComponent(targetRoute)}`
     return (
       <div className="chat-wrap">
         <div className="container">
@@ -318,40 +326,58 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
             <div className="chat-body">
               <div className="bubble bubble-bot">
                 {role === 'seller'
-                  ? `Show, ${firstName}! Recebemos o cadastro do seu imóvel. 🏡`
+                  ? `Show, ${firstName}! Seu imóvel já tá no sistema. 🏡`
                   : `Pronto, ${firstName}! Seu briefing já tá com a equipe. ✅`}
               </div>
               <div className="bubble bubble-bot">
                 {role === 'seller'
-                  ? 'Em até 1 dia útil entramos no WhatsApp pra checar a documentação e te mostrar quantos compradores compatíveis a gente já tem.'
-                  : 'Vamos rodar busca ativa e em até 48h voltamos com as primeiras oportunidades no seu WhatsApp.'}
+                  ? 'Agora vem a parte boa: você pode entrar no Portal e ver agora mesmo os compradores reais que combinam com o seu imóvel.'
+                  : 'Vamos rodar busca ativa e em até 48h voltamos com as primeiras oportunidades. Enquanto isso, você já pode entrar no Portal pra acompanhar.'}
               </div>
-              <div className="summary" style={{ background: 'var(--brand-soft)', borderColor: 'var(--brand-soft)' }}>
+              <div className="summary" style={{
+                background: 'linear-gradient(135deg, rgba(111, 45, 225, 0.08) 0%, rgba(74, 20, 181, 0.04) 100%)',
+                borderColor: 'rgba(111, 45, 225, 0.18)',
+              }}>
                 <h4 style={{ color: 'var(--brand-deep)' }}>
                   <span style={{
                     display: 'inline-grid', placeItems: 'center', width: 30, height: 30,
                     borderRadius: 999, background: 'var(--brand)', color: 'white',
                   }}><Check /></span>
-                  Próximos passos
+                  {role === 'seller' ? 'O que você pode ver agora' : 'Próximos passos'}
                 </h4>
                 <div style={{ fontSize: 14.5, color: 'var(--ink-soft)', lineHeight: 1.6 }}>
-                  <strong style={{ color: 'var(--ink)' }}>1.</strong> Mensagem no WhatsApp em até 48h<br />
-                  <strong style={{ color: 'var(--ink)' }}>2.</strong> Conversa rápida pra alinhar detalhes<br />
-                  <strong style={{ color: 'var(--ink)' }}>3.</strong> A gente trabalha pra você
+                  {role === 'seller' ? (
+                    <>
+                      <strong style={{ color: 'var(--ink)' }}>1.</strong> Compradores reais qualificados no seu radar<br />
+                      <strong style={{ color: 'var(--ink)' }}>2.</strong> Quem está procurando exatamente o seu tipo de imóvel<br />
+                      <strong style={{ color: 'var(--ink)' }}>3.</strong> Status da sua oferta em tempo real
+                    </>
+                  ) : (
+                    <>
+                      <strong style={{ color: 'var(--ink)' }}>1.</strong> Mensagem no WhatsApp em até 48h<br />
+                      <strong style={{ color: 'var(--ink)' }}>2.</strong> Conversa rápida pra alinhar detalhes<br />
+                      <strong style={{ color: 'var(--ink)' }}>3.</strong> A gente trabalha pra você
+                    </>
+                  )}
                 </div>
               </div>
               <div className="chat-confirm" style={{ flexDirection: 'column', gap: 12 }}>
-                {doneToken && (
-                  <a
-                    className="btn btn-brand"
-                    href={`${(import.meta.env.VITE_PORTAL_URL as string | undefined) || 'https://portalimobiliario-whitelabel.vercel.app'}/?pre_auth=${doneToken}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ width: '100%', textAlign: 'center' }}
-                  >
-                    🔗 Acompanhar no Portal Achamos+
-                  </a>
-                )}
+                <a
+                  className="btn btn-brand"
+                  href={portalHref}
+                  onClick={() => {
+                    // Fallback: salva também em sessionStorage caso o navegador
+                    // perca o querystring ao redirecionar (OAuth, magic link).
+                    try {
+                      sessionStorage.setItem('post_login_redirect', targetRoute)
+                    } catch { /* sem storage = sem fallback, sem problema */ }
+                  }}
+                  style={{ width: '100%', textAlign: 'center' }}
+                >
+                  {role === 'seller'
+                    ? '⚡ Ver compradores reais te esperando →'
+                    : '⚡ Ver minhas oportunidades →'}
+                </a>
                 <button className="btn btn-ghost" onClick={() => navigate('home')}>
                   Voltar pro início
                 </button>

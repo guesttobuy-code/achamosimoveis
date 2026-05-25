@@ -268,6 +268,16 @@ export const SELLER_STEPS: Step[] = [
     ],
   },
   {
+    id: 'diferenciais',
+    prompts: [
+      'Última pergunta importante: o que você acha que é diferencial do seu imóvel?',
+      'Tudo reformado, oportunidade, imóvel de inventário abaixo do preço, vista privilegiada, andar alto... Detalha aqui — é o que vai fazer o comprador se interessar em fechar negócio com você.',
+    ],
+    kind: 'text',
+    placeholder: 'Ex: Recém reformado em 2025, vista mar, prédio com piscina e academia, aceita permuta com imóvel menor...',
+    optional: true,
+  },
+  {
     id: 'whatsapp',
     prompts: (s) => [`Tudo certo, ${s.nome.split(' ')[0]}. Qual seu WhatsApp pra equipe entrar em contato?`],
     kind: 'phone',
@@ -347,6 +357,7 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
     ['Valor pretendido', valorLabel],
     ['Exclusividade',    exclMap[a.exclusividade] || '—'],
     ['Fotos',            fotoMap[a.fotos] || '—'],
+    ['Diferenciais',     a.diferenciais || '—'],
     ['WhatsApp',         a.whatsapp || '—'],
   ]
 }
