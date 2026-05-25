@@ -170,11 +170,17 @@ export const SELLER_STEPS: Step[] = [
     prompts: (s) => [`Prazer, ${s.nome.split(' ')[0]}! Que tipo de imóvel você quer anunciar?`],
     kind: 'cards',
     options: [
-      { value: 'apt',  label: 'Apartamento', icon: 'apt' },
-      { value: 'casa', label: 'Casa', icon: 'casa' },
-      { value: 'cob',  label: 'Cobertura', icon: 'cobertura' },
-      { value: 'ter',  label: 'Terreno', icon: 'terreno' },
-      { value: 'com',  label: 'Comercial', icon: 'comercial' },
+      // §11.13 M1 (2026-05-25): expandido de 5 → 10 opções pra cobrir mercado real.
+      { value: 'apt',     label: 'Apartamento', icon: 'apt' },
+      { value: 'casa',    label: 'Casa',        icon: 'casa' },
+      { value: 'cob',     label: 'Cobertura',   icon: 'cobertura' },
+      { value: 'studio',  label: 'Studio',      icon: 'apt' },
+      { value: 'kitnet',  label: 'Kitnet',      icon: 'apt' },
+      { value: 'sobrado', label: 'Sobrado',     icon: 'casa' },
+      { value: 'ter',     label: 'Terreno',     icon: 'terreno' },
+      { value: 'sitio',   label: 'Sítio',       icon: 'casa' },
+      { value: 'com',     label: 'Comercial',   icon: 'comercial' },
+      { value: 'galpao',  label: 'Galpão',      icon: 'comercial' },
     ],
   },
   {
@@ -205,6 +211,78 @@ export const SELLER_STEPS: Step[] = [
     ],
   },
   { id: 'area', prompts: ['Qual a área útil (em m²)?'], kind: 'text', placeholder: 'Ex: 120' },
+  // §11.13 M6 (2026-05-25): vagas / banheiros / mobiliado / andar
+  // Condicionais por tipo: ChatForm.findNextRelevantStepIdx pula esses
+  // pra tipos onde não fazem sentido (terreno, sítio, galpão puro).
+  {
+    id: 'vagas',
+    prompts: ['Quantas vagas de garagem?'],
+    kind: 'chips',
+    options: [
+      { value: '0',  label: '0' },
+      { value: '1',  label: '1' },
+      { value: '2',  label: '2' },
+      { value: '3',  label: '3' },
+      { value: '4+', label: '4+' },
+    ],
+  },
+  {
+    id: 'banheiros',
+    prompts: ['Quantos banheiros (incluindo suítes)?'],
+    kind: 'chips',
+    options: [
+      { value: '1',  label: '1' },
+      { value: '2',  label: '2' },
+      { value: '3',  label: '3' },
+      { value: '4+', label: '4+' },
+    ],
+  },
+  {
+    id: 'mobiliado',
+    prompts: ['O imóvel é mobiliado?'],
+    kind: 'cards',
+    options: [
+      { value: 'mob',    label: 'Mobiliado',         sub: 'Móveis + eletros',    icon: 'check' },
+      { value: 'semi',   label: 'Semi-mobiliado',    sub: 'Móveis essenciais',   icon: 'check' },
+      { value: 'vazio',  label: 'Sem mobília',       sub: 'Vazio',               icon: 'open' },
+    ],
+  },
+  {
+    id: 'andar',
+    prompts: ['Em qual andar fica o imóvel?'],
+    kind: 'cards',
+    options: [
+      { value: 'terreo',  label: 'Térreo',          icon: 'pin' },
+      { value: 'baixo',   label: 'Andar baixo',     sub: 'até o 3º andar',         icon: 'pin' },
+      { value: 'medio',   label: 'Andar médio',     sub: 'do 4º ao 10º',           icon: 'pin' },
+      { value: 'alto',    label: 'Andar alto',      sub: 'acima do 10º',           icon: 'pin' },
+      { value: 'cob',     label: 'Cobertura',       sub: 'último andar',           icon: 'pin' },
+    ],
+  },
+  // §11.13 M9 (2026-05-25): ano + documentação
+  {
+    id: 'ano_construcao',
+    prompts: ['Em que ano o imóvel foi construído (aproximado)?'],
+    kind: 'cards',
+    options: [
+      { value: 'novo',     label: 'Novo / na planta',  sub: 'menos de 2 anos',  icon: 'check' },
+      { value: 'recente',  label: 'Recente',           sub: '2 a 10 anos',      icon: 'check' },
+      { value: 'medio',    label: 'Médio',             sub: '10 a 25 anos',     icon: 'check' },
+      { value: 'antigo',   label: 'Antigo',            sub: '25+ anos',         icon: 'check' },
+      { value: 'na',       label: 'Não sei',           sub: '',                 icon: 'open' },
+    ],
+  },
+  {
+    id: 'documentacao',
+    prompts: ['Qual a situação da documentação do imóvel?'],
+    kind: 'cards',
+    options: [
+      { value: 'ok',         label: 'Tudo regular',      sub: 'Habite-se + matrícula em dia', icon: 'check' },
+      { value: 'inventario', label: 'Em inventário',     sub: 'Tenho herança em curso',       icon: 'open' },
+      { value: 'financiado', label: 'Financiado',        sub: 'Ainda pago financiamento',     icon: 'open' },
+      { value: 'pendencias', label: 'Tem pendências',    sub: 'Preciso de ajuda pra regularizar', icon: 'open' },
+    ],
+  },
   {
     id: 'valor_modo',
     prompts: [
@@ -245,6 +323,33 @@ export const SELLER_STEPS: Step[] = [
       { value: 'G', label: 'R$ 3,5 mi – R$ 6 mi',     icon: 'wallet' },
       { value: 'H', label: 'Acima de R$ 6 mi',        icon: 'wallet' },
     ],
+  },
+  // §11.13 M7 (2026-05-25): step financeiro combinado (multi-toggle)
+  {
+    id: 'financeiro',
+    prompts: [
+      'Toparia receber propostas com financiamento, FGTS ou permuta?',
+      'Pode escolher mais de uma opção (ou pular).',
+    ],
+    kind: 'chips',
+    options: [
+      { value: 'fin',     label: '✓ Aceito financiamento' },
+      { value: 'fgts',    label: '✓ Aceito FGTS' },
+      { value: 'perm',    label: '✓ Aceito permuta' },
+      { value: 'avista',  label: '💰 Prefiro à vista' },
+    ],
+    optional: true,
+  },
+  // §11.13 M8 (2026-05-25): custos atuais (opcional)
+  {
+    id: 'custos',
+    prompts: [
+      'Custos mensais aproximados (opcional — ajuda o comprador a calcular)',
+      'Pode digitar "300+150" pra condomínio R$ 300 e IPTU R$ 150 mensal.',
+    ],
+    kind: 'text',
+    placeholder: 'Ex: 800+220 (condomínio + IPTU)',
+    optional: true,
   },
   {
     id: 'exclusividade',
@@ -300,7 +405,19 @@ export function maskPhone(v: string): string {
    Summary builder
    ============================================ */
 export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, string][] {
-  const tipoMap: Record<string, string> = { apt: 'Apartamento', casa: 'Casa', cob: 'Cobertura', ter: 'Terreno', com: 'Comercial' }
+  // §11.13 M1 (2026-05-25): expandido pra cobrir os 10 tipos do step `tipo`.
+  const tipoMap: Record<string, string> = {
+    apt: 'Apartamento',
+    casa: 'Casa',
+    cob: 'Cobertura',
+    studio: 'Studio',
+    kitnet: 'Kitnet',
+    sobrado: 'Sobrado',
+    ter: 'Terreno',
+    sitio: 'Sítio',
+    com: 'Comercial',
+    galpao: 'Galpão',
+  }
   const cidadeMap: Record<string, string> = {
     SP_CAP: 'São Paulo / SP (capital)',
     RJ_CAP: 'Rio de Janeiro / RJ (capital)',
@@ -347,17 +464,56 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
   const valorLabel = a.valor_modo === 'exato' && a.valor_exato
     ? formatExactBrl(a.valor_exato)
     : (faixaSellerMap[a.valor] || faixaMap[a.valor] || '—')
-  return [
+  // §11.13 M5–M9 (2026-05-25): novos maps pros campos adicionados
+  const mobMap: Record<string, string> = { mob: 'Mobiliado', semi: 'Semi-mobiliado', vazio: 'Sem mobília' }
+  const andarMap: Record<string, string> = {
+    terreo: 'Térreo', baixo: 'Andar baixo (até 3º)', medio: 'Andar médio (4º–10º)',
+    alto: 'Andar alto (acima 10º)', cob: 'Cobertura',
+  }
+  const anoMap: Record<string, string> = {
+    novo: 'Novo / planta', recente: 'Recente (2–10 anos)', medio: 'Médio (10–25 anos)',
+    antigo: 'Antigo (25+ anos)', na: 'Não sei',
+  }
+  const docMap: Record<string, string> = {
+    ok: 'Regular', inventario: 'Em inventário', financiado: 'Financiado', pendencias: 'Tem pendências',
+  }
+  const finChipMap: Record<string, string> = {
+    fin: 'Financiamento', fgts: 'FGTS', perm: 'Permuta', avista: 'Só à vista',
+  }
+  // a.financeiro pode ser string CSV (chips) — split + map + join
+  const financeiroLabel = a.financeiro
+    ? a.financeiro.split(',').map((v) => finChipMap[v.trim()] || v).filter(Boolean).join(', ') || '—'
+    : 'Não informado'
+  const rows: [string, string][] = [
     ['Nome',             a.nome || '—'],
     ['Tipo',             tipoMap[a.tipo] || '—'],
     ['Cidade',           cidadeMap[a.cidade] || '—'],
     ['Bairro',           a.bairro || '—'],
-    ['Dormitórios',      a.dorms || '—'],
-    ['Área útil',        a.area ? `${a.area} m²` : '—'],
+  ]
+  // §11.13 M5 condicionais: só mostra campos que fazem sentido pro tipo
+  const tipoCode = a.tipo || ''
+  const isResidential = ['apt', 'casa', 'cob', 'studio', 'kitnet', 'sobrado'].includes(tipoCode)
+  const isLand = tipoCode === 'ter'
+  if (!isLand) {
+    if (isResidential) rows.push(['Dormitórios', a.dorms || '—'])
+    rows.push(['Área útil', a.area ? `${a.area} m²` : '—'])
+    if (isResidential) {
+      rows.push(['Vagas',     a.vagas || '—'])
+      rows.push(['Banheiros', a.banheiros || '—'])
+      rows.push(['Mobília',   mobMap[a.mobiliado] || '—'])
+      rows.push(['Andar',     andarMap[a.andar] || '—'])
+    }
+    rows.push(['Ano construção', anoMap[a.ano_construcao] || '—'])
+    rows.push(['Documentação',   docMap[a.documentacao] || '—'])
+  }
+  rows.push(
     ['Valor pretendido', valorLabel],
+    ['Aceita',           financeiroLabel],
+    ['Custos mensais',   a.custos || '—'],
     ['Exclusividade',    exclMap[a.exclusividade] || '—'],
     ['Fotos',            fotoMap[a.fotos] || '—'],
     ['Diferenciais',     a.diferenciais || '—'],
     ['WhatsApp',         a.whatsapp || '—'],
-  ]
+  )
+  return rows
 }

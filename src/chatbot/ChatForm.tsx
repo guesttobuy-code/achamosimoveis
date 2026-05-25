@@ -97,22 +97,37 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
 
   /**
    * Resolve qual step deve ser exibido a seguir, pulando os que não se aplicam.
-   * Hoje cobre:
+   * Cobre:
    *   - valor_modo='exato' → pula step 'valor' (faixa)
    *   - valor_modo='faixa' → pula step 'valor_exato'
+   *   - §11.13 M5 (2026-05-25): condicionais por tipo de imóvel
+   *     - terreno: pula dorms, area_util não-aplicável, vagas, banheiros, mobiliado, andar
+   *     - sítio/fazenda: pula vagas, mobiliado, andar (mas mantém dorms, area, banheiros)
+   *     - galpão/comercial: pula dorms, mobiliado, andar (mantém area, banheiros, vagas)
+   *     - residencial (apt/casa/cob/studio/kitnet/sobrado): tudo aplicável
    */
   function findNextRelevantStepIdx(startIdx: number, ans: Answers): number {
+    const tipo = ans.tipo || ''
+    const isLand = tipo === 'ter'
+    const isRural = tipo === 'sitio'
+    const isCommercial = tipo === 'com' || tipo === 'galpao'
+    const isResidential = ['apt', 'casa', 'cob', 'studio', 'kitnet', 'sobrado'].includes(tipo)
+
     let idx = startIdx
     while (idx < steps.length) {
       const s = steps[idx]
-      if (s.id === 'valor_exato' && ans.valor_modo !== 'exato') {
-        idx++
-        continue
-      }
-      if (s.id === 'valor' && ans.valor_modo !== 'faixa') {
-        idx++
-        continue
-      }
+      // Granularidade valor (existente)
+      if (s.id === 'valor_exato' && ans.valor_modo !== 'exato') { idx++; continue }
+      if (s.id === 'valor' && ans.valor_modo !== 'faixa') { idx++; continue }
+
+      // M5: condicionais por tipo de imóvel
+      if (s.id === 'dorms' && (isLand || isCommercial)) { idx++; continue }
+      if (s.id === 'area' && isLand) { idx++; continue }
+      if (s.id === 'vagas' && (isLand || isRural)) { idx++; continue }
+      if (s.id === 'banheiros' && isLand) { idx++; continue }
+      if (s.id === 'mobiliado' && (isLand || isRural || isCommercial)) { idx++; continue }
+      if (s.id === 'andar' && !isResidential) { idx++; continue }
+
       return idx
     }
     return idx
