@@ -20,6 +20,23 @@ type ChatFormProps = {
 
 type HistoryItem = { who: 'bot' | 'user'; text: string }
 
+/**
+ * Captura ?lead=ID&region=X da URL — quando vendedor vem do portal logado
+ * clicando "Oferecer imóvel" no Radar de Compradores, o briefing alvo
+ * é passado via querystring. listing-progress vai marcar portal_case
+ * como case_type='achamos-plus-buyer-candidature' linkando ao briefing.
+ */
+function readCandidatureContext(): { leadId: string | null; region: string | null } {
+  if (typeof window === 'undefined') return { leadId: null, region: null }
+  const params = new URLSearchParams(window.location.search)
+  const lead = params.get('lead')
+  const region = params.get('region')
+  return {
+    leadId: lead && lead.length > 0 ? lead : null,
+    region: region && region.length > 0 ? region : null,
+  }
+}
+
 export default function ChatForm({ role, navigate }: ChatFormProps) {
   const steps = role === 'seller' ? SELLER_STEPS : BUYER_STEPS
   const [stepIdx, setStepIdx] = useState(0)
@@ -33,6 +50,8 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
   // Token preservado no estado "done" pra construir link "Acompanhar no portal".
   // Difere do preAuthRef que é limpo em clearPreAuthSession() após submit.
   const [doneToken, setDoneToken] = useState<string | null>(null)
+  // Contexto de candidatura — quando vem do Radar de Compradores logado
+  const [candidature] = useState(() => readCandidatureContext())
   const bodyRef = useRef<HTMLDivElement>(null)
   const stepIdxRef = useRef(0)
   // pre_auth_token vive em sessionStorage + ref local pra evitar re-render
@@ -191,7 +210,13 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
       if (!token) {
         throw new Error('Não foi possível criar contato pré-cadastro. Tente novamente.')
       }
-      const payload = { pre_auth_token: token, partial_answers: answers, finalize: true }
+      // Se vier do Radar de Compradores (vendedor logado clicou "Oferecer imóvel"),
+      // injeta target_briefing_id + target_region pra backend marcar case_type
+      // como 'achamos-plus-buyer-candidature' e linkar ao briefing alvo.
+      const answersWithCtx = candidature.leadId
+        ? { ...answers, target_briefing_id: candidature.leadId, target_region: candidature.region ?? '' }
+        : answers
+      const payload = { pre_auth_token: token, partial_answers: answersWithCtx, finalize: true }
       if (role === 'buyer') {
         await sendBriefingProgress(payload)
       } else {
@@ -345,6 +370,23 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
       <div className="container">
         <div className="chat-frame">
           <ChatHeader role={role} step={stepIdx + 1} total={steps.length} />
+          {candidature.leadId && (
+            <div style={{
+              padding: '10px 16px',
+              background: 'linear-gradient(135deg, rgba(111, 45, 225, 0.12) 0%, rgba(74, 20, 181, 0.08) 100%)',
+              borderBottom: '1px solid rgba(168, 85, 247, 0.2)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              fontSize: 13,
+            }}>
+              <span style={{ fontSize: 18 }}>★</span>
+              <div>
+                <strong style={{ color: '#4A14B5' }}>Candidatando ao Comprador {String(candidature.leadId).toUpperCase().slice(0, 1)}</strong>
+                {candidature.region && <span style={{ color: 'var(--ink-soft, #4A4548)', marginLeft: 6 }}>· {candidature.region}</span>}
+              </div>
+            </div>
+          )}
           <div className="chat-progress-bar"><span style={{ width: `${progressPct}%` }} /></div>
           <div className="chat-body" ref={bodyRef}>
             {history.map((m, i) => (
