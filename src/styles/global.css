@@ -934,6 +934,53 @@ footer.foot { position: relative; overflow: hidden; }
 }
 .chat-send:hover { background: var(--brand); }
 .chat-send:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* §11.13 M2 (2026-05-25): autocomplete IBGE pro step cidade */
+.autocomplete-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.autocomplete-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 16px 0;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--paper-warm);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 120ms, background 120ms;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+}
+.autocomplete-item:hover {
+  border-color: var(--brand);
+  background: var(--brand-soft, rgba(111, 45, 225, 0.06));
+}
+.autocomplete-item-free {
+  border-style: dashed;
+  font-style: italic;
+}
+.autocomplete-city { font-weight: 500; }
+.autocomplete-uf {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-mute);
+  background: var(--line);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
 .chat-confirm {
   display: flex;
   gap: 8px;

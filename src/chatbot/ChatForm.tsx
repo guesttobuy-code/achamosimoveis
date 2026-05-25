@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Check } from '../components/icons'
 import CardIcon from './CardIcon'
+import AutocompleteInput from './AutocompleteInput'
 import { BUYER_STEPS, SELLER_STEPS, buildSummary, maskPhone } from './steps'
 import type { Answers, Step, StepOption } from './steps'
 import type { NavigateFn } from '../types'
@@ -282,6 +283,16 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
             </button>
           ))}
         </div>
+      )
+    } else if (currentStep.kind === 'autocomplete') {
+      // §11.13 M2 (2026-05-25): step `cidade` IBGE autocomplete (cobertura nacional).
+      // AutocompleteInput renderiza próprio input — não usa chat-input-row global.
+      control = (
+        <AutocompleteInput
+          key={`ctrl-${stepIdx}`}
+          placeholder={currentStep.placeholder}
+          onSelect={(value, label) => commitAnswer(currentStep, value, label)}
+        />
       )
     } else if (currentStep.kind === 'summary') {
       const summary = buildSummary(role, answers)

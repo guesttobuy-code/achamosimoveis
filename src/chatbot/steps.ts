@@ -2,7 +2,7 @@
    Chatbot step definitions (buyer + seller flows)
    ============================================ */
 
-export type StepKind = 'text' | 'cards' | 'chips' | 'phone' | 'email' | 'summary'
+export type StepKind = 'text' | 'cards' | 'chips' | 'phone' | 'email' | 'summary' | 'autocomplete'
 
 export type StepOption = {
   value: string
@@ -46,17 +46,13 @@ export const BUYER_STEPS: Step[] = [
     validate: (v) => v.trim().length >= 2 || 'Me diz pelo menos 2 caracteres :)',
   },
   {
+    // §11.13 M2 (2026-05-25): cidade vira autocomplete IBGE (cobertura nacional).
+    // Antes: 6 cards fixos (SP_CAP/RJ_CAP/MG_CAP + interiores). Agora: ~5570 municípios.
+    // Backend já aceita string literal via fallback `|| a.cidade` no CITY_MAP.
     id: 'cidade',
-    prompts: (s) => [`Prazer, ${s.nome.split(' ')[0]}! Em qual região você quer comprar?`],
-    kind: 'cards',
-    options: [
-      { value: 'SP_CAP',  label: 'São Paulo',      sub: 'Capital · SP',        icon: 'pin' },
-      { value: 'RJ_CAP',  label: 'Rio de Janeiro', sub: 'Capital · RJ',        icon: 'pin' },
-      { value: 'MG_CAP',  label: 'Belo Horizonte', sub: 'Capital · MG',        icon: 'pin' },
-      { value: 'SP_INT',  label: 'Interior de SP', sub: 'Outras cidades · SP', icon: 'pin' },
-      { value: 'RJ_INT',  label: 'Interior do RJ', sub: 'Outras cidades · RJ', icon: 'pin' },
-      { value: 'MG_INT',  label: 'Interior de MG', sub: 'Outras cidades · MG', icon: 'pin' },
-    ],
+    prompts: (s) => [`Prazer, ${s.nome.split(' ')[0]}! Em qual cidade você quer comprar?`],
+    kind: 'autocomplete',
+    placeholder: 'Digite a cidade (ex: Belo Horizonte)',
   },
   {
     id: 'bairros',
@@ -184,17 +180,11 @@ export const SELLER_STEPS: Step[] = [
     ],
   },
   {
+    // §11.13 M2 (2026-05-25): cidade autocomplete IBGE (mesmo do BUYER_STEPS).
     id: 'cidade',
-    prompts: ['Em qual região o imóvel está?'],
-    kind: 'cards',
-    options: [
-      { value: 'SP_CAP', label: 'São Paulo',      sub: 'Capital · SP',        icon: 'pin' },
-      { value: 'RJ_CAP', label: 'Rio de Janeiro', sub: 'Capital · RJ',        icon: 'pin' },
-      { value: 'MG_CAP', label: 'Belo Horizonte', sub: 'Capital · MG',        icon: 'pin' },
-      { value: 'SP_INT', label: 'Interior de SP', sub: 'Outras cidades · SP', icon: 'pin' },
-      { value: 'RJ_INT', label: 'Interior do RJ', sub: 'Outras cidades · RJ', icon: 'pin' },
-      { value: 'MG_INT', label: 'Interior de MG', sub: 'Outras cidades · MG', icon: 'pin' },
-    ],
+    prompts: ['Em qual cidade fica o imóvel?'],
+    kind: 'autocomplete',
+    placeholder: 'Digite a cidade (ex: Belo Horizonte)',
   },
   { id: 'bairro', prompts: ['Qual o bairro?'], kind: 'text', placeholder: 'Ex: Lourdes' },
   {
@@ -418,6 +408,8 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
     com: 'Comercial',
     galpao: 'Galpão',
   }
+  // Legacy: códigos antigos (SP_CAP etc) — mantém compat com sessões salvas.
+  // §11.13 M2 (2026-05-25): formato novo é literal "Nome/UF" (ex: "Belo Horizonte/MG").
   const cidadeMap: Record<string, string> = {
     SP_CAP: 'São Paulo / SP (capital)',
     RJ_CAP: 'Rio de Janeiro / RJ (capital)',
@@ -425,6 +417,16 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
     SP_INT: 'Interior de São Paulo',
     RJ_INT: 'Interior do Rio de Janeiro',
     MG_INT: 'Interior de Minas Gerais',
+  }
+  function formatCidade(raw: string | undefined): string {
+    if (!raw) return '—'
+    if (cidadeMap[raw]) return cidadeMap[raw]
+    // Formato novo "Nome/UF" → exibe "Nome / UF" (espaços ao redor da barra)
+    if (raw.includes('/')) {
+      const [nome, uf] = raw.split('/').map((s) => s.trim())
+      return uf ? `${nome} / ${uf}` : nome
+    }
+    return raw
   }
   const faixaMap: Record<string, string> = {
     // Buyer (5 faixas amplas, mantém compat)
@@ -450,7 +452,7 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
   if (role === 'buyer') {
     return [
       ['Nome',         a.nome || '—'],
-      ['Cidade',       cidadeMap[a.cidade] || '—'],
+      ['Cidade',       formatCidade(a.cidade)],
       ['Bairros',      a.bairros || 'Aberto'],
       ['Tipo',         tipoMap[a.tipo] || '—'],
       ['Dormitórios',  a.dorms === 'tanto' ? 'Tanto faz' : (a.dorms || '—')],
@@ -487,7 +489,7 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
   const rows: [string, string][] = [
     ['Nome',             a.nome || '—'],
     ['Tipo',             tipoMap[a.tipo] || '—'],
-    ['Cidade',           cidadeMap[a.cidade] || '—'],
+    ['Cidade',           formatCidade(a.cidade)],
     ['Bairro',           a.bairro || '—'],
   ]
   // §11.13 M5 condicionais: só mostra campos que fazem sentido pro tipo
