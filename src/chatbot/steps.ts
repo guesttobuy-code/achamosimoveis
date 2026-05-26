@@ -2,7 +2,7 @@
    Chatbot step definitions (buyer + seller flows)
    ============================================ */
 
-export type StepKind = 'text' | 'cards' | 'chips' | 'phone' | 'email' | 'summary' | 'autocomplete'
+export type StepKind = 'text' | 'cards' | 'chips' | 'chips-multi' | 'phone' | 'email' | 'summary' | 'autocomplete'
 
 export type StepOption = {
   value: string
@@ -22,6 +22,8 @@ export type Step = {
   optional?: boolean
   validate?: (v: string) => true | string
   role?: 'buyer' | 'seller'
+  /** Para kind='chips-multi': label do botão de confirmação (default: "Continuar") */
+  confirmLabel?: string
 }
 
 export const BUYER_STEPS: Step[] = [
@@ -120,10 +122,28 @@ export const BUYER_STEPS: Step[] = [
     ],
   },
   {
+    // #202 (2026-05-25): virou chips-multi (multi-toggle) — Rafael pediu cards tickáveis.
     id: 'extras',
-    prompts: ['Tem alguma característica essencial? (vaga de garagem, varanda, sol da manhã, pet-friendly...)'],
-    kind: 'text',
-    placeholder: 'Ex: 2 vagas, varanda gourmet, perto de metrô',
+    prompts: [
+      'Tem alguma característica essencial?',
+      'Toque nas que importam pra você (pode marcar várias) e clique Continuar.',
+    ],
+    kind: 'chips-multi',
+    options: [
+      { value: 'vaga',       label: '🚗 Vaga de garagem' },
+      { value: 'duas-vagas', label: '🚗🚗 2+ vagas' },
+      { value: 'varanda',    label: '🌿 Varanda' },
+      { value: 'sol-manha',  label: '☀️ Sol da manhã' },
+      { value: 'pet',        label: '🐶 Pet-friendly' },
+      { value: 'mobiliado',  label: '🛋️ Mobiliado' },
+      { value: 'lazer',      label: '🏊 Área de lazer' },
+      { value: 'metro',      label: '🚇 Próximo metrô' },
+      { value: 'andar-alto', label: '🏙️ Andar alto' },
+      { value: 'sacada-g',   label: '🍷 Sacada gourmet' },
+      { value: 'reformado',  label: '✨ Reformado' },
+      { value: 'silencioso', label: '🤫 Bairro silencioso' },
+    ],
+    confirmLabel: 'Continuar',
     optional: true,
   },
   {
@@ -446,6 +466,19 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
   }
   const prazoMap: Record<string, string> = { urg: 'Até 3 meses', med: '3 a 6 meses', cal: 'Mais de 6 meses', rs: 'Sem prazo definido' }
   const pagMap: Record<string, string> = { AV: 'À vista', FIN: 'Financiamento', MIX: 'Misto', NSEI: 'Ainda decidindo' }
+  // #202: labels dos chips-multi do step `extras` (must_have).
+  const extrasLabelMap: Record<string, string> = {
+    vaga: 'Vaga de garagem', 'duas-vagas': '2+ vagas',
+    varanda: 'Varanda', 'sol-manha': 'Sol da manhã',
+    pet: 'Pet-friendly', mobiliado: 'Mobiliado',
+    lazer: 'Área de lazer', metro: 'Próximo metrô',
+    'andar-alto': 'Andar alto', 'sacada-g': 'Sacada gourmet',
+    reformado: 'Reformado', silencioso: 'Bairro silencioso',
+  }
+  function formatExtrasLabels(raw: string | undefined): string {
+    if (!raw) return ''
+    return raw.split(',').map(v => extrasLabelMap[v.trim()] || v.trim()).filter(Boolean).join(', ')
+  }
   const exclMap: Record<string, string> = { sim: 'Com exclusividade', nao: 'Sem exclusividade', conv: 'Quer conversar' }
   const fotoMap: Record<string, string> = { pro: 'Profissionais', cel: 'Celular', nao: 'Sem fotos', aj: 'Quer ajuda' }
 
@@ -459,7 +492,8 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
       ['Investimento', faixaMap[a.faixa] || '—'],
       ['Pagamento',    pagMap[a.pagamento] || '—'],
       ['Prazo',        prazoMap[a.prazo] || '—'],
-      ['Essenciais',   a.extras || '—'],
+      // #202: extras agora é CSV de chips-multi — exibir labels mapeados
+      ['Essenciais',   formatExtrasLabels(a.extras) || '—'],
       ['WhatsApp',     a.whatsapp || '—'],
     ]
   }

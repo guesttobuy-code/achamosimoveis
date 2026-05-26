@@ -284,6 +284,19 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
           ))}
         </div>
       )
+    } else if (currentStep.kind === 'chips-multi' && currentStep.options) {
+      // #202 (2026-05-25): chips multi-toggle — usuario clica varios + confirma
+      control = (
+        <ChipsMulti
+          key={`ctrl-${stepIdx}`}
+          step={currentStep}
+          onConfirm={(values, labels) => {
+            const csvValue = values.join(',')
+            const displayLabel = labels.length > 0 ? labels.join(', ') : '— pular —'
+            void commitAnswer(currentStep, csvValue, displayLabel)
+          }}
+        />
+      )
     } else if (currentStep.kind === 'autocomplete') {
       // §11.13 M2 (2026-05-25): step `cidade` IBGE autocomplete (cobertura nacional).
       // AutocompleteInput renderiza próprio input — não usa chat-input-row global.
@@ -474,6 +487,81 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
             </div>
           )}
         </div>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * #202 (2026-05-25): ChipsMulti — kind='chips-multi' multi-toggle UI.
+ * Clica chip → toggle selected; ao clicar Continuar → commit CSV pro answers.
+ * Suporta `optional` (botão "Pular" se nenhum selecionado).
+ */
+function ChipsMulti({
+  step,
+  onConfirm,
+}: {
+  step: Step
+  onConfirm: (values: string[], labels: string[]) => void
+}) {
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+
+  function toggle(value: string) {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(value)) next.delete(value)
+      else next.add(value)
+      return next
+    })
+  }
+
+  const selectedValues = Array.from(selected)
+  const selectedLabels = (step.options || [])
+    .filter(opt => selected.has(opt.value))
+    .map(opt => opt.label)
+  const hasSelection = selectedValues.length > 0
+  const canSkip = step.optional && !hasSelection
+  const confirmLabel = step.confirmLabel || 'Continuar'
+
+  return (
+    <div className="chips-multi-wrap">
+      <div className="chip-row">
+        {(step.options || []).map(opt => {
+          const isSelected = selected.has(opt.value)
+          return (
+            <button
+              key={opt.value}
+              className={`chip chip-multi ${isSelected ? 'chip-selected' : ''}`}
+              onClick={() => toggle(opt.value)}
+              type="button"
+              aria-pressed={isSelected}
+            >
+              {isSelected && <span className="chip-check">✓ </span>}
+              {opt.label}
+            </button>
+          )
+        })}
+      </div>
+      <div className="chip-row chip-row-actions">
+        {canSkip && (
+          <button
+            className="btn btn-ghost"
+            onClick={() => onConfirm([], [])}
+            type="button"
+          >
+            Pular
+          </button>
+        )}
+        <button
+          className="btn btn-brand"
+          onClick={() => onConfirm(selectedValues, selectedLabels)}
+          disabled={!hasSelection && !step.optional}
+          type="button"
+        >
+          {hasSelection
+            ? `${confirmLabel} (${selectedValues.length})`
+            : confirmLabel}
+        </button>
       </div>
     </div>
   )

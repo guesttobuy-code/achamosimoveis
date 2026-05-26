@@ -4,23 +4,44 @@
  * Roadmap §11.12 E3 — chatbot deslogado salva contato + briefing/listing
  * no funil Radar do CRM Rendizy imediatamente, sem precisar de auth.
  *
- * Configurar via env:
- *   VITE_ACHAMOS_API_URL  ex: https://rzbfrmvyxcxxtpdraudz.supabase.co/functions/v1/rendizy-server
- *   VITE_SUPABASE_ANON_KEY  apikey publica do Supabase (anon role)
+ * #203 (2026-05-25): detecção automática de ambiente por hostname.
  *
- * Sem essas vars, fallback pro staging URL hardcoded — usado só em dev
- * local e nunca deve chegar em prod (build CI valida).
+ * Resolução de Supabase (ordem de prioridade):
+ *   1. VITE_ACHAMOS_API_URL/VITE_SUPABASE_ANON_KEY (env Vercel se setadas)
+ *   2. Detecção por hostname:
+ *      - localhost / *.local → STAGING
+ *      - URL contém 'staging' / 'preview' / 'feature-' → STAGING
+ *      - URL contém 'achamosimoveis.com.br' / 'achamosimoveis.vercel.app' → PROD
+ *      - default (build sem env, hostname desconhecido) → PROD (mais seguro pra release)
+ *
+ * Pra forçar staging num deploy específico, setar VITE_ACHAMOS_API_URL no Vercel.
  */
 
-const FALLBACK_API_URL = 'https://rzbfrmvyxcxxtpdraudz.supabase.co/functions/v1/rendizy-server'
-const FALLBACK_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6YmZybXZ5eGN4eHRwZHJhdWR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMDE2MDksImV4cCI6MjA5MDU3NzYwOX0.dumPp3S26uaG7Pv2Gs-UQhEq1UB6rkMuW1O_zJewFds'
+const STAGING_API_URL = 'https://rzbfrmvyxcxxtpdraudz.supabase.co/functions/v1/rendizy-server'
+const STAGING_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6YmZybXZ5eGN4eHRwZHJhdWR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMDE2MDksImV4cCI6MjA5MDU3NzYwOX0.dumPp3S26uaG7Pv2Gs-UQhEq1UB6rkMuW1O_zJewFds'
+
+const PROD_API_URL = 'https://odcgnzfremrqnvtitpcc.supabase.co/functions/v1/rendizy-server'
+// anon key pública do projeto prod (publishable — anon role apenas)
+const PROD_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kY2duemZyZW1ycW52dGl0cGNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTI4NzksImV4cCI6MjA5MDIxMjg3OX0.KDhStyE_1JdyojnFK5vYSNCkVET-E87HCAhANDYn_eU'
+
+function detectIsStaging(): boolean {
+  if (typeof window === 'undefined') return false // SSR → assume prod
+  const host = window.location.hostname.toLowerCase()
+  if (host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local')) return true
+  if (host.includes('staging') || host.includes('preview') || host.includes('feature-')) return true
+  return false
+}
 
 function getApiUrl(): string {
-  return (import.meta.env.VITE_ACHAMOS_API_URL as string | undefined) || FALLBACK_API_URL
+  const envUrl = import.meta.env.VITE_ACHAMOS_API_URL as string | undefined
+  if (envUrl) return envUrl
+  return detectIsStaging() ? STAGING_API_URL : PROD_API_URL
 }
 
 function getAnonKey(): string {
-  return (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) || FALLBACK_ANON_KEY
+  const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
+  if (envKey) return envKey
+  return detectIsStaging() ? STAGING_ANON_KEY : PROD_ANON_KEY
 }
 
 export type ChatbotRole = 'buyer' | 'seller'
