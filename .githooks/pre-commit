@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+set -e
+
+GIT_ROOT="$(git rev-parse --show-toplevel)"
+cd "$GIT_ROOT"
+
+if [ ! -f "package.json" ]; then
+  echo "[pre-commit] package.json não encontrado em $GIT_ROOT"
+  exit 1
+fi
+
+echo "[pre-commit] Rodando guards leves antes do commit..."
+
+# Guards rápidos primeiro (fail-fast)
+npm run --silent guard:env-leak
+npm run --silent guard:secrets
+npm run --silent guard:supabase-direct
+
+# Type check (mais lento, ~5-15s)
+echo "[pre-commit] TypeScript check..."
+npm run --silent typecheck
+
+echo "[pre-commit] ✅ OK"
