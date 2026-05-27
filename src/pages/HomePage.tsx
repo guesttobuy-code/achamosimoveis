@@ -241,7 +241,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
               <div className="cr-media">
                 <figure className="cr-photo cr-photo-lg">
                   <img
-                    src="/assets/rota-corretor.png"
+                    src="/assets/rota-corretor.webp"
                     alt="Cliente e corretor planejam a rota de visitas pelo Rio de Janeiro, com tablet mostrando os imóveis a visitar"
                     loading="lazy"
                   />
@@ -259,7 +259,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
 
                 <figure className="cr-photo cr-photo-sm">
                   <img
-                    src="/assets/corretor-cliente-carro.png"
+                    src="/assets/corretor-cliente-carro.webp"
                     alt="Corretor da Achamos conversa com cliente no caminho para visitar imóveis no Rio"
                     loading="lazy"
                   />

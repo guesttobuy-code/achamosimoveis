@@ -7,7 +7,7 @@ import type { NavigateFn } from '../types'
  * Dashboard mock (Oi Carolina + cards de imóveis com match score) + chat mock
  * (Mariana corretora com fotos enviadas pelo vendedor) + 2 callouts flutuantes.
  *
- * Imagens em /public/assets/ (referenciadas como /assets/imovel-X.png).
+ * Imagens em /public/assets/ (referenciadas como /assets/imovel-X.webp).
  * Portado de `[pasta limpa]/achamos-site/src/pages.jsx:132-329` (JSX → TSX).
  */
 export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
@@ -88,7 +88,7 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
                 <div className="ip-cards">
                   <div className="ip-card ip-card-new">
                     <div className="ip-thumb ip-thumb-photo" aria-hidden="true">
-                      <img src="/assets/imovel-varanda-lagoa.png" alt="" loading="lazy" />
+                      <img src="/assets/imovel-varanda-lagoa.webp" alt="" loading="lazy" />
                       <span className="ip-thumb-tag">FOTO · vendedor</span>
                     </div>
                     <div className="ip-card-body">
@@ -105,7 +105,7 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
 
                   <div className="ip-card">
                     <div className="ip-thumb ip-thumb-photo" aria-hidden="true">
-                      <img src="/assets/imovel-casa-jardim.png" alt="" loading="lazy" />
+                      <img src="/assets/imovel-casa-jardim.webp" alt="" loading="lazy" />
                       <span className="ip-thumb-tag">FOTO · vendedor</span>
                     </div>
                     <div className="ip-card-body">
@@ -121,7 +121,7 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
 
                   <div className="ip-card">
                     <div className="ip-thumb ip-thumb-photo" aria-hidden="true">
-                      <img src="/assets/imovel-piscina.png" alt="" loading="lazy" />
+                      <img src="/assets/imovel-piscina.webp" alt="" loading="lazy" />
                       <span className="ip-thumb-tag">FOTO · vendedor</span>
                     </div>
                     <div className="ip-card-body">
@@ -164,16 +164,16 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
                 <div className="ip-bubble ip-bubble-them ip-bubble-photos">
                   <div className="ip-photo-strip">
                     <div className="ip-photo">
-                      <img src="/assets/imovel-varanda-lagoa.png" alt="" loading="lazy" />
+                      <img src="/assets/imovel-varanda-lagoa.webp" alt="" loading="lazy" />
                     </div>
                     <div className="ip-photo">
-                      <img src="/assets/imovel-aereo-flamengo.png" alt="" loading="lazy" />
+                      <img src="/assets/imovel-aereo-flamengo.webp" alt="" loading="lazy" />
                     </div>
                     <div className="ip-photo">
-                      <img src="/assets/imovel-entrada.png" alt="" loading="lazy" />
+                      <img src="/assets/imovel-entrada.webp" alt="" loading="lazy" />
                     </div>
                     <div className="ip-photo ip-photo-more-wrap">
-                      <img src="/assets/imovel-escritorio.png" alt="" loading="lazy" />
+                      <img src="/assets/imovel-escritorio.webp" alt="" loading="lazy" />
                       <span className="ip-photo-more">+8</span>
                     </div>
                   </div>
