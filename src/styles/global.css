@@ -144,7 +144,8 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
+  padding-top: 14px;
+  padding-bottom: 14px;
   gap: 32px;
 }
 .nav-logo {
@@ -864,39 +865,6 @@ footer.foot { position: relative; overflow: hidden; }
   border-color: var(--brand);
 }
 .chip-emoji { font-size: 16px; margin-right: 6px; }
-
-/* #202 (2026-05-25): chips-multi (multi-toggle) */
-.chips-multi-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-self: flex-start;
-  max-width: 100%;
-  animation: bubbleIn 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-.chip-multi {
-  position: relative;
-  user-select: none;
-}
-.chip-multi:hover { background: var(--brand-soft, rgba(111, 45, 225, 0.06)); }
-.chip-multi.chip-selected {
-  background: var(--brand);
-  color: white;
-  border-color: var(--brand);
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(111, 45, 225, 0.3);
-}
-.chip-multi.chip-selected:hover {
-  background: var(--brand-deep, #4A14B5);
-  color: white;
-  filter: brightness(1.05);
-}
-.chip-check { font-weight: 700; margin-right: 4px; }
-.chip-row-actions {
-  margin-top: 4px;
-  justify-content: flex-end;
-  gap: 10px;
-}
 .chat-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -967,53 +935,6 @@ footer.foot { position: relative; overflow: hidden; }
 }
 .chat-send:hover { background: var(--brand); }
 .chat-send:disabled { opacity: 0.35; cursor: not-allowed; }
-
-/* §11.13 M2 (2026-05-25): autocomplete IBGE pro step cidade */
-.autocomplete-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.autocomplete-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px 16px 0;
-  max-height: 260px;
-  overflow-y: auto;
-}
-.autocomplete-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1.5px solid var(--line);
-  background: var(--paper-warm);
-  text-align: left;
-  cursor: pointer;
-  transition: border-color 120ms, background 120ms;
-  font-family: inherit;
-  font-size: 14px;
-  color: var(--ink);
-}
-.autocomplete-item:hover {
-  border-color: var(--brand);
-  background: var(--brand-soft, rgba(111, 45, 225, 0.06));
-}
-.autocomplete-item-free {
-  border-style: dashed;
-  font-style: italic;
-}
-.autocomplete-city { font-weight: 500; }
-.autocomplete-uf {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink-mute);
-  background: var(--line);
-  padding: 2px 8px;
-  border-radius: 6px;
-}
 .chat-confirm {
   display: flex;
   gap: 8px;
