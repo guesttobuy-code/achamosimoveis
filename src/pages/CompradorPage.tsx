@@ -6,7 +6,7 @@ import type { NavigateFn } from '../types'
 const TIMELINE = [
   { t: 'Briefing por chat', b: 'Você responde 8 perguntas curtas: cidade, tipo, dormitórios, faixa de valor, prazo, características essenciais e como pagar.' },
   { t: 'Validação humana', b: 'Em até 24h, um corretor da sua região entra em contato pra refinar o que você quer. Aqui é a hora de ajustar.' },
-  { t: 'Radar IA acionado', b: 'Aqui mora o diferencial. Algoritmos varrem nossa carteira, a rede de parceiros e — principalmente — identificam vendedores potenciais que ainda nem estão anunciando. Disparamos campanhas dirigidas pra despertar interesse desses vendedores anônimos.' },
+  { t: 'Direcionamento ativo', b: 'Aqui mora o diferencial. Mídia paga direcionada + curadoria humana identificam proprietários motivados — inclusive os que ainda nem pensaram em vender. Campanhas dirigidas despertam o interesse de quem tem o imóvel certo.' },
   { t: 'Filtro & curadoria', b: 'Você recebe entre 3 e 5 opções, com fotos, vídeo de tour, e nossa avaliação honesta dos pontos fortes e fracos de cada uma — muitas vezes imóveis off-market.' },
   { t: 'Visitas guiadas', b: 'Marcamos as visitas no seu horário. Vamos juntos — e fazemos as perguntas certas pro vendedor.' },
   { t: 'Negociação', b: 'A gente conduz a oferta, contraoferta e fechamento. Sua barganha é nossa barganha.' },
@@ -30,10 +30,10 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
           <Reveal>
             <span className="eyebrow">Para quem compra</span>
             <h1 className="page-hero-title">
-              Você diz o que quer.<br />A gente <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>vai atrás</em>.
+              Pare de caçar imóvel.<br />Se você é comprador <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>real</em>, o melhor do mercado vem até você.
             </h1>
             <p className="lead" style={{ fontSize: 22 }}>
-              Esquece passar tarde inteira rolando portal de imóveis. Aqui o comprador é a estrela — a gente <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>vai à caça</em>.
+              Sua busca vira direcionamento ativo nas redes sociais. Proprietários motivados se apresentam — <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>inclusive aqueles cujo imóvel nem estava à venda</em>. Você escolhe entre os melhores.
             </p>
             <div style={{ display: 'flex', gap: 10, marginTop: 28, flexWrap: 'wrap' }}>
               <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
@@ -229,9 +229,12 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
         <div className="container">
           <Reveal>
             <span className="eyebrow">O que está incluído</span>
-            <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '12px 0 40px', maxWidth: '16ch' }}>
-              Sem custo pra você, comprador.
+            <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '12px 0 16px', maxWidth: '16ch' }}>
+              Tudo isso, com você.
             </h2>
+            <p className="lead" style={{ fontSize: 17, maxWidth: '56ch', marginBottom: 40 }}>
+              <strong>Light é grátis.</strong> Spotlight é R$ 2.500 — <strong>creditável no fechamento</strong> (volta 100% quando você fecha pela Achamos).
+            </p>
           </Reveal>
           <Reveal>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14 }}>
