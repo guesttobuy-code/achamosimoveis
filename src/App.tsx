@@ -20,11 +20,11 @@ import ContatoPage from './pages/ContatoPage'
 import ComecarPage from './pages/ComecarPage'
 import ChatPage from './pages/ChatPage'
 
-// Theme: respeita preferência salva pelo ThemeToggle (default = dark).
+// Theme: respeita preferência salva pelo ThemeToggle (default = light).
 // Setado uma vez no mount; ThemeToggle no Nav atualiza depois.
 function useTheme() {
   useEffect(() => {
-    let initial = 'dark'
+    let initial = 'light'
     try {
       const saved = localStorage.getItem('achamos-theme')
       if (saved === 'light' || saved === 'dark') initial = saved

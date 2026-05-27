@@ -11,6 +11,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <title>Achamos Imóveis — O vendedor te procura.</title>
+    <script>
+      // Seta data-theme ANTES do bundle React montar — evita flash
+      // de tema errado no primeiro paint e garante que ThemeToggle
+      // leia o valor correto no mount inicial. Default: light.
+      (function () {
+        try {
+          var saved = localStorage.getItem('achamos-theme');
+          var theme = saved === 'light' || saved === 'dark' ? saved : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
