@@ -1,6 +1,7 @@
 import Reveal from '../components/Reveal'
 import Marquee from '../components/Marquee'
 import DiscoverySection from '../components/DiscoverySection'
+import InsidePreview from '../components/InsidePreview'
 import FinalCTA from '../components/FinalCTA'
 import { ArrowRight, ArrowUpRight } from '../components/icons'
 import type { NavigateFn } from '../types'
@@ -235,9 +236,50 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 </div>
               </div>
             </Reveal>
+
+            <Reveal delay={140}>
+              <div className="cr-media">
+                <figure className="cr-photo cr-photo-lg">
+                  <img
+                    src="/assets/rota-corretor.png"
+                    alt="Cliente e corretor planejam a rota de visitas pelo Rio de Janeiro, com tablet mostrando os imóveis a visitar"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    <span className="cr-photo-eyebrow">
+                      <span className="cr-photo-dot" />
+                      Rota planejada
+                    </span>
+                    <strong>Cada visita é desenhada antes da saída.</strong>
+                    <span className="cr-photo-meta">
+                      Quatro paradas · Ipanema · Copacabana · Flamengo · Centro
+                    </span>
+                  </figcaption>
+                </figure>
+
+                <figure className="cr-photo cr-photo-sm">
+                  <img
+                    src="/assets/corretor-cliente-carro.png"
+                    alt="Corretor da Achamos conversa com cliente no caminho para visitar imóveis no Rio"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    <span className="cr-photo-eyebrow">
+                      <span className="cr-photo-dot" />
+                      Corretor com você
+                    </span>
+                    <strong>A gente leva. A gente acompanha.</strong>
+                    <span className="cr-photo-meta">Visitas guiadas por corretores CRECI</span>
+                  </figcaption>
+                </figure>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
+
+      {/* INSIDE PREVIEW — "Lá dentro, é o vendedor que vem até você" */}
+      <InsidePreview navigate={navigate} />
 
       {/* COMO FUNCIONA — RESUMO */}
       <section className="surface-warm">
