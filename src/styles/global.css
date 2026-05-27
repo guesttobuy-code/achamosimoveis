@@ -66,6 +66,17 @@
   --inverse-border: rgba(244, 240, 235, 0.06);
 }
 
+/* Dark-mode contrast fix: pílulas .hero-tag e .hero-phone-caption usam
+   `color: var(--brand-deep)` (#4A14B5 — roxo escuro) sobre fundo --brand-soft.
+   Em dark mode --brand-soft fica rgba transparente e --brand-deep continua
+   escuro → texto ilegível sobre fundo preto. Override pra lilás claro. */
+[data-theme="dark"] .hero-tag,
+[data-theme="dark"] .hero-phone-caption {
+  background: rgba(111, 45, 225, 0.28);
+  color: #E4D6FF;
+  border: 1px solid rgba(111, 45, 225, 0.35);
+}
+
 * { box-sizing: border-box; }
 html, body {
   margin: 0; padding: 0;
