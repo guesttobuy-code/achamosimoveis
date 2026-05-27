@@ -18,17 +18,17 @@ export default function Footer({ navigate }: FooterProps) {
           <div>
             <h4>Achamos Imóveis</h4>
             <div style={{ fontSize: 14.5, opacity: 0.85, maxWidth: 280 }}>
-              A imobiliária que inverte o jogo: o vendedor te procura, com IA e campanhas dirigidas pra encontrar a oportunidade certa.
+              A imobiliária que inverte o jogo: vendedores oferecendo as melhores oportunidades pra você comprador.
             </div>
             <div style={{ marginTop: 22, fontFamily: 'var(--f-mono)', fontSize: 11.5, opacity: 0.5, letterSpacing: '0.08em' }}>
-              CRECI-SP • CRECI-RJ • CRECI-MG
+              CRECI-RJ • IMOBILIÁRIA DIGITAL
             </div>
           </div>
           <div>
             <h4>Para comprar</h4>
             <ul>
               <li onClick={() => navigate('comprador')}>Como funciona</li>
-              <li onClick={() => navigate('comecar')}>Iniciar agora</li>
+              <li onClick={() => navigate('comecar')}>Iniciar busca</li>
               <li onClick={() => navigate('sobre')}>Quem somos</li>
             </ul>
           </div>
@@ -41,18 +41,40 @@ export default function Footer({ navigate }: FooterProps) {
             </ul>
           </div>
           <div>
-            <h4>Onde estamos</h4>
+            <h4>Contato</h4>
             <ul>
-              <li>São Paulo — SP</li>
-              <li>Rio de Janeiro — RJ</li>
-              <li>Belo Horizonte — MG</li>
-              <li style={{ opacity: 0.5, fontSize: 12.5, paddingTop: 4 }}>+ todo o estado de SP, RJ e MG</li>
+              <li>
+                <a href="mailto:oi@achamosimoveis.com.br" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  oi@achamosimoveis.com.br
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/5521995885999" target="_blank" rel="noopener" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  +55 21 9 9588-5999 · WhatsApp
+                </a>
+              </li>
+              <li style={{ paddingTop: 4 }}>
+                <span style={{ opacity: 0.6 }}>Rio de Janeiro · todo o estado</span>
+              </li>
             </ul>
           </div>
         </div>
+
+        <div className="foot-legal">
+          <div className="foot-legal-block">
+            <div className="foot-legal-title">Bora Vender Muito BVM Aceleradora de Vendas LTDA</div>
+            <div className="foot-legal-line">CNPJ 46.908.483/0001-28</div>
+          </div>
+          <div className="foot-legal-block">
+            <div className="foot-legal-title">Endereço</div>
+            <div className="foot-legal-line">Av. Treze de Maio, 47 · Apt 1609 · Centro</div>
+            <div className="foot-legal-line">Rio de Janeiro — RJ · CEP 20031-921</div>
+          </div>
+        </div>
+
         <div className="foot-bottom">
           <span>© 2026 Achamos Imóveis — Todos os direitos reservados</span>
-          <span>v1.0</span>
+          <span>Operado por Bora Vender Muito BVM Aceleradora de Vendas LTDA</span>
         </div>
       </div>
     </footer>

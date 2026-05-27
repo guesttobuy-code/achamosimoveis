@@ -10,14 +10,8 @@ const FAQS = [
   { q: 'Em quanto tempo eu acho meu imóvel?', a: 'Depende muito do que você procura. Em média, primeira oferta em 48h e fechamento em 30-60 dias.' },
   { q: 'Posso vender sem exclusividade?', a: 'Pode. A gente trabalha dos dois jeitos. Com exclusividade investimos mais em divulgação; sem ela você compartilha com outras imobiliárias.' },
   { q: 'Vocês fazem financiamento?', a: 'Não somos banco, mas temos parceria com vários e a gente cuida da papelada inteira pra você.' },
-  { q: 'E aluguel? Temporada?', a: 'Hoje nossa operação tem aluguel residencial dentro do portal, e o "Se hospede para comprar" — programa pra você vivenciar o imóvel antes de fechar a compra.' },
-  { q: 'Trabalham em quais estados?', a: 'São Paulo, Rio de Janeiro e Minas Gerais — atendemos todo o estado em cada um, mas a prioridade são as capitais e regiões metropolitanas.' },
-]
-
-const OFFICES: [string, string][] = [
-  ['São Paulo',      'Av. Brigadeiro Faria Lima, 2055 · Itaim'],
-  ['Rio de Janeiro', 'Av. Atlântica, 1820 · Copacabana'],
-  ['Belo Horizonte', 'Rua dos Inconfidentes, 1190 · Funcionários'],
+  { q: 'E aluguel? Temporada?', a: 'Hoje nossa operação é foco em venda. Aluguel de temporada é institucional — atendemos sob demanda mas não temos catálogo navegável ainda.' },
+  { q: 'Trabalham em quais estados?', a: 'Foco total no estado do Rio de Janeiro — capital, região metropolitana, Região dos Lagos, Serra e Costa Verde.' },
 ]
 
 export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
@@ -48,40 +42,61 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
 
       <section>
         <div className="container">
-          <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60 }} className="contact-grid">
+            {/* CONTACT INFO */}
             <Reveal>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
                 <div>
                   <div className="eyebrow" style={{ marginBottom: 8 }}>WhatsApp</div>
-                  <div style={{ fontFamily: 'var(--f-display)', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}>
-                    (31) 9 9999-9999
-                  </div>
+                  <a
+                    href="https://wa.me/5521995885999"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ fontFamily: 'var(--f-display)', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em', color: 'inherit', textDecoration: 'none' }}
+                  >
+                    +55 21 9 9588-5999
+                  </a>
                   <div style={{ color: 'var(--ink-soft)', fontSize: 14, marginTop: 4 }}>Atendimento seg–sáb · 8h às 20h</div>
                 </div>
                 <div>
                   <div className="eyebrow" style={{ marginBottom: 8 }}>E-mail</div>
-                  <div style={{ fontFamily: 'var(--f-display)', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}>
+                  <a
+                    href="mailto:oi@achamosimoveis.com.br"
+                    style={{ fontFamily: 'var(--f-display)', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em', color: 'inherit', textDecoration: 'none' }}
+                  >
                     oi@achamosimoveis.com.br
-                  </div>
+                  </a>
                 </div>
                 <div>
-                  <div className="eyebrow" style={{ marginBottom: 16 }}>Escritórios</div>
-                  <div style={{ display: 'grid', gap: 14 }}>
-                    {OFFICES.map(([city, addr]) => (
-                      <div key={city}>
-                        <div style={{ fontWeight: 600, fontSize: 15 }}>{city}</div>
-                        <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>{addr}</div>
-                      </div>
-                    ))}
+                  <div className="eyebrow" style={{ marginBottom: 16 }}>Sede</div>
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: 16, fontFamily: 'var(--f-display)', letterSpacing: '-0.015em' }}>Rio de Janeiro — RJ</div>
+                    <div style={{ color: 'var(--ink-soft)', fontSize: 14, marginTop: 4 }}>Av. Treze de Maio, 47 · Apt 1609 · Centro</div>
+                    <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>CEP 20031-921 · Rio de Janeiro — RJ</div>
+                  </div>
+                  <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--line-soft)' }}>
+                    <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-mute)', marginBottom: 6 }}>
+                      Razão social
+                    </div>
+                    <div style={{ fontSize: 13.5, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+                      Bora Vender Muito BVM Aceleradora de Vendas LTDA
+                    </div>
+                    <div style={{ fontFamily: 'var(--f-mono)', fontSize: 12, color: 'var(--ink-mute)', marginTop: 4 }}>
+                      CNPJ 46.908.483/0001-28
+                    </div>
+                  </div>
+                  <div style={{ marginTop: 14, fontFamily: 'var(--f-mono)', fontSize: 11.5, color: 'var(--brand)', letterSpacing: '0.04em' }}>
+                    ★ Atendimento em todo o estado do Rio de Janeiro
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 8, paddingTop: 8 }}>
-                  <button className="btn btn-brand" onClick={() => navigate('comprar')}>Quero comprar <ArrowRight /></button>
+                  <button className="btn btn-brand" onClick={() => navigate('comecar')}>Quero comprar <ArrowRight /></button>
                   <button className="btn btn-ghost" onClick={() => navigate('vender')}>Quero vender</button>
                 </div>
               </div>
             </Reveal>
 
+            {/* FORM */}
             <Reveal delay={100}>
               {!sent ? (
                 <form className="card" style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 14 }} onSubmit={submit}>
@@ -114,7 +129,7 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
                     width: 60, height: 60, borderRadius: 999, background: 'var(--brand)',
                     color: 'white', display: 'grid', placeItems: 'center', margin: '0 auto 20px'
                   }}>
-                    <Check size={28} />
+                    <Check />
                   </div>
                   <div className="display" style={{ fontSize: 30, letterSpacing: '-0.02em' }}>Mensagem enviada!</div>
                   <div style={{ color: 'var(--ink-soft)', marginTop: 10, maxWidth: '32ch', margin: '10px auto 0' }}>
@@ -127,6 +142,7 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
         </div>
       </section>
 
+      {/* FAQ */}
       <section className="surface-warm">
         <div className="container">
           <Reveal>

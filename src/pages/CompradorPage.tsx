@@ -33,7 +33,7 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
               Você diz o que quer.<br />A gente <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>vai atrás</em>.
             </h1>
             <p className="lead" style={{ fontSize: 22 }}>
-              Esquece passar tarde inteira rolando portal de imóveis. Aqui o comprador é a estrela — a gente faz o caça.
+              Esquece passar tarde inteira rolando portal de imóveis. Aqui o comprador é a estrela — a gente <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>vai à caça</em>.
             </p>
             <div style={{ display: 'flex', gap: 10, marginTop: 28, flexWrap: 'wrap' }}>
               <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
@@ -73,6 +73,153 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
                   </div>
                 ))}
               </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="cp-na-pratica">
+        <div className="container">
+          <Reveal>
+            <div className="cp-head">
+              <span className="eyebrow">Na sua tela, de verdade</span>
+              <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '14px 0 14px', letterSpacing: '-0.025em' }}>
+                As oportunidades chegam <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>até você</em>.
+              </h2>
+              <p className="lead" style={{ fontSize: 17 }}>
+                Você acompanha tudo pelo seu painel — com fotos, características e a porcentagem de match com seu briefing. É igual receber mensagem no celular: a equipe te avisa quando aparece imóvel novo.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="cp-visuals">
+            {/* MOCKUP 1 — Dashboard view */}
+            <Reveal>
+              <div className="cp-device">
+                <div className="cp-device-chrome">
+                  <div className="cp-device-dots">
+                    <span className="cp-device-dot" />
+                    <span className="cp-device-dot" />
+                    <span className="cp-device-dot" />
+                  </div>
+                  <div className="cp-device-url">app.achamos.com.br</div>
+                </div>
+                <div className="cp-dash">
+                  <h3 className="cp-dash-greet">Oi, Carolina 👋</h3>
+                  <p className="cp-dash-sub">Sua busca está ativa. Encontramos coisa nova pra você.</p>
+
+                  <div className="cp-dash-eyebrow">
+                    <span>Suas oportunidades</span>
+                    <b>3 NOVAS</b>
+                  </div>
+
+                  <div className="cp-prop-card">
+                    <div className="cp-prop-img cp-prop-img-1">
+                      <span className="cp-prop-img-tag">NOVO</span>
+                    </div>
+                    <div>
+                      <div className="cp-prop-title">Apartamento · Botafogo, RJ</div>
+                      <div className="cp-prop-meta">3 dorm. · 102m² · 1 vaga · R$ 980 mil</div>
+                      <div className="cp-prop-tags">
+                        <span className="cp-prop-tag warn">OFF-MARKET</span>
+                        <span className="cp-prop-tag brand">92% MATCH</span>
+                        <span className="cp-prop-tag live">OPORTUNIDADE</span>
+                      </div>
+                    </div>
+                    <div className="cp-prop-score" style={{ ['--pct' as string]: 92 }}><span>92</span></div>
+                  </div>
+
+                  <div className="cp-prop-card">
+                    <div className="cp-prop-img cp-prop-img-2" />
+                    <div>
+                      <div className="cp-prop-title">Casa térrea · Vila Madalena, SP</div>
+                      <div className="cp-prop-meta">3 dorm. · 180m² · 2 vagas · R$ 1,2 mi</div>
+                      <div className="cp-prop-tags">
+                        <span className="cp-prop-tag brand">88% MATCH</span>
+                      </div>
+                    </div>
+                    <div className="cp-prop-score" style={{ ['--pct' as string]: 88 }}><span>88</span></div>
+                  </div>
+
+                  <div className="cp-prop-card">
+                    <div className="cp-prop-img cp-prop-img-3" />
+                    <div>
+                      <div className="cp-prop-title">Apartamento · Lourdes, BH</div>
+                      <div className="cp-prop-meta">3 dorm. · 95m² · 2 vagas · R$ 850 mil</div>
+                      <div className="cp-prop-tags">
+                        <span className="cp-prop-tag brand">85% MATCH</span>
+                      </div>
+                    </div>
+                    <div className="cp-prop-score" style={{ ['--pct' as string]: 85 }}><span>85</span></div>
+                  </div>
+                </div>
+              </div>
+              <p className="cp-device-explain">
+                <b>Seu painel.</b> Cada imóvel que a IA + equipe encontra entra aqui com fotos, m², valor e a porcentagem de match com seu briefing. Você organiza por favoritos, marca visita, ou descarta.
+              </p>
+            </Reveal>
+
+            {/* MOCKUP 2 — Conversa com a equipe */}
+            <Reveal delay={120}>
+              <div className="cp-device">
+                <div className="cp-device-chrome">
+                  <div className="cp-device-dots">
+                    <span className="cp-device-dot" />
+                    <span className="cp-device-dot" />
+                    <span className="cp-device-dot" />
+                  </div>
+                  <div className="cp-device-url">Mariana · equipe Achamos</div>
+                </div>
+                <div className="cp-chat">
+                  <div className="cp-chat-head">
+                    <div className="cp-chat-avt">MR</div>
+                    <div>
+                      <div className="cp-chat-name">Mariana Ribeiro · equipe Achamos</div>
+                      <div className="cp-chat-meta">● Online · responde em minutos</div>
+                    </div>
+                  </div>
+
+                  <div className="cp-chat-body">
+                    <div className="cp-bubble them">Oi Carolina! Acabei de encontrar uma oportunidade que combina muito com seu briefing. Vendedor foi ativado pela nossa campanha — não está em portal nenhum. ✨</div>
+
+                    <div className="cp-chat-prop">
+                      <div className="cp-chat-prop-gallery">
+                        <div className="cp-chat-prop-img-big">
+                          <span className="cp-chat-prop-tag-on-img">OFF-MARKET</span>
+                          <span className="cp-chat-prop-count">8 fotos</span>
+                        </div>
+                        <div className="cp-chat-prop-img-side">
+                          <div className="cp-chat-prop-img-thumb a" />
+                          <div className="cp-chat-prop-img-thumb b" />
+                        </div>
+                      </div>
+                      <div className="cp-chat-prop-info">
+                        <div className="cp-chat-prop-name">Apto 3 quartos · Botafogo</div>
+                        <div className="cp-chat-prop-specs">102 M² · 3 DORM · 1 SUÍTE · 1 VAGA · ANDAR ALTO</div>
+                        <div className="cp-chat-prop-features">
+                          <span className="cp-prop-tag brand">SOL DA MANHÃ</span>
+                          <span className="cp-prop-tag brand">PRÓX. METRÔ</span>
+                          <span className="cp-prop-tag brand">PET-FRIENDLY</span>
+                        </div>
+                        <div className="cp-chat-prop-price-row">
+                          <div className="cp-chat-prop-price">R$ 980 mil</div>
+                          <span className="cp-prop-tag brand">92% MATCH</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="cp-bubble them">Dá uma olhada nas fotos e me diz se quer agendar visita esse fim de semana 😊</div>
+
+                    <div className="cp-chat-prop-cta">
+                      <button className="cp-chat-mini-btn primary">Quero conhecer</button>
+                      <button className="cp-chat-mini-btn ghost">Não combina</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p className="cp-device-explain">
+                <b>Conversa direta com sua corretora.</b> A equipe te manda cada oportunidade com fotos, m², características e análise honesta — você decide se quer visitar com 1 clique. Sem fila, sem perda de tempo.
+              </p>
             </Reveal>
           </div>
         </div>

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -e
+
+GIT_ROOT="$(git rev-parse --show-toplevel)"
+cd "$GIT_ROOT"
+
+echo "[pre-push] Rodando full-check antes do push..."
+npm run --silent full-check
+
+echo "[pre-push] ✅ Push autorizado."

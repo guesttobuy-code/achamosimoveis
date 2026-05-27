@@ -27,5 +27,5 @@ export default function Reveal({ children, delay = 0, as: As = 'div', className 
     return () => io.disconnect()
   }, [delay])
 
-  return <As ref={ref} className={`reveal ${shown ? 'in' : ''} ${className}`} {...rest}>{children}</As>
+  return <As ref={ref as any} className={`reveal ${shown ? 'in' : ''} ${className}`} {...rest}>{children}</As>
 }

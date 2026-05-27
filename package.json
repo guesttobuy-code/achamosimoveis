@@ -4,9 +4,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "node scripts/install-git-hooks.mjs",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "guard:secrets": "node scripts/guards/check-secrets-hardcoded.mjs",
+    "guard:env-leak": "node scripts/guards/check-env-leak.mjs",
+    "guard:all": "npm run guard:env-leak && npm run guard:secrets",
+    "full-check": "npm run guard:all && npm run typecheck"
   },
   "dependencies": {
     "react": "^18.2.0",
