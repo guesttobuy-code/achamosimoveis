@@ -21,8 +21,8 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
       {/* HERO */}
       <section className="hero">
         <div className="container">
-          <div className="hero-grid">
-            <div>
+          <div className="hero-grid hero-grid-video">
+            <div className="hero-copy">
               <Reveal>
                 <span className="hero-tag">
                   <span className="hero-tag-dot" />
@@ -36,18 +36,43 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                   )}
                 </h1>
               </Reveal>
+              <Reveal delay={140}>
+                <p className="lead" style={{ marginTop: 20, maxWidth: '38ch' }}>
+                  Você diz o que procura. A gente volta com 3 a 5 oportunidades — <strong style={{ color: 'var(--ink)' }}>boa parte fora de qualquer portal</strong>. As melhores compras acontecem no privado.
+                </p>
+              </Reveal>
+              <Reveal delay={180}>
+                <div style={{ display: 'flex', gap: 10, marginTop: 24, flexWrap: 'wrap' }}>
+                  <button className="btn btn-brand btn-lg" onClick={() => navigate('comecar')}>
+                    Quero achar meu imóvel <ArrowRight />
+                  </button>
+                  <button className="btn btn-ghost btn-lg" onClick={() => navigate('vender')}>
+                    Quero anunciar
+                  </button>
+                </div>
+              </Reveal>
             </div>
-            <Reveal delay={160} className="hero-side">
-              <p className="lead">
-                Vendedores oferecendo as <strong style={{ color: 'var(--ink)' }}>melhores oportunidades</strong> pra você comprador. <strong style={{ color: 'var(--ink)' }}>IA + campanhas</strong> vão atrás de quem tem o imóvel certo — mesmo de quem nem pensava em vender.
-              </p>
-              <div style={{ display: 'flex', gap: 10, marginTop: 8, flexWrap: 'wrap' }}>
-                <button className="btn btn-brand btn-lg" onClick={() => navigate('comecar')}>
-                  Quero achar meu imóvel <ArrowRight />
-                </button>
-                <button className="btn btn-ghost btn-lg" onClick={() => navigate('vender')}>
-                  Quero anunciar
-                </button>
+
+            {/* RIGHT: Phone mockup with vertical video */}
+            <Reveal delay={220} className="hero-phone-wrap">
+              <div className="hero-phone">
+                <div className="hero-phone-notch" aria-hidden="true">
+                  <span className="hero-phone-notch-bar" />
+                </div>
+                <div className="hero-phone-screen">
+                  <iframe
+                    src="/uploads/Versao%20Instagram%20Achamos%20Imoveis%201.0-a07a5d21.html"
+                    title="Achamos — demonstração"
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin"
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="hero-phone-button" aria-hidden="true" />
+              </div>
+              <div className="hero-phone-caption">
+                <span className="hero-phone-dot" />
+                Entenda em poucos segundos como trazemos as melhores oportunidades pra você
               </div>
             </Reveal>
           </div>
@@ -55,16 +80,16 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
           <Reveal>
             <div className="hero-stats">
               <div>
-                <div className="hero-stat-num">+150</div>
-                <div className="hero-stat-lbl">Imóveis na carteira</div>
+                <div className="hero-stat-num">RJ</div>
+                <div className="hero-stat-lbl">Todo o estado do Rio de Janeiro</div>
               </div>
               <div>
-                <div className="hero-stat-num">SP · RJ · MG</div>
-                <div className="hero-stat-lbl">3 estados · prioridade nas capitais</div>
+                <div className="hero-stat-num">CRECI</div>
+                <div className="hero-stat-lbl">Corretores certificados · time jurídico próprio</div>
               </div>
               <div>
-                <div className="hero-stat-num">48h</div>
-                <div className="hero-stat-lbl">1ª oferta no seu Whatsapp</div>
+                <div className="hero-stat-num">★★★★★</div>
+                <div className="hero-stat-lbl">Nossos corretores enviando as melhores propostas</div>
               </div>
             </div>
           </Reveal>
@@ -73,9 +98,10 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
 
       <Marquee items={[
         'Busca ativa',
-        'Sem caça ao tesouro',
+        'Melhores preços pra compra',
         'Match comprador × vendedor',
-        'BH · SP · RJ · Radar IA',
+        'Oportunidades off-market',
+        'RJ · todo o estado',
         'Você só vê o que faz sentido',
         'O comprador é a estrela',
       ]} />
@@ -101,7 +127,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 </div>
                 <div>
                   <p className="portal-sub">
-                    Você diz o que procura. <strong>IA + campanhas</strong> vão atrás — inclusive de vendedores que nem estão anunciando. Voltamos com 3 a 5 oportunidades.
+                    Você diz o que procura. A gente volta com 3 a 5 oportunidades — <strong>boa parte off-market</strong>, fora de portal nenhum. Visita acompanhada e negociação conduzida.
                   </p>
                   <div className="portal-cta">
                     Como funciona pro comprador
@@ -132,6 +158,87 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
 
       <DiscoverySection navigate={navigate} />
 
+      {/* INSTITUCIONAL VIDEO — "O jogo virou" (horizontal cinematic) */}
+      <section className="hv-section">
+        <div className="container">
+          <Reveal>
+            <div className="hv-head">
+              <span className="eyebrow">Em 67 segundos</span>
+              <h2 className="display hv-title">
+                O jogo <em>virou</em>.
+              </h2>
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="hv-frame">
+              <iframe
+                src="/uploads/Versao%20YouTube%20Achamos%20Imoveis%201.0-bbbe582d.html"
+                title="Achamos — o jogo virou"
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin"
+              />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* CREDIBILIDADE — Imobiliária digital com CRECI + sede física */}
+      <section className="cr-section">
+        <div className="container">
+          <div className="cr-grid">
+            <Reveal>
+              <div className="cr-copy">
+                <span className="eyebrow">Imobiliária digital com sede física</span>
+                <h2 className="display cr-title">
+                  Tecnologia que <em>encontra</em>.<br />
+                  Gente que <em>cuida</em>.
+                </h2>
+                <p className="cr-lead">
+                  Somos uma imobiliária com <strong>sede física no Rio de Janeiro</strong> e ampla atuação digital.
+                  Corretores <strong>certificados pelo CRECI</strong>, time jurídico próprio para dar
+                  total segurança aos nossos clientes.
+                </p>
+                <p className="cr-lead">
+                  Traçamos uma rota bem planejada com os imóveis selecionados e levamos você até cada um deles —
+                  com <strong>conforto e organização do início ao fim</strong>.
+                </p>
+
+                <div className="cr-features">
+                  <div className="cr-feature">
+                    <div className="cr-feature-num">01</div>
+                    <div>
+                      <strong>CRECI ativo</strong>
+                      <span>Corretores registrados e fiscalizados</span>
+                    </div>
+                  </div>
+                  <div className="cr-feature">
+                    <div className="cr-feature-num">02</div>
+                    <div>
+                      <strong>Jurídico próprio</strong>
+                      <span>Contratos, documentação e segurança</span>
+                    </div>
+                  </div>
+                  <div className="cr-feature">
+                    <div className="cr-feature-num">03</div>
+                    <div>
+                      <strong>Sede física no RJ</strong>
+                      <span>Atendimento pessoal quando você precisar</span>
+                    </div>
+                  </div>
+                  <div className="cr-feature">
+                    <div className="cr-feature-num">04</div>
+                    <div>
+                      <strong>Roteiro guiado</strong>
+                      <span>Visitas planejadas, transporte confortável</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* COMO FUNCIONA — RESUMO */}
       <section className="surface-warm">
         <div className="container">
@@ -153,14 +260,14 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
               {[
                 { n: '01', t: 'Você nos conta o que quer', b: 'Briefing rápido por chat — região, tipo, faixa de valor, prazo.' },
                 { n: '02', t: 'A gente sai à caça', b: 'Busca ativa na nossa carteira e em uma rede de vendedores parceiros.' },
-                { n: '03', t: 'Filtramos e selecionamos', b: 'Você só vê o que faz sentido pro seu perfil — não uma vitrine genérica.' },
+                { n: '03', t: 'Filtramos e selecionamos', b: 'Você recebe 3 a 5 opções com score de match — inclusive imóveis off-market que não rodam em portal nenhum.' },
                 { n: '04', t: 'Você visita e decide', b: 'Acompanhamos a visita, a negociação e toda a documentação.' },
               ].map(s => (
                 <div className="step" key={s.n}>
                   <span className="step-num">{s.n}</span>
                   <div className="step-title">{s.t}</div>
                   <div className="step-body">{s.b}</div>
-                  <div className="step-icon"><ArrowRight size={20} /></div>
+                  <div className="step-icon"><ArrowRight /></div>
                 </div>
               ))}
             </div>
@@ -182,8 +289,8 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
           <Reveal>
             <div className="testi">
               {[
-                { q: '"Em 3 semanas eu tinha as chaves. Eles trouxeram dois imóveis que eu nem sabia que existiam."', n: 'Mariana C.', m: 'Comprou apto · BH' },
-                { q: '"Anunciei segunda. Quinta tinha 4 visitas marcadas. Vendeu em 22 dias."', n: 'Eduardo V.', m: 'Vendeu cobertura · SP' },
+                { q: '"Em 3 semanas eu tinha as chaves. Eles trouxeram dois imóveis que eu nem sabia que existiam."', n: 'Mariana C.', m: 'Comprou apto · RJ' },
+                { q: '"Anunciei segunda. Quinta tinha 4 visitas marcadas. Vendeu em 22 dias."', n: 'Eduardo V.', m: 'Vendeu cobertura · RJ' },
                 { q: '"Não me empurraram nada. Foram entender o que eu queria de verdade antes de mostrar."', n: 'Camila R.', m: 'Comprou casa · Rio de Janeiro' },
               ].map((t, i) => (
                 <div className="testi-card" key={i}>
