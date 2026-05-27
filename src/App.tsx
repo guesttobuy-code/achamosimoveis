@@ -20,10 +20,16 @@ import ContatoPage from './pages/ContatoPage'
 import ComecarPage from './pages/ComecarPage'
 import ChatPage from './pages/ChatPage'
 
-// Set dark mode as default (matching the design DNA)
+// Theme: respeita preferência salva pelo ThemeToggle (default = dark).
+// Setado uma vez no mount; ThemeToggle no Nav atualiza depois.
 function useTheme() {
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'dark')
+    let initial = 'dark'
+    try {
+      const saved = localStorage.getItem('achamos-theme')
+      if (saved === 'light' || saved === 'dark') initial = saved
+    } catch { /* localStorage indisponível — usa default */ }
+    document.documentElement.setAttribute('data-theme', initial)
   }, [])
 }
 
@@ -47,6 +53,11 @@ export default function App() {
 
   // Helper to navigate by id (used by legacy navigate('home'), etc.)
   function navigateById(id: string) {
+    // Rota "entrar" — área logada vive no portal whitelabel separado.
+    if (id === 'entrar') {
+      window.location.href = 'https://portalimobiliario-whitelabel.vercel.app/'
+      return
+    }
     const map: Record<string, string> = {
       home: '/',
       comprador: '/comprador',
