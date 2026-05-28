@@ -38,8 +38,8 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 </h1>
               </Reveal>
               <Reveal delay={140}>
-                <p className="lead" style={{ marginTop: 20, maxWidth: '46ch' }}>
-                  <strong style={{ color: 'var(--ink)' }}>Comprador que pode fechar é raridade no mercado.</strong> A Achamos sabe usar isso a seu favor: sua busca vira anúncio direcionado nas redes sociais, e proprietários motivados — inclusive aqueles cujo imóvel nem estava à venda — correm até você.
+                <p className="lead" style={{ marginTop: 20, maxWidth: '54ch' }}>
+                  <strong style={{ color: 'var(--ink)' }}>Investidor, funcionário público, empresário</strong> — você que está no seu momento de comprar um imóvel. <strong style={{ color: 'var(--ink)' }}>Comprador de imóvel que pode fechar é raridade no mercado</strong>, e nossa missão é levar até você a melhor oportunidade. Sua busca vira anúncio direcionado nas redes sociais, e proprietários motivados — inclusive aqueles cujo imóvel nem estava à venda — correm até você.
                 </p>
               </Reveal>
               <Reveal delay={180}>
