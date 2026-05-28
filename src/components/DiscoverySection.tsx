@@ -69,7 +69,7 @@ function DiscoveryFeed({ feed }: { feed: FeedRow[] }) {
   }, [feed.length])
 
   const visible: FeedRow[] = []
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 7; i++) {
     visible.push(feed[(offset + i) % feed.length])
   }
 
@@ -98,29 +98,30 @@ function DiscoveryFeed({ feed }: { feed: FeedRow[] }) {
 
 export default function DiscoverySection({ navigate }: { navigate: NavigateFn }) {
   return (
-    <section>
-      <div className="container">
-        <Reveal>
-          <div className="discovery">
-            <div className="discovery-head">
-              <div>
-                <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>Por que a Achamos existe</span>
-                <h2 className="discovery-title">
-                  Cinco dores resolvidas.<br />
-                  Uma decisão <em>tomada</em>.
-                </h2>
+    <>
+      {/* SEÇÃO 1 — 5 Dores Resolvidas (largura total) */}
+      <section>
+        <div className="container">
+          <Reveal>
+            <div className="discovery">
+              <div className="discovery-head">
+                <div>
+                  <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>Por que a Achamos existe</span>
+                  <h2 className="discovery-title">
+                    Cinco dores resolvidas.<br />
+                    Uma decisão <em>tomada</em>.
+                  </h2>
+                </div>
+                <p className="discovery-lead">
+                  Você reconheceu alguma delas? A gente desenhou o <strong style={{ color: 'var(--inverse-fg)' }}>serviço inteiro</strong> pra cada uma.
+                </p>
               </div>
-              <p className="discovery-lead">
-                Você reconheceu alguma delas? A gente desenhou o <strong style={{ color: 'var(--inverse-fg)' }}>serviço inteiro</strong> pra cada uma.
-              </p>
-            </div>
 
-            <div className="discovery-body">
-              <div className="discovery-pillars">
+              <div className="discovery-pillars" style={{ marginTop: 32 }}>
                 {PAINS.map(p => (
                   <div className="pillar" key={p.num} style={{ alignItems: 'stretch' }}>
                     <span className="pillar-num">{p.num}</span>
-                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 20, alignItems: 'flex-start' }}>
+                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, alignItems: 'flex-start' }}>
                       <div>
                         <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', opacity: 0.45, marginBottom: 6, fontWeight: 700 }}>DOR</div>
                         <div className="pillar-title">{p.dor}</div>
@@ -137,20 +138,67 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
                 ))}
               </div>
 
-              <DiscoveryFeed feed={FEED} />
+              <div style={{ display: 'flex', gap: 10, marginTop: 40, flexWrap: 'wrap' }}>
+                <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
+                  Ativar minha busca <ArrowRight />
+                </button>
+                <button className="btn btn-light btn-lg" onClick={() => navigate('comprador')} style={{ background: 'transparent', color: 'var(--inverse-fg)', borderColor: 'rgba(255,255,255,0.2)' }}>
+                  Como funciona pro comprador
+                </button>
+              </div>
             </div>
+          </Reveal>
+        </div>
+      </section>
 
-            <div style={{ display: 'flex', gap: 10, marginTop: 32, flexWrap: 'wrap' }}>
-              <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
-                Ativar minha busca <ArrowRight />
-              </button>
-              <button className="btn btn-light btn-lg" onClick={() => navigate('comprador')} style={{ background: 'transparent', color: 'var(--inverse-fg)', borderColor: 'rgba(255,255,255,0.2)' }}>
-                Como funciona pro comprador
-              </button>
+      {/* SEÇÃO 2 — Radar Achamos (dedicada) */}
+      <section>
+        <div className="container">
+          <Reveal>
+            <div className="discovery">
+              <div className="discovery-head">
+                <div>
+                  <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>O motor por trás</span>
+                  <h2 className="discovery-title">
+                    O Radar Achamos.<br />
+                    A oportunidade certa <em>vem até você</em>.
+                  </h2>
+                </div>
+                <p className="discovery-lead">
+                  Sua busca vira <strong style={{ color: 'var(--inverse-fg)' }}>anúncio direcionado</strong> nas redes sociais. Mídia paga segmentada por bairro + curadoria humana identificam proprietários motivados — inclusive os que nem pensavam em vender. Esse é o radar trabalhando, ao vivo, em todo o estado do Rio.
+                </p>
+              </div>
+
+              <div style={{ marginTop: 40, display: 'flex', justifyContent: 'center' }}>
+                <div style={{ width: '100%', maxWidth: 720 }}>
+                  <DiscoveryFeed feed={FEED} />
+                </div>
+              </div>
+
+              <div style={{ marginTop: 32, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, paddingTop: 32, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+                <div>
+                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>ATIVO</div>
+                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>Busca em andamento — campanha social direcionada pra perfil do comprador.</div>
+                </div>
+                <div>
+                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>OFF-MARKET</div>
+                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>Proprietário despertado pela campanha — imóvel que nem estava à venda.</div>
+                </div>
+                <div>
+                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>MATCH</div>
+                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>Candidatura recebida ou negociação iniciada com candidato qualificado.</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: 10, marginTop: 32, flexWrap: 'wrap' }}>
+                <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
+                  Quero entrar no radar <ArrowRight />
+                </button>
+              </div>
             </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
+          </Reveal>
+        </div>
+      </section>
+    </>
   )
 }
