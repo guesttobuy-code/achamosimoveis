@@ -65,8 +65,28 @@ export function brandName(lang: string): string {
   return brandForLanguage(lang) === 'achamos' ? 'Achamos Imóveis' : 'We Found Properties'
 }
 
+/**
+ * Path-aware override: rota `/wefoundproperties` força EN ANTES de qualquer
+ * render React. Implementado como um detector customizado plugado antes do
+ * LanguageDetector default, garantindo que o idioma já esteja resolvido na
+ * primeira chamada `t()` (sem flash de PT). useBrandAndLang em App.tsx
+ * mantém o sync no client-side nav (rota muda sem reload).
+ */
+const pathDetector = {
+  name: 'pathDetector',
+  lookup() {
+    if (typeof window === 'undefined') return undefined
+    if (window.location.pathname.toLowerCase().startsWith('/wefoundproperties')) return 'en'
+    return undefined
+  },
+  cacheUserLanguage() { /* path-based override is not cached */ },
+}
+
+const detector = new LanguageDetector()
+detector.addDetector(pathDetector as never)
+
 i18n
-  .use(LanguageDetector)
+  .use(detector)
   .use(initReactI18next)
   .init({
     resources: {
@@ -110,7 +130,8 @@ i18n
       escapeValue: false, // React já escapa por padrão
     },
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
+      // pathDetector roda primeiro — força EN em /wefoundproperties
+      order: ['pathDetector', 'localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
       lookupLocalStorage: 'achamos_lang',
     },
