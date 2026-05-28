@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Reveal from '../components/Reveal'
 import Marquee from '../components/Marquee'
 import DiscoverySection from '../components/DiscoverySection'
@@ -6,16 +7,8 @@ import FinalCTA from '../components/FinalCTA'
 import { ArrowRight, ArrowUpRight } from '../components/icons'
 import type { NavigateFn } from '../types'
 
-type Headline = { main: string[]; em: string }
-
-const HEADLINES: Headline[] = [
-  { main: ['Compra à vista', 'ou financiamento', 'aprovado?'], em: 'aprovado?' },
-  { main: ['Pode fechar?', 'Aqui você', 'é raro.'], em: 'é raro.' },
-  { main: ['Comprador com', 'capacidade', 'comprovada vence.'], em: 'capacidade' },
-]
-
 export default function HomePage({ navigate }: { navigate: NavigateFn }) {
-  const h = HEADLINES[0]
+  const { t } = useTranslation(['home', 'common'])
 
   return (
     <main>
@@ -27,28 +20,31 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
               <Reveal>
                 <span className="hero-tag">
                   <span className="hero-tag-dot" />
-                  Imobiliária digital · Rio de Janeiro · todo o estado
+                  {t('home:hero.tag')}
                 </span>
               </Reveal>
               <Reveal delay={80}>
                 <h1 className="display hero-title" style={{ marginTop: 28 }}>
-                  {h.main.map((w, i) =>
-                    w === h.em ? <em key={i}>{w}{' '}</em> : <span key={i}>{w}{' '}</span>
-                  )}
+                  <span>{t('home:hero.title_part1')}{' '}</span>
+                  <span>{t('home:hero.title_part2')}{' '}</span>
+                  <em>{t('home:hero.title_em')}</em>
                 </h1>
               </Reveal>
               <Reveal delay={140}>
                 <p className="lead" style={{ marginTop: 20, maxWidth: '54ch' }}>
-                  <strong style={{ color: 'var(--ink)' }}>Investidor, funcionário público, empresário</strong> — você que está no seu momento de comprar um imóvel. <strong style={{ color: 'var(--ink)' }}>Comprador de imóvel que pode fechar é raridade no mercado</strong>, e nossa missão é levar até você a melhor oportunidade. Sua busca vira anúncio direcionado nas redes sociais, e proprietários motivados — inclusive aqueles cujo imóvel nem estava à venda — correm até você.
+                  <strong style={{ color: 'var(--ink)' }}>{t('home:hero.lead_audience')}</strong>
+                  {t('home:hero.lead_dash')}
+                  <strong style={{ color: 'var(--ink)' }}>{t('home:hero.lead_raridade')}</strong>
+                  {t('home:hero.lead_tail')}
                 </p>
               </Reveal>
               <Reveal delay={180}>
                 <div style={{ display: 'flex', gap: 10, marginTop: 24, flexWrap: 'wrap' }}>
                   <button className="btn btn-brand btn-lg" onClick={() => navigate('comecar')}>
-                    Quero achar meu imóvel <ArrowRight />
+                    {t('home:hero.cta_primary')} <ArrowRight />
                   </button>
                   <button className="btn btn-ghost btn-lg" onClick={() => navigate('vender')}>
-                    Quero anunciar
+                    {t('home:hero.cta_secondary')}
                   </button>
                 </div>
               </Reveal>
@@ -73,7 +69,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
               </div>
               <div className="hero-phone-caption">
                 <span className="hero-phone-dot" />
-                Entenda em poucos segundos como trazemos as melhores oportunidades pra você
+                {t('home:hero.phone_caption')}
               </div>
             </Reveal>
           </div>
@@ -81,16 +77,16 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
           <Reveal>
             <div className="hero-stats">
               <div>
-                <div className="hero-stat-num">RJ</div>
-                <div className="hero-stat-lbl">Todo o estado do Rio de Janeiro</div>
+                <div className="hero-stat-num">{t('home:hero.stat_region_num')}</div>
+                <div className="hero-stat-lbl">{t('home:hero.stat_region_lbl')}</div>
               </div>
               <div>
-                <div className="hero-stat-num">CRECI</div>
-                <div className="hero-stat-lbl">Corretores certificados · time jurídico próprio</div>
+                <div className="hero-stat-num">{t('home:hero.stat_creci_num')}</div>
+                <div className="hero-stat-lbl">{t('home:hero.stat_creci_lbl')}</div>
               </div>
               <div>
-                <div className="hero-stat-num">7 DIAS</div>
-                <div className="hero-stat-lbl">Primeira oportunidade qualificada na sua busca</div>
+                <div className="hero-stat-num">{t('home:hero.stat_sla_num')}</div>
+                <div className="hero-stat-lbl">{t('home:hero.stat_sla_lbl')}</div>
               </div>
             </div>
           </Reveal>

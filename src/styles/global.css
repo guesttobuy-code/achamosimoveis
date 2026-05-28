@@ -203,12 +203,19 @@ img { max-width: 100%; display: block; }
   filter: brightness(1.05);
 }
 
-/* Brand dual — We Found Properties (data-brand="wfp") sobrescreve background */
+/* Brand dual — We Found Properties (data-brand="wfp") sobrescreve background.
+   PNG da WFP tem aspect 1.5:1 (1536x1024) vs SVG Achamos ~3.6:1 (230x64).
+   Ajustamos o container quando WFP ativo pra logo ter peso visual similar. */
 [data-brand="wfp"] .brand-logo,
 [data-brand="wfp"] .brand-logo-light,
 [data-brand="wfp"] .brand-logo-dark,
 [data-brand="wfp"][data-theme="dark"] .brand-logo:not(.brand-logo-light):not(.brand-logo-dark) {
   background-image: url('/branding/we-found-properties.png');
+  width: 140px;
+  height: 88px;
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
 }
 
 /* Language switcher (PT · EN · ES) — inline na topbar */
