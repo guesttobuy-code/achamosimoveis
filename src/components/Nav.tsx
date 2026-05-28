@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
+import LanguageSwitcher from './LanguageSwitcher'
 import { ArrowRight, UserIcon, SunIcon, MoonIcon } from './icons'
 import type { NavigateFn } from '../types'
 
-const NAV_ITEMS = [
-  { id: 'home',      label: 'Início' },
-  { id: 'comprador', label: 'Comprador' },
-  { id: 'vendedor',  label: 'Vendedor' },
-  { id: 'sobre',     label: 'Sobre' },
-  { id: 'contato',   label: 'Contato' },
-]
+const NAV_IDS = ['home', 'comprador', 'vendedor', 'sobre', 'contato'] as const
 
 type NavProps = {
   route: string
@@ -55,6 +51,7 @@ function ThemeToggle() {
 }
 
 export default function Nav({ route, navigate }: NavProps) {
+  const { t } = useTranslation('common')
   const [menuOpen, setMenuOpen] = useState(false)
 
   // Lock body scroll when drawer is open
@@ -79,17 +76,18 @@ export default function Nav({ route, navigate }: NavProps) {
       <div className="container nav-inner">
         <Logo onClick={() => go('home')} />
         <nav className="nav-links">
-          {NAV_ITEMS.map(item => (
+          {NAV_IDS.map(id => (
             <button
-              key={item.id}
-              className={'nav-link' + (route === item.id ? ' active' : '')}
-              onClick={() => go(item.id)}
+              key={id}
+              className={'nav-link' + (route === id ? ' active' : '')}
+              onClick={() => go(id)}
             >
-              {item.label}
+              {t(`nav.${id}`)}
             </button>
           ))}
         </nav>
         <div className="nav-cta">
+          <LanguageSwitcher />
           <ThemeToggle />
           <a
             className="nav-login"
@@ -98,20 +96,20 @@ export default function Nav({ route, navigate }: NavProps) {
               e.preventDefault()
               go('entrar')
             }}
-            aria-label="Acessar área logada"
+            aria-label={t('nav.entrar_aria')}
           >
-            <UserIcon /> Entrar
+            <UserIcon /> {t('nav.entrar')}
           </a>
           <button className="btn btn-ghost btn-sm nav-cta-vender" onClick={() => go('vender')}>
-            Quero vender
+            {t('nav.cta_vender')}
           </button>
           <button className="btn btn-brand btn-sm" onClick={() => go('comecar')}>
-            Buscar imóvel <ArrowRight />
+            {t('nav.cta_buscar')} <ArrowRight />
           </button>
           <button
             className={'nav-burger' + (menuOpen ? ' open' : '')}
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-label={menuOpen ? t('nav.menu_close') : t('nav.menu_open')}
             aria-expanded={menuOpen}
             type="button"
           >
@@ -128,23 +126,23 @@ export default function Nav({ route, navigate }: NavProps) {
         onClick={() => setMenuOpen(false)}
       >
         <div className="nav-drawer-panel" onClick={e => e.stopPropagation()}>
-          <div className="nav-drawer-section">Navegação</div>
-          {NAV_ITEMS.map(item => (
+          <div className="nav-drawer-section">{t('nav.drawer_navegacao')}</div>
+          {NAV_IDS.map(id => (
             <button
-              key={item.id}
-              className={'nav-drawer-link' + (route === item.id ? ' active' : '')}
-              onClick={() => go(item.id)}
+              key={id}
+              className={'nav-drawer-link' + (route === id ? ' active' : '')}
+              onClick={() => go(id)}
             >
-              {item.label}
+              {t(`nav.${id}`)}
             </button>
           ))}
           <div className="nav-drawer-divider" />
-          <div className="nav-drawer-section">Conta</div>
+          <div className="nav-drawer-section">{t('nav.drawer_conta')}</div>
           <button className="nav-drawer-link" onClick={() => go('entrar')}>
-            <UserIcon /> Entrar
+            <UserIcon /> {t('nav.entrar')}
           </button>
           <button className="nav-drawer-link" onClick={() => go('vender')}>
-            Quero vender
+            {t('nav.cta_vender')}
           </button>
         </div>
       </div>

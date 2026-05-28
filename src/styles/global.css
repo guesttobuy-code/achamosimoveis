@@ -203,6 +203,65 @@ img { max-width: 100%; display: block; }
   filter: brightness(1.05);
 }
 
+/* Brand dual — We Found Properties (data-brand="wfp") sobrescreve background */
+[data-brand="wfp"] .brand-logo,
+[data-brand="wfp"] .brand-logo-light,
+[data-brand="wfp"] .brand-logo-dark,
+[data-brand="wfp"][data-theme="dark"] .brand-logo:not(.brand-logo-light):not(.brand-logo-dark) {
+  background-image: url('/branding/we-found-properties.png');
+}
+
+/* Language switcher (PT · EN · ES) — inline na topbar */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--line-soft, rgba(0,0,0,0.04));
+  margin-right: 8px;
+}
+.lang-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-family: var(--f-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft, #5A5959);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.lang-btn:hover {
+  color: var(--ink, #201F1F);
+  background: rgba(0,0,0,0.04);
+}
+.lang-btn.active {
+  background: var(--ink, #201F1F);
+  color: var(--paper, #F4F0EB);
+}
+[data-theme="dark"] .lang-switcher {
+  background: rgba(255,255,255,0.06);
+}
+[data-theme="dark"] .lang-btn {
+  color: rgba(244, 240, 235, 0.6);
+}
+[data-theme="dark"] .lang-btn:hover {
+  color: var(--paper, #F4F0EB);
+  background: rgba(255,255,255,0.08);
+}
+[data-theme="dark"] .lang-btn.active {
+  background: var(--brand, #6F2DE1);
+  color: var(--paper, #F4F0EB);
+}
+@media (max-width: 880px) {
+  .lang-switcher { display: none; }
+  .lang-switcher.in-nav-mobile { display: inline-flex; margin-right: 4px; padding: 2px; }
+  .lang-switcher.in-nav-mobile .lang-btn { padding: 4px 6px; font-size: 10px; }
+}
+
 /* Old mark/text styles kept for fallback (not currently used) */
 .nav-logo-mark {
   width: 38px; height: 38px;

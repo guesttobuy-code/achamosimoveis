@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { NavigateFn } from '../types'
 
 type FooterProps = {
@@ -5,43 +6,47 @@ type FooterProps = {
 }
 
 export default function Footer({ navigate }: FooterProps) {
+  const { t } = useTranslation('common')
+
   return (
     <footer className="foot">
       <div className="container">
         <div className="foot-hero">
           <h2 className="foot-big">
-            Tem comprador<br />esperando<span style={{ color: 'var(--brand)' }}>.</span>
+            {t('footer.tagline_main')}<br />
+            {t('footer.tagline_em')}
+            <span style={{ color: 'var(--brand)' }}>.</span>
           </h2>
           <div className="brand-logo brand-logo-dark foot-logo-mark" aria-hidden="true" />
         </div>
         <div className="foot-grid">
           <div>
-            <h4>Achamos Imóveis</h4>
+            <h4>{t('footer.about_title')}</h4>
             <div style={{ fontSize: 14.5, opacity: 0.85, maxWidth: 280 }}>
-              A imobiliária que inverte o jogo: vendedores oferecendo as melhores oportunidades pra você comprador.
+              {t('footer.about_text')}
             </div>
             <div style={{ marginTop: 22, fontFamily: 'var(--f-mono)', fontSize: 11.5, opacity: 0.5, letterSpacing: '0.08em' }}>
-              CRECI-RJ • IMOBILIÁRIA DIGITAL
+              {t('footer.creci')}
             </div>
           </div>
           <div>
-            <h4>Para comprar</h4>
+            <h4>{t('footer.col_to_buy')}</h4>
             <ul>
-              <li onClick={() => navigate('comprador')}>Como funciona</li>
-              <li onClick={() => navigate('comecar')}>Iniciar busca</li>
-              <li onClick={() => navigate('sobre')}>Quem somos</li>
+              <li onClick={() => navigate('comprador')}>{t('footer.col_to_buy_how')}</li>
+              <li onClick={() => navigate('comecar')}>{t('footer.col_to_buy_start')}</li>
+              <li onClick={() => navigate('sobre')}>{t('footer.col_to_buy_who')}</li>
             </ul>
           </div>
           <div>
-            <h4>Para vender</h4>
+            <h4>{t('footer.col_to_sell')}</h4>
             <ul>
-              <li onClick={() => navigate('vendedor')}>Como funciona</li>
-              <li onClick={() => navigate('vender')}>Anunciar imóvel</li>
-              <li onClick={() => navigate('contato')}>Falar com a equipe</li>
+              <li onClick={() => navigate('vendedor')}>{t('footer.col_to_sell_how')}</li>
+              <li onClick={() => navigate('vender')}>{t('footer.col_to_sell_start')}</li>
+              <li onClick={() => navigate('contato')}>{t('footer.col_to_sell_talk')}</li>
             </ul>
           </div>
           <div>
-            <h4>Contato</h4>
+            <h4>{t('footer.col_contact')}</h4>
             <ul>
               <li>
                 <a href="mailto:oi@achamosimoveis.com.br" style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -54,7 +59,7 @@ export default function Footer({ navigate }: FooterProps) {
                 </a>
               </li>
               <li style={{ paddingTop: 4 }}>
-                <span style={{ opacity: 0.6 }}>Rio de Janeiro · todo o estado</span>
+                <span style={{ opacity: 0.6 }}>{t('footer.where')}</span>
               </li>
             </ul>
           </div>
@@ -66,15 +71,15 @@ export default function Footer({ navigate }: FooterProps) {
             <div className="foot-legal-line">CNPJ 46.908.483/0001-28</div>
           </div>
           <div className="foot-legal-block">
-            <div className="foot-legal-title">Endereço</div>
-            <div className="foot-legal-line">Av. Treze de Maio, 47 · Apt 1609 · Centro</div>
-            <div className="foot-legal-line">Rio de Janeiro — RJ · CEP 20031-007</div>
+            <div className="foot-legal-title">{t('footer.address_label')}</div>
+            <div className="foot-legal-line">{t('footer.address_line1')}</div>
+            <div className="foot-legal-line">{t('footer.address_line2')}</div>
           </div>
         </div>
 
         <div className="foot-bottom">
-          <span>© 2026 Achamos Imóveis — Todos os direitos reservados</span>
-          <span>Operado por Bora Vender Muito BVM Aceleradora de Vendas LTDA</span>
+          <span>{t('footer.copyright')}</span>
+          <span>{t('footer.operated_by')}</span>
         </div>
       </div>
     </footer>

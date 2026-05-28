@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "home": "Home",
+    "comprador": "Buyer",
+    "vendedor": "Seller",
+    "sobre": "About",
+    "contato": "Contact",
+    "cta_vender": "I want to sell",
+    "cta_buscar": "Find property",
+    "aria_home": "Home page",
+    "entrar": "Sign in",
+    "entrar_aria": "Access logged area",
+    "drawer_navegacao": "Navigation",
+    "drawer_conta": "Account",
+    "menu_open": "Open menu",
+    "menu_close": "Close menu"
+  },
+  "footer": {
+    "tagline_main": "Buyers are",
+    "tagline_em": "waiting",
+    "about_title": "We Found Properties",
+    "about_text": "The real estate firm that flips the script: real buyers receive — they don't search. Targeted paid media + human curation + 100% mediated communication.",
+    "creci": "Brazilian CRECI license · active from 07/2026 · DIGITAL REAL ESTATE",
+    "col_to_buy": "To buy",
+    "col_to_buy_how": "How it works",
+    "col_to_buy_start": "Start your search",
+    "col_to_buy_who": "About us",
+    "col_to_sell": "To sell",
+    "col_to_sell_how": "How it works",
+    "col_to_sell_start": "List your property",
+    "col_to_sell_talk": "Talk to the team",
+    "col_contact": "Contact",
+    "where": "Rio de Janeiro · entire state",
+    "address_label": "Address",
+    "address_line1": "Av. Treze de Maio, 47 · Apt 1609 · Centro",
+    "address_line2": "Rio de Janeiro — RJ · ZIP 20031-007 · Brazil",
+    "copyright": "© 2026 We Found Properties — All rights reserved",
+    "operated_by": "Operated by Bora Vender Muito BVM Aceleradora de Vendas LTDA"
+  },
+  "language": {
+    "label": "Language",
+    "pt": "PT",
+    "en": "EN",
+    "es": "ES",
+    "pt_long": "Português",
+    "en_long": "English",
+    "es_long": "Español"
+  }
+}
