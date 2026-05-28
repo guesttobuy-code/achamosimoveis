@@ -9,9 +9,9 @@ import type { NavigateFn } from '../types'
 type Headline = { main: string[]; em: string }
 
 const HEADLINES: Headline[] = [
-  { main: ['Você tem', 'capacidade', 'de compra?'], em: 'capacidade' },
-  { main: ['As melhores ofertas', 'até', 'você'], em: 'até' },
-  { main: ['Comprador real', 'recebe.', 'Não procura.'], em: 'recebe.' },
+  { main: ['Compra à vista', 'ou financiamento', 'aprovado?'], em: 'aprovado?' },
+  { main: ['Pode fechar?', 'Aqui você', 'é raro.'], em: 'é raro.' },
+  { main: ['Comprador com', 'capacidade', 'comprovada vence.'], em: 'capacidade' },
 ]
 
 export default function HomePage({ navigate }: { navigate: NavigateFn }) {
@@ -38,8 +38,8 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 </h1>
               </Reveal>
               <Reveal delay={140}>
-                <p className="lead" style={{ marginTop: 20, maxWidth: '38ch' }}>
-                  As melhores oportunidades do mercado correm até você. <strong style={{ color: 'var(--ink)' }}>Inclusive as que nem estão à venda.</strong> A Achamos direciona sua busca e proprietários motivados se apresentam.
+                <p className="lead" style={{ marginTop: 20, maxWidth: '46ch' }}>
+                  <strong style={{ color: 'var(--ink)' }}>Comprador que pode fechar é raridade no mercado.</strong> A Achamos sabe usar isso a seu favor: sua busca vira anúncio direcionado nas redes sociais, e proprietários motivados — inclusive aqueles cujo imóvel nem estava à venda — correm até você.
                 </p>
               </Reveal>
               <Reveal delay={180}>
