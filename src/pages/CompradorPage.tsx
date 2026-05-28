@@ -47,6 +47,114 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
         </div>
       </section>
 
+      {/* 3 TIERS — Light · Spotlight · Hunt */}
+      <section className="surface-warm">
+        <div className="container">
+          <Reveal>
+            <div style={{ textAlign: 'center', marginBottom: 48 }}>
+              <span className="eyebrow">3 níveis de busca</span>
+              <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '14px auto 14px', maxWidth: '20ch' }}>
+                Escolha o seu nível.
+              </h2>
+              <p className="lead" style={{ fontSize: 17, maxWidth: '64ch', margin: '0 auto' }}>
+                <strong>Light</strong> é grátis (busca passiva na rede). <strong>Spotlight</strong> é a busca direcionada nas redes sociais. <strong>Hunt</strong> é prospecção cirúrgica pra alto padrão. <strong>Todos creditáveis no fechamento.</strong>
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+              {[
+                {
+                  tier: 'LIGHT',
+                  price: 'R$ 0',
+                  desc: 'Cadastro grátis · busca passiva',
+                  features: [
+                    'Acesso à carteira ativa + rede de parceiros',
+                    'Sem campanha social ativa',
+                    'Sem KYC formal',
+                    'Sem exclusividade',
+                  ],
+                  target: 'Pra quem está explorando, sem urgência',
+                  cta: 'Cadastrar grátis',
+                  featured: false,
+                },
+                {
+                  tier: 'SPOTLIGHT  ⭐',
+                  price: 'R$ 2.500',
+                  desc: 'Creditável no fechamento (volta 100% se você fechar)',
+                  features: [
+                    'Sua busca vira anúncio direcionado',
+                    'KYC validado · ficha anônima publicada',
+                    'Mínimo 3 candidatos qualificados',
+                    'Top 3 com curadoria humana',
+                    'SLA primeira candidatura: 7 dias',
+                    'Devolução parcial se < 3 candidatos',
+                  ],
+                  target: 'Pra quem tem prazo e quer fechar',
+                  cta: 'Ativar Spotlight',
+                  featured: true,
+                },
+                {
+                  tier: 'HUNT',
+                  price: 'R$ 7.500',
+                  desc: 'Creditável no fechamento · prospecção cirúrgica',
+                  features: [
+                    'Tudo do Spotlight',
+                    'Prospecção ativa porta-a-porta',
+                    'Campanha premium com vídeo',
+                    'Mínimo 5 candidatos qualificados',
+                    'Avaliação técnica de cada finalista',
+                    'Conexão bancária pra financiamento',
+                  ],
+                  target: 'Alto padrão (R$ 3M+) com urgência',
+                  cta: 'Conhecer Hunt',
+                  featured: false,
+                },
+              ].map(t => (
+                <div key={t.tier} style={{
+                  padding: 28,
+                  background: 'var(--white, #FFFFFF)',
+                  border: t.featured ? '2px solid var(--brand)' : '1px solid var(--line)',
+                  borderRadius: 'var(--r-lg, 20px)',
+                  boxShadow: t.featured ? '0 12px 32px rgba(111, 45, 225, 0.15)' : '0 2px 12px rgba(32, 31, 31, 0.05)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  position: 'relative',
+                }}>
+                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.15em', color: t.featured ? 'var(--brand)' : 'var(--ink-soft)', marginBottom: 14, fontWeight: 700 }}>
+                    {t.tier}
+                  </div>
+                  <div style={{ fontFamily: 'var(--f-display)', fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--ink)', lineHeight: 1 }}>
+                    {t.price}
+                  </div>
+                  <div style={{ fontSize: 13, color: 'var(--ink-soft)', marginTop: 6, marginBottom: 22, lineHeight: 1.4 }}>
+                    {t.desc}
+                  </div>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 22px 0', display: 'flex', flexDirection: 'column', gap: 10, flexGrow: 1 }}>
+                    {t.features.map((f, i) => (
+                      <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14, color: 'var(--ink)', lineHeight: 1.5 }}>
+                        <span style={{ color: 'var(--brand)', flexShrink: 0, marginTop: 2 }}><Check size={14} /></span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div style={{ fontSize: 12, color: 'var(--ink-mute, #8B8989)', marginBottom: 18, paddingTop: 16, borderTop: '1px solid var(--line-soft)', fontStyle: 'italic' }}>
+                    {t.target}
+                  </div>
+                  <button
+                    className={t.featured ? 'btn btn-brand' : 'btn btn-ghost'}
+                    onClick={() => navigate('comprar')}
+                    style={{ width: '100%', justifyContent: 'center' }}
+                  >
+                    {t.cta} <ArrowRight />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section>
         <div className="container">
           <div className="how-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80, alignItems: 'start' }}>
@@ -75,6 +183,47 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* 6 PROMESSAS CRAVADAS — Spotlight garante */}
+      <section className="surface-warm">
+        <div className="container">
+          <Reveal>
+            <div style={{ textAlign: 'center', marginBottom: 40 }}>
+              <span className="eyebrow">Spotlight garante</span>
+              <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '14px auto 14px', maxWidth: '20ch' }}>
+                6 promessas. Por escrito.
+              </h2>
+              <p className="lead" style={{ fontSize: 17, maxWidth: '60ch', margin: '0 auto' }}>
+                Cada uma é uma trincheira de credibilidade. Se quebrarmos uma, marca queima.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
+              {[
+                'Sua busca vira anúncio em até 48h',
+                'Primeira candidatura qualificada em até 7 dias',
+                'Mínimo de 3 finalistas curados em até 30 dias',
+                'Visita sempre acompanhada por corretor Achamos',
+                'Negociação intermediada (oferta + contraoferta via portal)',
+                'R$ 2.500 voltam 100% se fechar — 60% se < 3 candidatos · 100% se zero',
+              ].map((promise, i) => (
+                <div key={i} className="card" style={{ padding: 22, display: 'flex', gap: 14, alignItems: 'flex-start', background: 'var(--white, #FFFFFF)' }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: 999, background: 'var(--brand)', color: 'white',
+                    display: 'grid', placeItems: 'center', flexShrink: 0,
+                  }}>
+                    <Check size={16} />
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 500, color: 'var(--ink)', lineHeight: 1.5 }}>
+                    {promise}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -222,6 +371,59 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
               </p>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* COMPARATIVO BRUTAL — Achamos vs alternativas */}
+      <section>
+        <div className="container">
+          <Reveal>
+            <div style={{ marginBottom: 40 }}>
+              <span className="eyebrow">Achamos vs. as alternativas</span>
+              <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '14px 0 14px', maxWidth: '24ch' }}>
+                O ÚNICO modelo no Brasil onde o corretor trabalha <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>pelo comprador</em>.
+              </h2>
+              <p className="lead" style={{ fontSize: 17, maxWidth: '64ch' }}>
+                Todos os outros têm conflito de interesse — quem paga a comissão é o vendedor. Aqui, o cliente é você.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div style={{ overflowX: 'auto', borderRadius: 'var(--r-md, 12px)', boxShadow: '0 2px 16px rgba(32,31,31,0.06)', border: '1px solid var(--line)' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, background: 'var(--white, #FFFFFF)', minWidth: 700 }}>
+                <thead>
+                  <tr style={{ background: 'var(--ink)', color: 'var(--paper, #F4F0EB)' }}>
+                    <th style={{ padding: '14px 16px', textAlign: 'left', fontSize: 12, letterSpacing: '0.05em', fontWeight: 700 }}>CRITÉRIO</th>
+                    <th style={{ padding: '14px 16px', textAlign: 'center', fontSize: 12, fontWeight: 700 }}>PORTAL</th>
+                    <th style={{ padding: '14px 16px', textAlign: 'center', fontSize: 12, fontWeight: 700 }}>CORRETOR AUTÔNOMO</th>
+                    <th style={{ padding: '14px 16px', textAlign: 'center', fontSize: 12, fontWeight: 700 }}>IMOBILIÁRIA TRAD.</th>
+                    <th style={{ padding: '14px 16px', textAlign: 'center', fontSize: 12, fontWeight: 700, color: 'var(--brand)' }}>🟣 ACHAMOS SPOTLIGHT</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ['Custo pro comprador',         'R$ 0',           'R$ 0',                          'R$ 0',                            'R$ 2.500 (creditável)'],
+                    ['Tempo médio até fechamento',  '60-120 dias',    '60-90 dias',                    '60-90 dias',                      '30-60 dias'],
+                    ['Acesso a off-market',         '❌ Não',         '🟡 Limitado',                    '🟡 Limitado',                      '✅ Via mídia paga'],
+                    ['Curadoria por seu perfil',    '❌ Você filtra', '🟡 Subjetivo',                   '🟡 Subjetivo',                     '✅ Match Score + corretor'],
+                    ['Negociação a seu favor',      '❌ Você sozinho','🟡 Conflito (comissão vendedor)','🟡 Conflito (comissão vendedor)','✅ Mandato é seu'],
+                    ['Garantia de candidatos',      '❌ Zero',        '❌ Zero',                        '❌ Zero',                          '✅ Devolução parcial'],
+                    ['SLA primeira oferta',         'N/A',            '"Algum dia"',                   '"Em semanas"',                    '✅ 7 dias garantido'],
+                    ['Anonimato preservado',        '❌ Expõe perfil','✅ Sim',                         '✅ Sim',                           '✅ Ficha anonimizada'],
+                    ['Quem o corretor representa',  'N/A',            'Vendedor (paga comissão)',      'Vendedor (paga comissão)',        '✅ VOCÊ comprador'],
+                  ].map((row, i) => (
+                    <tr key={i} style={{ borderTop: '1px solid var(--line-soft)', background: i % 2 === 0 ? 'var(--paper-soft, #FAF7F2)' : 'var(--white, #FFFFFF)' }}>
+                      <td style={{ padding: '14px 16px', fontWeight: 600, color: 'var(--ink)' }}>{row[0]}</td>
+                      <td style={{ padding: '14px 16px', textAlign: 'center', color: 'var(--ink-soft)' }}>{row[1]}</td>
+                      <td style={{ padding: '14px 16px', textAlign: 'center', color: 'var(--ink-soft)' }}>{row[2]}</td>
+                      <td style={{ padding: '14px 16px', textAlign: 'center', color: 'var(--ink-soft)' }}>{row[3]}</td>
+                      <td style={{ padding: '14px 16px', textAlign: 'center', fontWeight: 700, color: 'var(--ink)', background: 'rgba(111, 45, 225, 0.04)' }}>{row[4]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Reveal>
         </div>
       </section>
 

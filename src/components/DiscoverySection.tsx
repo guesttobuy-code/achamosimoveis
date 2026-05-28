@@ -11,15 +11,53 @@ type FeedRow = {
   live: boolean
 }
 
+const PAINS: { num: string; dor: string; dorDesc: string; resp: string; respDesc: string }[] = [
+  {
+    num: '01',
+    dor: 'Fadiga de feed',
+    dorDesc: '30+ horas em portais. 80% é ruído: foto enganosa, preço fora, vendedor que não responde. 90% desiste antes de visitar.',
+    resp: 'Você não rola mais nada.',
+    respDesc: 'Top 3 já filtrado — só o que faz sentido pro seu perfil.',
+  },
+  {
+    num: '02',
+    dor: 'Off-market trancado',
+    dorDesc: 'A melhor parte do mercado nunca aparece em portal. Herança, divórcio, mudança — acesso só pra quem é amigo do corretor, do síndico, do zelador.',
+    resp: 'Mídia paga anuncia o seu perfil.',
+    respDesc: 'Proprietários motivados se apresentam — inclusive os que nem estavam à venda.',
+  },
+  {
+    num: '03',
+    dor: 'Negociação solo',
+    dorDesc: 'Vendedor + corretor experiente + outros 2-3 corretores de um lado. Comprador sozinho do outro. Paga preço cheio.',
+    resp: 'Cadeira privilegiada.',
+    respDesc: 'Candidatos qualificados se apresentam pra você. Negociação trabalha a seu favor.',
+  },
+  {
+    num: '04',
+    dor: 'Tempo perdido',
+    dorDesc: 'Do "estou procurando" até as chaves: 60-120 dias em capitais. Pra quem tem prazo (mudança, divórcio, gravidez), é insuportável.',
+    resp: 'Primeira candidatura em 7 dias.',
+    respDesc: 'Fechamento médio em 30-60 dias. Você ganha mês de vida.',
+  },
+  {
+    num: '05',
+    dor: 'Medo de errar',
+    dorDesc: 'Sem assessoria do lado do comprador: medo de documentação irregular, vícios escondidos, preço inflado, vendedor problemático. Resultado: paralisia.',
+    resp: 'Curadoria documental.',
+    respDesc: 'Visita acompanhada. Negociação intermediada. Acompanhamento até a escritura.',
+  },
+]
+
 const FEED: FeedRow[] = [
-  { loc: 'Itaim Bibi · SP',      desc: 'Apto 3 dorm. · sinalização pelo radar',          tag: 'RADAR IA',   cls: 't-radar', live: true  },
-  { loc: 'Lourdes · BH',         desc: 'Cobertura · ativação via campanha',              tag: 'OFF-MARKET', cls: 't-off',   live: true  },
-  { loc: 'Leblon · RJ',          desc: 'Apto 2 dorm. · vendedor anônimo despertado',     tag: 'RADAR IA',   cls: 't-radar', live: false },
-  { loc: 'Pinheiros · SP',       desc: 'Casa · carteira ativa · match 92%',              tag: 'ATIVO',      cls: 't-ativo', live: false },
-  { loc: 'Savassi · BH',         desc: 'Apto 4 dorm. · prospecção dirigida',             tag: 'RADAR IA',   cls: 't-radar', live: true  },
-  { loc: 'Barra da Tijuca · RJ', desc: 'Cobertura · parceiro local',                     tag: 'MATCH',      cls: 't-match', live: false },
-  { loc: 'Vila Madalena · SP',   desc: 'Sobrado · sinalização algoritmo',                tag: 'OFF-MARKET', cls: 't-off',   live: false },
-  { loc: 'Belvedere · BH',       desc: 'Casa · ativação iniciada',                       tag: 'RADAR IA',   cls: 't-radar', live: false },
+  { loc: 'Copacabana · RJ',      desc: 'Apto 2-3 dorm. · busca direcionada',          tag: 'ATIVO',      cls: 't-ativo', live: true  },
+  { loc: 'Botafogo · RJ',        desc: 'Cobertura · proprietário despertado',         tag: 'OFF-MARKET', cls: 't-off',   live: true  },
+  { loc: 'Ipanema · RJ',         desc: 'Apto 4 dorm. · candidatura recebida',         tag: 'MATCH',      cls: 't-match', live: false },
+  { loc: 'Tijuca · RJ',          desc: 'Apto 3 dorm. · primeiro imóvel',              tag: 'ATIVO',      cls: 't-ativo', live: false },
+  { loc: 'Lagoa · RJ',           desc: 'Cobertura · alto padrão',                     tag: 'OFF-MARKET', cls: 't-off',   live: true  },
+  { loc: 'Leblon · RJ',          desc: 'Apto 3 dorm. · negociação iniciada',          tag: 'MATCH',      cls: 't-match', live: false },
+  { loc: 'Vila Isabel · RJ',     desc: 'Apto família · candidato qualificado',        tag: 'ATIVO',      cls: 't-ativo', live: false },
+  { loc: 'Barra da Tijuca · RJ', desc: 'Casa em condomínio · vendedor motivado',      tag: 'OFF-MARKET', cls: 't-off',   live: false },
 ]
 
 function DiscoveryFeed({ feed }: { feed: FeedRow[] }) {
@@ -40,7 +78,7 @@ function DiscoveryFeed({ feed }: { feed: FeedRow[] }) {
       <div className="feed-head">
         <div className="feed-status-dot" />
         <div className="feed-title">Radar · ao vivo</div>
-        <div className="feed-meta">SP · RJ · MG</div>
+        <div className="feed-meta">Rio de Janeiro · todo o estado</div>
       </div>
       <div className="feed-rows">
         {visible.map((row, i) => (
@@ -66,52 +104,40 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
           <div className="discovery">
             <div className="discovery-head">
               <div>
-                <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>O motor por trás</span>
+                <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>Por que a Achamos existe</span>
                 <h2 className="discovery-title">
-                  Achamos vendedores que <em>nem sabiam</em> que iam vender.
+                  Cinco dores resolvidas.<br />
+                  Uma decisão <em>tomada</em>.
                 </h2>
               </div>
               <p className="discovery-lead">
-                Quando você diz o que procura, a gente não olha só quem já anunciou. <strong style={{ color: 'var(--inverse-fg)' }}>IA + campanhas dirigidas</strong> revelam oportunidades off-market — vendedores que têm o imóvel certo mas ainda não pensaram em vender.
+                Você reconheceu alguma delas? A gente desenhou o <strong style={{ color: 'var(--inverse-fg)' }}>serviço inteiro</strong> pra cada uma.
               </p>
             </div>
 
             <div className="discovery-body">
               <div className="discovery-pillars">
-                <div className="pillar">
-                  <span className="pillar-num">01</span>
-                  <div>
-                    <div className="pillar-title">Carteira ativa</div>
-                    <div className="pillar-sub">Mais de 150 imóveis já cadastrados conosco, prontos pra apresentar.</div>
+                {PAINS.map(p => (
+                  <div className="pillar" key={p.num} style={{ alignItems: 'stretch' }}>
+                    <span className="pillar-num">{p.num}</span>
+                    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 20, alignItems: 'flex-start' }}>
+                      <div>
+                        <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', opacity: 0.45, marginBottom: 6, fontWeight: 700 }}>DOR</div>
+                        <div className="pillar-title">{p.dor}</div>
+                        <div className="pillar-sub" style={{ opacity: 0.7 }}>{p.dorDesc}</div>
+                      </div>
+                      <div style={{ color: 'var(--brand)', fontSize: 22, fontWeight: 700, alignSelf: 'center', marginTop: 18 }} aria-hidden="true">→</div>
+                      <div>
+                        <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 6, fontWeight: 700 }}>A ACHAMOS</div>
+                        <div className="pillar-title">{p.resp}</div>
+                        <div className="pillar-sub">{p.respDesc}</div>
+                      </div>
+                    </div>
                   </div>
-                  <span className="pillar-tag">+150</span>
-                </div>
-                <div className="pillar">
-                  <span className="pillar-num">02</span>
-                  <div>
-                    <div className="pillar-title">Rede de parceiros</div>
-                    <div className="pillar-sub">Dezenas de imobiliárias e corretores parceiros em SP, RJ e MG — estoque cruzado.</div>
-                  </div>
-                  <span className="pillar-tag">SP · RJ · MG</span>
-                </div>
-                <div className="pillar featured">
-                  <span className="pillar-num">03</span>
-                  <div>
-                    <div className="pillar-title">Radar IA + campanhas</div>
-                    <div className="pillar-sub">Algoritmos identificam vendedores potenciais. Campanhas dirigidas despertam o interesse de gente que nem estava ativa.</div>
-                  </div>
-                  <span className="pillar-tag">Diferencial</span>
-                </div>
+                ))}
               </div>
 
               <DiscoveryFeed feed={FEED} />
-            </div>
-
-            <div className="discovery-stat">
-              <div className="discovery-stat-num">68%</div>
-              <div className="discovery-stat-body">
-                das oportunidades que apresentamos aos compradores <span>— não estão em nenhum portal de imóveis.</span>
-              </div>
             </div>
 
             <div style={{ display: 'flex', gap: 10, marginTop: 32, flexWrap: 'wrap' }}>
@@ -119,7 +145,7 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
                 Ativar minha busca <ArrowRight />
               </button>
               <button className="btn btn-light btn-lg" onClick={() => navigate('comprador')} style={{ background: 'transparent', color: 'var(--inverse-fg)', borderColor: 'rgba(255,255,255,0.2)' }}>
-                Entender o radar
+                Como funciona pro comprador
               </button>
             </div>
           </div>
