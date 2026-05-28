@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "tag": "STEP 1 OF 2 · PICK YOUR JOURNEY",
+    "title_part1": "How do you want to find your property",
+    "title_em": "today",
+    "title_part2": "?",
+    "lead": "Three paths. Pick by your moment — you can change anytime."
+  },
+  "cards": {
+    "c1_num": "01 · THE SELLER COMES TO YOU",
+    "c1_name_part1": "I want them to",
+    "c1_name_em": "find it",
+    "c1_name_part2": "for me",
+    "c1_desc_part1": "You describe. AI + our team go after it — including sellers who hadn't thought of selling. ",
+    "c1_desc_strong": "Our differential.",
+    "c1_cta": "Start briefing",
+    "c2_num": "02 · PORTAL",
+    "c2_name_part1": "I want to",
+    "c2_name_em": "search",
+    "c2_name_part2": "now",
+    "c2_desc": "Browse the catalog, rent or buy in a few clicks. Filters, map, scheduling — all digital.",
+    "c2_cta": "Search properties",
+    "c3_num": "03 · STAY BEFORE YOU BUY",
+    "c3_name_part1": "I want to",
+    "c3_name_em": "try it",
+    "c3_name_part2": "first",
+    "c3_desc": "Stay in the property you want to buy. Get to know the neighborhood, building, routine — then decide.",
+    "c3_cta": "See available properties"
+  },
+  "cross": {
+    "eyebrow": "Want to sell, not buy?",
+    "title": "List your property — we find matching buyers before you publish.",
+    "cta": "List property"
+  }
+}

@@ -2,6 +2,8 @@
    Chatbot step definitions (buyer + seller flows)
    ============================================ */
 
+type TFunction = (key: string, options?: Record<string, unknown>) => string
+
 export type StepKind = 'text' | 'cards' | 'chips' | 'chips-multi' | 'phone' | 'email' | 'summary' | 'autocomplete'
 
 export type StepOption = {
@@ -26,380 +28,378 @@ export type Step = {
   confirmLabel?: string
 }
 
-export const BUYER_STEPS: Step[] = [
-  {
-    id: 'intro',
-    prompts: [
-      'Oi! Eu sou a Achamos 👋',
-      'Funciona assim: você me conta o que procura, e a gente vai até os vendedores certos. Você não fica caçando — a gente te traz as opções.',
-      'Leva uns 2 minutinhos. Bora?',
-    ],
-    kind: 'cards',
-    options: [
-      { value: 'go', label: 'Bora!', sub: 'Quero começar', icon: 'check' },
-      { value: 'how', label: 'Como funciona?', sub: 'Me explica antes', icon: 'open' },
-    ],
-  },
-  {
-    id: 'nome',
-    prompts: ['Pra começar, como você se chama?'],
-    kind: 'text',
-    placeholder: 'Seu primeiro nome',
-    validate: (v) => v.trim().length >= 2 || 'Me diz pelo menos 2 caracteres :)',
-  },
-  {
-    // §11.13 M2 (2026-05-25): cidade vira autocomplete IBGE (cobertura nacional).
-    // Antes: 6 cards fixos (SP_CAP/RJ_CAP/MG_CAP + interiores). Agora: ~5570 municípios.
-    // Backend já aceita string literal via fallback `|| a.cidade` no CITY_MAP.
-    id: 'cidade',
-    prompts: (s) => [`Prazer, ${s.nome.split(' ')[0]}! Em qual cidade você quer comprar?`],
-    kind: 'autocomplete',
-    placeholder: 'Digite a cidade (ex: Belo Horizonte)',
-  },
-  {
-    id: 'bairros',
-    prompts: ['Tem bairro ou região preferida? (pode listar separado por vírgula, ou deixar em branco)'],
-    kind: 'text',
-    placeholder: 'Ex: Savassi, Lourdes, Funcionários',
-    optional: true,
-  },
-  {
-    id: 'tipo',
-    prompts: ['Que tipo de imóvel você está procurando?'],
-    kind: 'cards',
-    options: [
-      { value: 'apt',  label: 'Apartamento', icon: 'apt' },
-      { value: 'casa', label: 'Casa', icon: 'casa' },
-      { value: 'cob',  label: 'Cobertura', icon: 'cobertura' },
-      { value: 'ter',  label: 'Terreno', icon: 'terreno' },
-      { value: 'com',  label: 'Comercial', icon: 'comercial' },
-    ],
-  },
-  {
-    id: 'dorms',
-    prompts: ['Quantos dormitórios?'],
-    kind: 'chips',
-    options: [
-      { value: '1',    label: '1 dorm.' },
-      { value: '2',    label: '2 dorms.' },
-      { value: '3',    label: '3 dorms.' },
-      { value: '4+',   label: '4+ dorms.' },
-      { value: 'tanto', label: 'Tanto faz' },
-    ],
-  },
-  {
-    id: 'faixa',
-    prompts: ['Qual sua faixa de investimento?'],
-    kind: 'cards',
-    options: [
-      { value: 'A', label: 'Até R$ 400 mil',          icon: 'wallet' },
-      { value: 'B', label: 'R$ 400 mil – R$ 800 mil', icon: 'wallet' },
-      { value: 'C', label: 'R$ 800 mil – R$ 1,5 mi',  icon: 'wallet' },
-      { value: 'D', label: 'R$ 1,5 mi – R$ 3 mi',     icon: 'wallet' },
-      { value: 'E', label: 'Acima de R$ 3 mi',        icon: 'wallet' },
-    ],
-  },
-  {
-    id: 'pagamento',
-    prompts: ['Como pretende pagar?'],
-    kind: 'chips',
-    options: [
-      { value: 'AV',   label: '💰 À vista' },
-      { value: 'FIN',  label: '🏦 Financiamento' },
-      { value: 'MIX',  label: '🤝 Misto' },
-      { value: 'NSEI', label: '🤷 Ainda não sei' },
-    ],
-  },
-  {
-    id: 'prazo',
-    prompts: ['Em quanto tempo você quer ter as chaves na mão?'],
-    kind: 'cards',
-    options: [
-      { value: 'urg', label: 'Tô com pressa',    sub: 'Até 3 meses',              icon: 'clock' },
-      { value: 'med', label: 'Tô olhando',       sub: '3 a 6 meses',              icon: 'clock' },
-      { value: 'cal', label: 'Sem pressa',       sub: 'Mais de 6 meses',          icon: 'clock' },
-      { value: 'rs',  label: 'Só pesquisando',   sub: 'Quero entender o mercado', icon: 'clock' },
-    ],
-  },
-  {
-    // #202 (2026-05-25): virou chips-multi (multi-toggle) — Rafael pediu cards tickáveis.
-    id: 'extras',
-    prompts: [
-      'Tem alguma característica essencial?',
-      'Toque nas que importam pra você (pode marcar várias) e clique Continuar.',
-    ],
-    kind: 'chips-multi',
-    options: [
-      { value: 'vaga',       label: '🚗 Vaga de garagem' },
-      { value: 'duas-vagas', label: '🚗🚗 2+ vagas' },
-      { value: 'varanda',    label: '🌿 Varanda' },
-      { value: 'sol-manha',  label: '☀️ Sol da manhã' },
-      { value: 'pet',        label: '🐶 Pet-friendly' },
-      { value: 'mobiliado',  label: '🛋️ Mobiliado' },
-      { value: 'lazer',      label: '🏊 Área de lazer' },
-      { value: 'metro',      label: '🚇 Próximo metrô' },
-      { value: 'andar-alto', label: '🏙️ Andar alto' },
-      { value: 'sacada-g',   label: '🍷 Sacada gourmet' },
-      { value: 'reformado',  label: '✨ Reformado' },
-      { value: 'silencioso', label: '🤫 Bairro silencioso' },
-    ],
-    confirmLabel: 'Continuar',
-    optional: true,
-  },
-  {
-    id: 'whatsapp',
-    prompts: (s) => [`Quase lá, ${s.nome.split(' ')[0]}! Qual seu WhatsApp pra gente te chamar quando achar?`],
-    kind: 'phone',
-    placeholder: '(31) 99999-9999',
-  },
-  {
-    id: 'summary',
-    prompts: ['Confere se tá tudo certo:'],
-    kind: 'summary',
-    role: 'buyer',
-  },
-]
-
-export const SELLER_STEPS: Step[] = [
-  {
-    id: 'intro',
-    prompts: [
-      'Oi! Que bom que você quer anunciar com a gente 🏡',
-      'Já tem comprador esperando — só precisamos conhecer seu imóvel pra ver com quem dá match.',
-      'Leva uns 2 minutos. Vamos?',
-    ],
-    kind: 'cards',
-    options: [
-      { value: 'go',  label: 'Vamos lá',     sub: 'Cadastrar imóvel',   icon: 'check' },
-      { value: 'how', label: 'Como funciona?', sub: 'Me explica primeiro', icon: 'open' },
-    ],
-  },
-  {
-    id: 'nome',
-    prompts: ['Qual é o seu nome?'],
-    kind: 'text',
-    placeholder: 'Seu primeiro nome',
-    validate: (v) => v.trim().length >= 2 || 'Me diz pelo menos 2 caracteres :)',
-  },
-  {
-    id: 'tipo',
-    prompts: (s) => [`Prazer, ${s.nome.split(' ')[0]}! Que tipo de imóvel você quer anunciar?`],
-    kind: 'cards',
-    options: [
-      // §11.13 M1 (2026-05-25): expandido de 5 → 10 opções pra cobrir mercado real.
-      { value: 'apt',     label: 'Apartamento', icon: 'apt' },
-      { value: 'casa',    label: 'Casa',        icon: 'casa' },
-      { value: 'cob',     label: 'Cobertura',   icon: 'cobertura' },
-      { value: 'studio',  label: 'Studio',      icon: 'apt' },
-      { value: 'kitnet',  label: 'Kitnet',      icon: 'apt' },
-      { value: 'sobrado', label: 'Sobrado',     icon: 'casa' },
-      { value: 'ter',     label: 'Terreno',     icon: 'terreno' },
-      { value: 'sitio',   label: 'Sítio',       icon: 'casa' },
-      { value: 'com',     label: 'Comercial',   icon: 'comercial' },
-      { value: 'galpao',  label: 'Galpão',      icon: 'comercial' },
-    ],
-  },
-  {
-    // §11.13 M2 (2026-05-25): cidade autocomplete IBGE (mesmo do BUYER_STEPS).
-    id: 'cidade',
-    prompts: ['Em qual cidade fica o imóvel?'],
-    kind: 'autocomplete',
-    placeholder: 'Digite a cidade (ex: Belo Horizonte)',
-  },
-  { id: 'bairro', prompts: ['Qual o bairro?'], kind: 'text', placeholder: 'Ex: Lourdes' },
-  {
-    id: 'dorms',
-    prompts: ['Quantos dormitórios o imóvel tem?'],
-    kind: 'chips',
-    options: [
-      { value: '1',   label: '1' },
-      { value: '2',   label: '2' },
-      { value: '3',   label: '3' },
-      { value: '4',   label: '4' },
-      { value: '5+',  label: '5+' },
-      { value: 'n/a', label: 'Não se aplica' },
-    ],
-  },
-  { id: 'area', prompts: ['Qual a área útil (em m²)?'], kind: 'text', placeholder: 'Ex: 120' },
-  // §11.13 M6 (2026-05-25): vagas / banheiros / mobiliado / andar
-  // Condicionais por tipo: ChatForm.findNextRelevantStepIdx pula esses
-  // pra tipos onde não fazem sentido (terreno, sítio, galpão puro).
-  {
-    id: 'vagas',
-    prompts: ['Quantas vagas de garagem?'],
-    kind: 'chips',
-    options: [
-      { value: '0',  label: '0' },
-      { value: '1',  label: '1' },
-      { value: '2',  label: '2' },
-      { value: '3',  label: '3' },
-      { value: '4+', label: '4+' },
-    ],
-  },
-  {
-    id: 'banheiros',
-    prompts: ['Quantos banheiros (incluindo suítes)?'],
-    kind: 'chips',
-    options: [
-      { value: '1',  label: '1' },
-      { value: '2',  label: '2' },
-      { value: '3',  label: '3' },
-      { value: '4+', label: '4+' },
-    ],
-  },
-  {
-    id: 'mobiliado',
-    prompts: ['O imóvel é mobiliado?'],
-    kind: 'cards',
-    options: [
-      { value: 'mob',    label: 'Mobiliado',         sub: 'Móveis + eletros',    icon: 'check' },
-      { value: 'semi',   label: 'Semi-mobiliado',    sub: 'Móveis essenciais',   icon: 'check' },
-      { value: 'vazio',  label: 'Sem mobília',       sub: 'Vazio',               icon: 'open' },
-    ],
-  },
-  {
-    id: 'andar',
-    prompts: ['Em qual andar fica o imóvel?'],
-    kind: 'cards',
-    options: [
-      { value: 'terreo',  label: 'Térreo',          icon: 'pin' },
-      { value: 'baixo',   label: 'Andar baixo',     sub: 'até o 3º andar',         icon: 'pin' },
-      { value: 'medio',   label: 'Andar médio',     sub: 'do 4º ao 10º',           icon: 'pin' },
-      { value: 'alto',    label: 'Andar alto',      sub: 'acima do 10º',           icon: 'pin' },
-      { value: 'cob',     label: 'Cobertura',       sub: 'último andar',           icon: 'pin' },
-    ],
-  },
-  // §11.13 M9 (2026-05-25): ano + documentação
-  {
-    id: 'ano_construcao',
-    prompts: ['Em que ano o imóvel foi construído (aproximado)?'],
-    kind: 'cards',
-    options: [
-      { value: 'novo',     label: 'Novo / na planta',  sub: 'menos de 2 anos',  icon: 'check' },
-      { value: 'recente',  label: 'Recente',           sub: '2 a 10 anos',      icon: 'check' },
-      { value: 'medio',    label: 'Médio',             sub: '10 a 25 anos',     icon: 'check' },
-      { value: 'antigo',   label: 'Antigo',            sub: '25+ anos',         icon: 'check' },
-      { value: 'na',       label: 'Não sei',           sub: '',                 icon: 'open' },
-    ],
-  },
-  {
-    id: 'documentacao',
-    prompts: ['Qual a situação da documentação do imóvel?'],
-    kind: 'cards',
-    options: [
-      { value: 'ok',         label: 'Tudo regular',      sub: 'Habite-se + matrícula em dia', icon: 'check' },
-      { value: 'inventario', label: 'Em inventário',     sub: 'Tenho herança em curso',       icon: 'open' },
-      { value: 'financiado', label: 'Financiado',        sub: 'Ainda pago financiamento',     icon: 'open' },
-      { value: 'pendencias', label: 'Tem pendências',    sub: 'Preciso de ajuda pra regularizar', icon: 'open' },
-    ],
-  },
-  {
-    id: 'valor_modo',
-    prompts: [
-      'Por quanto você quer anunciar?',
-      'Você pode informar o valor exato ou escolher uma faixa — fica a seu critério.',
-    ],
-    kind: 'cards',
-    options: [
-      { value: 'exato', label: 'Quero informar o valor exato', sub: 'Ex: R$ 850.000', icon: 'wallet' },
-      { value: 'faixa', label: 'Prefiro uma faixa',             sub: '5 opções amplas', icon: 'check' },
-    ],
-  },
-  {
-    id: 'valor_exato',
-    // Só aparece se valor_modo === 'exato' — ChatForm pula este step caso contrário
-    prompts: ['Qual o valor exato em reais? (só números, ex: 850000)'],
-    kind: 'text',
-    placeholder: 'R$ 850.000',
-    validate: (v) => {
-      const n = Number(String(v).replace(/[^0-9]/g, ''))
-      if (!n || n < 50_000) return 'Digite um valor maior que R$ 50.000'
-      if (n > 200_000_000) return 'Valor parece muito alto — confira'
-      return true
+/**
+ * Builds the BUYER flow with translated strings.
+ * Pass i18next `t` (e.g. from `useTranslation('chat').t`) — labels read
+ * from `chat.buyer.*` and validators from `chat.validate.*`.
+ */
+export function buildBuyerSteps(t: TFunction): Step[] {
+  return [
+    {
+      id: 'intro',
+      prompts: [
+        t('buyer.intro_p1'),
+        t('buyer.intro_p2'),
+        t('buyer.intro_p3'),
+      ],
+      kind: 'cards',
+      options: [
+        { value: 'go',  label: t('buyer.intro_opt_go'),  sub: t('buyer.intro_opt_go_sub'),  icon: 'check' },
+        { value: 'how', label: t('buyer.intro_opt_how'), sub: t('buyer.intro_opt_how_sub'), icon: 'open' },
+      ],
     },
-  },
-  {
-    id: 'valor',
-    // Só aparece se valor_modo === 'faixa' — ChatForm pula caso contrário
-    prompts: ['Qual a faixa de valor?'],
-    kind: 'cards',
-    options: [
-      { value: 'A', label: 'Até R$ 300 mil',          icon: 'wallet' },
-      { value: 'B', label: 'R$ 300 mil – R$ 500 mil', icon: 'wallet' },
-      { value: 'C', label: 'R$ 500 mil – R$ 800 mil', icon: 'wallet' },
-      { value: 'D', label: 'R$ 800 mil – R$ 1,2 mi',  icon: 'wallet' },
-      { value: 'E', label: 'R$ 1,2 mi – R$ 2 mi',     icon: 'wallet' },
-      { value: 'F', label: 'R$ 2 mi – R$ 3,5 mi',     icon: 'wallet' },
-      { value: 'G', label: 'R$ 3,5 mi – R$ 6 mi',     icon: 'wallet' },
-      { value: 'H', label: 'Acima de R$ 6 mi',        icon: 'wallet' },
-    ],
-  },
-  // §11.13 M7 (2026-05-25): step financeiro combinado (multi-toggle)
-  {
-    id: 'financeiro',
-    prompts: [
-      'Toparia receber propostas com financiamento, FGTS ou permuta?',
-      'Pode escolher mais de uma opção (ou pular).',
-    ],
-    kind: 'chips',
-    options: [
-      { value: 'fin',     label: '✓ Aceito financiamento' },
-      { value: 'fgts',    label: '✓ Aceito FGTS' },
-      { value: 'perm',    label: '✓ Aceito permuta' },
-      { value: 'avista',  label: '💰 Prefiro à vista' },
-    ],
-    optional: true,
-  },
-  // §11.13 M8 (2026-05-25): custos atuais (opcional)
-  {
-    id: 'custos',
-    prompts: [
-      'Custos mensais aproximados (opcional — ajuda o comprador a calcular)',
-      'Pode digitar "300+150" pra condomínio R$ 300 e IPTU R$ 150 mensal.',
-    ],
-    kind: 'text',
-    placeholder: 'Ex: 800+220 (condomínio + IPTU)',
-    optional: true,
-  },
-  {
-    id: 'exclusividade',
-    prompts: ['Toparia trabalhar com exclusividade conosco por um período? (a gente investe mais na divulgação)'],
-    kind: 'cards',
-    options: [
-      { value: 'sim',  label: 'Sim, exclusivo',     sub: 'Quero foco total',          icon: 'lock' },
-      { value: 'nao',  label: 'Sem exclusividade',  sub: 'Outras imobiliárias também', icon: 'open' },
-      { value: 'conv', label: 'Conversar antes',    sub: 'Quero entender melhor',     icon: 'check' },
-    ],
-  },
-  {
-    id: 'fotos',
-    prompts: ['Você já tem fotos do imóvel?'],
-    kind: 'chips',
-    options: [
-      { value: 'pro', label: '📸 Profissionais' },
-      { value: 'cel', label: '📱 Celular' },
-      { value: 'nao', label: '❌ Não tenho ainda' },
-      { value: 'aj',  label: '🙏 Preciso de ajuda' },
-    ],
-  },
-  {
-    id: 'diferenciais',
-    prompts: [
-      'Última pergunta importante: o que você acha que é diferencial do seu imóvel?',
-      'Tudo reformado, oportunidade, imóvel de inventário abaixo do preço, vista privilegiada, andar alto... Detalha aqui — é o que vai fazer o comprador se interessar em fechar negócio com você.',
-    ],
-    kind: 'text',
-    placeholder: 'Ex: Recém reformado em 2025, vista mar, prédio com piscina e academia, aceita permuta com imóvel menor...',
-    optional: true,
-  },
-  {
-    id: 'whatsapp',
-    prompts: (s) => [`Tudo certo, ${s.nome.split(' ')[0]}. Qual seu WhatsApp pra equipe entrar em contato?`],
-    kind: 'phone',
-    placeholder: '(31) 99999-9999',
-  },
-  { id: 'summary', prompts: ['Confere se tá tudo certo:'], kind: 'summary', role: 'seller' },
-]
+    {
+      id: 'nome',
+      prompts: [t('buyer.nome_prompt')],
+      kind: 'text',
+      placeholder: t('buyer.nome_ph'),
+      validate: (v) => v.trim().length >= 2 || t('validate.min_2_chars'),
+    },
+    {
+      id: 'cidade',
+      prompts: (s) => [t('buyer.cidade_prompt', { name: (s.nome || '').split(' ')[0] })],
+      kind: 'autocomplete',
+      placeholder: t('buyer.cidade_ph'),
+    },
+    {
+      id: 'bairros',
+      prompts: [t('buyer.bairros_prompt')],
+      kind: 'text',
+      placeholder: t('buyer.bairros_ph'),
+      optional: true,
+    },
+    {
+      id: 'tipo',
+      prompts: [t('buyer.tipo_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'apt',  label: t('buyer.tipo_apt'),  icon: 'apt' },
+        { value: 'casa', label: t('buyer.tipo_casa'), icon: 'casa' },
+        { value: 'cob',  label: t('buyer.tipo_cob'),  icon: 'cobertura' },
+        { value: 'ter',  label: t('buyer.tipo_ter'),  icon: 'terreno' },
+        { value: 'com',  label: t('buyer.tipo_com'),  icon: 'comercial' },
+      ],
+    },
+    {
+      id: 'dorms',
+      prompts: [t('buyer.dorms_prompt')],
+      kind: 'chips',
+      options: [
+        { value: '1',     label: t('buyer.dorms_1') },
+        { value: '2',     label: t('buyer.dorms_2') },
+        { value: '3',     label: t('buyer.dorms_3') },
+        { value: '4+',    label: t('buyer.dorms_4') },
+        { value: 'tanto', label: t('buyer.dorms_tanto') },
+      ],
+    },
+    {
+      id: 'faixa',
+      prompts: [t('buyer.faixa_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'A', label: t('buyer.faixa_A'), icon: 'wallet' },
+        { value: 'B', label: t('buyer.faixa_B'), icon: 'wallet' },
+        { value: 'C', label: t('buyer.faixa_C'), icon: 'wallet' },
+        { value: 'D', label: t('buyer.faixa_D'), icon: 'wallet' },
+        { value: 'E', label: t('buyer.faixa_E'), icon: 'wallet' },
+      ],
+    },
+    {
+      id: 'pagamento',
+      prompts: [t('buyer.pagamento_prompt')],
+      kind: 'chips',
+      options: [
+        { value: 'AV',   label: t('buyer.pag_av') },
+        { value: 'FIN',  label: t('buyer.pag_fin') },
+        { value: 'MIX',  label: t('buyer.pag_mix') },
+        { value: 'NSEI', label: t('buyer.pag_nsei') },
+      ],
+    },
+    {
+      id: 'prazo',
+      prompts: [t('buyer.prazo_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'urg', label: t('buyer.prazo_urg'), sub: t('buyer.prazo_urg_sub'), icon: 'clock' },
+        { value: 'med', label: t('buyer.prazo_med'), sub: t('buyer.prazo_med_sub'), icon: 'clock' },
+        { value: 'cal', label: t('buyer.prazo_cal'), sub: t('buyer.prazo_cal_sub'), icon: 'clock' },
+        { value: 'rs',  label: t('buyer.prazo_rs'),  sub: t('buyer.prazo_rs_sub'),  icon: 'clock' },
+      ],
+    },
+    {
+      id: 'extras',
+      prompts: [
+        t('buyer.extras_p1'),
+        t('buyer.extras_p2'),
+      ],
+      kind: 'chips-multi',
+      options: [
+        { value: 'vaga',       label: t('buyer.extras_vaga') },
+        { value: 'duas-vagas', label: t('buyer.extras_duas_vagas') },
+        { value: 'varanda',    label: t('buyer.extras_varanda') },
+        { value: 'sol-manha',  label: t('buyer.extras_sol_manha') },
+        { value: 'pet',        label: t('buyer.extras_pet') },
+        { value: 'mobiliado',  label: t('buyer.extras_mobiliado') },
+        { value: 'lazer',      label: t('buyer.extras_lazer') },
+        { value: 'metro',      label: t('buyer.extras_metro') },
+        { value: 'andar-alto', label: t('buyer.extras_andar_alto') },
+        { value: 'sacada-g',   label: t('buyer.extras_sacada_g') },
+        { value: 'reformado',  label: t('buyer.extras_reformado') },
+        { value: 'silencioso', label: t('buyer.extras_silencioso') },
+      ],
+      confirmLabel: t('ui.continue'),
+      optional: true,
+    },
+    {
+      id: 'whatsapp',
+      prompts: (s) => [t('buyer.whatsapp_prompt', { name: (s.nome || '').split(' ')[0] })],
+      kind: 'phone',
+      placeholder: t('buyer.whatsapp_ph'),
+    },
+    {
+      id: 'summary',
+      prompts: [t('buyer.summary_prompt')],
+      kind: 'summary',
+      role: 'buyer',
+    },
+  ]
+}
+
+/**
+ * Builds the SELLER flow with translated strings. Mirror of buildBuyerSteps.
+ */
+export function buildSellerSteps(t: TFunction): Step[] {
+  return [
+    {
+      id: 'intro',
+      prompts: [
+        t('seller.intro_p1'),
+        t('seller.intro_p2'),
+        t('seller.intro_p3'),
+      ],
+      kind: 'cards',
+      options: [
+        { value: 'go',  label: t('seller.intro_opt_go'),  sub: t('seller.intro_opt_go_sub'),  icon: 'check' },
+        { value: 'how', label: t('seller.intro_opt_how'), sub: t('seller.intro_opt_how_sub'), icon: 'open' },
+      ],
+    },
+    {
+      id: 'nome',
+      prompts: [t('seller.nome_prompt')],
+      kind: 'text',
+      placeholder: t('seller.nome_ph'),
+      validate: (v) => v.trim().length >= 2 || t('validate.min_2_chars'),
+    },
+    {
+      id: 'tipo',
+      prompts: (s) => [t('seller.tipo_prompt', { name: (s.nome || '').split(' ')[0] })],
+      kind: 'cards',
+      options: [
+        { value: 'apt',     label: t('seller.tipo_apt'),     icon: 'apt' },
+        { value: 'casa',    label: t('seller.tipo_casa'),    icon: 'casa' },
+        { value: 'cob',     label: t('seller.tipo_cob'),     icon: 'cobertura' },
+        { value: 'studio',  label: t('seller.tipo_studio'),  icon: 'apt' },
+        { value: 'kitnet',  label: t('seller.tipo_kitnet'),  icon: 'apt' },
+        { value: 'sobrado', label: t('seller.tipo_sobrado'), icon: 'casa' },
+        { value: 'ter',     label: t('seller.tipo_ter'),     icon: 'terreno' },
+        { value: 'sitio',   label: t('seller.tipo_sitio'),   icon: 'casa' },
+        { value: 'com',     label: t('seller.tipo_com'),     icon: 'comercial' },
+        { value: 'galpao',  label: t('seller.tipo_galpao'),  icon: 'comercial' },
+      ],
+    },
+    {
+      id: 'cidade',
+      prompts: [t('seller.cidade_prompt')],
+      kind: 'autocomplete',
+      placeholder: t('seller.cidade_ph'),
+    },
+    { id: 'bairro', prompts: [t('seller.bairro_prompt')], kind: 'text', placeholder: t('seller.bairro_ph') },
+    {
+      id: 'dorms',
+      prompts: [t('seller.dorms_prompt')],
+      kind: 'chips',
+      options: [
+        { value: '1',   label: '1' },
+        { value: '2',   label: '2' },
+        { value: '3',   label: '3' },
+        { value: '4',   label: '4' },
+        { value: '5+',  label: '5+' },
+        { value: 'n/a', label: t('seller.dorms_na') },
+      ],
+    },
+    { id: 'area', prompts: [t('seller.area_prompt')], kind: 'text', placeholder: t('seller.area_ph') },
+    {
+      id: 'vagas',
+      prompts: [t('seller.vagas_prompt')],
+      kind: 'chips',
+      options: [
+        { value: '0',  label: '0' },
+        { value: '1',  label: '1' },
+        { value: '2',  label: '2' },
+        { value: '3',  label: '3' },
+        { value: '4+', label: '4+' },
+      ],
+    },
+    {
+      id: 'banheiros',
+      prompts: [t('seller.banheiros_prompt')],
+      kind: 'chips',
+      options: [
+        { value: '1',  label: '1' },
+        { value: '2',  label: '2' },
+        { value: '3',  label: '3' },
+        { value: '4+', label: '4+' },
+      ],
+    },
+    {
+      id: 'mobiliado',
+      prompts: [t('seller.mobiliado_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'mob',    label: t('seller.mob_mob'),    sub: t('seller.mob_mob_sub'),    icon: 'check' },
+        { value: 'semi',   label: t('seller.mob_semi'),   sub: t('seller.mob_semi_sub'),   icon: 'check' },
+        { value: 'vazio',  label: t('seller.mob_vazio'),  sub: t('seller.mob_vazio_sub'),  icon: 'open' },
+      ],
+    },
+    {
+      id: 'andar',
+      prompts: [t('seller.andar_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'terreo', label: t('seller.andar_terreo'), icon: 'pin' },
+        { value: 'baixo',  label: t('seller.andar_baixo'),  sub: t('seller.andar_baixo_sub'), icon: 'pin' },
+        { value: 'medio',  label: t('seller.andar_medio'),  sub: t('seller.andar_medio_sub'), icon: 'pin' },
+        { value: 'alto',   label: t('seller.andar_alto'),   sub: t('seller.andar_alto_sub'),  icon: 'pin' },
+        { value: 'cob',    label: t('seller.andar_cob'),    sub: t('seller.andar_cob_sub'),   icon: 'pin' },
+      ],
+    },
+    {
+      id: 'ano_construcao',
+      prompts: [t('seller.ano_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'novo',    label: t('seller.ano_novo'),    sub: t('seller.ano_novo_sub'),    icon: 'check' },
+        { value: 'recente', label: t('seller.ano_recente'), sub: t('seller.ano_recente_sub'), icon: 'check' },
+        { value: 'medio',   label: t('seller.ano_medio'),   sub: t('seller.ano_medio_sub'),   icon: 'check' },
+        { value: 'antigo',  label: t('seller.ano_antigo'),  sub: t('seller.ano_antigo_sub'),  icon: 'check' },
+        { value: 'na',      label: t('seller.ano_na'),      sub: '',                          icon: 'open' },
+      ],
+    },
+    {
+      id: 'documentacao',
+      prompts: [t('seller.doc_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'ok',         label: t('seller.doc_ok'),         sub: t('seller.doc_ok_sub'),         icon: 'check' },
+        { value: 'inventario', label: t('seller.doc_inventario'), sub: t('seller.doc_inventario_sub'), icon: 'open' },
+        { value: 'financiado', label: t('seller.doc_financiado'), sub: t('seller.doc_financiado_sub'), icon: 'open' },
+        { value: 'pendencias', label: t('seller.doc_pendencias'), sub: t('seller.doc_pendencias_sub'), icon: 'open' },
+      ],
+    },
+    {
+      id: 'valor_modo',
+      prompts: [
+        t('seller.valor_modo_p1'),
+        t('seller.valor_modo_p2'),
+      ],
+      kind: 'cards',
+      options: [
+        { value: 'exato', label: t('seller.valor_modo_exato'), sub: t('seller.valor_modo_exato_sub'), icon: 'wallet' },
+        { value: 'faixa', label: t('seller.valor_modo_faixa'), sub: t('seller.valor_modo_faixa_sub'), icon: 'check' },
+      ],
+    },
+    {
+      id: 'valor_exato',
+      prompts: [t('seller.valor_exato_prompt')],
+      kind: 'text',
+      placeholder: t('seller.valor_exato_ph'),
+      validate: (v) => {
+        const n = Number(String(v).replace(/[^0-9]/g, ''))
+        if (!n || n < 50_000) return t('validate.valor_min')
+        if (n > 200_000_000) return t('validate.valor_max')
+        return true
+      },
+    },
+    {
+      id: 'valor',
+      prompts: [t('seller.valor_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'A', label: t('seller.faixa_A'), icon: 'wallet' },
+        { value: 'B', label: t('seller.faixa_B'), icon: 'wallet' },
+        { value: 'C', label: t('seller.faixa_C'), icon: 'wallet' },
+        { value: 'D', label: t('seller.faixa_D'), icon: 'wallet' },
+        { value: 'E', label: t('seller.faixa_E'), icon: 'wallet' },
+        { value: 'F', label: t('seller.faixa_F'), icon: 'wallet' },
+        { value: 'G', label: t('seller.faixa_G'), icon: 'wallet' },
+        { value: 'H', label: t('seller.faixa_H'), icon: 'wallet' },
+      ],
+    },
+    {
+      id: 'financeiro',
+      prompts: [
+        t('seller.fin_p1'),
+        t('seller.fin_p2'),
+      ],
+      kind: 'chips',
+      options: [
+        { value: 'fin',    label: t('seller.fin_fin') },
+        { value: 'fgts',   label: t('seller.fin_fgts') },
+        { value: 'perm',   label: t('seller.fin_perm') },
+        { value: 'avista', label: t('seller.fin_avista') },
+      ],
+      optional: true,
+    },
+    {
+      id: 'custos',
+      prompts: [
+        t('seller.custos_p1'),
+        t('seller.custos_p2'),
+      ],
+      kind: 'text',
+      placeholder: t('seller.custos_ph'),
+      optional: true,
+    },
+    {
+      id: 'exclusividade',
+      prompts: [t('seller.excl_prompt')],
+      kind: 'cards',
+      options: [
+        { value: 'sim',  label: t('seller.excl_sim'),  sub: t('seller.excl_sim_sub'),  icon: 'lock' },
+        { value: 'nao',  label: t('seller.excl_nao'),  sub: t('seller.excl_nao_sub'),  icon: 'open' },
+        { value: 'conv', label: t('seller.excl_conv'), sub: t('seller.excl_conv_sub'), icon: 'check' },
+      ],
+    },
+    {
+      id: 'fotos',
+      prompts: [t('seller.fotos_prompt')],
+      kind: 'chips',
+      options: [
+        { value: 'pro', label: t('seller.fotos_pro') },
+        { value: 'cel', label: t('seller.fotos_cel') },
+        { value: 'nao', label: t('seller.fotos_nao') },
+        { value: 'aj',  label: t('seller.fotos_aj') },
+      ],
+    },
+    {
+      id: 'diferenciais',
+      prompts: [
+        t('seller.diferenciais_p1'),
+        t('seller.diferenciais_p2'),
+      ],
+      kind: 'text',
+      placeholder: t('seller.diferenciais_ph'),
+      optional: true,
+    },
+    {
+      id: 'whatsapp',
+      prompts: (s) => [t('seller.whatsapp_prompt', { name: (s.nome || '').split(' ')[0] })],
+      kind: 'phone',
+      placeholder: t('seller.whatsapp_ph'),
+    },
+    { id: 'summary', prompts: [t('buyer.summary_prompt')], kind: 'summary', role: 'seller' },
+  ]
+}
 
 /* ============================================
    Phone mask
@@ -412,25 +412,12 @@ export function maskPhone(v: string): string {
 }
 
 /* ============================================
-   Summary builder
+   Summary builder (i18n-aware)
    ============================================ */
-export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, string][] {
-  // §11.13 M1 (2026-05-25): expandido pra cobrir os 10 tipos do step `tipo`.
-  const tipoMap: Record<string, string> = {
-    apt: 'Apartamento',
-    casa: 'Casa',
-    cob: 'Cobertura',
-    studio: 'Studio',
-    kitnet: 'Kitnet',
-    sobrado: 'Sobrado',
-    ter: 'Terreno',
-    sitio: 'Sítio',
-    com: 'Comercial',
-    galpao: 'Galpão',
-  }
-  // Legacy: códigos antigos (SP_CAP etc) — mantém compat com sessões salvas.
-  // §11.13 M2 (2026-05-25): formato novo é literal "Nome/UF" (ex: "Belo Horizonte/MG").
-  const cidadeMap: Record<string, string> = {
+export function buildSummary(role: 'buyer' | 'seller', a: Answers, t: TFunction): [string, string][] {
+  // Legacy cidade codes (pre-IBGE-autocomplete). Kept literal — these were
+  // never user-facing in EN/ES (legacy sessions don't exist there).
+  const cidadeLegacyMap: Record<string, string> = {
     SP_CAP: 'São Paulo / SP (capital)',
     RJ_CAP: 'Rio de Janeiro / RJ (capital)',
     MG_CAP: 'Belo Horizonte / MG (capital)',
@@ -440,23 +427,12 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
   }
   function formatCidade(raw: string | undefined): string {
     if (!raw) return '—'
-    if (cidadeMap[raw]) return cidadeMap[raw]
-    // Formato novo "Nome/UF" → exibe "Nome / UF" (espaços ao redor da barra)
+    if (cidadeLegacyMap[raw]) return cidadeLegacyMap[raw]
     if (raw.includes('/')) {
       const [nome, uf] = raw.split('/').map((s) => s.trim())
       return uf ? `${nome} / ${uf}` : nome
     }
     return raw
-  }
-  const faixaMap: Record<string, string> = {
-    // Buyer (5 faixas amplas, mantém compat)
-    A: 'Até R$ 400 mil', B: 'R$ 400 mil – R$ 800 mil', C: 'R$ 800 mil – R$ 1,5 mi',
-    D: 'R$ 1,5 mi – R$ 3 mi', E: 'Acima de R$ 3 mi',
-  }
-  const faixaSellerMap: Record<string, string> = {
-    A: 'Até R$ 300 mil', B: 'R$ 300 mil – R$ 500 mil', C: 'R$ 500 mil – R$ 800 mil',
-    D: 'R$ 800 mil – R$ 1,2 mi', E: 'R$ 1,2 mi – R$ 2 mi', F: 'R$ 2 mi – R$ 3,5 mi',
-    G: 'R$ 3,5 mi – R$ 6 mi', H: 'Acima de R$ 6 mi',
   }
   function formatExactBrl(raw: string | undefined): string {
     if (!raw) return '—'
@@ -464,92 +440,124 @@ export function buildSummary(role: 'buyer' | 'seller', a: Answers): [string, str
     if (!n) return '—'
     return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
   }
-  const prazoMap: Record<string, string> = { urg: 'Até 3 meses', med: '3 a 6 meses', cal: 'Mais de 6 meses', rs: 'Sem prazo definido' }
-  const pagMap: Record<string, string> = { AV: 'À vista', FIN: 'Financiamento', MIX: 'Misto', NSEI: 'Ainda decidindo' }
-  // #202: labels dos chips-multi do step `extras` (must_have).
+
+  const tipoMap: Record<string, string> = {
+    apt: t('summary_maps.tipo_apt'),
+    casa: t('summary_maps.tipo_casa'),
+    cob: t('summary_maps.tipo_cob'),
+    studio: t('summary_maps.tipo_studio'),
+    kitnet: t('summary_maps.tipo_kitnet'),
+    sobrado: t('summary_maps.tipo_sobrado'),
+    ter: t('summary_maps.tipo_ter'),
+    sitio: t('summary_maps.tipo_sitio'),
+    com: t('summary_maps.tipo_com'),
+    galpao: t('summary_maps.tipo_galpao'),
+  }
+  const faixaBuyerMap: Record<string, string> = {
+    A: t('buyer.faixa_A'), B: t('buyer.faixa_B'), C: t('buyer.faixa_C'),
+    D: t('buyer.faixa_D'), E: t('buyer.faixa_E'),
+  }
+  const faixaSellerMap: Record<string, string> = {
+    A: t('seller.faixa_A'), B: t('seller.faixa_B'), C: t('seller.faixa_C'),
+    D: t('seller.faixa_D'), E: t('seller.faixa_E'), F: t('seller.faixa_F'),
+    G: t('seller.faixa_G'), H: t('seller.faixa_H'),
+  }
+  const prazoMap: Record<string, string> = {
+    urg: t('summary_maps.prazo_urg'), med: t('summary_maps.prazo_med'),
+    cal: t('summary_maps.prazo_cal'), rs: t('summary_maps.prazo_rs'),
+  }
+  const pagMap: Record<string, string> = {
+    AV: t('summary_maps.pag_av'), FIN: t('summary_maps.pag_fin'),
+    MIX: t('summary_maps.pag_mix'), NSEI: t('summary_maps.pag_nsei'),
+  }
   const extrasLabelMap: Record<string, string> = {
-    vaga: 'Vaga de garagem', 'duas-vagas': '2+ vagas',
-    varanda: 'Varanda', 'sol-manha': 'Sol da manhã',
-    pet: 'Pet-friendly', mobiliado: 'Mobiliado',
-    lazer: 'Área de lazer', metro: 'Próximo metrô',
-    'andar-alto': 'Andar alto', 'sacada-g': 'Sacada gourmet',
-    reformado: 'Reformado', silencioso: 'Bairro silencioso',
+    vaga: t('summary_maps.ex_vaga'), 'duas-vagas': t('summary_maps.ex_duas_vagas'),
+    varanda: t('summary_maps.ex_varanda'), 'sol-manha': t('summary_maps.ex_sol_manha'),
+    pet: t('summary_maps.ex_pet'), mobiliado: t('summary_maps.ex_mobiliado'),
+    lazer: t('summary_maps.ex_lazer'), metro: t('summary_maps.ex_metro'),
+    'andar-alto': t('summary_maps.ex_andar_alto'), 'sacada-g': t('summary_maps.ex_sacada_g'),
+    reformado: t('summary_maps.ex_reformado'), silencioso: t('summary_maps.ex_silencioso'),
   }
   function formatExtrasLabels(raw: string | undefined): string {
     if (!raw) return ''
     return raw.split(',').map(v => extrasLabelMap[v.trim()] || v.trim()).filter(Boolean).join(', ')
   }
-  const exclMap: Record<string, string> = { sim: 'Com exclusividade', nao: 'Sem exclusividade', conv: 'Quer conversar' }
-  const fotoMap: Record<string, string> = { pro: 'Profissionais', cel: 'Celular', nao: 'Sem fotos', aj: 'Quer ajuda' }
+  const exclMap: Record<string, string> = {
+    sim: t('summary_maps.excl_sim'), nao: t('summary_maps.excl_nao'), conv: t('summary_maps.excl_conv'),
+  }
+  const fotoMap: Record<string, string> = {
+    pro: t('summary_maps.fotos_pro'), cel: t('summary_maps.fotos_cel'),
+    nao: t('summary_maps.fotos_nao'), aj: t('summary_maps.fotos_aj'),
+  }
 
   if (role === 'buyer') {
     return [
-      ['Nome',         a.nome || '—'],
-      ['Cidade',       formatCidade(a.cidade)],
-      ['Bairros',      a.bairros || 'Aberto'],
-      ['Tipo',         tipoMap[a.tipo] || '—'],
-      ['Dormitórios',  a.dorms === 'tanto' ? 'Tanto faz' : (a.dorms || '—')],
-      ['Investimento', faixaMap[a.faixa] || '—'],
-      ['Pagamento',    pagMap[a.pagamento] || '—'],
-      ['Prazo',        prazoMap[a.prazo] || '—'],
-      // #202: extras agora é CSV de chips-multi — exibir labels mapeados
-      ['Essenciais',   formatExtrasLabels(a.extras) || '—'],
-      ['WhatsApp',     a.whatsapp || '—'],
+      [t('summary_labels.nome'),         a.nome || '—'],
+      [t('summary_labels.cidade'),       formatCidade(a.cidade)],
+      [t('summary_labels.bairros'),      a.bairros || t('summary_labels.aberto')],
+      [t('summary_labels.tipo'),         tipoMap[a.tipo] || '—'],
+      [t('summary_labels.dorms'),        a.dorms === 'tanto' ? t('summary_labels.tanto_faz') : (a.dorms || '—')],
+      [t('summary_labels.investimento'), faixaBuyerMap[a.faixa] || '—'],
+      [t('summary_labels.pagamento'),    pagMap[a.pagamento] || '—'],
+      [t('summary_labels.prazo'),        prazoMap[a.prazo] || '—'],
+      [t('summary_labels.essenciais'),   formatExtrasLabels(a.extras) || '—'],
+      [t('summary_labels.whatsapp'),     a.whatsapp || '—'],
     ]
   }
   const valorLabel = a.valor_modo === 'exato' && a.valor_exato
     ? formatExactBrl(a.valor_exato)
-    : (faixaSellerMap[a.valor] || faixaMap[a.valor] || '—')
-  // §11.13 M5–M9 (2026-05-25): novos maps pros campos adicionados
-  const mobMap: Record<string, string> = { mob: 'Mobiliado', semi: 'Semi-mobiliado', vazio: 'Sem mobília' }
+    : (faixaSellerMap[a.valor] || faixaBuyerMap[a.valor] || '—')
+  const mobMap: Record<string, string> = {
+    mob: t('summary_maps.mob_mob'), semi: t('summary_maps.mob_semi'), vazio: t('summary_maps.mob_vazio'),
+  }
   const andarMap: Record<string, string> = {
-    terreo: 'Térreo', baixo: 'Andar baixo (até 3º)', medio: 'Andar médio (4º–10º)',
-    alto: 'Andar alto (acima 10º)', cob: 'Cobertura',
+    terreo: t('summary_maps.andar_terreo'), baixo: t('summary_maps.andar_baixo'),
+    medio: t('summary_maps.andar_medio'), alto: t('summary_maps.andar_alto'), cob: t('summary_maps.andar_cob'),
   }
   const anoMap: Record<string, string> = {
-    novo: 'Novo / planta', recente: 'Recente (2–10 anos)', medio: 'Médio (10–25 anos)',
-    antigo: 'Antigo (25+ anos)', na: 'Não sei',
+    novo: t('summary_maps.ano_novo'), recente: t('summary_maps.ano_recente'),
+    medio: t('summary_maps.ano_medio'), antigo: t('summary_maps.ano_antigo'), na: t('summary_maps.ano_na'),
   }
   const docMap: Record<string, string> = {
-    ok: 'Regular', inventario: 'Em inventário', financiado: 'Financiado', pendencias: 'Tem pendências',
+    ok: t('summary_maps.doc_ok'), inventario: t('summary_maps.doc_inventario'),
+    financiado: t('summary_maps.doc_financiado'), pendencias: t('summary_maps.doc_pendencias'),
   }
   const finChipMap: Record<string, string> = {
-    fin: 'Financiamento', fgts: 'FGTS', perm: 'Permuta', avista: 'Só à vista',
+    fin: t('summary_maps.fin_fin'), fgts: t('summary_maps.fin_fgts'),
+    perm: t('summary_maps.fin_perm'), avista: t('summary_maps.fin_avista'),
   }
-  // a.financeiro pode ser string CSV (chips) — split + map + join
   const financeiroLabel = a.financeiro
     ? a.financeiro.split(',').map((v) => finChipMap[v.trim()] || v).filter(Boolean).join(', ') || '—'
-    : 'Não informado'
+    : t('summary_labels.nao_informado')
   const rows: [string, string][] = [
-    ['Nome',             a.nome || '—'],
-    ['Tipo',             tipoMap[a.tipo] || '—'],
-    ['Cidade',           formatCidade(a.cidade)],
-    ['Bairro',           a.bairro || '—'],
+    [t('summary_labels.nome'),         a.nome || '—'],
+    [t('summary_labels.tipo'),         tipoMap[a.tipo] || '—'],
+    [t('summary_labels.cidade'),       formatCidade(a.cidade)],
+    [t('summary_labels.bairro'),       a.bairro || '—'],
   ]
-  // §11.13 M5 condicionais: só mostra campos que fazem sentido pro tipo
   const tipoCode = a.tipo || ''
   const isResidential = ['apt', 'casa', 'cob', 'studio', 'kitnet', 'sobrado'].includes(tipoCode)
   const isLand = tipoCode === 'ter'
   if (!isLand) {
-    if (isResidential) rows.push(['Dormitórios', a.dorms || '—'])
-    rows.push(['Área útil', a.area ? `${a.area} m²` : '—'])
+    if (isResidential) rows.push([t('summary_labels.dorms'), a.dorms || '—'])
+    rows.push([t('summary_labels.area_util'), a.area ? `${a.area} m²` : '—'])
     if (isResidential) {
-      rows.push(['Vagas',     a.vagas || '—'])
-      rows.push(['Banheiros', a.banheiros || '—'])
-      rows.push(['Mobília',   mobMap[a.mobiliado] || '—'])
-      rows.push(['Andar',     andarMap[a.andar] || '—'])
+      rows.push([t('summary_labels.vagas'),     a.vagas || '—'])
+      rows.push([t('summary_labels.banheiros'), a.banheiros || '—'])
+      rows.push([t('summary_labels.mobilia'),   mobMap[a.mobiliado] || '—'])
+      rows.push([t('summary_labels.andar'),     andarMap[a.andar] || '—'])
     }
-    rows.push(['Ano construção', anoMap[a.ano_construcao] || '—'])
-    rows.push(['Documentação',   docMap[a.documentacao] || '—'])
+    rows.push([t('summary_labels.ano_construcao'), anoMap[a.ano_construcao] || '—'])
+    rows.push([t('summary_labels.documentacao'),   docMap[a.documentacao] || '—'])
   }
   rows.push(
-    ['Valor pretendido', valorLabel],
-    ['Aceita',           financeiroLabel],
-    ['Custos mensais',   a.custos || '—'],
-    ['Exclusividade',    exclMap[a.exclusividade] || '—'],
-    ['Fotos',            fotoMap[a.fotos] || '—'],
-    ['Diferenciais',     a.diferenciais || '—'],
-    ['WhatsApp',         a.whatsapp || '—'],
+    [t('summary_labels.valor_pretendido'), valorLabel],
+    [t('summary_labels.aceita'),           financeiroLabel],
+    [t('summary_labels.custos_mensais'),   a.custos || '—'],
+    [t('summary_labels.exclusividade'),    exclMap[a.exclusividade] || '—'],
+    [t('summary_labels.fotos'),            fotoMap[a.fotos] || '—'],
+    [t('summary_labels.diferenciais'),     a.diferenciais || '—'],
+    [t('summary_labels.whatsapp'),         a.whatsapp || '—'],
   )
   return rows
 }

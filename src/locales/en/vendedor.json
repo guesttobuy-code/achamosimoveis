@@ -1,0 +1,59 @@
+{
+  "hero": {
+    "eyebrow": "For sellers",
+    "title_em": "Buyers are waiting.",
+    "title_part2": "You don't sell blindly.",
+    "lead": "We show you how many people already look for something like your property — even before you list. No sign in the window, no two months sitting idle.",
+    "cta_primary": "List my property",
+    "cta_secondary": "Talk first"
+  },
+  "demand": {
+    "eyebrow": "Real demand, today",
+    "title": "How many buyers look for something like yours?",
+    "city1_city": "COPACABANA",
+    "city1_t": "2-3 bed apt · south zone",
+    "city1_b": "900k – 1.6M",
+    "city2_city": "BOTAFOGO",
+    "city2_t": "Apt/penthouse · 3 bed",
+    "city2_b": "800k – 1.8M",
+    "city3_city": "IPANEMA/LEBLON",
+    "city3_t": "3-4 bed · high-end",
+    "city3_b": "2M+",
+    "city4_city": "TIJUCA/V.ISABEL",
+    "city4_t": "3 bed apt · north zone",
+    "city4_b": "700k – 1.2M",
+    "note": "* Data updated within the last 48h. Active buyers with validated briefing."
+  },
+  "why_diff": {
+    "eyebrow": "Why different",
+    "title": "Traditional agency × We Found Properties.",
+    "old_way_title": "The old model",
+    "old1": "Property photo on a portal, pray",
+    "old2": "Wait for the phone to ring",
+    "old3": "Blind visits, no briefing",
+    "old4": "No idea who's looking for something similar",
+    "old5": "Sells in 4-6 months (average)",
+    "achamos_way_title": "Our way",
+    "ach1": "Paid media + curation identify ready buyers",
+    "ach2": "We present your property to those who match",
+    "ach3": "Targeted campaigns bring real visits",
+    "ach4": "Negotiation handled by the team",
+    "ach5": "No monthly fee · commission only on sale"
+  },
+  "included": {
+    "eyebrow": "What's included",
+    "title": "Commission only when you sell. Nothing before.",
+    "i1_t": "Fair appraisal",
+    "i1_b": "We tell you the real market value, no inflating",
+    "i2_t": "Professional photography",
+    "i2_b": "Partner photographer, no extra cost",
+    "i3_t": "Premium listing",
+    "i3_b": "Site, portals, social — and our buyer base",
+    "i4_t": "Visit screening",
+    "i4_b": "Only qualified people knock at your door",
+    "i5_t": "Full negotiation",
+    "i5_b": "Offer, counter-offer, we handle everything",
+    "i6_t": "Paperwork & registry",
+    "i6_b": "All bureaucracy up to the deed"
+  }
+}

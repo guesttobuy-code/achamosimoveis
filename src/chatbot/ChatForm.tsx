@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ArrowRight, Check } from '../components/icons'
 import CardIcon from './CardIcon'
 import AutocompleteInput from './AutocompleteInput'
-import { BUYER_STEPS, SELLER_STEPS, buildSummary, maskPhone } from './steps'
+import { buildBuyerSteps, buildSellerSteps, buildSummary, maskPhone } from './steps'
 import type { Answers, Step, StepOption } from './steps'
 import type { NavigateFn } from '../types'
 import {
@@ -39,7 +40,13 @@ function readCandidatureContext(): { leadId: string | null; region: string | nul
 }
 
 export default function ChatForm({ role, navigate }: ChatFormProps) {
-  const steps = role === 'seller' ? SELLER_STEPS : BUYER_STEPS
+  const { t, i18n } = useTranslation('chat')
+  const steps = useMemo(
+    () => role === 'seller' ? buildSellerSteps(t) : buildBuyerSteps(t),
+    // Rebuild on language change so prompts/labels reflect the active locale.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [role, t, i18n.resolvedLanguage],
+  )
   const [stepIdx, setStepIdx] = useState(0)
   const [history, setHistory] = useState<HistoryItem[]>([])
   const [answers, setAnswers] = useState<Answers>({})
@@ -206,7 +213,7 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
         return
       }
     }
-    const display = trimmed || '— pular —'
+    const display = trimmed || t('ui.skip_display')
     setText('')
     void commitAnswer(currentStep, trimmed, display)
   }
@@ -224,7 +231,7 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
       await ensurePreAuthContact(answers)
       const token = preAuthRef.current?.token
       if (!token) {
-        throw new Error('Não foi possível criar contato pré-cadastro. Tente novamente.')
+        throw new Error(t('ui.submit_error_contact'))
       }
       // Se vier do Radar de Compradores (vendedor logado clicou "Oferecer imóvel"),
       // injeta target_briefing_id + target_region pra backend marcar case_type
@@ -248,7 +255,7 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
       setSubmitError(
         err instanceof Error
           ? err.message
-          : 'Algo deu errado ao enviar. Tenta de novo daqui a pouquinho?',
+          : t('ui.submit_error_fallback'),
       )
     } finally {
       setSubmitting(false)
@@ -292,7 +299,7 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
           step={currentStep}
           onConfirm={(values, labels) => {
             const csvValue = values.join(',')
-            const displayLabel = labels.length > 0 ? labels.join(', ') : '— pular —'
+            const displayLabel = labels.length > 0 ? labels.join(', ') : t('ui.skip_display')
             void commitAnswer(currentStep, csvValue, displayLabel)
           }}
         />
@@ -308,10 +315,10 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
         />
       )
     } else if (currentStep.kind === 'summary') {
-      const summary = buildSummary(role, answers)
+      const summary = buildSummary(role, answers, t)
       control = (
         <div className="summary" key="summary">
-          <h4><Check /> Pronto pra enviar</h4>
+          <h4><Check /> {t('ui.summary_ready')}</h4>
           {summary.map(([k, v]) => (
             <div key={k} className="summary-row">
               <span>{k}</span>
@@ -333,12 +340,12 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
           )}
           <div className="chat-confirm" style={{ marginTop: 16 }}>
             <button className="btn btn-ghost btn-sm" disabled={submitting} onClick={() => { setStepIdx(1); setHistory([]); setAnswers({}); clearPreAuthSession(); preAuthRef.current = null; void runStep(1, {}) }}>
-              Refazer
+              {t('ui.redo')}
             </button>
             <button className="btn btn-brand" onClick={handleSubmitFinal} disabled={submitting}>
               {submitting
-                ? 'Enviando…'
-                : role === 'seller' ? 'Anunciar meu imóvel' : 'Enviar pra equipe'}
+                ? t('ui.submitting')
+                : role === 'seller' ? t('ui.submit_seller') : t('ui.submit_buyer')}
               {!submitting && <ArrowRight />}
             </button>
           </div>
@@ -348,7 +355,7 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
   }
 
   if (done) {
-    const firstName = (answers.nome || '').split(' ')[0] || 'você'
+    const firstName = (answers.nome || '').split(' ')[0] || t('ui.default_first_name')
     const portalBase = (import.meta.env.VITE_PORTAL_URL as string | undefined) || 'https://portalimobiliario-whitelabel.vercel.app'
     // Deep-link cacheado: após signup/login no portal, redireciona pro radar
     // (vendedor) ou oportunidades (comprador). PortalApp lê o param 'redirect'
@@ -365,13 +372,11 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
             <div className="chat-body">
               <div className="bubble bubble-bot">
                 {role === 'seller'
-                  ? `Show, ${firstName}! Seu imóvel já tá no sistema. 🏡`
-                  : `Pronto, ${firstName}! Seu briefing já tá com a equipe. ✅`}
+                  ? t('ui.done_seller_b1', { name: firstName })
+                  : t('ui.done_buyer_b1', { name: firstName })}
               </div>
               <div className="bubble bubble-bot">
-                {role === 'seller'
-                  ? 'Agora vem a parte boa: você pode entrar no Portal e ver agora mesmo os compradores reais que combinam com o seu imóvel.'
-                  : 'Vamos rodar busca ativa e em até 48h voltamos com as primeiras oportunidades. Enquanto isso, você já pode entrar no Portal pra acompanhar.'}
+                {role === 'seller' ? t('ui.done_seller_b2') : t('ui.done_buyer_b2')}
               </div>
               <div className="summary" style={{
                 background: 'linear-gradient(135deg, rgba(111, 45, 225, 0.08) 0%, rgba(74, 20, 181, 0.04) 100%)',
@@ -382,20 +387,20 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
                     display: 'inline-grid', placeItems: 'center', width: 30, height: 30,
                     borderRadius: 999, background: 'var(--brand)', color: 'white',
                   }}><Check /></span>
-                  {role === 'seller' ? 'O que você pode ver agora' : 'Próximos passos'}
+                  {role === 'seller' ? t('ui.done_seller_h4') : t('ui.done_buyer_h4')}
                 </h4>
                 <div style={{ fontSize: 14.5, color: 'var(--ink-soft)', lineHeight: 1.6 }}>
                   {role === 'seller' ? (
                     <>
-                      <strong style={{ color: 'var(--ink)' }}>1.</strong> Compradores reais qualificados no seu radar<br />
-                      <strong style={{ color: 'var(--ink)' }}>2.</strong> Quem está procurando exatamente o seu tipo de imóvel<br />
-                      <strong style={{ color: 'var(--ink)' }}>3.</strong> Status da sua oferta em tempo real
+                      <strong style={{ color: 'var(--ink)' }}>1.</strong> {t('ui.done_seller_step1')}<br />
+                      <strong style={{ color: 'var(--ink)' }}>2.</strong> {t('ui.done_seller_step2')}<br />
+                      <strong style={{ color: 'var(--ink)' }}>3.</strong> {t('ui.done_seller_step3')}
                     </>
                   ) : (
                     <>
-                      <strong style={{ color: 'var(--ink)' }}>1.</strong> Mensagem no WhatsApp em até 48h<br />
-                      <strong style={{ color: 'var(--ink)' }}>2.</strong> Conversa rápida pra alinhar detalhes<br />
-                      <strong style={{ color: 'var(--ink)' }}>3.</strong> A gente trabalha pra você
+                      <strong style={{ color: 'var(--ink)' }}>1.</strong> {t('ui.done_buyer_step1')}<br />
+                      <strong style={{ color: 'var(--ink)' }}>2.</strong> {t('ui.done_buyer_step2')}<br />
+                      <strong style={{ color: 'var(--ink)' }}>3.</strong> {t('ui.done_buyer_step3')}
                     </>
                   )}
                 </div>
@@ -413,12 +418,10 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
                   }}
                   style={{ width: '100%', textAlign: 'center' }}
                 >
-                  {role === 'seller'
-                    ? '⚡ Ver compradores reais te esperando →'
-                    : '⚡ Ver minhas oportunidades →'}
+                  {role === 'seller' ? t('ui.done_seller_cta') : t('ui.done_buyer_cta')}
                 </a>
                 <button className="btn btn-ghost" onClick={() => navigate('home')}>
-                  Voltar pro início
+                  {t('ui.done_back')}
                 </button>
               </div>
             </div>
@@ -447,7 +450,7 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
             }}>
               <span style={{ fontSize: 18 }}>★</span>
               <div>
-                <strong style={{ color: '#4A14B5' }}>Candidatando ao Comprador {String(candidature.leadId).toUpperCase().slice(0, 1)}</strong>
+                <strong style={{ color: '#4A14B5' }}>{t('ui.candidate_label')} {String(candidature.leadId).toUpperCase().slice(0, 1)}</strong>
                 {candidature.region && <span style={{ color: 'var(--ink-soft, #4A4548)', marginLeft: 6 }}>· {candidature.region}</span>}
               </div>
             </div>
@@ -466,7 +469,7 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
             <div className="chat-input-row">
               <input
                 className="chat-input"
-                placeholder={currentStep.placeholder || 'Digite sua resposta...'}
+                placeholder={currentStep.placeholder || t('ui.input_default_ph')}
                 value={text}
                 onChange={e => {
                   let v = e.target.value
@@ -480,7 +483,7 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
                 className="chat-send"
                 onClick={handleSendText}
                 disabled={!text.trim() && !currentStep.optional}
-                aria-label="Enviar"
+                aria-label={t('ui.send_aria')}
               >
                 <ArrowRight />
               </button>
@@ -504,6 +507,7 @@ function ChipsMulti({
   step: Step
   onConfirm: (values: string[], labels: string[]) => void
 }) {
+  const { t } = useTranslation('chat')
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
   function toggle(value: string) {
@@ -521,7 +525,7 @@ function ChipsMulti({
     .map(opt => opt.label)
   const hasSelection = selectedValues.length > 0
   const canSkip = step.optional && !hasSelection
-  const confirmLabel = step.confirmLabel || 'Continuar'
+  const confirmLabel = step.confirmLabel || t('ui.continue')
 
   return (
     <div className="chips-multi-wrap">
@@ -549,7 +553,7 @@ function ChipsMulti({
             onClick={() => onConfirm([], [])}
             type="button"
           >
-            Pular
+            {t('ui.skip')}
           </button>
         )}
         <button
@@ -568,13 +572,14 @@ function ChipsMulti({
 }
 
 function ChatHeader({ role, step, total }: { role: 'buyer' | 'seller'; step?: number; total?: number }) {
+  const { t } = useTranslation('chat')
   return (
     <div className="chat-head">
       <div className="chat-avatar">A</div>
       <div>
-        <div className="chat-head-name">Achamos Imóveis</div>
+        <div className="chat-head-name">{t('header.brand')}</div>
         <div className="chat-head-meta">
-          {role === 'seller' ? 'Cadastro de imóvel' : 'Briefing do comprador'}
+          {role === 'seller' ? t('header.meta_seller') : t('header.meta_buyer')}
         </div>
       </div>
       <div className="chat-progress">

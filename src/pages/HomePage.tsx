@@ -94,24 +94,24 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
       </section>
 
       <Marquee items={[
-        'Busca ativa',
-        'Melhores preços pra compra',
-        'Match comprador × vendedor',
-        'Oportunidades off-market',
-        'RJ · todo o estado',
-        'Você só vê o que faz sentido',
-        'O comprador é a estrela',
+        t('home:marquee.i1'),
+        t('home:marquee.i2'),
+        t('home:marquee.i3'),
+        t('home:marquee.i4'),
+        t('home:marquee.i5'),
+        t('home:marquee.i6'),
+        t('home:marquee.i7'),
       ]} />
 
       {/* PORTAIS */}
       <section>
         <div className="container">
           <Reveal>
-            <div className="section-eyebrow"><span className="eyebrow">Duas portas, um match</span></div>
+            <div className="section-eyebrow"><span className="eyebrow">{t('home:portals.eyebrow')}</span></div>
           </Reveal>
           <Reveal>
             <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 64px)', margin: '8px 0 36px', maxWidth: '14ch' }}>
-              Em qual lado você está?
+              {t('home:portals.title')}
             </h2>
           </Reveal>
           <Reveal>
@@ -119,15 +119,15 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
               <div className="portal portal-buyer" onClick={() => navigate('comprador')}>
                 <div className="portal-shape" />
                 <div>
-                  <span className="portal-eyebrow">Sou comprador</span>
-                  <div className="portal-title">A gente acha<br />pra você.</div>
+                  <span className="portal-eyebrow">{t('home:portals.buyer_eyebrow')}</span>
+                  <div className="portal-title">{t('home:portals.buyer_title_l1')}<br />{t('home:portals.buyer_title_l2')}</div>
                 </div>
                 <div>
                   <p className="portal-sub">
-                    Você diz o que procura. A gente volta com 3 a 5 oportunidades — <strong>boa parte off-market</strong>, fora de portal nenhum. Visita acompanhada e negociação conduzida.
+                    {t('home:portals.buyer_sub_main')}<strong>{t('home:portals.buyer_sub_strong')}</strong>{t('home:portals.buyer_sub_tail')}
                   </p>
                   <div className="portal-cta">
-                    Como funciona pro comprador
+                    {t('home:portals.buyer_cta')}
                     <span className="portal-cta-circle"><ArrowUpRight /></span>
                   </div>
                 </div>
@@ -135,15 +135,15 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
               <div className="portal portal-seller" onClick={() => navigate('vendedor')}>
                 <div className="portal-shape" />
                 <div>
-                  <span className="portal-eyebrow">Sou vendedor</span>
-                  <div className="portal-title">Tem comprador<br />esperando.</div>
+                  <span className="portal-eyebrow">{t('home:portals.seller_eyebrow')}</span>
+                  <div className="portal-title">{t('home:portals.seller_title_l1')}<br />{t('home:portals.seller_title_l2')}</div>
                 </div>
                 <div>
                   <p className="portal-sub">
-                    Anuncie sabendo quantas pessoas já procuram algo como o seu imóvel — nosso radar descobre <strong>compradores que combinam</strong> antes mesmo de você publicar.
+                    {t('home:portals.seller_sub_main')}<strong>{t('home:portals.seller_sub_strong')}</strong>{t('home:portals.seller_sub_tail')}
                   </p>
                   <div className="portal-cta">
-                    Como funciona pro vendedor
+                    {t('home:portals.seller_cta')}
                     <span className="portal-cta-circle"><ArrowUpRight /></span>
                   </div>
                 </div>
@@ -155,14 +155,18 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
 
       <DiscoverySection navigate={navigate} />
 
-      {/* INSTITUCIONAL VIDEO — "O jogo virou" (horizontal cinematic) */}
+      {/* INSTITUCIONAL VIDEO — "O jogo virou" (horizontal cinematic).
+        Note: the motion-design HTML bundle is a single asset (~2.5MB base64-encoded
+        SVG/font/JS) — the visible text inside the motion graphic is locked into
+        those binary chunks and would require asset-level rebuild to translate.
+        Wrapper chrome (eyebrow/title) IS i18n'd; the embedded video stays in PT. */}
       <section className="hv-section">
         <div className="container">
           <Reveal>
             <div className="hv-head">
-              <span className="eyebrow">Em 67 segundos</span>
+              <span className="eyebrow">{t('home:video.eyebrow')}</span>
               <h2 className="display hv-title">
-                O jogo <em>virou</em>.
+                {t('home:video.title_part1')} <em>{t('home:video.title_em')}</em>{t('home:video.title_dot')}
               </h2>
             </div>
           </Reveal>
@@ -170,7 +174,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
             <div className="hv-frame">
               <iframe
                 src="/uploads/Versao%20YouTube%20Achamos%20Imoveis%201.0-bbbe582d.html"
-                title="Achamos — o jogo virou"
+                title={t('home:video.title_part1') + ' ' + t('home:video.title_em')}
                 loading="lazy"
                 sandbox="allow-scripts allow-same-origin"
               />
@@ -185,48 +189,45 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
           <div className="cr-grid">
             <Reveal>
               <div className="cr-copy">
-                <span className="eyebrow">Imobiliária digital com sede física</span>
+                <span className="eyebrow">{t('home:credibility.eyebrow')}</span>
                 <h2 className="display cr-title">
-                  Tecnologia que <em>encontra</em>.<br />
-                  Gente que <em>cuida</em>.
+                  {t('home:credibility.title_l1')} <em>{t('home:credibility.title_em1')}</em>{t('home:credibility.title_dot1')}<br />
+                  {t('home:credibility.title_l2')} <em>{t('home:credibility.title_em2')}</em>{t('home:credibility.title_dot2')}
                 </h2>
                 <p className="cr-lead">
-                  Somos uma imobiliária com <strong>sede física no Rio de Janeiro</strong> e ampla atuação digital.
-                  Corretores <strong>certificados pelo CRECI</strong>, time jurídico próprio para dar
-                  total segurança aos nossos clientes.
+                  {t('home:credibility.lead1_part1')}<strong>{t('home:credibility.lead1_strong1')}</strong>{t('home:credibility.lead1_part2')}<strong>{t('home:credibility.lead1_strong2')}</strong>{t('home:credibility.lead1_part3')}
                 </p>
                 <p className="cr-lead">
-                  Traçamos uma rota bem planejada com os imóveis selecionados e levamos você até cada um deles —
-                  com <strong>conforto e organização do início ao fim</strong>.
+                  {t('home:credibility.lead2_part1')}<strong>{t('home:credibility.lead2_strong')}</strong>{t('home:credibility.lead2_part2')}
                 </p>
 
                 <div className="cr-features">
                   <div className="cr-feature">
                     <div className="cr-feature-num">01</div>
                     <div>
-                      <strong>CRECI ativo</strong>
-                      <span>Corretores registrados e fiscalizados</span>
+                      <strong>{t('home:credibility.feature1_strong')}</strong>
+                      <span>{t('home:credibility.feature1_desc')}</span>
                     </div>
                   </div>
                   <div className="cr-feature">
                     <div className="cr-feature-num">02</div>
                     <div>
-                      <strong>Jurídico próprio</strong>
-                      <span>Contratos, documentação e segurança</span>
+                      <strong>{t('home:credibility.feature2_strong')}</strong>
+                      <span>{t('home:credibility.feature2_desc')}</span>
                     </div>
                   </div>
                   <div className="cr-feature">
                     <div className="cr-feature-num">03</div>
                     <div>
-                      <strong>Sede física no RJ</strong>
-                      <span>Atendimento pessoal quando você precisar</span>
+                      <strong>{t('home:credibility.feature3_strong')}</strong>
+                      <span>{t('home:credibility.feature3_desc')}</span>
                     </div>
                   </div>
                   <div className="cr-feature">
                     <div className="cr-feature-num">04</div>
                     <div>
-                      <strong>Roteiro guiado</strong>
-                      <span>Visitas planejadas, transporte confortável</span>
+                      <strong>{t('home:credibility.feature4_strong')}</strong>
+                      <span>{t('home:credibility.feature4_desc')}</span>
                     </div>
                   </div>
                 </div>
@@ -238,17 +239,17 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 <figure className="cr-photo cr-photo-lg">
                   <img
                     src="/assets/rota-corretor.webp"
-                    alt="Cliente e corretor planejam a rota de visitas pelo Rio de Janeiro, com tablet mostrando os imóveis a visitar"
+                    alt={t('home:credibility.photo1_alt')}
                     loading="lazy"
                   />
                   <figcaption>
                     <span className="cr-photo-eyebrow">
                       <span className="cr-photo-dot" />
-                      Rota planejada
+                      {t('home:credibility.photo1_eyebrow')}
                     </span>
-                    <strong>Cada visita é desenhada antes da saída.</strong>
+                    <strong>{t('home:credibility.photo1_strong')}</strong>
                     <span className="cr-photo-meta">
-                      Quatro paradas · Ipanema · Copacabana · Flamengo · Centro
+                      {t('home:credibility.photo1_meta')}
                     </span>
                   </figcaption>
                 </figure>
@@ -256,16 +257,16 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 <figure className="cr-photo cr-photo-sm">
                   <img
                     src="/assets/corretor-cliente-carro.webp"
-                    alt="Corretor da Achamos conversa com cliente no caminho para visitar imóveis no Rio"
+                    alt={t('home:credibility.photo2_alt')}
                     loading="lazy"
                   />
                   <figcaption>
                     <span className="cr-photo-eyebrow">
                       <span className="cr-photo-dot" />
-                      Corretor com você
+                      {t('home:credibility.photo2_eyebrow')}
                     </span>
-                    <strong>A gente leva. A gente acompanha.</strong>
-                    <span className="cr-photo-meta">Visitas guiadas por corretores CRECI</span>
+                    <strong>{t('home:credibility.photo2_strong')}</strong>
+                    <span className="cr-photo-meta">{t('home:credibility.photo2_meta')}</span>
                   </figcaption>
                 </figure>
               </div>
@@ -282,24 +283,24 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
         <div className="container">
           <div className="how-head" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 60, alignItems: 'end', marginBottom: 48 }}>
             <Reveal>
-              <span className="eyebrow">Como funciona</span>
+              <span className="eyebrow">{t('home:how4.eyebrow')}</span>
               <h2 className="display" style={{ fontSize: 'clamp(40px, 6vw, 76px)', marginTop: 14 }}>
-                Quatro passos. Sem mistério.
+                {t('home:how4.title')}
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="lead">
-                A diferença entre nós e uma imobiliária tradicional cabe em quatro passos.
+                {t('home:how4.lead')}
               </p>
             </Reveal>
           </div>
           <Reveal>
             <div className="steps">
               {[
-                { n: '01', t: 'Você nos conta o que quer', b: 'Briefing rápido por chat — região, tipo, faixa de valor, prazo.' },
-                { n: '02', t: 'A gente sai à caça', b: 'Busca ativa na nossa carteira e em uma rede de vendedores parceiros.' },
-                { n: '03', t: 'Filtramos e selecionamos', b: 'Você recebe 3 a 5 opções com score de match — inclusive imóveis off-market que não rodam em portal nenhum.' },
-                { n: '04', t: 'Você visita e decide', b: 'Acompanhamos a visita, a negociação e toda a documentação.' },
+                { n: '01', t: t('home:how4.s1_t'), b: t('home:how4.s1_b') },
+                { n: '02', t: t('home:how4.s2_t'), b: t('home:how4.s2_b') },
+                { n: '03', t: t('home:how4.s3_t'), b: t('home:how4.s3_b') },
+                { n: '04', t: t('home:how4.s4_t'), b: t('home:how4.s4_b') },
               ].map(s => (
                 <div className="step" key={s.n}>
                   <span className="step-num">{s.n}</span>
@@ -317,27 +318,27 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
       <section>
         <div className="container">
           <Reveal>
-            <span className="eyebrow">Quem já confiou</span>
+            <span className="eyebrow">{t('home:social.eyebrow')}</span>
           </Reveal>
           <Reveal>
             <h2 className="display" style={{ fontSize: 'clamp(40px, 5vw, 64px)', margin: '12px 0 36px', maxWidth: '18ch' }}>
-              Gente real, achando o que procurava.
+              {t('home:social.title')}
             </h2>
           </Reveal>
           <Reveal>
             <div className="testi">
               {[
-                { q: '"Mudei de São Paulo querendo cobertura no Flamengo. 6 meses caçando sozinho — tudo já vendido. Em 45 dias, recebi as chaves de uma cobertura que nunca foi anunciada em portal. R$ 200 mil abaixo do mercado."', n: 'Pedro Henrique', m: 'Cobertura · Flamengo · ✦ exemplo ilustrativo' },
-                { q: '"Primeiro imóvel da família. Vi 30 imóveis em portais sem fechar. Em 60 dias estava na cozinha do apto novo — escolhido entre 3 candidatos selecionados pela equipe."', n: 'Beatriz Carvalho', m: 'Apto · Vila Isabel · ✦ exemplo ilustrativo' },
-                { q: '"Moro em Ipanema há 30 anos. Nunca pensei em vender. Vi um post da Achamos buscando 3 dorms aqui. Em 45 dias estava vendido — sem placa na janela, sem publicar em portal."', n: 'Maria Helena', m: 'Vendeu apto · Ipanema · ✦ exemplo ilustrativo' },
-              ].map((t, i) => (
+                { q: t('home:social.t1_q'), n: t('home:social.t1_n'), m: t('home:social.t1_m') },
+                { q: t('home:social.t2_q'), n: t('home:social.t2_n'), m: t('home:social.t2_m') },
+                { q: t('home:social.t3_q'), n: t('home:social.t3_n'), m: t('home:social.t3_m') },
+              ].map((tt, i) => (
                 <div className="testi-card" key={i}>
-                  <div className="testi-quote">{t.q}</div>
+                  <div className="testi-quote">{tt.q}</div>
                   <div className="testi-foot">
-                    <div className="testi-avatar">{t.n.split(' ')[0][0]}</div>
+                    <div className="testi-avatar">{tt.n.split(' ')[0][0]}</div>
                     <div>
-                      <div className="testi-name">{t.n}</div>
-                      <div className="testi-meta">{t.m}</div>
+                      <div className="testi-name">{tt.n}</div>
+                      <div className="testi-meta">{tt.m}</div>
                     </div>
                   </div>
                 </div>

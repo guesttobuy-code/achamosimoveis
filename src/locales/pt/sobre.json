@@ -1,0 +1,58 @@
+{
+  "hero": {
+    "eyebrow": "Quem somos",
+    "title_part1": "Uma imobiliária que",
+    "title_em": "inverteu o jogo.",
+    "lead": "A gente acredita que a imobiliária tradicional gasta energia no lugar errado: enchendo vitrine. Aqui o trabalho é entender o comprador, e ir buscar exatamente o que ele quer."
+  },
+  "manifesto": {
+    "eyebrow": "Manifesto",
+    "text_part1": "A gente acha que o comprador merece mais do que ",
+    "text_em1": "rolar feed de imóvel",
+    "text_part2": " no fim de semana. Merece que alguém pegue o briefing e vá atrás.",
+    "text_part3": "E o vendedor merece saber se tem quem queira o imóvel dele ",
+    "text_em2": "antes",
+    "text_part4": " de pendurar a placa."
+  },
+  "cities": {
+    "eyebrow": "Onde estamos",
+    "title": "Hoje no Rio. Em breve, mais.",
+    "c1_state": "RJ · sede operacional · todo o estado",
+    "c1_name": "Rio de Janeiro",
+    "c1_body": "Sede em Cinelândia. Atendimento em capital, região metropolitana, Região dos Lagos, Serra e Costa Verde.",
+    "c1_s1_b": "RJ",
+    "c1_s1_l": "Foco total",
+    "c1_s2_b": "07/2026",
+    "c1_s2_l": "CRECI ativo",
+    "c1_s3_b": "Ativa",
+    "c1_s3_l": "Operação",
+    "c2_state": "SP · expansão planejada",
+    "c2_name": "São Paulo",
+    "c2_body": "Lançamento previsto após validação do piloto no Rio. Capital + interior na rota.",
+    "c2_s1_b": "M9-M15",
+    "c2_s1_l": "Previsto",
+    "c2_s2_b": "—",
+    "c2_s2_l": "Planejamento",
+    "c2_s3_b": "—",
+    "c2_s3_l": "—",
+    "c3_state": "BH · expansão planejada",
+    "c3_name": "Belo Horizonte",
+    "c3_body": "Lançamento previsto após validação do piloto no Rio. Toda a região metropolitana na rota.",
+    "c3_s1_b": "M15-M21",
+    "c3_s1_l": "Previsto",
+    "c3_s2_b": "—",
+    "c3_s2_l": "Planejamento",
+    "c3_s3_b": "—",
+    "c3_s3_l": "—"
+  },
+  "principles": {
+    "eyebrow": "Princípios",
+    "title": "No que a gente acredita.",
+    "p1_t": "Honestidade brutal",
+    "p1_b": "A gente te diz quando um imóvel está caro. Quando o bairro não combina com você. Quando seu valor pretendido tá fora da realidade.",
+    "p2_t": "Tempo do comprador",
+    "p2_b": "Você não tem que se moldar à nossa agenda. A gente trabalha no seu prazo.",
+    "p3_t": "Vendedor não é refém",
+    "p3_b": "Trabalhamos com ou sem exclusividade. Acreditamos no nosso serviço pra te convencer a ficar."
+  }
+}

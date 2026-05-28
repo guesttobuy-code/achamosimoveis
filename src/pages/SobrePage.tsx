@@ -1,31 +1,49 @@
+import { useTranslation } from 'react-i18next'
 import Reveal from '../components/Reveal'
 import FinalCTA from '../components/FinalCTA'
 import type { NavigateFn } from '../types'
 
-const CITIES = [
-  { state: 'RJ · sede operacional · todo o estado', name: 'Rio de Janeiro',  body: 'Sede em Cinelândia. Atendimento em capital, região metropolitana, Região dos Lagos, Serra e Costa Verde.', stats: [['RJ', 'Foco total'], ['07/2026', 'CRECI ativo'], ['Ativa', 'Operação']] },
-  { state: 'SP · expansão planejada',                name: 'São Paulo',      body: 'Lançamento previsto após validação do piloto no Rio. Capital + interior na rota.',                          stats: [['M9-M15', 'Previsto'], ['—', 'Planejamento'], ['—', '—']] },
-  { state: 'BH · expansão planejada',                name: 'Belo Horizonte', body: 'Lançamento previsto após validação do piloto no Rio. Toda a região metropolitana na rota.',                  stats: [['M15-M21', 'Previsto'], ['—', 'Planejamento'], ['—', '—']] },
-]
-
-const PRINCIPLES = [
-  { n: '01', t: 'Honestidade brutal',     b: 'A gente te diz quando um imóvel está caro. Quando o bairro não combina com você. Quando seu valor pretendido tá fora da realidade.' },
-  { n: '02', t: 'Tempo do comprador',     b: 'Você não tem que se moldar à nossa agenda. A gente trabalha no seu prazo.' },
-  { n: '03', t: 'Vendedor não é refém',   b: 'Trabalhamos com ou sem exclusividade. Acreditamos no nosso serviço pra te convencer a ficar.' },
-]
-
 export default function SobrePage({ navigate }: { navigate: NavigateFn }) {
+  const { t } = useTranslation('sobre')
+
+  const CITIES = [
+    {
+      state: t('cities.c1_state'),
+      name: t('cities.c1_name'),
+      body: t('cities.c1_body'),
+      stats: [[t('cities.c1_s1_b'), t('cities.c1_s1_l')], [t('cities.c1_s2_b'), t('cities.c1_s2_l')], [t('cities.c1_s3_b'), t('cities.c1_s3_l')]],
+    },
+    {
+      state: t('cities.c2_state'),
+      name: t('cities.c2_name'),
+      body: t('cities.c2_body'),
+      stats: [[t('cities.c2_s1_b'), t('cities.c2_s1_l')], [t('cities.c2_s2_b'), t('cities.c2_s2_l')], [t('cities.c2_s3_b'), t('cities.c2_s3_l')]],
+    },
+    {
+      state: t('cities.c3_state'),
+      name: t('cities.c3_name'),
+      body: t('cities.c3_body'),
+      stats: [[t('cities.c3_s1_b'), t('cities.c3_s1_l')], [t('cities.c3_s2_b'), t('cities.c3_s2_l')], [t('cities.c3_s3_b'), t('cities.c3_s3_l')]],
+    },
+  ]
+
+  const PRINCIPLES = [
+    { n: '01', t: t('principles.p1_t'), b: t('principles.p1_b') },
+    { n: '02', t: t('principles.p2_t'), b: t('principles.p2_b') },
+    { n: '03', t: t('principles.p3_t'), b: t('principles.p3_b') },
+  ]
+
   return (
     <main>
       <section className="page-hero">
         <div className="container">
           <Reveal>
-            <span className="eyebrow">Quem somos</span>
+            <span className="eyebrow">{t('hero.eyebrow')}</span>
             <h1 className="page-hero-title">
-              Uma imobiliária que <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>inverteu o jogo.</em>
+              {t('hero.title_part1')} <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('hero.title_em')}</em>
             </h1>
             <p className="lead" style={{ fontSize: 22, maxWidth: '52ch' }}>
-              A gente acredita que a imobiliária tradicional gasta energia no lugar errado: enchendo vitrine. Aqui o trabalho é entender o comprador, e ir buscar exatamente o que ele quer.
+              {t('hero.lead')}
             </p>
           </Reveal>
         </div>
@@ -35,7 +53,7 @@ export default function SobrePage({ navigate }: { navigate: NavigateFn }) {
         <div className="container">
           <div className="manifest-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80 }}>
             <Reveal>
-              <span className="eyebrow">Manifesto</span>
+              <span className="eyebrow">{t('manifesto.eyebrow')}</span>
             </Reveal>
             <Reveal delay={80}>
               <div style={{
@@ -46,8 +64,8 @@ export default function SobrePage({ navigate }: { navigate: NavigateFn }) {
                 lineHeight: 1.15,
                 textWrap: 'balance',
               }}>
-                A gente acha que o comprador merece mais do que <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>rolar feed de imóvel</em> no fim de semana. Merece que alguém pegue o briefing e vá atrás. <br /><br />
-                E o vendedor merece saber se tem quem queira o imóvel dele <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>antes</em> de pendurar a placa.
+                {t('manifesto.text_part1')}<em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('manifesto.text_em1')}</em>{t('manifesto.text_part2')}<br /><br />
+                {t('manifesto.text_part3')}<em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('manifesto.text_em2')}</em>{t('manifesto.text_part4')}
               </div>
             </Reveal>
           </div>
@@ -57,9 +75,9 @@ export default function SobrePage({ navigate }: { navigate: NavigateFn }) {
       <section className="surface-warm">
         <div className="container">
           <Reveal>
-            <span className="eyebrow">Onde estamos</span>
+            <span className="eyebrow">{t('cities.eyebrow')}</span>
             <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '12px 0 40px' }}>
-              Hoje no Rio. Em breve, mais.
+              {t('cities.title')}
             </h2>
           </Reveal>
           <Reveal>
@@ -84,9 +102,9 @@ export default function SobrePage({ navigate }: { navigate: NavigateFn }) {
       <section>
         <div className="container">
           <Reveal>
-            <span className="eyebrow">Princípios</span>
+            <span className="eyebrow">{t('principles.eyebrow')}</span>
             <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '12px 0 40px', maxWidth: '18ch' }}>
-              No que a gente acredita.
+              {t('principles.title')}
             </h2>
           </Reveal>
           <div className="principles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>

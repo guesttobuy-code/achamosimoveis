@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "eyebrow": "Habla con nosotros",
+    "title_part1": "¿Tienes dudas?",
+    "title_em": "Pregunta.",
+    "lead": "Manda mensaje, llama, o comienza directo por el briefing — lo que sea más rápido para ti."
+  },
+  "info": {
+    "wa_label": "WhatsApp",
+    "wa_phone": "+55 21 9 9588-5999",
+    "wa_hours": "Atención lun–sáb · 8h a 20h BRT",
+    "email_label": "Correo",
+    "email_address": "oi@achamosimoveis.com.br",
+    "office_label": "Sede",
+    "office_city": "Río de Janeiro — RJ",
+    "office_addr1": "Av. Treze de Maio, 47 · Apt 1609 · Centro",
+    "office_addr2": "CEP 20031-007 · Río de Janeiro — RJ",
+    "razao_label": "Razón social",
+    "razao_name": "Bora Vender Muito BVM Aceleradora de Vendas LTDA",
+    "razao_cnpj": "CNPJ 46.908.483/0001-28",
+    "coverage": "★ Atención en todo el estado de Río de Janeiro",
+    "cta_buy": "Quiero comprar",
+    "cta_sell": "Quiero vender"
+  },
+  "form": {
+    "title": "Mandar mensaje",
+    "label_name": "Nombre",
+    "ph_name": "Tu nombre",
+    "label_email": "Correo",
+    "ph_email": "tu@email.com",
+    "label_phone": "Teléfono",
+    "ph_phone": "+34 600 000 000",
+    "label_msg": "Mensaje",
+    "ph_msg": "¿En qué podemos ayudarte?",
+    "submit": "Enviar mensaje",
+    "sent_title": "¡Mensaje enviado!",
+    "sent_text": "Respondemos en 1 día hábil. Más rápido: manda WhatsApp."
+  },
+  "faq": {
+    "eyebrow": "Preguntas frecuentes",
+    "title": "Dudas comunes.",
+    "q1": "¿Cuánto cuesta para el comprador?",
+    "a1": "Light es gratis (búsqueda pasiva en nuestra red). Spotlight es R$ 2.500, acreditable al cierre — vuelve 100% cuando cierras con nosotros. Hunt es R$ 7.500, también acreditable. Solo asumes riesgo residual si desistes antes de cerrar y no entregamos el mínimo de candidatos calificados.",
+    "q2": "¿Qué rango de precio cubren?",
+    "a2": "De R$ 250 mil a R$ 5 millones. Trabajamos primer inmueble, medio y alto estándar, e inversión.",
+    "q3": "¿En cuánto tiempo encuentro mi inmueble?",
+    "a3": "Depende mucho de lo que busques. En promedio, primera oferta en 48h y cierre en 30-60 días.",
+    "q4": "¿Puedo vender sin exclusividad?",
+    "a4": "Sí. Trabajamos de las dos formas. Con exclusividad invertimos más en difusión; sin ella, compartes con otras inmobiliarias.",
+    "q5": "¿Hacen financiamiento?",
+    "a5": "No somos banco, pero tenemos alianza con varios y cuidamos todo el papeleo por ti.",
+    "q6": "¿Y alquiler? ¿Temporada?",
+    "a6": "Hoy nuestra operación está enfocada en venta. Alquiler temporal es institucional — atendemos a demanda pero no tenemos catálogo navegable aún.",
+    "q7": "¿En qué estados trabajan?",
+    "a7": "Foco total en el estado de Río de Janeiro — capital, región metropolitana, Região dos Lagos, Serra y Costa Verde."
+  }
+}
