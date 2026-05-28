@@ -68,7 +68,7 @@ export default function Footer({ navigate }: FooterProps) {
           <div className="foot-legal-block">
             <div className="foot-legal-title">Endereço</div>
             <div className="foot-legal-line">Av. Treze de Maio, 47 · Apt 1609 · Centro</div>
-            <div className="foot-legal-line">Rio de Janeiro — RJ · CEP 20031-921</div>
+            <div className="foot-legal-line">Rio de Janeiro — RJ · CEP 20031-007</div>
           </div>
         </div>
 

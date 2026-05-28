@@ -9,9 +9,9 @@ import type { NavigateFn } from '../types'
 type Headline = { main: string[]; em: string }
 
 const HEADLINES: Headline[] = [
-  { main: ['Os melhores imóveis', 'vêm', 'até você'], em: 'vêm' },
-  { main: ['A imobiliária que', 'inverteu', 'o jogo'], em: 'inverteu' },
-  { main: ['Pare de caçar.', 'A gente', 'acha.'], em: 'acha' },
+  { main: ['Compra à vista', 'ou financiamento', 'aprovado?'], em: 'aprovado?' },
+  { main: ['Pode fechar?', 'Aqui você', 'é raro.'], em: 'é raro.' },
+  { main: ['Comprador com', 'capacidade', 'comprovada vence.'], em: 'capacidade' },
 ]
 
 export default function HomePage({ navigate }: { navigate: NavigateFn }) {
@@ -27,7 +27,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
               <Reveal>
                 <span className="hero-tag">
                   <span className="hero-tag-dot" />
-                  124 compradores ativos esta semana
+                  Imobiliária digital · Rio de Janeiro · todo o estado
                 </span>
               </Reveal>
               <Reveal delay={80}>
@@ -38,8 +38,8 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 </h1>
               </Reveal>
               <Reveal delay={140}>
-                <p className="lead" style={{ marginTop: 20, maxWidth: '38ch' }}>
-                  Você diz o que procura. A gente volta com 3 a 5 oportunidades — <strong style={{ color: 'var(--ink)' }}>boa parte fora de qualquer portal</strong>. As melhores compras acontecem no privado.
+                <p className="lead" style={{ marginTop: 20, maxWidth: '54ch' }}>
+                  <strong style={{ color: 'var(--ink)' }}>Investidor, funcionário público, empresário</strong> — você que está no seu momento de comprar um imóvel. <strong style={{ color: 'var(--ink)' }}>Comprador de imóvel que pode fechar é raridade no mercado</strong>, e nossa missão é levar até você a melhor oportunidade. Sua busca vira anúncio direcionado nas redes sociais, e proprietários motivados — inclusive aqueles cujo imóvel nem estava à venda — correm até você.
                 </p>
               </Reveal>
               <Reveal delay={180}>
@@ -89,8 +89,8 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 <div className="hero-stat-lbl">Corretores certificados · time jurídico próprio</div>
               </div>
               <div>
-                <div className="hero-stat-num">★★★★★</div>
-                <div className="hero-stat-lbl">Nossos corretores enviando as melhores propostas</div>
+                <div className="hero-stat-num">7 DIAS</div>
+                <div className="hero-stat-lbl">Primeira oportunidade qualificada na sua busca</div>
               </div>
             </div>
           </Reveal>
@@ -331,9 +331,9 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
           <Reveal>
             <div className="testi">
               {[
-                { q: '"Em 3 semanas eu tinha as chaves. Eles trouxeram dois imóveis que eu nem sabia que existiam."', n: 'Mariana C.', m: 'Comprou apto · RJ' },
-                { q: '"Anunciei segunda. Quinta tinha 4 visitas marcadas. Vendeu em 22 dias."', n: 'Eduardo V.', m: 'Vendeu cobertura · RJ' },
-                { q: '"Não me empurraram nada. Foram entender o que eu queria de verdade antes de mostrar."', n: 'Camila R.', m: 'Comprou casa · Rio de Janeiro' },
+                { q: '"Mudei de São Paulo querendo cobertura no Flamengo. 6 meses caçando sozinho — tudo já vendido. Em 45 dias, recebi as chaves de uma cobertura que nunca foi anunciada em portal. R$ 200 mil abaixo do mercado."', n: 'Pedro Henrique', m: 'Cobertura · Flamengo · ✦ exemplo ilustrativo' },
+                { q: '"Primeiro imóvel da família. Vi 30 imóveis em portais sem fechar. Em 60 dias estava na cozinha do apto novo — escolhido entre 3 candidatos selecionados pela equipe."', n: 'Beatriz Carvalho', m: 'Apto · Vila Isabel · ✦ exemplo ilustrativo' },
+                { q: '"Moro em Ipanema há 30 anos. Nunca pensei em vender. Vi um post da Achamos buscando 3 dorms aqui. Em 45 dias estava vendido — sem placa na janela, sem publicar em portal."', n: 'Maria Helena', m: 'Vendeu apto · Ipanema · ✦ exemplo ilustrativo' },
               ].map((t, i) => (
                 <div className="testi-card" key={i}>
                   <div className="testi-quote">{t.q}</div>

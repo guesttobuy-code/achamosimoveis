@@ -4,10 +4,10 @@ import { ArrowRight, Check } from '../components/icons'
 import type { NavigateFn } from '../types'
 
 const DEMAND: { city: string; t: string; b: string; n: number }[] = [
-  { city: 'SP',  t: 'Apto 3 dorm. · capital',   b: '600k – 1,2M',    n: 47 },
-  { city: 'BH',  t: 'Casa 3 dorm. · centro-sul', b: '800k – 1,5M',    n: 38 },
-  { city: 'RJ',  t: 'Cobertura zona sul',       b: '1,5M+',          n: 22 },
-  { city: 'INT', t: 'Interior MG · casa',       b: 'Qualquer faixa', n: 14 },
+  { city: 'COPACABANA',      t: 'Apto 2-3 dorm. · zona sul',  b: '900k – 1,6M', n: 12 },
+  { city: 'BOTAFOGO',        t: 'Apto/cobertura · 3 dorm.',   b: '800k – 1,8M', n: 8 },
+  { city: 'IPANEMA/LEBLON',  t: '3-4 dorm. · alto padrão',    b: '2M+',         n: 5 },
+  { city: 'TIJUCA/V.ISABEL', t: 'Apto 3 dorm. · zona norte',  b: '700k – 1,2M', n: 14 },
 ]
 
 const OLD_WAY = [
@@ -19,11 +19,11 @@ const OLD_WAY = [
 ]
 
 const ACHAMOS_WAY = [
-  'IA descobre quem está pronto a comprar',
-  'Apresentamos pra compradores qualificados',
+  'Mídia paga + curadoria identificam compradores prontos',
+  'Apresentamos seu imóvel a quem combina',
   'Campanhas dirigidas trazem visitas reais',
   'Negociação conduzida pela equipe',
-  'Vende em 30-60 dias (em média)',
+  'Sem mensalidade · comissão só na venda',
 ]
 
 const INCLUDED: [string, string][] = [

@@ -3,9 +3,9 @@ import FinalCTA from '../components/FinalCTA'
 import type { NavigateFn } from '../types'
 
 const CITIES = [
-  { state: 'SP · capital + interior', name: 'São Paulo',     body: 'Sede comercial. Prioridade nos bairros de zona sul e oeste da capital, mas atendemos todo o estado.',           stats: [['+80', 'Imóveis'], ['2022', 'Desde'], ['44%', 'Carteira']] },
-  { state: 'RJ · capital + interior', name: 'Rio de Janeiro', body: 'Foco na capital (zona sul + Barra) e Região dos Lagos. Casas, apartamentos e investimento.',                   stats: [['+40', 'Imóveis'], ['2024', 'Desde'], ['22%', 'Carteira']] },
-  { state: 'MG · capital + interior', name: 'Belo Horizonte', body: 'Onde tudo começou. Toda a região metropolitana + interior, com foco na zona centro-sul.',                       stats: [['+30', 'Imóveis'], ['2018', 'Desde'], ['34%', 'Carteira']] },
+  { state: 'RJ · sede operacional · todo o estado', name: 'Rio de Janeiro',  body: 'Sede em Cinelândia. Atendimento em capital, região metropolitana, Região dos Lagos, Serra e Costa Verde.', stats: [['RJ', 'Foco total'], ['07/2026', 'CRECI ativo'], ['Ativa', 'Operação']] },
+  { state: 'SP · expansão planejada',                name: 'São Paulo',      body: 'Lançamento previsto após validação do piloto no Rio. Capital + interior na rota.',                          stats: [['M9-M15', 'Previsto'], ['—', 'Planejamento'], ['—', '—']] },
+  { state: 'BH · expansão planejada',                name: 'Belo Horizonte', body: 'Lançamento previsto após validação do piloto no Rio. Toda a região metropolitana na rota.',                  stats: [['M15-M21', 'Previsto'], ['—', 'Planejamento'], ['—', '—']] },
 ]
 
 const PRINCIPLES = [
@@ -59,7 +59,7 @@ export default function SobrePage({ navigate }: { navigate: NavigateFn }) {
           <Reveal>
             <span className="eyebrow">Onde estamos</span>
             <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '12px 0 40px' }}>
-              Três estados, prioridade nas capitais.
+              Hoje no Rio. Em breve, mais.
             </h2>
           </Reveal>
           <Reveal>

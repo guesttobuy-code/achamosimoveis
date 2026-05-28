@@ -5,7 +5,7 @@ import { ArrowRight, Check } from '../components/icons'
 import type { NavigateFn } from '../types'
 
 const FAQS = [
-  { q: 'Quanto custa pro comprador?', a: 'Nada. A comissão é paga pelo vendedor — você não tem custo nenhum pra ter um corretor trabalhando por você.' },
+  { q: 'Quanto custa pro comprador?', a: 'Light é grátis (busca passiva na nossa rede). Spotlight é R$ 2.500, creditável no fechamento — volta 100% quando você fecha pela Achamos. Hunt é R$ 7.500, também creditável. Você só assume risco residual se desistir antes de fechar e não tivermos entregue o mínimo de candidatos qualificados.' },
   { q: 'Vocês têm imóveis em qual faixa de preço?', a: 'De R$ 250 mil a R$ 5 milhões. Trabalhamos com primeiro imóvel, médio e alto padrão, e investimento.' },
   { q: 'Em quanto tempo eu acho meu imóvel?', a: 'Depende muito do que você procura. Em média, primeira oferta em 48h e fechamento em 30-60 dias.' },
   { q: 'Posso vender sem exclusividade?', a: 'Pode. A gente trabalha dos dois jeitos. Com exclusividade investimos mais em divulgação; sem ela você compartilha com outras imobiliárias.' },
@@ -72,7 +72,7 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
                   <div>
                     <div style={{ fontWeight: 600, fontSize: 16, fontFamily: 'var(--f-display)', letterSpacing: '-0.015em' }}>Rio de Janeiro — RJ</div>
                     <div style={{ color: 'var(--ink-soft)', fontSize: 14, marginTop: 4 }}>Av. Treze de Maio, 47 · Apt 1609 · Centro</div>
-                    <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>CEP 20031-921 · Rio de Janeiro — RJ</div>
+                    <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>CEP 20031-007 · Rio de Janeiro — RJ</div>
                   </div>
                   <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--line-soft)' }}>
                     <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-mute)', marginBottom: 6 }}>
