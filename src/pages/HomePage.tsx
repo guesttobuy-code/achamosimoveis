@@ -8,7 +8,15 @@ import { ArrowRight, ArrowUpRight } from '../components/icons'
 import type { NavigateFn } from '../types'
 
 export default function HomePage({ navigate }: { navigate: NavigateFn }) {
-  const { t } = useTranslation(['home', 'common'])
+  const { t, i18n } = useTranslation(['home', 'common'])
+
+  // Resolve videos by active language. Three localized bundles each
+  // (PT/EN/ES) live under /public/uploads/. The motion graphic's visible
+  // text is translated inside the JSX chunks of the bundle itself.
+  const lang2 = (i18n.resolvedLanguage || 'pt').slice(0, 2).toLowerCase()
+  const langKey = (lang2 === 'pt' || lang2 === 'en' || lang2 === 'es') ? lang2 : 'en'
+  const videoInstaSrc = `/uploads/Versao-Instagram-${langKey}.html`
+  const videoYouTubeSrc = `/uploads/Versao-YouTube-${langKey}.html`
 
   return (
     <main>
@@ -58,7 +66,8 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 </div>
                 <div className="hero-phone-screen">
                   <iframe
-                    src="/uploads/Versao%20Instagram%20Achamos%20Imoveis%201.0-a07a5d21.html"
+                    key={videoInstaSrc}
+                    src={videoInstaSrc}
                     title="Achamos — demonstração"
                     loading="lazy"
                     sandbox="allow-scripts allow-same-origin"
@@ -156,10 +165,10 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
       <DiscoverySection navigate={navigate} />
 
       {/* INSTITUCIONAL VIDEO — "O jogo virou" (horizontal cinematic).
-        Note: the motion-design HTML bundle is a single asset (~2.5MB base64-encoded
-        SVG/font/JS) — the visible text inside the motion graphic is locked into
-        those binary chunks and would require asset-level rebuild to translate.
-        Wrapper chrome (eyebrow/title) IS i18n'd; the embedded video stays in PT. */}
+        Bundles localizados em /public/uploads/ — Versao-YouTube-{pt,en,es}.html.
+        O texto visual dentro da motion graphic é traduzido nos chunks JSX do
+        próprio bundle (gerados via scripts em
+        ../Rendizyoficial-backup.../{repack-video.cjs,video-i18n-dict.json}). */}
       <section className="hv-section">
         <div className="container">
           <Reveal>
@@ -173,7 +182,8 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
           <Reveal delay={120}>
             <div className="hv-frame">
               <iframe
-                src="/uploads/Versao%20YouTube%20Achamos%20Imoveis%201.0-bbbe582d.html"
+                key={videoYouTubeSrc}
+                src={videoYouTubeSrc}
                 title={t('home:video.title_part1') + ' ' + t('home:video.title_em')}
                 loading="lazy"
                 sandbox="allow-scripts allow-same-origin"
