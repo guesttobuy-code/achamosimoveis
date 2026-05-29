@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Reveal from './Reveal'
 import { ArrowRight } from './icons'
 import type { NavigateFn } from '../types'
@@ -11,22 +12,22 @@ import type { NavigateFn } from '../types'
  * Portado de `[pasta limpa]/achamos-site/src/pages.jsx:132-329` (JSX → TSX).
  */
 export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
+  const { t } = useTranslation('home')
+
   return (
     <section className="ip-section">
       <div className="container">
         <div className="ip-head">
           <Reveal>
-            <span className="eyebrow">Quando você loga</span>
+            <span className="eyebrow">{t('inside.eyebrow')}</span>
             <h2 className="display ip-title">
-              Lá dentro, é o <em>vendedor</em>
-              <br />que vem até você.
+              {t('inside.title_part1')} <em>{t('inside.title_em')}</em>
+              <br />{t('inside.title_part2')}
             </h2>
           </Reveal>
           <Reveal delay={120}>
             <p className="lead ip-lead">
-              Cards de imóveis com score de match, fotos enviadas direto pelo vendedor no chat, e
-              ofertas <strong style={{ color: 'var(--ink)' }}>off-market</strong> que não rodam em
-              portal. Você só vê o que faz sentido pra você.
+              {t('inside.lead_part1')}<strong style={{ color: 'var(--ink)' }}>{t('inside.lead_strong')}</strong>{t('inside.lead_part2')}
             </p>
           </Reveal>
         </div>
@@ -43,7 +44,7 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
                 </div>
                 <div className="ip-chrome-url">
                   <span className="ip-chrome-lock">●</span>
-                  app.achamos.com.br/oportunidades
+                  {t('inside.dash_url')}
                 </div>
               </div>
 
@@ -51,53 +52,53 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
                 <div className="ip-dash-greet">
                   <div>
                     <div className="ip-dash-hi">
-                      Oi, Carolina <span className="ip-wave">👋</span>
+                      {t('inside.dash_hi')} <span className="ip-wave">👋</span>
                     </div>
-                    <div className="ip-dash-sub">Sua busca está ativa. Encontramos coisa nova pra você.</div>
+                    <div className="ip-dash-sub">{t('inside.dash_sub')}</div>
                   </div>
                   <div className="ip-dash-badge">
                     <span className="ip-dot-live" />
-                    Radar ligado
+                    {t('inside.dash_badge')}
                   </div>
                 </div>
 
                 <div className="ip-stats">
                   <div>
-                    <div className="ip-stat-lbl">Novas</div>
+                    <div className="ip-stat-lbl">{t('inside.stat_novas')}</div>
                     <div className="ip-stat-num">3</div>
                   </div>
                   <div>
-                    <div className="ip-stat-lbl">Análise</div>
+                    <div className="ip-stat-lbl">{t('inside.stat_analise')}</div>
                     <div className="ip-stat-num">5</div>
                   </div>
                   <div>
-                    <div className="ip-stat-lbl">Visitas</div>
+                    <div className="ip-stat-lbl">{t('inside.stat_visitas')}</div>
                     <div className="ip-stat-num">2</div>
                   </div>
                   <div>
-                    <div className="ip-stat-lbl">Match médio</div>
+                    <div className="ip-stat-lbl">{t('inside.stat_match')}</div>
                     <div className="ip-stat-num ip-stat-acc">87%</div>
                   </div>
                 </div>
 
                 <div className="ip-list-head">
-                  <div className="ip-list-title">Últimas oportunidades</div>
-                  <div className="ip-list-link">Ver todas →</div>
+                  <div className="ip-list-title">{t('inside.list_title')}</div>
+                  <div className="ip-list-link">{t('inside.list_link')}</div>
                 </div>
 
                 <div className="ip-cards">
                   <div className="ip-card ip-card-new">
                     <div className="ip-thumb ip-thumb-photo" aria-hidden="true">
                       <img src="/assets/imovel-varanda-lagoa.webp" alt="" loading="lazy" />
-                      <span className="ip-thumb-tag">FOTO · vendedor</span>
+                      <span className="ip-thumb-tag">{t('inside.thumb_tag')}</span>
                     </div>
                     <div className="ip-card-body">
-                      <div className="ip-card-name">Apartamento · Pinheiros, SP</div>
-                      <div className="ip-card-meta">3 dorm · 102m² · 1 vaga · R$ 980 mil</div>
+                      <div className="ip-card-name">{t('inside.card1_name')}</div>
+                      <div className="ip-card-meta">{t('inside.card1_meta')}</div>
                       <div className="ip-pills">
-                        <span className="ip-pill ip-pill-off">OFF-MARKET</span>
-                        <span className="ip-pill ip-pill-match">92% MATCH</span>
-                        <span className="ip-pill ip-pill-new">NOVO · 12min</span>
+                        <span className="ip-pill ip-pill-off">{t('inside.pill_off')}</span>
+                        <span className="ip-pill ip-pill-match">92% {t('inside.pill_match')}</span>
+                        <span className="ip-pill ip-pill-new">{t('inside.pill_new')}</span>
                       </div>
                     </div>
                     <MatchRing pct={92} />
@@ -106,14 +107,14 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
                   <div className="ip-card">
                     <div className="ip-thumb ip-thumb-photo" aria-hidden="true">
                       <img src="/assets/imovel-casa-jardim.webp" alt="" loading="lazy" />
-                      <span className="ip-thumb-tag">FOTO · vendedor</span>
+                      <span className="ip-thumb-tag">{t('inside.thumb_tag')}</span>
                     </div>
                     <div className="ip-card-body">
-                      <div className="ip-card-name">Casa térrea · Vila Madalena, SP</div>
-                      <div className="ip-card-meta">3 dorm · 180m² · 2 vagas · R$ 1,2 mi</div>
+                      <div className="ip-card-name">{t('inside.card2_name')}</div>
+                      <div className="ip-card-meta">{t('inside.card2_meta')}</div>
                       <div className="ip-pills">
-                        <span className="ip-pill ip-pill-carteira">CARTEIRA</span>
-                        <span className="ip-pill ip-pill-match">88% MATCH</span>
+                        <span className="ip-pill ip-pill-carteira">{t('inside.pill_carteira')}</span>
+                        <span className="ip-pill ip-pill-match">88% {t('inside.pill_match')}</span>
                       </div>
                     </div>
                     <MatchRing pct={88} />
@@ -122,14 +123,14 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
                   <div className="ip-card">
                     <div className="ip-thumb ip-thumb-photo" aria-hidden="true">
                       <img src="/assets/imovel-piscina.webp" alt="" loading="lazy" />
-                      <span className="ip-thumb-tag">FOTO · vendedor</span>
+                      <span className="ip-thumb-tag">{t('inside.thumb_tag')}</span>
                     </div>
                     <div className="ip-card-body">
-                      <div className="ip-card-name">Cobertura · Itaim Bibi, SP</div>
-                      <div className="ip-card-meta">4 dorm · 240m² · 3 vagas · R$ 2,8 mi</div>
+                      <div className="ip-card-name">{t('inside.card3_name')}</div>
+                      <div className="ip-card-meta">{t('inside.card3_meta')}</div>
                       <div className="ip-pills">
-                        <span className="ip-pill ip-pill-off">OFF-MARKET</span>
-                        <span className="ip-pill ip-pill-match">85% MATCH</span>
+                        <span className="ip-pill ip-pill-off">{t('inside.pill_off')}</span>
+                        <span className="ip-pill ip-pill-match">85% {t('inside.pill_match')}</span>
                       </div>
                     </div>
                     <MatchRing pct={85} />
@@ -146,19 +147,17 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
                   <span className="ip-chat-online" />
                 </div>
                 <div className="ip-chat-id">
-                  <div className="ip-chat-name">Mariana · Achamos</div>
-                  <div className="ip-chat-status">corretora · respondendo agora</div>
+                  <div className="ip-chat-name">{t('inside.chat_name')}</div>
+                  <div className="ip-chat-status">{t('inside.chat_status')}</div>
                 </div>
-                <div className="ip-chat-time">12:42</div>
+                <div className="ip-chat-time">{t('inside.chat_time')}</div>
               </div>
 
               <div className="ip-chat-body">
-                <div className="ip-day">Hoje</div>
+                <div className="ip-day">{t('inside.chat_day')}</div>
 
                 <div className="ip-bubble ip-bubble-them">
-                  Oi Carolina! Achei um apto em <strong>Pinheiros</strong> que faz muito sentido pro
-                  seu briefing. <strong>Off-market</strong> — o dono nem tava anunciando, a gente
-                  conversou direto.
+                  {t('inside.chat_msg1_part1')}<strong>{t('inside.chat_msg1_strong1')}</strong>{t('inside.chat_msg1_part2')}<strong>{t('inside.chat_msg1_strong2')}</strong>{t('inside.chat_msg1_part3')}
                 </div>
 
                 <div className="ip-bubble ip-bubble-them ip-bubble-photos">
@@ -178,23 +177,23 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
                     </div>
                   </div>
                   <div className="ip-photo-cap">
-                    <PaperclipIcon /> 12 fotos · enviadas pelo vendedor
+                    <PaperclipIcon /> {t('inside.chat_photo_cap')}
                   </div>
                 </div>
 
                 <div className="ip-bubble ip-bubble-them">
-                  Preço entre o que você falou. Posso marcar visita sábado de manhã?
+                  {t('inside.chat_msg2')}
                 </div>
 
                 <div className="ip-typing">
                   <i />
                   <i />
-                  <i /> digitando…
+                  <i /> {t('inside.chat_typing')}
                 </div>
               </div>
 
               <div className="ip-chat-input">
-                <span className="ip-input-ph">Escrever mensagem…</span>
+                <span className="ip-input-ph">{t('inside.chat_input_ph')}</span>
                 <span className="ip-input-send">↑</span>
               </div>
             </div>
@@ -202,13 +201,13 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
             {/* ===== Annotation labels ===== */}
             <div className="ip-anno ip-anno-1">
               <span className="ip-anno-line" />
-              <span className="ip-anno-text">Match score por imóvel</span>
+              <span className="ip-anno-text">{t('inside.anno1')}</span>
             </div>
             <div className="ip-anno ip-anno-3">
               <span className="ip-anno-line" />
               <span className="ip-anno-text">
-                Fotos enviadas direto
-                <br />pelo vendedor
+                {t('inside.anno3_l1')}
+                <br />{t('inside.anno3_l2')}
               </span>
             </div>
           </div>
@@ -217,11 +216,10 @@ export default function InsidePreview({ navigate }: { navigate: NavigateFn }) {
         <Reveal delay={160}>
           <div className="ip-cta">
             <div className="ip-cta-text">
-              <strong>É isso que te espera depois do briefing.</strong> Não é vitrine pública — é
-              uma sala particular onde o vendedor vem até você.
+              <strong>{t('inside.cta_strong')}</strong>{t('inside.cta_text')}
             </div>
             <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
-              Começar briefing <ArrowRight />
+              {t('inside.cta_button')} <ArrowRight />
             </button>
           </div>
         </Reveal>

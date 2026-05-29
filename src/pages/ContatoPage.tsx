@@ -1,20 +1,12 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import Reveal from '../components/Reveal'
 import { ArrowRight, Check } from '../components/icons'
 import type { NavigateFn } from '../types'
 
-const FAQS = [
-  { q: 'Quanto custa pro comprador?', a: 'Light é grátis (busca passiva na nossa rede). Spotlight é R$ 2.500, creditável no fechamento — volta 100% quando você fecha pela Achamos. Hunt é R$ 7.500, também creditável. Você só assume risco residual se desistir antes de fechar e não tivermos entregue o mínimo de candidatos qualificados.' },
-  { q: 'Vocês têm imóveis em qual faixa de preço?', a: 'De R$ 250 mil a R$ 5 milhões. Trabalhamos com primeiro imóvel, médio e alto padrão, e investimento.' },
-  { q: 'Em quanto tempo eu acho meu imóvel?', a: 'Depende muito do que você procura. Em média, primeira oferta em 48h e fechamento em 30-60 dias.' },
-  { q: 'Posso vender sem exclusividade?', a: 'Pode. A gente trabalha dos dois jeitos. Com exclusividade investimos mais em divulgação; sem ela você compartilha com outras imobiliárias.' },
-  { q: 'Vocês fazem financiamento?', a: 'Não somos banco, mas temos parceria com vários e a gente cuida da papelada inteira pra você.' },
-  { q: 'E aluguel? Temporada?', a: 'Hoje nossa operação é foco em venda. Aluguel de temporada é institucional — atendemos sob demanda mas não temos catálogo navegável ainda.' },
-  { q: 'Trabalham em quais estados?', a: 'Foco total no estado do Rio de Janeiro — capital, região metropolitana, Região dos Lagos, Serra e Costa Verde.' },
-]
-
 export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
+  const { t } = useTranslation('contato')
   const [openFaq, setOpenFaq] = useState(0)
   const [form, setForm] = useState({ nome: '', email: '', tel: '', msg: '' })
   const [sent, setSent] = useState(false)
@@ -24,17 +16,27 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
     setSent(true)
   }
 
+  const FAQS = [
+    { q: t('faq.q1'), a: t('faq.a1') },
+    { q: t('faq.q2'), a: t('faq.a2') },
+    { q: t('faq.q3'), a: t('faq.a3') },
+    { q: t('faq.q4'), a: t('faq.a4') },
+    { q: t('faq.q5'), a: t('faq.a5') },
+    { q: t('faq.q6'), a: t('faq.a6') },
+    { q: t('faq.q7'), a: t('faq.a7') },
+  ]
+
   return (
     <main>
       <section className="page-hero">
         <div className="container">
           <Reveal>
-            <span className="eyebrow">Fale com a gente</span>
+            <span className="eyebrow">{t('hero.eyebrow')}</span>
             <h1 className="page-hero-title">
-              Tem dúvida?<br /><em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>Pergunta.</em>
+              {t('hero.title_part1')}<br /><em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('hero.title_em')}</em>
             </h1>
             <p className="lead" style={{ fontSize: 22, maxWidth: '50ch' }}>
-              Pode mandar mensagem, ligar, ou começar direto pelo briefing — o que for mais rápido pra você.
+              {t('hero.lead')}
             </p>
           </Reveal>
         </div>
@@ -47,51 +49,51 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
             <Reveal>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
                 <div>
-                  <div className="eyebrow" style={{ marginBottom: 8 }}>WhatsApp</div>
+                  <div className="eyebrow" style={{ marginBottom: 8 }}>{t('info.wa_label')}</div>
                   <a
                     href="https://wa.me/5521995885999"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ fontFamily: 'var(--f-display)', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em', color: 'inherit', textDecoration: 'none' }}
                   >
-                    +55 21 9 9588-5999
+                    {t('info.wa_phone')}
                   </a>
-                  <div style={{ color: 'var(--ink-soft)', fontSize: 14, marginTop: 4 }}>Atendimento seg–sáb · 8h às 20h</div>
+                  <div style={{ color: 'var(--ink-soft)', fontSize: 14, marginTop: 4 }}>{t('info.wa_hours')}</div>
                 </div>
                 <div>
-                  <div className="eyebrow" style={{ marginBottom: 8 }}>E-mail</div>
+                  <div className="eyebrow" style={{ marginBottom: 8 }}>{t('info.email_label')}</div>
                   <a
                     href="mailto:oi@achamosimoveis.com.br"
                     style={{ fontFamily: 'var(--f-display)', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em', color: 'inherit', textDecoration: 'none' }}
                   >
-                    oi@achamosimoveis.com.br
+                    {t('info.email_address')}
                   </a>
                 </div>
                 <div>
-                  <div className="eyebrow" style={{ marginBottom: 16 }}>Sede</div>
+                  <div className="eyebrow" style={{ marginBottom: 16 }}>{t('info.office_label')}</div>
                   <div>
-                    <div style={{ fontWeight: 600, fontSize: 16, fontFamily: 'var(--f-display)', letterSpacing: '-0.015em' }}>Rio de Janeiro — RJ</div>
-                    <div style={{ color: 'var(--ink-soft)', fontSize: 14, marginTop: 4 }}>Av. Treze de Maio, 47 · Apt 1609 · Centro</div>
-                    <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>CEP 20031-007 · Rio de Janeiro — RJ</div>
+                    <div style={{ fontWeight: 600, fontSize: 16, fontFamily: 'var(--f-display)', letterSpacing: '-0.015em' }}>{t('info.office_city')}</div>
+                    <div style={{ color: 'var(--ink-soft)', fontSize: 14, marginTop: 4 }}>{t('info.office_addr1')}</div>
+                    <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>{t('info.office_addr2')}</div>
                   </div>
                   <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--line-soft)' }}>
                     <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-mute)', marginBottom: 6 }}>
-                      Razão social
+                      {t('info.razao_label')}
                     </div>
                     <div style={{ fontSize: 13.5, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
-                      Bora Vender Muito BVM Aceleradora de Vendas LTDA
+                      {t('info.razao_name')}
                     </div>
                     <div style={{ fontFamily: 'var(--f-mono)', fontSize: 12, color: 'var(--ink-mute)', marginTop: 4 }}>
-                      CNPJ 46.908.483/0001-28
+                      {t('info.razao_cnpj')}
                     </div>
                   </div>
                   <div style={{ marginTop: 14, fontFamily: 'var(--f-mono)', fontSize: 11.5, color: 'var(--brand)', letterSpacing: '0.04em' }}>
-                    ★ Atendimento em todo o estado do Rio de Janeiro
+                    {t('info.coverage')}
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 8, paddingTop: 8 }}>
-                  <button className="btn btn-brand" onClick={() => navigate('comecar')}>Quero comprar <ArrowRight /></button>
-                  <button className="btn btn-ghost" onClick={() => navigate('vender')}>Quero vender</button>
+                  <button className="btn btn-brand" onClick={() => navigate('comecar')}>{t('info.cta_buy')} <ArrowRight /></button>
+                  <button className="btn btn-ghost" onClick={() => navigate('vender')}>{t('info.cta_sell')}</button>
                 </div>
               </div>
             </Reveal>
@@ -101,26 +103,26 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
               {!sent ? (
                 <form className="card" style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 14 }} onSubmit={submit}>
                   <div style={{ fontFamily: 'var(--f-display)', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 4 }}>
-                    Mandar mensagem
+                    {t('form.title')}
                   </div>
                   <div className="field">
-                    <label>Nome</label>
-                    <input required value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} placeholder="Seu nome" />
+                    <label>{t('form.label_name')}</label>
+                    <input required value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} placeholder={t('form.ph_name')} />
                   </div>
                   <div className="field">
-                    <label>E-mail</label>
-                    <input type="email" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="voce@email.com" />
+                    <label>{t('form.label_email')}</label>
+                    <input type="email" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder={t('form.ph_email')} />
                   </div>
                   <div className="field">
-                    <label>Telefone</label>
-                    <input value={form.tel} onChange={e => setForm({ ...form, tel: e.target.value })} placeholder="(00) 00000-0000" />
+                    <label>{t('form.label_phone')}</label>
+                    <input value={form.tel} onChange={e => setForm({ ...form, tel: e.target.value })} placeholder={t('form.ph_phone')} />
                   </div>
                   <div className="field">
-                    <label>Mensagem</label>
-                    <textarea required value={form.msg} onChange={e => setForm({ ...form, msg: e.target.value })} placeholder="No que podemos ajudar?" />
+                    <label>{t('form.label_msg')}</label>
+                    <textarea required value={form.msg} onChange={e => setForm({ ...form, msg: e.target.value })} placeholder={t('form.ph_msg')} />
                   </div>
                   <button className="btn btn-brand" type="submit" style={{ marginTop: 8 }}>
-                    Enviar mensagem <ArrowRight />
+                    {t('form.submit')} <ArrowRight />
                   </button>
                 </form>
               ) : (
@@ -131,9 +133,9 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
                   }}>
                     <Check />
                   </div>
-                  <div className="display" style={{ fontSize: 30, letterSpacing: '-0.02em' }}>Mensagem enviada!</div>
+                  <div className="display" style={{ fontSize: 30, letterSpacing: '-0.02em' }}>{t('form.sent_title')}</div>
                   <div style={{ color: 'var(--ink-soft)', marginTop: 10, maxWidth: '32ch', margin: '10px auto 0' }}>
-                    A gente responde em até 1 dia útil. Pra mais rápido, manda WhatsApp.
+                    {t('form.sent_text')}
                   </div>
                 </div>
               )}
@@ -146,9 +148,9 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
       <section className="surface-warm">
         <div className="container">
           <Reveal>
-            <span className="eyebrow">Perguntas frequentes</span>
+            <span className="eyebrow">{t('faq.eyebrow')}</span>
             <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 60px)', margin: '12px 0 40px' }}>
-              Dúvidas comuns.
+              {t('faq.title')}
             </h2>
           </Reveal>
           <Reveal>

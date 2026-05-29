@@ -1,0 +1,59 @@
+{
+  "hero": {
+    "eyebrow": "Para quien vende",
+    "title_em": "Hay compradores esperando.",
+    "title_part2": "No vendes a ciegas.",
+    "lead": "Te mostramos cuántas personas ya buscan algo como tu inmueble — antes de que publiques. Sin cartel en la ventana, sin dos meses parado.",
+    "cta_primary": "Anunciar mi inmueble",
+    "cta_secondary": "Hablar antes"
+  },
+  "demand": {
+    "eyebrow": "Demanda real, hoy",
+    "title": "¿Cuántos compradores buscan algo como el tuyo?",
+    "city1_city": "COPACABANA",
+    "city1_t": "Apt. 2-3 dorm. · zona sur",
+    "city1_b": "900k – 1,6M",
+    "city2_city": "BOTAFOGO",
+    "city2_t": "Apt./cobertura · 3 dorm.",
+    "city2_b": "800k – 1,8M",
+    "city3_city": "IPANEMA/LEBLON",
+    "city3_t": "3-4 dorm. · alto estándar",
+    "city3_b": "2M+",
+    "city4_city": "TIJUCA/V.ISABEL",
+    "city4_t": "Apt. 3 dorm. · zona norte",
+    "city4_b": "700k – 1,2M",
+    "note": "* Datos actualizados en las últimas 48h. Compradores activos con briefing validado."
+  },
+  "why_diff": {
+    "eyebrow": "Por qué diferente",
+    "title": "Inmobiliaria tradicional × We Found Properties.",
+    "old_way_title": "El modelo antiguo",
+    "old1": "Foto del inmueble en un portal y reza",
+    "old2": "Esperar a que suene el teléfono",
+    "old3": "Visitas a ciegas, sin briefing",
+    "old4": "Sin idea de quién busca algo similar",
+    "old5": "Vende en 4-6 meses (en promedio)",
+    "achamos_way_title": "Nuestro modo",
+    "ach1": "Medios pagados + curaduría identifican compradores listos",
+    "ach2": "Presentamos tu inmueble a quien combina",
+    "ach3": "Campañas dirigidas traen visitas reales",
+    "ach4": "Negociación conducida por el equipo",
+    "ach5": "Sin mensualidad · comisión solo al vender"
+  },
+  "included": {
+    "eyebrow": "Qué está incluido",
+    "title": "Comisión solo cuando vendes. Nada antes.",
+    "i1_t": "Evaluación justa",
+    "i1_b": "Te decimos el valor real de mercado, sin inflar",
+    "i2_t": "Captación de fotos",
+    "i2_b": "Fotógrafo asociado, sin costo adicional",
+    "i3_t": "Anuncio premium",
+    "i3_b": "Sitio, portales, redes — y nuestra base de compradores",
+    "i4_t": "Triaje de visitas",
+    "i4_b": "Solo va gente calificada a tu puerta",
+    "i5_t": "Negociación completa",
+    "i5_b": "Oferta, contraoferta, conducimos todo",
+    "i6_t": "Documentación & notaría",
+    "i6_b": "Toda la parte burocrática hasta la escritura"
+  }
+}

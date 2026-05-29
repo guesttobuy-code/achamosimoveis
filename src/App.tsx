@@ -8,9 +8,12 @@
  */
 import { useEffect } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+
+import { brandForLanguage, SUPPORTED_LANGUAGES, type SupportedLanguage } from './i18n'
 
 import HomePage from './pages/HomePage'
 import CompradorPage from './pages/CompradorPage'
@@ -41,8 +44,46 @@ function useScrollToTop() {
   }, [pathname])
 }
 
+/**
+ * Mantém <html lang="..." data-brand="..."> sincronizado com o idioma ativo.
+ *
+ * - lang: navegador, leitores de tela, SEO
+ * - data-brand: CSS troca background-image do .brand-logo (Achamos vs WFP)
+ *
+ * Override por rota: /wefoundproperties força idioma EN (preview da versão
+ * internacional enquanto o domínio wefoundproperties.com não está plugado).
+ */
+function useBrandAndLang() {
+  const { i18n } = useTranslation()
+  const { pathname } = useLocation()
+
+  // Rota /wefoundproperties força versão internacional (EN como default)
+  useEffect(() => {
+    if (pathname.toLowerCase().startsWith('/wefoundproperties')) {
+      const isPt = i18n.language.toLowerCase().startsWith('pt')
+      if (isPt) i18n.changeLanguage('en')
+    }
+  }, [pathname, i18n])
+
+  // Aplica lang + data-brand no <html> sempre que idioma muda
+  useEffect(() => {
+    const apply = () => {
+      const lang = (i18n.resolvedLanguage || i18n.language || 'pt').slice(0, 2)
+      const safeLang: SupportedLanguage = (SUPPORTED_LANGUAGES as readonly string[]).includes(lang)
+        ? (lang as SupportedLanguage)
+        : 'en'
+      document.documentElement.setAttribute('lang', safeLang)
+      document.documentElement.setAttribute('data-brand', brandForLanguage(safeLang))
+    }
+    apply()
+    i18n.on('languageChanged', apply)
+    return () => { i18n.off('languageChanged', apply) }
+  }, [i18n])
+}
+
 export default function App() {
   useTheme()
+  useBrandAndLang()
   useScrollToTop()
 
   const navigate = useNavigate()
@@ -84,6 +125,7 @@ export default function App() {
         <Route path="/comecar" element={<ComecarPage navigate={navigateById} />} />
         <Route path="/comecar/briefing" element={<ChatPage role="buyer" navigate={navigateById} />} />
         <Route path="/comecar/anunciar" element={<ChatPage role="seller" navigate={navigateById} />} />
+        <Route path="/wefoundproperties" element={<HomePage navigate={navigateById} />} />
         <Route path="*" element={<HomePage navigate={navigateById} />} />
       </Routes>
 

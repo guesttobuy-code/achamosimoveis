@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Reveal from '../components/Reveal'
 import { ArrowRight, ArrowUpRight } from '../components/icons'
 import type { NavigateFn } from '../types'
@@ -5,6 +6,8 @@ import type { NavigateFn } from '../types'
 const PORTAL_URL = import.meta.env.VITE_PORTAL_URL || 'https://app.achamos.com.br'
 
 export default function ComecarPage({ navigate }: { navigate: NavigateFn }) {
+  const { t } = useTranslation('comecar')
+
   return (
     <main>
       <section className="hero" style={{ paddingTop: 'clamp(40px, 6vw, 80px)', paddingBottom: 'clamp(40px, 6vw, 80px)' }}>
@@ -12,16 +15,16 @@ export default function ComecarPage({ navigate }: { navigate: NavigateFn }) {
           <Reveal>
             <span className="hero-tag">
               <span className="hero-tag-dot" />
-              PASSO 1 DE 2 · ESCOLHA A JORNADA
+              {t('hero.tag')}
             </span>
           </Reveal>
           <Reveal delay={80}>
             <h1 className="display" style={{ fontSize: 'clamp(40px, 6vw, 84px)', margin: '24px 0 18px', maxWidth: '16ch', letterSpacing: '-0.03em' }}>
-              Como você quer achar seu imóvel <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>hoje</em>?
+              {t('hero.title_part1')} <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('hero.title_em')}</em>{t('hero.title_part2')}
             </h1>
           </Reveal>
           <Reveal delay={140}>
-            <p className="lead">Três caminhos. Escolha pelo seu momento — pode trocar quando quiser.</p>
+            <p className="lead">{t('hero.lead')}</p>
           </Reveal>
         </div>
       </section>
@@ -33,16 +36,16 @@ export default function ComecarPage({ navigate }: { navigate: NavigateFn }) {
               {/* Pilar 01 — Achamos+ (featured) */}
               <article className="comecar-card comecar-card-1" onClick={() => navigate('comprar')}>
                 <div>
-                  <div className="comecar-card-num">01 · O VENDEDOR TE PROCURA</div>
+                  <div className="comecar-card-num">{t('cards.c1_num')}</div>
                   <div className="comecar-card-name">
-                    Quero que <em>achem</em> pra mim
+                    {t('cards.c1_name_part1')} <em>{t('cards.c1_name_em')}</em> {t('cards.c1_name_part2')}
                   </div>
                   <p className="comecar-card-desc">
-                    Você descreve. A IA + nossa equipe vão atrás — inclusive de vendedores que nem pensavam em vender. <strong>Diferencial Achamos.</strong>
+                    {t('cards.c1_desc_part1')}<strong>{t('cards.c1_desc_strong')}</strong>
                   </p>
                 </div>
                 <div className="comecar-card-cta">
-                  Começar briefing
+                  {t('cards.c1_cta')}
                   <span className="comecar-card-cta-circle"><ArrowUpRight size={14} /></span>
                 </div>
               </article>
@@ -50,16 +53,16 @@ export default function ComecarPage({ navigate }: { navigate: NavigateFn }) {
               {/* Pilar 02 — Portal */}
               <article className="comecar-card comecar-card-2" onClick={() => window.location.href = PORTAL_URL}>
                 <div>
-                  <div className="comecar-card-num">02 · PORTAL</div>
+                  <div className="comecar-card-num">{t('cards.c2_num')}</div>
                   <div className="comecar-card-name">
-                    Quero <em>buscar</em> agora
+                    {t('cards.c2_name_part1')} <em>{t('cards.c2_name_em')}</em> {t('cards.c2_name_part2')}
                   </div>
                   <p className="comecar-card-desc">
-                    Navegue o catálogo, alugue ou compre com poucos cliques. Filtros, mapa, agendamento — tudo digital.
+                    {t('cards.c2_desc')}
                   </p>
                 </div>
                 <div className="comecar-card-cta">
-                  Buscar imóveis
+                  {t('cards.c2_cta')}
                   <span className="comecar-card-cta-circle"><ArrowUpRight size={14} /></span>
                 </div>
               </article>
@@ -67,16 +70,16 @@ export default function ComecarPage({ navigate }: { navigate: NavigateFn }) {
               {/* Pilar 03 — Se hospede */}
               <article className="comecar-card comecar-card-3" onClick={() => window.location.href = `${PORTAL_URL}/se-hospede`}>
                 <div>
-                  <div className="comecar-card-num">03 · SE HOSPEDE PARA COMPRAR</div>
+                  <div className="comecar-card-num">{t('cards.c3_num')}</div>
                   <div className="comecar-card-name">
-                    Quero <em>experimentar</em> antes
+                    {t('cards.c3_name_part1')} <em>{t('cards.c3_name_em')}</em> {t('cards.c3_name_part2')}
                   </div>
                   <p className="comecar-card-desc">
-                    Hospede-se no imóvel que quer comprar. Conheça vizinhança, condomínio, rotina — depois decida.
+                    {t('cards.c3_desc')}
                   </p>
                 </div>
                 <div className="comecar-card-cta">
-                  Ver imóveis disponíveis
+                  {t('cards.c3_cta')}
                   <span className="comecar-card-cta-circle"><ArrowUpRight size={14} /></span>
                 </div>
               </article>
@@ -96,13 +99,13 @@ export default function ComecarPage({ navigate }: { navigate: NavigateFn }) {
               flexWrap: 'wrap',
             }}>
               <div>
-                <div className="eyebrow" style={{ marginBottom: 6 }}>Quer vender, não comprar?</div>
+                <div className="eyebrow" style={{ marginBottom: 6 }}>{t('cross.eyebrow')}</div>
                 <div style={{ fontFamily: 'var(--f-display)', fontSize: 22, fontWeight: 600, letterSpacing: '-0.02em' }}>
-                  Anuncie seu imóvel — descobrimos quem combina antes de você publicar.
+                  {t('cross.title')}
                 </div>
               </div>
               <button className="btn btn-primary" onClick={() => navigate('vender')}>
-                Anunciar imóvel <ArrowRight />
+                {t('cross.cta')} <ArrowRight />
               </button>
             </div>
           </Reveal>

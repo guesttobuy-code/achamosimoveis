@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "tag": "PASO 1 DE 2 · ELIGE TU CAMINO",
+    "title_part1": "¿Cómo quieres encontrar tu inmueble",
+    "title_em": "hoy",
+    "title_part2": "?",
+    "lead": "Tres caminos. Elige por tu momento — puedes cambiar cuando quieras."
+  },
+  "cards": {
+    "c1_num": "01 · EL VENDEDOR TE BUSCA",
+    "c1_name_part1": "Quiero que",
+    "c1_name_em": "lo encuentren",
+    "c1_name_part2": "por mí",
+    "c1_desc_part1": "Tú describes. La IA + nuestro equipo van a buscar — incluso vendedores que no pensaban vender. ",
+    "c1_desc_strong": "Nuestro diferencial.",
+    "c1_cta": "Comenzar briefing",
+    "c2_num": "02 · PORTAL",
+    "c2_name_part1": "Quiero",
+    "c2_name_em": "buscar",
+    "c2_name_part2": "ahora",
+    "c2_desc": "Navega el catálogo, alquila o compra en pocos clics. Filtros, mapa, agenda — todo digital.",
+    "c2_cta": "Buscar inmuebles",
+    "c3_num": "03 · HOSPÉDATE PARA COMPRAR",
+    "c3_name_part1": "Quiero",
+    "c3_name_em": "experimentar",
+    "c3_name_part2": "antes",
+    "c3_desc": "Hospédate en el inmueble que quieres comprar. Conoce vecindad, edificio, rutina — luego decide.",
+    "c3_cta": "Ver inmuebles disponibles"
+  },
+  "cross": {
+    "eyebrow": "¿Quieres vender, no comprar?",
+    "title": "Anuncia tu inmueble — descubrimos quién combina antes de que publiques.",
+    "cta": "Anunciar inmueble"
+  }
+}

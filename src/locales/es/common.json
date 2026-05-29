@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "comprador": "Comprador",
+    "vendedor": "Vendedor",
+    "sobre": "Nosotros",
+    "contato": "Contacto",
+    "cta_vender": "Quiero vender",
+    "cta_buscar": "Buscar inmueble",
+    "aria_home": "Página de inicio",
+    "entrar": "Entrar",
+    "entrar_aria": "Acceder al área registrada",
+    "drawer_navegacao": "Navegación",
+    "drawer_conta": "Cuenta",
+    "menu_open": "Abrir menú",
+    "menu_close": "Cerrar menú"
+  },
+  "footer": {
+    "tagline_main": "Compradores",
+    "tagline_em": "esperando",
+    "about_title": "We Found Properties",
+    "about_text": "La inmobiliaria que cambia el juego: el comprador real recibe — no busca. Medios pagados dirigidos + curaduría humana + comunicación 100% intermediada.",
+    "creci": "Licencia CRECI Brasil · activa desde 07/2026 · INMOBILIARIA DIGITAL",
+    "col_to_buy": "Para comprar",
+    "col_to_buy_how": "Cómo funciona",
+    "col_to_buy_start": "Iniciar búsqueda",
+    "col_to_buy_who": "Nosotros",
+    "col_to_sell": "Para vender",
+    "col_to_sell_how": "Cómo funciona",
+    "col_to_sell_start": "Anunciar inmueble",
+    "col_to_sell_talk": "Hablar con el equipo",
+    "col_contact": "Contacto",
+    "where": "Río de Janeiro · todo el estado",
+    "address_label": "Dirección",
+    "address_line1": "Av. Treze de Maio, 47 · Apt 1609 · Centro",
+    "address_line2": "Río de Janeiro — RJ · CP 20031-007 · Brasil",
+    "copyright": "© 2026 We Found Properties — Todos los derechos reservados",
+    "operated_by": "Operado por Bora Vender Muito BVM Aceleradora de Vendas LTDA"
+  },
+  "language": {
+    "label": "Idioma",
+    "pt": "PT",
+    "en": "EN",
+    "es": "ES",
+    "pt_long": "Português",
+    "en_long": "English",
+    "es_long": "Español"
+  }
+}

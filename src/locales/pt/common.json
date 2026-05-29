@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "home": "Início",
+    "comprador": "Comprador",
+    "vendedor": "Vendedor",
+    "sobre": "Sobre",
+    "contato": "Contato",
+    "cta_vender": "Quero vender",
+    "cta_buscar": "Buscar imóvel",
+    "aria_home": "Página inicial",
+    "entrar": "Entrar",
+    "entrar_aria": "Acessar área logada",
+    "drawer_navegacao": "Navegação",
+    "drawer_conta": "Conta",
+    "menu_open": "Abrir menu",
+    "menu_close": "Fechar menu"
+  },
+  "footer": {
+    "tagline_main": "Tem comprador",
+    "tagline_em": "esperando",
+    "about_title": "Achamos Imóveis",
+    "about_text": "A imobiliária que inverte o jogo: comprador real recebe — não procura. Mídia paga direcionada + curadoria humana + comunicação 100% intermediada.",
+    "creci": "CRECI em processo · ativo a partir de 07/2026 · IMOBILIÁRIA DIGITAL",
+    "col_to_buy": "Para comprar",
+    "col_to_buy_how": "Como funciona",
+    "col_to_buy_start": "Iniciar busca",
+    "col_to_buy_who": "Quem somos",
+    "col_to_sell": "Para vender",
+    "col_to_sell_how": "Como funciona",
+    "col_to_sell_start": "Anunciar imóvel",
+    "col_to_sell_talk": "Falar com a equipe",
+    "col_contact": "Contato",
+    "where": "Rio de Janeiro · todo o estado",
+    "address_label": "Endereço",
+    "address_line1": "Av. Treze de Maio, 47 · Apt 1609 · Centro",
+    "address_line2": "Rio de Janeiro — RJ · CEP 20031-007",
+    "copyright": "© 2026 Achamos Imóveis — Todos os direitos reservados",
+    "operated_by": "Operado por Bora Vender Muito BVM Aceleradora de Vendas LTDA"
+  },
+  "language": {
+    "label": "Idioma",
+    "pt": "PT",
+    "en": "EN",
+    "es": "ES",
+    "pt_long": "Português",
+    "en_long": "English",
+    "es_long": "Español"
+  }
+}

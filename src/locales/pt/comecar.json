@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "tag": "PASSO 1 DE 2 · ESCOLHA A JORNADA",
+    "title_part1": "Como você quer achar seu imóvel",
+    "title_em": "hoje",
+    "title_part2": "?",
+    "lead": "Três caminhos. Escolha pelo seu momento — pode trocar quando quiser."
+  },
+  "cards": {
+    "c1_num": "01 · O VENDEDOR TE PROCURA",
+    "c1_name_part1": "Quero que",
+    "c1_name_em": "achem",
+    "c1_name_part2": "pra mim",
+    "c1_desc_part1": "Você descreve. A IA + nossa equipe vão atrás — inclusive de vendedores que nem pensavam em vender. ",
+    "c1_desc_strong": "Diferencial Achamos.",
+    "c1_cta": "Começar briefing",
+    "c2_num": "02 · PORTAL",
+    "c2_name_part1": "Quero",
+    "c2_name_em": "buscar",
+    "c2_name_part2": "agora",
+    "c2_desc": "Navegue o catálogo, alugue ou compre com poucos cliques. Filtros, mapa, agendamento — tudo digital.",
+    "c2_cta": "Buscar imóveis",
+    "c3_num": "03 · SE HOSPEDE PARA COMPRAR",
+    "c3_name_part1": "Quero",
+    "c3_name_em": "experimentar",
+    "c3_name_part2": "antes",
+    "c3_desc": "Hospede-se no imóvel que quer comprar. Conheça vizinhança, condomínio, rotina — depois decida.",
+    "c3_cta": "Ver imóveis disponíveis"
+  },
+  "cross": {
+    "eyebrow": "Quer vender, não comprar?",
+    "title": "Anuncie seu imóvel — descobrimos quem combina antes de você publicar.",
+    "cta": "Anunciar imóvel"
+  }
+}

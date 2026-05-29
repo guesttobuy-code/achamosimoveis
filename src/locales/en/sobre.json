@@ -1,0 +1,58 @@
+{
+  "hero": {
+    "eyebrow": "Who we are",
+    "title_part1": "A real estate firm that",
+    "title_em": "flipped the game.",
+    "lead": "We believe traditional agencies spend energy in the wrong place: filling a window. Here, the work is understanding the buyer, and going to find exactly what they want."
+  },
+  "manifesto": {
+    "eyebrow": "Manifesto",
+    "text_part1": "We believe buyers deserve more than ",
+    "text_em1": "scrolling real estate feeds",
+    "text_part2": " on a weekend. They deserve someone to take the briefing and go after it.",
+    "text_part3": "And sellers deserve to know if anyone wants their property ",
+    "text_em2": "before",
+    "text_part4": " hanging the sign."
+  },
+  "cities": {
+    "eyebrow": "Where we are",
+    "title": "Today in Rio. Soon, more.",
+    "c1_state": "RJ · operational HQ · entire state",
+    "c1_name": "Rio de Janeiro",
+    "c1_body": "HQ in Cinelândia. Serving the capital, metropolitan region, Região dos Lagos, Serra and Costa Verde.",
+    "c1_s1_b": "RJ",
+    "c1_s1_l": "Full focus",
+    "c1_s2_b": "07/2026",
+    "c1_s2_l": "Active CRECI",
+    "c1_s3_b": "Live",
+    "c1_s3_l": "Operations",
+    "c2_state": "SP · planned expansion",
+    "c2_name": "São Paulo",
+    "c2_body": "Launch planned after validating the Rio pilot. Capital + interior on the roadmap.",
+    "c2_s1_b": "M9-M15",
+    "c2_s1_l": "Planned",
+    "c2_s2_b": "—",
+    "c2_s2_l": "Planning",
+    "c2_s3_b": "—",
+    "c2_s3_l": "—",
+    "c3_state": "BH · planned expansion",
+    "c3_name": "Belo Horizonte",
+    "c3_body": "Launch planned after validating the Rio pilot. Whole metropolitan area on the roadmap.",
+    "c3_s1_b": "M15-M21",
+    "c3_s1_l": "Planned",
+    "c3_s2_b": "—",
+    "c3_s2_l": "Planning",
+    "c3_s3_b": "—",
+    "c3_s3_l": "—"
+  },
+  "principles": {
+    "eyebrow": "Principles",
+    "title": "What we believe.",
+    "p1_t": "Brutal honesty",
+    "p1_b": "We'll tell you when a property is overpriced. When the neighborhood doesn't fit you. When your target price is unrealistic.",
+    "p2_t": "Buyer's time",
+    "p2_b": "You don't bend to our schedule. We work on your deadline.",
+    "p3_t": "Sellers aren't hostages",
+    "p3_b": "We work with or without exclusivity. We trust our service to convince you to stay."
+  }
+}

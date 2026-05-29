@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Reveal from './Reveal'
 import { ArrowRight } from './icons'
 import type { NavigateFn } from '../types'
@@ -11,56 +12,8 @@ type FeedRow = {
   live: boolean
 }
 
-const PAINS: { num: string; dor: string; dorDesc: string; resp: string; respDesc: string }[] = [
-  {
-    num: '01',
-    dor: 'Fadiga de feed',
-    dorDesc: '30+ horas em portais. 80% é ruído: foto enganosa, preço fora, vendedor que não responde. 90% desiste antes de visitar.',
-    resp: 'Você não rola mais nada.',
-    respDesc: 'Top 3 já filtrado — só o que faz sentido pro seu perfil.',
-  },
-  {
-    num: '02',
-    dor: 'Off-market trancado',
-    dorDesc: 'A melhor parte do mercado nunca aparece em portal. Herança, divórcio, mudança — acesso só pra quem é amigo do corretor, do síndico, do zelador.',
-    resp: 'Mídia paga anuncia o seu perfil.',
-    respDesc: 'Proprietários motivados se apresentam — inclusive os que nem estavam à venda.',
-  },
-  {
-    num: '03',
-    dor: 'Negociação solo',
-    dorDesc: 'Vendedor + corretor experiente + outros 2-3 corretores de um lado. Comprador sozinho do outro. Paga preço cheio.',
-    resp: 'Cadeira privilegiada.',
-    respDesc: 'Candidatos qualificados se apresentam pra você. Negociação trabalha a seu favor.',
-  },
-  {
-    num: '04',
-    dor: 'Tempo perdido',
-    dorDesc: 'Do "estou procurando" até as chaves: 60-120 dias em capitais. Pra quem tem prazo (mudança, divórcio, gravidez), é insuportável.',
-    resp: 'Primeira candidatura em 7 dias.',
-    respDesc: 'Fechamento médio em 30-60 dias. Você ganha mês de vida.',
-  },
-  {
-    num: '05',
-    dor: 'Medo de errar',
-    dorDesc: 'Sem assessoria do lado do comprador: medo de documentação irregular, vícios escondidos, preço inflado, vendedor problemático. Resultado: paralisia.',
-    resp: 'Curadoria documental.',
-    respDesc: 'Visita acompanhada. Negociação intermediada. Acompanhamento até a escritura.',
-  },
-]
-
-const FEED: FeedRow[] = [
-  { loc: 'Copacabana · RJ',      desc: 'Apto 2-3 dorm. · busca direcionada',          tag: 'ATIVO',      cls: 't-ativo', live: true  },
-  { loc: 'Botafogo · RJ',        desc: 'Cobertura · proprietário despertado',         tag: 'OFF-MARKET', cls: 't-off',   live: true  },
-  { loc: 'Ipanema · RJ',         desc: 'Apto 4 dorm. · candidatura recebida',         tag: 'MATCH',      cls: 't-match', live: false },
-  { loc: 'Tijuca · RJ',          desc: 'Apto 3 dorm. · primeiro imóvel',              tag: 'ATIVO',      cls: 't-ativo', live: false },
-  { loc: 'Lagoa · RJ',           desc: 'Cobertura · alto padrão',                     tag: 'OFF-MARKET', cls: 't-off',   live: true  },
-  { loc: 'Leblon · RJ',          desc: 'Apto 3 dorm. · negociação iniciada',          tag: 'MATCH',      cls: 't-match', live: false },
-  { loc: 'Vila Isabel · RJ',     desc: 'Apto família · candidato qualificado',        tag: 'ATIVO',      cls: 't-ativo', live: false },
-  { loc: 'Barra da Tijuca · RJ', desc: 'Casa em condomínio · vendedor motivado',      tag: 'OFF-MARKET', cls: 't-off',   live: false },
-]
-
 function DiscoveryFeed({ feed }: { feed: FeedRow[] }) {
+  const { t } = useTranslation('home')
   const [offset, setOffset] = useState(0)
 
   useEffect(() => {
@@ -77,8 +30,8 @@ function DiscoveryFeed({ feed }: { feed: FeedRow[] }) {
     <div className="feed">
       <div className="feed-head">
         <div className="feed-status-dot" />
-        <div className="feed-title">Radar · ao vivo</div>
-        <div className="feed-meta">Rio de Janeiro · todo o estado</div>
+        <div className="feed-title">{t('discovery.feed_title')}</div>
+        <div className="feed-meta">{t('discovery.feed_meta')}</div>
       </div>
       <div className="feed-rows">
         {visible.map((row, i) => (
@@ -97,6 +50,57 @@ function DiscoveryFeed({ feed }: { feed: FeedRow[] }) {
 }
 
 export default function DiscoverySection({ navigate }: { navigate: NavigateFn }) {
+  const { t } = useTranslation('home')
+
+  const PAINS: { num: string; dor: string; dorDesc: string; resp: string; respDesc: string }[] = [
+    {
+      num: '01',
+      dor: t('discovery.p1_dor'),
+      dorDesc: t('discovery.p1_dor_desc'),
+      resp: t('discovery.p1_resp'),
+      respDesc: t('discovery.p1_resp_desc'),
+    },
+    {
+      num: '02',
+      dor: t('discovery.p2_dor'),
+      dorDesc: t('discovery.p2_dor_desc'),
+      resp: t('discovery.p2_resp'),
+      respDesc: t('discovery.p2_resp_desc'),
+    },
+    {
+      num: '03',
+      dor: t('discovery.p3_dor'),
+      dorDesc: t('discovery.p3_dor_desc'),
+      resp: t('discovery.p3_resp'),
+      respDesc: t('discovery.p3_resp_desc'),
+    },
+    {
+      num: '04',
+      dor: t('discovery.p4_dor'),
+      dorDesc: t('discovery.p4_dor_desc'),
+      resp: t('discovery.p4_resp'),
+      respDesc: t('discovery.p4_resp_desc'),
+    },
+    {
+      num: '05',
+      dor: t('discovery.p5_dor'),
+      dorDesc: t('discovery.p5_dor_desc'),
+      resp: t('discovery.p5_resp'),
+      respDesc: t('discovery.p5_resp_desc'),
+    },
+  ]
+
+  const FEED: FeedRow[] = [
+    { loc: t('discovery.feed_r1_loc'), desc: t('discovery.feed_r1_desc'), tag: t('discovery.tag_ativo'), cls: 't-ativo', live: true },
+    { loc: t('discovery.feed_r2_loc'), desc: t('discovery.feed_r2_desc'), tag: t('discovery.tag_off'),   cls: 't-off',   live: true },
+    { loc: t('discovery.feed_r3_loc'), desc: t('discovery.feed_r3_desc'), tag: t('discovery.tag_match'), cls: 't-match', live: false },
+    { loc: t('discovery.feed_r4_loc'), desc: t('discovery.feed_r4_desc'), tag: t('discovery.tag_ativo'), cls: 't-ativo', live: false },
+    { loc: t('discovery.feed_r5_loc'), desc: t('discovery.feed_r5_desc'), tag: t('discovery.tag_off'),   cls: 't-off',   live: true },
+    { loc: t('discovery.feed_r6_loc'), desc: t('discovery.feed_r6_desc'), tag: t('discovery.tag_match'), cls: 't-match', live: false },
+    { loc: t('discovery.feed_r7_loc'), desc: t('discovery.feed_r7_desc'), tag: t('discovery.tag_ativo'), cls: 't-ativo', live: false },
+    { loc: t('discovery.feed_r8_loc'), desc: t('discovery.feed_r8_desc'), tag: t('discovery.tag_off'),   cls: 't-off',   live: false },
+  ]
+
   return (
     <>
       {/* SEÇÃO 1 — 5 Dores Resolvidas (largura total) */}
@@ -106,14 +110,14 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
             <div className="discovery">
               <div className="discovery-head">
                 <div>
-                  <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>Por que a Achamos existe</span>
+                  <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>{t('discovery.pains_eyebrow')}</span>
                   <h2 className="discovery-title">
-                    Cinco dores resolvidas.<br />
-                    Uma decisão <em>tomada</em>.
+                    {t('discovery.pains_title_l1')}<br />
+                    {t('discovery.pains_title_l2')} <em>{t('discovery.pains_title_em')}</em>{t('discovery.pains_title_dot')}
                   </h2>
                 </div>
                 <p className="discovery-lead">
-                  Você reconheceu alguma delas? A gente desenhou o <strong style={{ color: 'var(--inverse-fg)' }}>serviço inteiro</strong> pra cada uma.
+                  {t('discovery.pains_lead_part1')}<strong style={{ color: 'var(--inverse-fg)' }}>{t('discovery.pains_lead_strong')}</strong>{t('discovery.pains_lead_part2')}
                 </p>
               </div>
 
@@ -123,13 +127,13 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
                     <span className="pillar-num">{p.num}</span>
                     <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, alignItems: 'flex-start' }}>
                       <div>
-                        <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', opacity: 0.45, marginBottom: 6, fontWeight: 700 }}>DOR</div>
+                        <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', opacity: 0.45, marginBottom: 6, fontWeight: 700 }}>{t('discovery.pain_label_dor')}</div>
                         <div className="pillar-title">{p.dor}</div>
                         <div className="pillar-sub" style={{ opacity: 0.7 }}>{p.dorDesc}</div>
                       </div>
                       <div style={{ color: 'var(--brand)', fontSize: 22, fontWeight: 700, alignSelf: 'center', marginTop: 18 }} aria-hidden="true">→</div>
                       <div>
-                        <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 6, fontWeight: 700 }}>A ACHAMOS</div>
+                        <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 6, fontWeight: 700 }}>{t('discovery.pain_label_resp')}</div>
                         <div className="pillar-title">{p.resp}</div>
                         <div className="pillar-sub">{p.respDesc}</div>
                       </div>
@@ -140,10 +144,10 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
 
               <div style={{ display: 'flex', gap: 10, marginTop: 40, flexWrap: 'wrap' }}>
                 <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
-                  Ativar minha busca <ArrowRight />
+                  {t('discovery.pains_cta_primary')} <ArrowRight />
                 </button>
                 <button className="btn btn-light btn-lg" onClick={() => navigate('comprador')} style={{ background: 'transparent', color: 'var(--inverse-fg)', borderColor: 'rgba(255,255,255,0.2)' }}>
-                  Como funciona pro comprador
+                  {t('discovery.pains_cta_secondary')}
                 </button>
               </div>
             </div>
@@ -158,14 +162,14 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
             <div className="discovery">
               <div className="discovery-head">
                 <div>
-                  <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>O motor por trás</span>
+                  <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>{t('discovery.radar_eyebrow')}</span>
                   <h2 className="discovery-title">
-                    O Radar Achamos.<br />
-                    A oportunidade certa <em>vem até você</em>.
+                    {t('discovery.radar_title_l1')}<br />
+                    {t('discovery.radar_title_l2')} <em>{t('discovery.radar_title_em')}</em>{t('discovery.radar_title_dot')}
                   </h2>
                 </div>
                 <p className="discovery-lead">
-                  Sua busca vira <strong style={{ color: 'var(--inverse-fg)' }}>anúncio direcionado</strong> nas redes sociais. Mídia paga segmentada por bairro + curadoria humana identificam proprietários motivados — inclusive os que nem pensavam em vender. Esse é o radar trabalhando, ao vivo, em todo o estado do Rio.
+                  {t('discovery.radar_lead_part1')}<strong style={{ color: 'var(--inverse-fg)' }}>{t('discovery.radar_lead_strong1')}</strong>{t('discovery.radar_lead_part2')}
                 </p>
               </div>
 
@@ -177,22 +181,22 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
 
               <div style={{ marginTop: 32, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, paddingTop: 32, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
                 <div>
-                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>ATIVO</div>
-                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>Busca em andamento — campanha social direcionada pra perfil do comprador.</div>
+                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>{t('discovery.tag_ativo')}</div>
+                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>{t('discovery.legend_ativo_desc')}</div>
                 </div>
                 <div>
-                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>OFF-MARKET</div>
-                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>Proprietário despertado pela campanha — imóvel que nem estava à venda.</div>
+                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>{t('discovery.tag_off')}</div>
+                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>{t('discovery.legend_off_desc')}</div>
                 </div>
                 <div>
-                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>MATCH</div>
-                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>Candidatura recebida ou negociação iniciada com candidato qualificado.</div>
+                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>{t('discovery.tag_match')}</div>
+                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>{t('discovery.legend_match_desc')}</div>
                 </div>
               </div>
 
               <div style={{ display: 'flex', gap: 10, marginTop: 32, flexWrap: 'wrap' }}>
                 <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
-                  Quero entrar no radar <ArrowRight />
+                  {t('discovery.radar_cta')} <ArrowRight />
                 </button>
               </div>
             </div>
