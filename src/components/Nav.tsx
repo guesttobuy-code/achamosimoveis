@@ -126,7 +126,18 @@ export default function Nav({ route, navigate }: NavProps) {
         onClick={() => setMenuOpen(false)}
       >
         <div className="nav-drawer-panel" onClick={e => e.stopPropagation()}>
-          {/* CTA primário no topo do drawer — botão de destaque */}
+          {/* Botão X de fechar no canto superior direito do painel */}
+          <button
+            className="nav-drawer-close"
+            onClick={() => setMenuOpen(false)}
+            aria-label={t('nav.menu_close')}
+            type="button"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+          {/* CTA primário logo abaixo do X */}
           <button className="btn btn-brand nav-drawer-cta" onClick={() => go('comecar')}>
             {t('nav.cta_buscar')} <ArrowRight />
           </button>
