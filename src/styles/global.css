@@ -264,9 +264,43 @@ img { max-width: 100%; display: block; }
   color: var(--paper, #F4F0EB);
 }
 @media (max-width: 880px) {
+  /* Esconde da topbar; aparece no drawer via .lang-switcher-drawer */
   .lang-switcher { display: none; }
   .lang-switcher.in-nav-mobile { display: inline-flex; margin-right: 4px; padding: 2px; }
   .lang-switcher.in-nav-mobile .lang-btn { padding: 4px 6px; font-size: 10px; }
+}
+/* Seletor de idioma dentro do drawer mobile */
+.lang-switcher-drawer {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--line-soft);
+  margin: 4px 14px 8px;
+  width: fit-content;
+}
+.lang-switcher-drawer .lang-btn {
+  background: transparent;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.lang-switcher-drawer .lang-btn:hover { background: var(--line); color: var(--ink); }
+.lang-switcher-drawer .lang-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+[data-theme="dark"] .lang-switcher-drawer .lang-btn.active {
+  background: var(--brand);
+  color: var(--paper);
 }
 
 /* Old mark/text styles kept for fallback (not currently used) */
@@ -2834,4 +2868,88 @@ section.hero { padding-top: clamp(40px, 6vw, 88px); }
   background: var(--brand);
   color: white;
   border-color: var(--brand);
+}
+
+/* ============================================
+   MOBILE RESPONSIVE — grids sem media query
+   ============================================ */
+
+/* Contato page — 2 colunas no desktop, 1 no mobile */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+@media (max-width: 720px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* "Como funciona" head — 2 colunas no desktop, 1 no mobile */
+.how-head {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+@media (max-width: 720px) {
+  .how-head {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  /* No mobile esconde o parágrafo do lado direito pra não duplicar copy */
+  .how-head > *:last-child { display: none; }
+}
+
+/* InsidePreview — stats e photo strip em 2 colunas no mobile */
+@media (max-width: 580px) {
+  .ip-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ip-photo-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Card de imóvel: thumb 100% largura em tela muito estreita */
+  .ip-card {
+    grid-template-columns: 72px 1fr auto;
+    gap: 10px;
+  }
+  .ip-thumb {
+    width: 72px;
+    height: 56px;
+  }
+  .ip-card-name { font-size: 13px; }
+  .ip-card-meta { font-size: 10.5px; }
+}
+
+/* Hero phone — centraliza caption no mobile */
+@media (max-width: 480px) {
+  .hero-phone-caption { text-align: center; }
+  .hero-phone { width: min(260px, 76vw); }
+}
+
+/* Portals — full width e sem hover transform no mobile */
+@media (max-width: 560px) {
+  .portal {
+    padding: 28px 22px;
+  }
+  .portal-title { font-size: clamp(28px, 7vw, 40px); }
+}
+
+/* Footer bottom — empilha no mobile muito estreito */
+@media (max-width: 480px) {
+  .foot-bottom {
+    flex-direction: column;
+    gap: 8px;
+    font-size: 11px;
+  }
+}
+
+/* Contato page — botões de ação lado a lado no mobile */
+@media (max-width: 480px) {
+  .contact-grid .btn { flex: 1; justify-content: center; }
 }

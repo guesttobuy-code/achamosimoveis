@@ -291,7 +291,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
       {/* COMO FUNCIONA — RESUMO */}
       <section className="surface-warm">
         <div className="container">
-          <div className="how-head" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 60, alignItems: 'end', marginBottom: 48 }}>
+          <div className="how-head">
             <Reveal>
               <span className="eyebrow">{t('home:how4.eyebrow')}</span>
               <h2 className="display" style={{ fontSize: 'clamp(40px, 6vw, 76px)', marginTop: 14 }}>

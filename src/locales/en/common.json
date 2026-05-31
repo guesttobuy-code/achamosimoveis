@@ -13,7 +13,8 @@
     "drawer_navegacao": "Navigation",
     "drawer_conta": "Account",
     "menu_open": "Open menu",
-    "menu_close": "Close menu"
+    "menu_close": "Close menu",
+    "drawer_idioma": "Language"
   },
   "footer": {
     "tagline_main": "Buyers are",

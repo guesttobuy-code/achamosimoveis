@@ -44,7 +44,7 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
 
       <section>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60 }} className="contact-grid">
+          <div className="contact-grid">
             {/* CONTACT INFO */}
             <Reveal>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>

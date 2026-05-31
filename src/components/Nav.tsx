@@ -144,6 +144,9 @@ export default function Nav({ route, navigate }: NavProps) {
           <button className="nav-drawer-link" onClick={() => go('vender')}>
             {t('nav.cta_vender')}
           </button>
+          <div className="nav-drawer-divider" />
+          <div className="nav-drawer-section">{t('nav.drawer_idioma')}</div>
+          <LanguageSwitcher className="lang-switcher-drawer" />
         </div>
       </div>
     </header>

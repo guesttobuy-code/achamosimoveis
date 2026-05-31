@@ -9,7 +9,13 @@ import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '../i18n'
  * - Ao clicar, troca via i18n.changeLanguage() (persiste em localStorage)
  * - Atualiza <html lang="..."> automaticamente
  */
-export default function LanguageSwitcher() {
+type Props = {
+  /** Override da classe no container — usa "lang-switcher" por padrão.
+   *  Passe "lang-switcher-drawer" pra renderizar dentro do menu mobile. */
+  className?: string
+}
+
+export default function LanguageSwitcher({ className = 'lang-switcher' }: Props) {
   const { i18n, t } = useTranslation('common')
   const current = (i18n.resolvedLanguage || i18n.language || 'pt').slice(0, 2) as SupportedLanguage
 
@@ -21,7 +27,7 @@ export default function LanguageSwitcher() {
 
   return (
     <div
-      className="lang-switcher"
+      className={className}
       role="group"
       aria-label={t('language.label')}
     >
