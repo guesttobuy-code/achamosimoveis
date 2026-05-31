@@ -162,8 +162,9 @@ img { max-width: 100%; display: block; }
   flex-wrap: nowrap;
 }
 @media (max-width: 820px) {
-  /* Hide the secondary 'Quero vender' on narrow viewports so the primary CTA stays unclipped */
+  /* Esconde os CTAs inline — vão pro drawer */
   .nav-cta .btn-ghost.btn-sm { display: none; }
+  .nav-cta .btn-brand.btn-sm  { display: none; }
   .nav-inner { gap: 12px; }
 }
 @media (max-width: 540px) {
@@ -269,6 +270,15 @@ img { max-width: 100%; display: block; }
   .lang-switcher.in-nav-mobile { display: inline-flex; margin-right: 4px; padding: 2px; }
   .lang-switcher.in-nav-mobile .lang-btn { padding: 4px 6px; font-size: 10px; }
 }
+/* CTA primário no topo do drawer ("Buscar imóvel") */
+.nav-drawer-cta {
+  margin: 0 14px 16px;
+  width: calc(100% - 28px);
+  justify-content: center;
+  font-size: 15px;
+  padding: 14px 20px;
+}
+
 /* Seletor de idioma dentro do drawer mobile */
 .lang-switcher-drawer {
   display: flex;
@@ -1643,6 +1653,179 @@ section.hero { padding-top: clamp(40px, 6vw, 88px); }
   white-space: nowrap;
 }
 .pillar.featured .pillar-tag { color: var(--brand); }
+
+/* ---- pillar-body: grid interno DOR → RESPOSTA ---- */
+.pillar-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: flex-start;
+}
+.pillar-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  margin-bottom: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.pillar-label-dor  { opacity: 0.45; color: var(--inverse-fg); }
+.pillar-label-resp { color: var(--brand); opacity: 1; }
+.pillar-sub-muted  { opacity: 0.7; }
+.pillar-arrow-central {
+  color: var(--brand);
+  font-size: 22px;
+  font-weight: 700;
+  align-self: center;
+  margin-top: 18px;
+  line-height: 1;
+}
+
+/* ---- Botão › próximo card (mobile-only) ---- */
+.pillar-next-btn {
+  display: none; /* oculto no desktop */
+}
+
+/* ---- Dots de paginação (mobile-only) ---- */
+.pillar-dots {
+  display: none; /* oculto no desktop */
+}
+
+/* ════════════════════════════════════════════
+   CARROSSEL MOBILE — .discovery-pillars
+   Ativa abaixo de 720px. Desktop inalterado.
+   ════════════════════════════════════════════ */
+@media (max-width: 720px) {
+  /* Container vira flex row com scroll horizontal e snap */
+  .discovery-pillars {
+    display: flex !important;
+    flex-direction: row;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+    /* Sangra até as bordas do container (remove o gap do container) */
+    margin-left:  calc(-1 * clamp(18px, 4vw, 48px));
+    margin-right: calc(-1 * clamp(18px, 4vw, 48px));
+    padding-left:  clamp(18px, 4vw, 48px);
+    padding-right: clamp(18px, 4vw, 48px);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+  }
+  .discovery-pillars::-webkit-scrollbar { display: none; }
+
+  /* Cada card ocupa 100% do viewport visível */
+  .pillar {
+    min-width: calc(100% - 8px); /* pequena margem pra indicar que tem mais */
+    width: calc(100% - 8px);
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    /* Troca grid por flex-column pra empilhar num > body */
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 60px 24px 22px; /* padding-right reservado pro botão › */
+    position: relative;
+    border-radius: var(--r-lg);
+    margin-right: 8px;
+  }
+
+  /* Dentro de cada card: DOR e RESP empilhadas verticalmente */
+  .pillar-body {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* A seta → central vira uma linha divisória + ↓ */
+  .pillar-arrow-central {
+    align-self: flex-start;
+    margin-top: 0;
+    font-size: 18px;
+    opacity: 0.6;
+    /* Rotaciona → para ↓ no layout vertical */
+    display: inline-block;
+    transform: rotate(90deg);
+  }
+
+  /* Botão › de próximo card */
+  .pillar-next-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 52px;
+    border: none;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(5, 3, 7, 0.65) 45%,
+      rgba(5, 3, 7, 0.85) 100%
+    );
+    color: rgba(244, 240, 235, 0.9);
+    border-radius: 0 var(--r-lg) var(--r-lg) 0;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s, background 0.15s;
+  }
+  .pillar-next-btn:hover,
+  .pillar-next-btn:focus-visible {
+    color: white;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(111, 45, 225, 0.55) 45%,
+      rgba(111, 45, 225, 0.80) 100%
+    );
+  }
+  /* No último card volta ao primeiro — ícone menor / diferente */
+  .pillar-next-btn--last {
+    color: rgba(244, 240, 235, 0.35);
+  }
+  .pillar-next-btn--last:hover {
+    color: rgba(244, 240, 235, 0.65);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(5, 3, 7, 0.55) 45%,
+      rgba(5, 3, 7, 0.70) 100%
+    );
+  }
+
+  /* Dots de paginação */
+  .pillar-dots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .pillar-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(244, 240, 235, 0.25);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: width 0.25s ease, background 0.25s ease;
+    flex-shrink: 0;
+  }
+  .pillar-dot.active {
+    background: var(--brand);
+    width: 28px;
+  }
+  .pillar-dot:hover:not(.active) {
+    background: rgba(244, 240, 235, 0.45);
+  }
+}
 
 /* Discovery feed (radar panel) */
 .feed {

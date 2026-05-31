@@ -126,6 +126,10 @@ export default function Nav({ route, navigate }: NavProps) {
         onClick={() => setMenuOpen(false)}
       >
         <div className="nav-drawer-panel" onClick={e => e.stopPropagation()}>
+          {/* CTA primário no topo do drawer — botão de destaque */}
+          <button className="btn btn-brand nav-drawer-cta" onClick={() => go('comecar')}>
+            {t('nav.cta_buscar')} <ArrowRight />
+          </button>
           <div className="nav-drawer-section">{t('nav.drawer_navegacao')}</div>
           {NAV_IDS.map(id => (
             <button

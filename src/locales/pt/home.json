@@ -111,7 +111,9 @@
     "legend_ativo_desc": "Busca em andamento — campanha social direcionada pra perfil do comprador.",
     "legend_off_desc": "Proprietário despertado pela campanha — imóvel que nem estava à venda.",
     "legend_match_desc": "Candidatura recebida ou negociação iniciada com candidato qualificado.",
-    "radar_cta": "Quero entrar no radar"
+    "radar_cta": "Quero entrar no radar",
+    "carousel_next": "Próxima",
+    "carousel_first": "Início"
   },
   "video": {
     "eyebrow": "Em 67 segundos",

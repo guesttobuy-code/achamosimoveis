@@ -111,7 +111,9 @@
     "legend_ativo_desc": "Active search — paid social campaign targeting the buyer's profile.",
     "legend_off_desc": "Owner activated by the campaign — property that wasn't even listed.",
     "legend_match_desc": "Candidate received or negotiation started with a qualified prospect.",
-    "radar_cta": "Get me on the radar"
+    "radar_cta": "Get me on the radar",
+    "carousel_next": "Next",
+    "carousel_first": "First"
   },
   "video": {
     "eyebrow": "In 67 seconds",
