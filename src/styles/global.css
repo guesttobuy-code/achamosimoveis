@@ -87,6 +87,9 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Previne scroll horizontal na página (elementos internos como
+     nav-drawer-panel fechado ou marquee-track não vazam pra fora) */
+  overflow-x: hidden;
 }
 
 button, input, textarea, select { font-family: inherit; color: inherit; }
@@ -486,10 +489,10 @@ img { max-width: 100%; display: block; }
   opacity: 0;
   pointer-events: none;
   transition: opacity .25s;
-  z-index: 60;
-  /* overflow:hidden impede o panel translateX(100%) de contribuir
-     pro scrollWidth da página (corrige scroll lateral indevido) */
-  overflow: hidden;
+  /* z-index alto: drawer é irmão do header no DOM (fora do stacking
+     context do backdrop-filter do header), então z-index:9999 garante
+     que fica acima do hero e de todo o conteúdo da página. */
+  z-index: 9999;
 }
 .nav-drawer.open {
   opacity: 1;

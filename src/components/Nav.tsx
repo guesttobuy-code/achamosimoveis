@@ -12,10 +12,6 @@ type NavProps = {
   navigate: NavigateFn
 }
 
-/**
- * Theme toggle (sun/moon) — sync via data-theme no <html> + localStorage.
- * Default inicial vem do App.tsx (useTheme) mas aqui mantém em sync após user click.
- */
 function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     try {
@@ -30,11 +26,7 @@ function ThemeToggle() {
     const next: 'light' | 'dark' = theme === 'dark' ? 'light' : 'dark'
     setTheme(next)
     document.documentElement.setAttribute('data-theme', next)
-    try {
-      localStorage.setItem('achamos-theme', next)
-    } catch {
-      /* sem storage = sem persistência, sem problema */
-    }
+    try { localStorage.setItem('achamos-theme', next) } catch { /* ignore */ }
   }
 
   return (
@@ -56,14 +48,8 @@ export default function Nav({ route, navigate }: NavProps) {
 
   // Lock body scroll when drawer is open
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    return () => {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
   function go(r: string) {
@@ -72,61 +58,68 @@ export default function Nav({ route, navigate }: NavProps) {
   }
 
   return (
-    <header className="nav">
-      <div className="container nav-inner">
-        <Logo onClick={() => go('home')} />
-        <nav className="nav-links">
-          {NAV_IDS.map(id => (
-            <button
-              key={id}
-              className={'nav-link' + (route === id ? ' active' : '')}
-              onClick={() => go(id)}
+    <>
+      {/* ─── Header ─────────────────────────────────────────────────────
+          IMPORTANTE: header tem backdrop-filter que cria stacking context
+          isolado. Por isso o drawer NÃO pode ser filho do header — ficaria
+          preso nesse contexto e apareceria atrás do conteúdo da página.
+          O drawer é irmão do header (mesmo nível no DOM) via Fragment.
+      ─────────────────────────────────────────────────────────────────── */}
+      <header className="nav">
+        <div className="container nav-inner">
+          <Logo onClick={() => go('home')} />
+          <nav className="nav-links">
+            {NAV_IDS.map(id => (
+              <button
+                key={id}
+                className={'nav-link' + (route === id ? ' active' : '')}
+                onClick={() => go(id)}
+              >
+                {t(`nav.${id}`)}
+              </button>
+            ))}
+          </nav>
+          <div className="nav-cta">
+            <LanguageSwitcher />
+            <ThemeToggle />
+            <a
+              className="nav-login"
+              href="#entrar"
+              onClick={e => { e.preventDefault(); go('entrar') }}
+              aria-label={t('nav.entrar_aria')}
             >
-              {t(`nav.${id}`)}
+              <UserIcon /> {t('nav.entrar')}
+            </a>
+            <button className="btn btn-ghost btn-sm nav-cta-vender" onClick={() => go('vender')}>
+              {t('nav.cta_vender')}
             </button>
-          ))}
-        </nav>
-        <div className="nav-cta">
-          <LanguageSwitcher />
-          <ThemeToggle />
-          <a
-            className="nav-login"
-            href="#entrar"
-            onClick={e => {
-              e.preventDefault()
-              go('entrar')
-            }}
-            aria-label={t('nav.entrar_aria')}
-          >
-            <UserIcon /> {t('nav.entrar')}
-          </a>
-          <button className="btn btn-ghost btn-sm nav-cta-vender" onClick={() => go('vender')}>
-            {t('nav.cta_vender')}
-          </button>
-          <button className="btn btn-brand btn-sm" onClick={() => go('comecar')}>
-            {t('nav.cta_buscar')} <ArrowRight />
-          </button>
-          <button
-            className={'nav-burger' + (menuOpen ? ' open' : '')}
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? t('nav.menu_close') : t('nav.menu_open')}
-            aria-expanded={menuOpen}
-            type="button"
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+            <button className="btn btn-brand btn-sm" onClick={() => go('comecar')}>
+              {t('nav.cta_buscar')} <ArrowRight />
+            </button>
+            <button
+              className={'nav-burger' + (menuOpen ? ' open' : '')}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? t('nav.menu_close') : t('nav.menu_open')}
+              aria-expanded={menuOpen}
+              type="button"
+            >
+              <span /><span /><span />
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile drawer */}
+      {/* ─── Mobile Drawer ───────────────────────────────────────────────
+          Irmão do header no DOM (não filho) — fora do stacking context do
+          backdrop-filter. z-index: 9999 garante que fica acima de tudo.
+      ─────────────────────────────────────────────────────────────────── */}
       <div
         className={'nav-drawer' + (menuOpen ? ' open' : '')}
         onClick={() => setMenuOpen(false)}
+        aria-hidden={!menuOpen}
       >
         <div className="nav-drawer-panel" onClick={e => e.stopPropagation()}>
-          {/* Botão X de fechar no canto superior direito do painel */}
+          {/* X fechar */}
           <button
             className="nav-drawer-close"
             onClick={() => setMenuOpen(false)}
@@ -137,10 +130,12 @@ export default function Nav({ route, navigate }: NavProps) {
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
-          {/* CTA primário logo abaixo do X */}
+
+          {/* CTA primário */}
           <button className="btn btn-brand nav-drawer-cta" onClick={() => go('comecar')}>
             {t('nav.cta_buscar')} <ArrowRight />
           </button>
+
           <div className="nav-drawer-section">{t('nav.drawer_navegacao')}</div>
           {NAV_IDS.map(id => (
             <button
@@ -151,6 +146,7 @@ export default function Nav({ route, navigate }: NavProps) {
               {t(`nav.${id}`)}
             </button>
           ))}
+
           <div className="nav-drawer-divider" />
           <div className="nav-drawer-section">{t('nav.drawer_conta')}</div>
           <button className="nav-drawer-link" onClick={() => go('entrar')}>
@@ -159,11 +155,12 @@ export default function Nav({ route, navigate }: NavProps) {
           <button className="nav-drawer-link" onClick={() => go('vender')}>
             {t('nav.cta_vender')}
           </button>
+
           <div className="nav-drawer-divider" />
           <div className="nav-drawer-section">{t('nav.drawer_idioma')}</div>
           <LanguageSwitcher className="lang-switcher-drawer" />
         </div>
       </div>
-    </header>
+    </>
   )
 }
