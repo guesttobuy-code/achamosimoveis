@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import Reveal from '../components/Reveal'
 import Marquee from '../components/Marquee'
-import DiscoverySection from '../components/DiscoverySection'
 import InsidePreview from '../components/InsidePreview'
 import FinalCTA from '../components/FinalCTA'
 import PhoneFeedMockup from '../components/PhoneFeedMockup'
@@ -231,8 +230,6 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
           </Reveal>
         </div>
       </section>
-
-      <DiscoverySection navigate={navigate} />
 
       {/* "O JOGO VIROU" — storytelling visual ANTES/DEPOIS.
           Substitui o antigo vídeo institucional cinematográfico por
