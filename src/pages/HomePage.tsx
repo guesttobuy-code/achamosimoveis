@@ -43,7 +43,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
               </Reveal>
               <Reveal delay={180}>
                 <div style={{ display: 'flex', gap: 10, marginTop: 24, flexWrap: 'wrap' }}>
-                  <button className="btn btn-brand btn-lg" onClick={() => navigate('comecar')}>
+                  <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
                     {t('home:hero.cta_primary')} <ArrowRight />
                   </button>
                   <button className="btn btn-ghost btn-lg" onClick={() => navigate('vender')}>
@@ -184,7 +184,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
 
           <Reveal delay={220}>
             <div className="metodologia-home-cta">
-              <button className="btn btn-brand btn-lg" onClick={() => navigate('comecar')}>
+              <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
                 {t('home:methodology.cta_primary')} <ArrowRight />
               </button>
               <button className="btn btn-ghost btn-lg" onClick={() => navigate('comprador')}>
