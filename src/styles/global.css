@@ -234,12 +234,30 @@ img { max-width: 100%; display: block; }
 }
 .metodologia-home-bullets .bullet-desc strong { color: var(--ink); font-weight: 700; }
 
+/* Bridge — frase de respiração entre os 3 bullets e os CTAs.
+   Destaque LEVE: centralizada, italic, sem background pesado.
+   O <strong> dentro perde o italic e ganha peso (knockout sutil). */
+.metodologia-home-bridge {
+  max-width: 56ch;
+  margin: 48px auto 0;
+  text-align: center;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.metodologia-home-bridge strong {
+  font-style: normal;
+  color: var(--ink);
+  font-weight: 700;
+}
+
 /* CTAs */
 .metodologia-home-cta {
   display: flex;
   gap: 14px;
   justify-content: center;
-  margin-top: 56px;
+  margin-top: 32px;
   flex-wrap: wrap;
 }
 

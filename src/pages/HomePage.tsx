@@ -175,7 +175,14 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
             </div>
           </Reveal>
 
-          <Reveal delay={200}>
+          <Reveal delay={180}>
+            <p
+              className="metodologia-home-bridge"
+              dangerouslySetInnerHTML={{ __html: t('home:methodology.bridge_html') }}
+            />
+          </Reveal>
+
+          <Reveal delay={220}>
             <div className="metodologia-home-cta">
               <button className="btn btn-brand btn-lg" onClick={() => navigate('comecar')}>
                 {t('home:methodology.cta_primary')} <ArrowRight />
