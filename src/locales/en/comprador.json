@@ -232,5 +232,10 @@
     "body2_html": "The plans below <strong>are not our profit</strong>. They fund the targeted campaign we run in paid media to find the right seller for you.",
     "body3_q": "And if we do not deliver?",
     "body3_html": "We refund most of it as a guarantee. <strong>In writing.</strong>"
+  },
+  "marketing": {
+    "icon_alt": "Authority badge",
+    "eyebrow": "Why the investment is worth it",
+    "body_html": "<strong>Partners from the largest digital marketing agency in Brazil.</strong> The same level of paid traffic used by major brands, now working to <strong>find the right seller for your property</strong> — included in every plan, no extra cost."
   }
 }

@@ -232,5 +232,10 @@
     "body2_html": "Os planos abaixo <strong>não são lucro nosso</strong>. Eles custeiam a campanha direcionada que a gente roda em mídia paga pra encontrar o vendedor certo pra você.",
     "body3_q": "E se a gente não entregar?",
     "body3_html": "Devolvemos a maior parte como garantia. <strong>Por escrito.</strong>"
+  },
+  "marketing": {
+    "icon_alt": "Selo de autoridade",
+    "eyebrow": "Por que o investimento vale",
+    "body_html": "<strong>Sócios vindos da maior agência de marketing digital do Brasil.</strong> O mesmo nível de tráfego pago usado por grandes marcas, agora trabalhando pra <strong>achar o vendedor certo pro seu imóvel</strong> — incluso em todos os planos, sem custo adicional."
   }
 }

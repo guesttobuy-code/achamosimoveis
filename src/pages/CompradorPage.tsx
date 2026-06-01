@@ -297,6 +297,25 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
               ))}
             </div>
           </Reveal>
+
+          {/* Faixa de autoridade — sócios da maior agência de marketing digital
+              BR. Posicionada logo após os 3 cards de planos pra quebrar a objeção
+              "por que pago R$ 2.500?" no momento certo. */}
+          <Reveal delay={180}>
+            <div className="marketing-band">
+              <div className="marketing-band-icon" aria-label={t('marketing.icon_alt')}>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="6" />
+                  <circle cx="12" cy="12" r="2" fill="currentColor" />
+                </svg>
+              </div>
+              <div className="marketing-band-text">
+                <div className="marketing-band-eyebrow">{t('marketing.eyebrow')}</div>
+                <p dangerouslySetInnerHTML={{ __html: t('marketing.body_html') }} />
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

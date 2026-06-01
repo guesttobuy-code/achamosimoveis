@@ -309,6 +309,86 @@ img { max-width: 100%; display: block; }
 }
 
 /* ════════════════════════════════════════════════════════════════
+   COMPRADOR — Faixa de autoridade (sócios agência marketing digital)
+   Posicionada logo após os 3 cards de planos pra quebrar a objeção
+   "por que pago R$ 2.500?" no momento exato.
+   ════════════════════════════════════════════════════════════════ */
+.marketing-band {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 22px;
+  align-items: center;
+  margin: 56px auto 0;
+  max-width: 980px;
+  padding: 28px 36px;
+  background:
+    linear-gradient(135deg, var(--brand-soft) 0%, color-mix(in oklab, var(--brand-soft) 60%, var(--paper-card)) 100%);
+  border: 1px solid color-mix(in oklab, var(--brand) 25%, transparent);
+  border-radius: var(--r-lg);
+  box-shadow:
+    0 20px 40px -24px rgba(111, 45, 225, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+.marketing-band::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--brand) 0%, var(--brand-deep) 100%);
+}
+.marketing-band-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-deep) 100%);
+  color: white;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px -8px rgba(111, 45, 225, 0.45);
+}
+.marketing-band-text { min-width: 0; }
+.marketing-band-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-deep);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.marketing-band-text p {
+  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.marketing-band-text p strong { color: var(--brand-deep); font-weight: 800; }
+
+@media (max-width: 720px) {
+  .marketing-band {
+    grid-template-columns: 1fr;
+    padding: 24px 22px;
+    gap: 14px;
+    text-align: center;
+  }
+  .marketing-band-icon { margin: 0 auto; }
+  .marketing-band::before { display: none; }
+}
+
+[data-theme="dark"] .marketing-band {
+  background: linear-gradient(135deg, rgba(111, 45, 225, 0.22) 0%, rgba(111, 45, 225, 0.08) 100%);
+  border-color: rgba(111, 45, 225, 0.35);
+}
+[data-theme="dark"] .marketing-band-eyebrow,
+[data-theme="dark"] .marketing-band-text p strong {
+  color: #E4D6FF;
+}
+[data-theme="dark"] .marketing-band-text p { color: var(--ink); }
+
+/* ════════════════════════════════════════════════════════════════
    COMPRADOR — Seção INVERSÃO + cards estilo Instagram
    ════════════════════════════════════════════════════════════════ */
 .inversion-section {

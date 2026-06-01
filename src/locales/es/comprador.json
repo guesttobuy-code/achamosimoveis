@@ -232,5 +232,10 @@
     "body2_html": "Los planes a continuación <strong>no son nuestra ganancia</strong>. Financian la campaña direccionada que lanzamos en medios pagos para encontrar al vendedor correcto para ti.",
     "body3_q": "¿Y si no lo logramos?",
     "body3_html": "Devolvemos la mayor parte como garantía. <strong>Por escrito.</strong>"
+  },
+  "marketing": {
+    "icon_alt": "Sello de autoridad",
+    "eyebrow": "Por qué la inversión vale la pena",
+    "body_html": "<strong>Socios provenientes de la mayor agencia de marketing digital de Brasil.</strong> El mismo nivel de tráfico pago usado por grandes marcas, ahora trabajando para <strong>encontrar el vendedor correcto para tu inmueble</strong> — incluido en todos los planes, sin costo adicional."
   }
 }
