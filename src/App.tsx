@@ -95,8 +95,9 @@ export default function App() {
   // Helper to navigate by id (used by legacy navigate('home'), etc.)
   function navigateById(id: string) {
     // Rota "entrar" — área logada vive no portal whitelabel separado.
+    // Aponta direto pra /login pra evitar bounce pela home do portal.
     if (id === 'entrar') {
-      window.location.href = 'https://portalimobiliario-whitelabel.vercel.app/'
+      window.location.href = 'https://portalimobiliario-whitelabel.vercel.app/login'
       return
     }
     const map: Record<string, string> = {
