@@ -140,6 +140,11 @@ img { max-width: 100%; display: block; }
   text-wrap: pretty;
   max-width: 60ch;
 }
+/* Lead com HTML inline (strong destacados) — usado no hero da home */
+.lead-html strong {
+  color: var(--ink);
+  font-weight: 700;
+}
 .mono { font-family: var(--f-mono); }
 
 /* ============================================

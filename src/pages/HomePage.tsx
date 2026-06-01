@@ -39,12 +39,14 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 </h1>
               </Reveal>
               <Reveal delay={140}>
-                <p className="lead" style={{ marginTop: 20, maxWidth: '54ch' }}>
-                  <strong style={{ color: 'var(--ink)' }}>{t('home:hero.lead_audience')}</strong>
-                  {t('home:hero.lead_dash')}
-                  <strong style={{ color: 'var(--ink)' }}>{t('home:hero.lead_raridade')}</strong>
-                  {t('home:hero.lead_tail')}
-                </p>
+                {/* lead_html contém <strong> inline; dangerouslySetInnerHTML
+                    é seguro aqui porque o conteúdo vem da nossa tradução
+                    própria (não de input do usuário). */}
+                <p
+                  className="lead lead-html"
+                  style={{ marginTop: 20, maxWidth: '54ch' }}
+                  dangerouslySetInnerHTML={{ __html: t('home:hero.lead_html') }}
+                />
               </Reveal>
               <Reveal delay={180}>
                 <div style={{ display: 'flex', gap: 10, marginTop: 24, flexWrap: 'wrap' }}>
