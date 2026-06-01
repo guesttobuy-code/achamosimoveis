@@ -240,5 +240,29 @@
     "cta_seller_announce": "List property",
     "cta_buyer_search": "Find property",
     "cta_seller_label": "I'm a seller"
+  },
+  "methodology": {
+    "eyebrow": "Why Achamos is different",
+    "title_l1": "We do not advertise properties.",
+    "title_l2": "We advertise",
+    "title_em": "you",
+    "title_dot": ".",
+    "lead_html": "<strong>A property worth R$ 1M listed for R$ 2M</strong> on portals — that seller is not motivated, just hoping to get lucky. Our model flips the game: <strong>technology works for the buyer.</strong>",
+    "card_handle": "achamosimoveis",
+    "card_sponsor": "Sponsored",
+    "card_loc": "📍 Copacabana, RJ",
+    "card_body_html": "We have a buyer with <strong>R$ 1 million</strong> ready to pay <strong>cash</strong> for a property in Copacabana, 2 bedrooms, good condition.",
+    "card_cta": "I have a property like this",
+    "b1_num": "01",
+    "b1_title": "The model",
+    "b1_desc_html": "Your search becomes a <strong>paid campaign on Instagram, Facebook and YouTube</strong>. Property owners — scrolling their feed all day — see there is a real buyer waiting.",
+    "b2_num": "02",
+    "b2_title": "The result",
+    "b2_desc_html": "Those who truly need to sell (health, investment, divorce) <strong>come to you</strong>, most of the time at a fair price, and in some cases with <strong>20% to 50% discounts</strong> off the inflated portal price.",
+    "b3_num": "03",
+    "b3_title": "The guarantee",
+    "b3_desc_html": "We earn commission from the <strong>seller</strong>, like any broker. The plans only fund the campaign — <strong>if we do not deliver, we refund most of it. In writing.</strong>",
+    "cta_primary": "I want to start searching",
+    "cta_secondary": "See how it works in detail"
   }
 }

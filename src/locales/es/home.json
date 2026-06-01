@@ -240,5 +240,29 @@
     "cta_seller_announce": "Anunciar inmueble",
     "cta_buyer_search": "Buscar inmueble",
     "cta_seller_label": "Soy vendedor"
+  },
+  "methodology": {
+    "eyebrow": "Por qué Achamos es diferente",
+    "title_l1": "No anunciamos inmuebles.",
+    "title_l2": "Anunciamos a",
+    "title_em": "ti",
+    "title_dot": ".",
+    "lead_html": "<strong>Un inmueble que vale R$ 1M anunciado por R$ 2M</strong> en los portales — ese vendedor no está motivado, está esperando tener suerte. Nuestro modelo invierte el juego: <strong>la tecnología trabaja para el comprador.</strong>",
+    "card_handle": "achamosimoveis",
+    "card_sponsor": "Patrocinado",
+    "card_loc": "📍 Copacabana, RJ",
+    "card_body_html": "Tenemos comprador con <strong>R$ 1 millón</strong> para pagar <strong>al contado</strong> en inmueble en Copacabana, 2 habitaciones, en buen estado.",
+    "card_cta": "Tengo un inmueble así",
+    "b1_num": "01",
+    "b1_title": "El modelo",
+    "b1_desc_html": "Tu búsqueda se convierte en <strong>campaña paga en Instagram, Facebook y YouTube</strong>. Propietarios — que están todo el día en el feed — ven que hay comprador real esperando.",
+    "b2_num": "02",
+    "b2_title": "El resultado",
+    "b2_desc_html": "Quien necesita vender de verdad (salud, inversión, divorcio) <strong>llega hasta ti</strong>, la mayoría de las veces a precio justo, y en algunos casos con <strong>20% a 50% de descuento</strong> sobre el precio inflado de los portales.",
+    "b3_num": "03",
+    "b3_title": "La garantía",
+    "b3_desc_html": "Ganamos comisión del <strong>vendedor</strong>, como cualquier inmobiliaria. Los planes solo financian la campaña — <strong>si no lo logramos, devolvemos la mayor parte. Por escrito.</strong>",
+    "cta_primary": "Quiero empezar a buscar",
+    "cta_secondary": "Cómo funciona en detalle"
   }
 }

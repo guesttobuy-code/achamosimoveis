@@ -114,51 +114,136 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
         t('home:marquee.i7'),
       ]} />
 
-      {/* PORTAIS */}
-      <section>
+      {/* ═══════════════════════════════════════════════════════════
+          METODOLOGIA (NOVO) — substitui a antiga seção "Em qual lado você está?"
+          Hero condensado da página /comprador trazido pro home com:
+            - Pergunta provocativa + lead curto
+            - 1 card Instagram fake (Copacabana R$ 1M)
+            - 3 bullets (modelo / resultado / garantia)
+            - 2 CTAs (buscar agora · entender em detalhe)
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="metodologia-home">
         <div className="container">
           <Reveal>
-            <div className="section-eyebrow"><span className="eyebrow">{t('home:portals.eyebrow')}</span></div>
+            <div className="metodologia-home-head">
+              <span className="eyebrow">{t('home:methodology.eyebrow')}</span>
+              <h2 className="display metodologia-home-title">
+                {t('home:methodology.title_l1')}<br />
+                {t('home:methodology.title_l2')}{' '}
+                <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>
+                  {t('home:methodology.title_em')}
+                </em>
+                {t('home:methodology.title_dot')}
+              </h2>
+              <p
+                className="lead metodologia-home-lead"
+                dangerouslySetInnerHTML={{ __html: t('home:methodology.lead_html') }}
+              />
+            </div>
           </Reveal>
-          <Reveal>
-            <h2 className="display" style={{ fontSize: 'clamp(36px, 5vw, 64px)', margin: '8px 0 36px', maxWidth: '14ch' }}>
-              {t('home:portals.title')}
-            </h2>
+
+          <Reveal delay={120}>
+            <div className="metodologia-home-stage">
+              {/* Card Instagram fake */}
+              <article className="ig-card metodologia-home-card">
+                <header className="ig-card-head">
+                  <div className="ig-avatar" aria-hidden="true">A</div>
+                  <div className="ig-card-id">
+                    <div className="ig-handle">
+                      {t('home:methodology.card_handle')}
+                      <svg className="ig-verified" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2l2.4 1.8 3-.3 1 2.8 2.7 1.5-.7 2.9 1.5 2.6L20 14.7l-.4 3-3 .7-1.7 2.5-2.9-.8L9.4 22l-2.2-2.1-3 .2-1-2.8-2.7-1.5.7-2.9L0 10.3l1.9-2.4.3-3 3-.4 1.8-2.5 2.9.8L12 2zm-1 13l6-6-1.4-1.4-4.6 4.6-2.2-2.2L7.4 11.4 11 15z" />
+                      </svg>
+                    </div>
+                    <div className="ig-sponsor">
+                      {t('home:methodology.card_sponsor')} · {t('home:methodology.card_loc')}
+                    </div>
+                  </div>
+                  <span className="ig-more" aria-hidden="true">⋯</span>
+                </header>
+                <div
+                  className="ig-card-body"
+                  dangerouslySetInnerHTML={{ __html: t('home:methodology.card_body_html') }}
+                />
+                <footer className="ig-card-foot">
+                  <button className="ig-cta" onClick={() => navigate('vender')}>
+                    {t('home:methodology.card_cta')} <ArrowRight size={14} />
+                  </button>
+                  <div className="ig-actions" aria-hidden="true">
+                    <span>♡</span><span>💬</span><span>↗</span>
+                  </div>
+                </footer>
+              </article>
+
+              {/* 3 bullets */}
+              <div className="metodologia-home-bullets">
+                {[1, 2, 3].map(n => (
+                  <div className="bullet" key={n}>
+                    <div className="bullet-num">{t(`home:methodology.b${n}_num`)}</div>
+                    <div>
+                      <div className="bullet-title">{t(`home:methodology.b${n}_title`)}</div>
+                      <div
+                        className="bullet-desc"
+                        dangerouslySetInnerHTML={{ __html: t(`home:methodology.b${n}_desc_html`) }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </Reveal>
+
+          <Reveal delay={200}>
+            <div className="metodologia-home-cta">
+              <button className="btn btn-brand btn-lg" onClick={() => navigate('comecar')}>
+                {t('home:methodology.cta_primary')} <ArrowRight />
+              </button>
+              <button className="btn btn-ghost btn-lg" onClick={() => navigate('comprador')}>
+                {t('home:methodology.cta_secondary')}
+              </button>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          PORTAIS COMPACTOS — versão reduzida do "Em qual lado você está?"
+          Mantém o caminho visual pra comprador/vendedor sem dominar a tela.
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="portals-compact-section">
+        <div className="container">
           <Reveal>
-            <div className="portals">
-              <div className="portal portal-buyer" onClick={() => navigate('comprador')}>
-                <div className="portal-shape" />
-                <div>
-                  <span className="portal-eyebrow">{t('home:portals.buyer_eyebrow')}</span>
-                  <div className="portal-title">{t('home:portals.buyer_title_l1')}<br />{t('home:portals.buyer_title_l2')}</div>
-                </div>
-                <div>
-                  <p className="portal-sub">
-                    {t('home:portals.buyer_sub_main')}<strong>{t('home:portals.buyer_sub_strong')}</strong>{t('home:portals.buyer_sub_tail')}
-                  </p>
-                  <div className="portal-cta">
-                    {t('home:portals.buyer_cta')}
-                    <span className="portal-cta-circle"><ArrowUpRight /></span>
+            <div className="portals-compact">
+              <button
+                className="portal-compact portal-compact-buyer"
+                onClick={() => navigate('comprador')}
+                type="button"
+              >
+                <div className="portal-compact-text">
+                  <div className="portal-compact-eyebrow">{t('home:portals.buyer_eyebrow')}</div>
+                  <div className="portal-compact-title">
+                    {t('home:portals.buyer_title_l1')} {t('home:portals.buyer_title_l2')}
                   </div>
                 </div>
-              </div>
-              <div className="portal portal-seller" onClick={() => navigate('vendedor')}>
-                <div className="portal-shape" />
-                <div>
-                  <span className="portal-eyebrow">{t('home:portals.seller_eyebrow')}</span>
-                  <div className="portal-title">{t('home:portals.seller_title_l1')}<br />{t('home:portals.seller_title_l2')}</div>
+                <div className="portal-compact-arrow" aria-hidden="true">
+                  <ArrowUpRight />
                 </div>
-                <div>
-                  <p className="portal-sub">
-                    {t('home:portals.seller_sub_main')}<strong>{t('home:portals.seller_sub_strong')}</strong>{t('home:portals.seller_sub_tail')}
-                  </p>
-                  <div className="portal-cta">
-                    {t('home:portals.seller_cta')}
-                    <span className="portal-cta-circle"><ArrowUpRight /></span>
+              </button>
+              <button
+                className="portal-compact portal-compact-seller"
+                onClick={() => navigate('vendedor')}
+                type="button"
+              >
+                <div className="portal-compact-text">
+                  <div className="portal-compact-eyebrow">{t('home:portals.seller_eyebrow')}</div>
+                  <div className="portal-compact-title">
+                    {t('home:portals.seller_title_l1')} {t('home:portals.seller_title_l2')}
                   </div>
                 </div>
-              </div>
+                <div className="portal-compact-arrow" aria-hidden="true">
+                  <ArrowUpRight />
+                </div>
+              </button>
             </div>
           </Reveal>
         </div>
