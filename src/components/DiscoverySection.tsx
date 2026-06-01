@@ -1,53 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Reveal from './Reveal'
 import { ArrowRight } from './icons'
 import type { NavigateFn } from '../types'
-
-type FeedRow = {
-  loc: string
-  desc: string
-  tag: string
-  cls: 't-radar' | 't-off' | 't-ativo' | 't-match'
-  live: boolean
-}
-
-function DiscoveryFeed({ feed }: { feed: FeedRow[] }) {
-  const { t } = useTranslation('home')
-  const [offset, setOffset] = useState(0)
-
-  useEffect(() => {
-    const id = setInterval(() => setOffset(o => (o + 1) % feed.length), 3500)
-    return () => clearInterval(id)
-  }, [feed.length])
-
-  const visible: FeedRow[] = []
-  for (let i = 0; i < 7; i++) {
-    visible.push(feed[(offset + i) % feed.length])
-  }
-
-  return (
-    <div className="feed">
-      <div className="feed-head">
-        <div className="feed-status-dot" />
-        <div className="feed-title">{t('discovery.feed_title')}</div>
-        <div className="feed-meta">{t('discovery.feed_meta')}</div>
-      </div>
-      <div className="feed-rows">
-        {visible.map((row, i) => (
-          <div className="feed-row" key={`${offset}-${i}`} style={{ animationDelay: `${i * 60}ms` }}>
-            <div className={'feed-row-dot' + (row.live ? ' live' : '')} />
-            <div className="feed-row-main">
-              <div className="feed-row-loc">{row.loc}</div>
-              <div className="feed-row-desc">{row.desc}</div>
-            </div>
-            <div className={'feed-row-tag ' + row.cls}>{row.tag}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 /** Ícone de seta direita (chevron) para o botão de próximo card */
 function ChevronRight() {
@@ -127,17 +82,6 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
       resp: t('discovery.p5_resp'),
       respDesc: t('discovery.p5_resp_desc'),
     },
-  ]
-
-  const FEED: FeedRow[] = [
-    { loc: t('discovery.feed_r1_loc'), desc: t('discovery.feed_r1_desc'), tag: t('discovery.tag_ativo'), cls: 't-ativo', live: true },
-    { loc: t('discovery.feed_r2_loc'), desc: t('discovery.feed_r2_desc'), tag: t('discovery.tag_off'),   cls: 't-off',   live: true },
-    { loc: t('discovery.feed_r3_loc'), desc: t('discovery.feed_r3_desc'), tag: t('discovery.tag_match'), cls: 't-match', live: false },
-    { loc: t('discovery.feed_r4_loc'), desc: t('discovery.feed_r4_desc'), tag: t('discovery.tag_ativo'), cls: 't-ativo', live: false },
-    { loc: t('discovery.feed_r5_loc'), desc: t('discovery.feed_r5_desc'), tag: t('discovery.tag_off'),   cls: 't-off',   live: true },
-    { loc: t('discovery.feed_r6_loc'), desc: t('discovery.feed_r6_desc'), tag: t('discovery.tag_match'), cls: 't-match', live: false },
-    { loc: t('discovery.feed_r7_loc'), desc: t('discovery.feed_r7_desc'), tag: t('discovery.tag_ativo'), cls: 't-ativo', live: false },
-    { loc: t('discovery.feed_r8_loc'), desc: t('discovery.feed_r8_desc'), tag: t('discovery.tag_off'),   cls: 't-off',   live: false },
   ]
 
   return (
@@ -253,75 +197,6 @@ export default function DiscoverySection({ navigate }: { navigate: NavigateFn })
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════
-          SEÇÃO 2 — Radar Achamos
-          ═══════════════════════════════════════════════════ */}
-      <section>
-        <div className="container">
-          <Reveal>
-            <div className="discovery">
-              <div className="discovery-head">
-                <div>
-                  <span className="eyebrow" style={{ color: 'rgba(244, 240, 235, 0.5)' }}>
-                    {t('discovery.radar_eyebrow')}
-                  </span>
-                  <h2 className="discovery-title">
-                    {t('discovery.radar_title_l1')}<br />
-                    {t('discovery.radar_title_l2')} <em>{t('discovery.radar_title_em')}</em>{t('discovery.radar_title_dot')}
-                  </h2>
-                </div>
-                <p className="discovery-lead">
-                  {t('discovery.radar_lead_part1')}
-                  <strong style={{ color: 'var(--inverse-fg)' }}>{t('discovery.radar_lead_strong1')}</strong>
-                  {t('discovery.radar_lead_part2')}
-                </p>
-              </div>
-
-              <div style={{ marginTop: 40, display: 'flex', justifyContent: 'center' }}>
-                <div style={{ width: '100%', maxWidth: 720 }}>
-                  <DiscoveryFeed feed={FEED} />
-                </div>
-              </div>
-
-              <div
-                style={{
-                  marginTop: 32,
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                  gap: 16,
-                  paddingTop: 32,
-                  borderTop: '1px solid rgba(255,255,255,0.08)',
-                }}
-              >
-                <div>
-                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>
-                    {t('discovery.tag_ativo')}
-                  </div>
-                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>{t('discovery.legend_ativo_desc')}</div>
-                </div>
-                <div>
-                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>
-                    {t('discovery.tag_off')}
-                  </div>
-                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>{t('discovery.legend_off_desc')}</div>
-                </div>
-                <div>
-                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 8, fontWeight: 700 }}>
-                    {t('discovery.tag_match')}
-                  </div>
-                  <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5 }}>{t('discovery.legend_match_desc')}</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: 10, marginTop: 32, flexWrap: 'wrap' }}>
-                <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
-                  {t('discovery.radar_cta')} <ArrowRight />
-                </button>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
     </>
   )
 }
