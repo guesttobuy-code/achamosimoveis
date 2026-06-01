@@ -4,19 +4,13 @@ import Marquee from '../components/Marquee'
 import DiscoverySection from '../components/DiscoverySection'
 import InsidePreview from '../components/InsidePreview'
 import FinalCTA from '../components/FinalCTA'
+import PhoneFeedMockup from '../components/PhoneFeedMockup'
+import GameFlippedSection from '../components/GameFlippedSection'
 import { ArrowRight, ArrowUpRight } from '../components/icons'
 import type { NavigateFn } from '../types'
 
 export default function HomePage({ navigate }: { navigate: NavigateFn }) {
-  const { t, i18n } = useTranslation(['home', 'common'])
-
-  // Resolve videos by active language. Three localized bundles each
-  // (PT/EN/ES) live under /public/uploads/. The motion graphic's visible
-  // text is translated inside the JSX chunks of the bundle itself.
-  const lang2 = (i18n.resolvedLanguage || 'pt').slice(0, 2).toLowerCase()
-  const langKey = (lang2 === 'pt' || lang2 === 'en' || lang2 === 'es') ? lang2 : 'en'
-  const videoInstaSrc = `/uploads/Versao-Instagram-${langKey}.html`
-  const videoYouTubeSrc = `/uploads/Versao-YouTube-${langKey}.html`
+  const { t } = useTranslation(['home', 'common'])
 
   return (
     <main>
@@ -67,14 +61,7 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                   <span className="hero-phone-notch-bar" />
                 </div>
                 <div className="hero-phone-screen">
-                  <iframe
-                    key={videoInstaSrc}
-                    src={videoInstaSrc}
-                    title="Achamos — demonstração"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin"
-                    aria-hidden="true"
-                  />
+                  <PhoneFeedMockup />
                 </div>
                 <div className="hero-phone-button" aria-hidden="true" />
               </div>
@@ -251,34 +238,11 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
 
       <DiscoverySection navigate={navigate} />
 
-      {/* INSTITUCIONAL VIDEO — "O jogo virou" (horizontal cinematic).
-        Bundles localizados em /public/uploads/ — Versao-YouTube-{pt,en,es}.html.
-        O texto visual dentro da motion graphic é traduzido nos chunks JSX do
-        próprio bundle (gerados via scripts em
-        ../Rendizyoficial-backup.../{repack-video.cjs,video-i18n-dict.json}). */}
-      <section className="hv-section">
-        <div className="container">
-          <Reveal>
-            <div className="hv-head">
-              <span className="eyebrow">{t('home:video.eyebrow')}</span>
-              <h2 className="display hv-title">
-                {t('home:video.title_part1')} <em>{t('home:video.title_em')}</em>{t('home:video.title_dot')}
-              </h2>
-            </div>
-          </Reveal>
-          <Reveal delay={120}>
-            <div className="hv-frame">
-              <iframe
-                key={videoYouTubeSrc}
-                src={videoYouTubeSrc}
-                title={t('home:video.title_part1') + ' ' + t('home:video.title_em')}
-                loading="lazy"
-                sandbox="allow-scripts allow-same-origin"
-              />
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* "O JOGO VIROU" — storytelling visual ANTES/DEPOIS.
+          Substitui o antigo vídeo institucional cinematográfico por
+          comparação direta de 2 colunas: portal tradicional (dor) vs
+          Achamos (vendedor vem até você). Texto direto, sem 67s de vídeo. */}
+      <GameFlippedSection navigate={navigate} />
 
       {/* CREDIBILIDADE — Imobiliária digital com CRECI + sede física */}
       <section className="cr-section">
