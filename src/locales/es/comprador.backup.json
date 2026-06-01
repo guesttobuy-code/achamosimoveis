@@ -1,13 +1,13 @@
 {
   "hero": {
     "eyebrow": "Para quien compra",
-    "title_question_part1": "¿Sabías que la mayoría de los vendedores en los portales anuncia su inmueble con un precio",
-    "title_question_em": "extremadamente inflado?",
-    "lead_q1": "Un inmueble que vale ",
-    "lead_q1_strong1": "R$ 1 millón",
-    "lead_q2": " lo anuncia por ",
-    "lead_q2_strong2": "R$ 2 millones",
-    "lead_q3": " — e inviabiliza la venta. Ese vendedor no está realmente motivado. Está esperando tener suerte de encontrar un ingenuo que pague el precio que sacó de su cabeza.",
+    "title_l1": "Deja de cazar inmuebles.",
+    "title_l2": "Si eres un comprador",
+    "title_em": "real",
+    "title_l3": ", lo mejor del mercado viene a ti.",
+    "lead_part1": "Tu búsqueda se convierte en direccionamiento activo en las redes sociales. Propietarios motivados se presentan — ",
+    "lead_em": "incluso aquellos cuyo inmueble no estaba a la venta",
+    "lead_part2": ". Tú eliges entre los mejores.",
     "cta_primary": "Iniciar mi búsqueda",
     "cta_secondary": "Quiénes somos"
   },
@@ -203,34 +203,5 @@
     "i5_b": "Cuidamos oferta, contraoferta, cierre",
     "i6_t": "Documentación completa",
     "i6_b": "Escritura, impuestos, certificados, contrato"
-  },
-  "inversion": {
-    "eyebrow": "La inversión",
-    "title_l1": "Achamos hace el",
-    "title_em": "camino contrario",
-    "title_l2": ". Aquí el comprador es la estrella.",
-    "intro_html": "Nuestro modelo usa la tecnología <strong>a favor del comprador</strong> de una forma simple: <strong>nosotros anunciamos a TI, no al inmueble.</strong> Tu búsqueda se convierte en una campaña paga en <strong>Instagram, Facebook y YouTube</strong> — algo así:",
-    "card_a_handle": "achamosimoveis",
-    "card_a_subtitle": "Patrocinado",
-    "card_a_loc": "📍 Copacabana, RJ",
-    "card_a_text": "Tenemos comprador con <strong>R$ 1 millón</strong> para pagar <strong>al contado</strong> en inmueble en Copacabana, 2 habitaciones, en buen estado.",
-    "card_a_cta": "Tengo un inmueble así",
-    "card_b_handle": "achamosimoveis",
-    "card_b_subtitle": "Patrocinado",
-    "card_b_loc": "📍 Flamengo · Botafogo, RJ",
-    "card_b_text": "Tenemos comprador con <strong>R$ 2 millones</strong> para pagar <strong>al contado</strong> en inmueble en Flamengo o Botafogo, con vista al Pan de Azúcar.",
-    "card_b_cta": "Tengo un inmueble así",
-    "outro_html": "Hoy prácticamente <strong>100% de los propietarios</strong> rolean su feed todo el día en Instagram, YouTube y Facebook. Ven esa campaña y piensan: <em>\"Espera, ¿hay comprador buscando? Yo <strong>necesito</strong> vender.\"</em>",
-    "outro2_html": "Y quien necesita vender de verdad — para <strong>cubrir un tema de salud</strong>, para <strong>invertir en un negocio</strong>, por divorcio, mudanza — llega hasta ti con <strong>20% a 50% de descuento</strong> sobre el precio inflado del portal.",
-    "outro3_html": "Tú quedas en la posición privilegiada de <strong>elegir solo lo que tiene sentido para ti.</strong>"
-  },
-  "transparency": {
-    "eyebrow": "Transparencia total",
-    "title_l1": "No estás pagando por la búsqueda.",
-    "title_em": "Estás financiando la campaña.",
-    "body1_html": "Achamos gana dinero de <strong>una sola forma</strong>: comisión por la venta — pagada por el vendedor, como cualquier inmobiliaria tradicional.",
-    "body2_html": "Los planes a continuación <strong>no son nuestra ganancia</strong>. Financian la campaña direccionada que lanzamos en medios pagos para encontrar al vendedor correcto para ti.",
-    "body3_q": "¿Y si no lo logramos?",
-    "body3_html": "Devolvemos la mayor parte como garantía. <strong>Por escrito.</strong>"
   }
 }

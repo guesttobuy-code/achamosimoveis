@@ -145,6 +145,218 @@ img { max-width: 100%; display: block; }
   color: var(--ink);
   font-weight: 700;
 }
+
+/* ════════════════════════════════════════════════════════════════
+   COMPRADOR — Seção INVERSÃO + cards estilo Instagram
+   ════════════════════════════════════════════════════════════════ */
+.inversion-section {
+  padding: clamp(64px, 8vw, 120px) 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, var(--brand-soft) 0%, transparent 60%),
+    var(--paper);
+}
+.inversion-head {
+  max-width: 760px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.inversion-title {
+  font-size: clamp(32px, 4.5vw, 56px);
+  margin: 14px 0 24px;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.inversion-intro {
+  font-size: 18px;
+  max-width: 62ch;
+  margin: 0 auto;
+  text-wrap: pretty;
+}
+.inversion-intro strong { color: var(--ink); font-weight: 700; }
+
+/* Container dos 2 cards Instagram */
+.ig-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 880px;
+  margin: 0 auto;
+}
+@media (max-width: 720px) {
+  .ig-cards { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* Card individual estilo Instagram */
+.ig-card {
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 30px 60px -30px rgba(26, 24, 25, 0.18),
+    0 8px 20px -10px rgba(26, 24, 25, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+.ig-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.ig-avatar {
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+  color: white;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 16px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.ig-card-id { flex: 1; min-width: 0; }
+.ig-handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--f-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.ig-verified { color: #3897F0; flex-shrink: 0; }
+.ig-sponsor {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink-mute);
+  margin-top: 2px;
+}
+.ig-more {
+  font-size: 20px;
+  color: var(--ink-mute);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.ig-card-body {
+  padding: 22px 18px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: linear-gradient(135deg, color-mix(in oklab, var(--brand) 8%, var(--paper-card)) 0%, var(--paper-card) 70%);
+  flex: 1;
+}
+.ig-card-body strong { color: var(--brand-deep); font-weight: 800; }
+[data-theme="dark"] .ig-card-body strong { color: #E4D6FF; }
+
+.ig-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-top: 1px solid var(--line-soft);
+  background: var(--paper-card);
+}
+.ig-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ink);
+  color: var(--paper-card);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: var(--f-display);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.ig-cta:hover { background: var(--brand); }
+.ig-actions {
+  display: flex;
+  gap: 14px;
+  font-size: 18px;
+  color: var(--ink-soft);
+}
+
+/* Texto pós-cards (3 parágrafos) */
+.inversion-outro {
+  max-width: 720px;
+  margin: 56px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.inversion-outro p {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.inversion-outro p strong { color: var(--ink); font-weight: 700; }
+.inversion-outro p em { font-style: italic; color: var(--ink); }
+
+/* ════════════════════════════════════════════════════════════════
+   COMPRADOR — Seção TRANSPARÊNCIA
+   ════════════════════════════════════════════════════════════════ */
+.transparency-section {
+  padding: clamp(60px, 7vw, 100px) 0;
+  background: var(--inverse-surface);
+  color: var(--inverse-fg);
+}
+.transparency-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.transparency-section .eyebrow {
+  color: rgba(244, 240, 235, 0.55);
+}
+.transparency-title {
+  font-size: clamp(30px, 4.2vw, 52px);
+  margin: 14px 0 32px;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  text-wrap: balance;
+  color: var(--inverse-fg);
+}
+.transparency-body {
+  font-size: 18px;
+  line-height: 1.55;
+  color: rgba(244, 240, 235, 0.78);
+  margin: 0 0 18px;
+  text-wrap: pretty;
+}
+.transparency-body strong { color: var(--inverse-fg); font-weight: 700; }
+.transparency-guarantee {
+  margin-top: 32px;
+  padding: 24px 28px;
+  background: rgba(111, 45, 225, 0.15);
+  border: 1px solid rgba(111, 45, 225, 0.30);
+  border-radius: 16px;
+  text-align: left;
+}
+.transparency-q {
+  display: block;
+  font-family: var(--f-display);
+  font-size: 19px;
+  letter-spacing: -0.015em;
+  color: var(--inverse-fg);
+  margin-bottom: 6px;
+}
+.transparency-guarantee p {
+  margin: 0;
+  font-size: 16.5px;
+  color: rgba(244, 240, 235, 0.85);
+  line-height: 1.55;
+}
+.transparency-guarantee p strong { color: white; font-weight: 700; }
 .mono { font-family: var(--f-mono); }
 
 /* ============================================

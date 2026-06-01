@@ -1,13 +1,13 @@
 {
   "hero": {
     "eyebrow": "Para quem compra",
-    "title_question_part1": "Você sabia que a maioria dos vendedores nos portais anuncia o imóvel com preço",
-    "title_question_em": "extremamente inflacionado?",
-    "lead_q1": "Imóvel que vale ",
-    "lead_q1_strong1": "R$ 1 milhão",
-    "lead_q2": " ele anuncia por ",
-    "lead_q2_strong2": "R$ 2 milhões",
-    "lead_q3": " — e inviabiliza a venda. Esse vendedor não está realmente motivado. Está esperando dar sorte de encontrar um ingênuo que pague o preço que tirou da cabeça.",
+    "title_l1": "Pare de caçar imóvel.",
+    "title_l2": "Se você é comprador",
+    "title_em": "real",
+    "title_l3": ", o melhor do mercado vem até você.",
+    "lead_part1": "Sua busca vira direcionamento ativo nas redes sociais. Proprietários motivados se apresentam — ",
+    "lead_em": "inclusive aqueles cujo imóvel nem estava à venda",
+    "lead_part2": ". Você escolhe entre os melhores.",
     "cta_primary": "Iniciar minha busca",
     "cta_secondary": "Quem somos"
   },
@@ -203,34 +203,5 @@
     "i5_b": "Cuidamos da oferta, contraoferta, fechamento",
     "i6_t": "Documentação completa",
     "i6_b": "Matrícula, IPTU, certidões, contrato"
-  },
-  "inversion": {
-    "eyebrow": "A inversão",
-    "title_l1": "A Achamos faz o",
-    "title_em": "caminho contrário",
-    "title_l2": ". Aqui o comprador é a estrela.",
-    "intro_html": "Nosso modelo usa a tecnologia <strong>a favor do comprador</strong> de uma forma simples: <strong>a gente anuncia VOCÊ, não o imóvel.</strong> Sua busca vira uma campanha paga no <strong>Instagram, Facebook e YouTube</strong> — algo assim:",
-    "card_a_handle": "achamosimoveis",
-    "card_a_subtitle": "Patrocinado",
-    "card_a_loc": "📍 Copacabana, RJ",
-    "card_a_text": "Temos comprador com <strong>R$ 1 milhão</strong> pra pagar <strong>à vista</strong> em imóvel em Copacabana, 2 quartos, em bom estado.",
-    "card_a_cta": "Tenho um imóvel assim",
-    "card_b_handle": "achamosimoveis",
-    "card_b_subtitle": "Patrocinado",
-    "card_b_loc": "📍 Flamengo · Botafogo, RJ",
-    "card_b_text": "Temos comprador com <strong>R$ 2 milhões</strong> pra pagar <strong>à vista</strong> em imóvel no Flamengo ou Botafogo, com vista pro Pão de Açúcar.",
-    "card_b_cta": "Tenho um imóvel assim",
-    "outro_html": "Hoje praticamente <strong>100% dos proprietários</strong> estão rolando feed o dia todo no Instagram, YouTube e Facebook. Eles vêem essa campanha e pensam: <em>\"Opa, tem comprador querendo? Eu <strong>preciso</strong> vender.\"</em>",
-    "outro2_html": "E quem precisa vender de verdade — pra <strong>bancar uma questão de saúde</strong>, pra <strong>investir em um negócio</strong>, por divórcio, mudança — chega até você com <strong>20% a 50% de desconto</strong> sobre o preço inflacionado do portal.",
-    "outro3_html": "Você fica na posição privilegiada de <strong>escolher só o que faz sentido pra você.</strong>"
-  },
-  "transparency": {
-    "eyebrow": "Transparência total",
-    "title_l1": "Você não está pagando pela busca.",
-    "title_em": "Está custeando a campanha.",
-    "body1_html": "A Achamos ganha dinheiro de <strong>um jeito só</strong>: comissão na venda — paga pelo vendedor, como qualquer imobiliária tradicional.",
-    "body2_html": "Os planos abaixo <strong>não são lucro nosso</strong>. Eles custeiam a campanha direcionada que a gente roda em mídia paga pra encontrar o vendedor certo pra você.",
-    "body3_q": "E se a gente não entregar?",
-    "body3_html": "Devolvemos a maior parte como garantia. <strong>Por escrito.</strong>"
   }
 }

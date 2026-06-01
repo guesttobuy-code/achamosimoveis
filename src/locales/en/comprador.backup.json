@@ -1,13 +1,13 @@
 {
   "hero": {
     "eyebrow": "For buyers",
-    "title_question_part1": "Did you know most sellers on real-estate portals list their property at a price that is",
-    "title_question_em": "extremely inflated?",
-    "lead_q1": "A property worth ",
-    "lead_q1_strong1": "R$ 1 million",
-    "lead_q2": " they list for ",
-    "lead_q2_strong2": "R$ 2 million",
-    "lead_q3": " — making the sale impossible. That seller is not truly motivated. They are just hoping to find a naive buyer who will pay the price they pulled out of thin air.",
+    "title_l1": "Stop chasing properties.",
+    "title_l2": "If you're a",
+    "title_em": "real",
+    "title_l3": " buyer, the best of the market comes to you.",
+    "lead_part1": "Your search becomes active targeting on social media. Motivated owners step forward — ",
+    "lead_em": "including those whose property wasn't even for sale",
+    "lead_part2": ". You choose among the best.",
     "cta_primary": "Start my search",
     "cta_secondary": "Who we are"
   },
@@ -203,34 +203,5 @@
     "i5_b": "We handle the offer, counter-offer, closing",
     "i6_t": "Full paperwork",
     "i6_b": "Deed, taxes, certifications, contract"
-  },
-  "inversion": {
-    "eyebrow": "The flip",
-    "title_l1": "Achamos takes the",
-    "title_em": "opposite path",
-    "title_l2": ". Here the buyer is the star.",
-    "intro_html": "Our model uses technology <strong>in favor of the buyer</strong> in a simple way: <strong>we advertise YOU, not the property.</strong> Your search becomes a paid campaign on <strong>Instagram, Facebook and YouTube</strong> — something like this:",
-    "card_a_handle": "achamosimoveis",
-    "card_a_subtitle": "Sponsored",
-    "card_a_loc": "📍 Copacabana, RJ",
-    "card_a_text": "We have a buyer with <strong>R$ 1 million</strong> ready to pay <strong>cash</strong> for a property in Copacabana, 2 bedrooms, good condition.",
-    "card_a_cta": "I have a property like this",
-    "card_b_handle": "achamosimoveis",
-    "card_b_subtitle": "Sponsored",
-    "card_b_loc": "📍 Flamengo · Botafogo, RJ",
-    "card_b_text": "We have a buyer with <strong>R$ 2 million</strong> ready to pay <strong>cash</strong> for a property in Flamengo or Botafogo, with a view of Sugarloaf Mountain.",
-    "card_b_cta": "I have a property like this",
-    "outro_html": "Today nearly <strong>100% of property owners</strong> scroll their feed all day on Instagram, YouTube and Facebook. They see this campaign and think: <em>\"Wait, there is a buyer looking? I <strong>need</strong> to sell.\"</em>",
-    "outro2_html": "And those who truly need to sell — to <strong>cover a health issue</strong>, to <strong>invest in a business</strong>, divorce, relocation — come to you with <strong>20% to 50% discounts</strong> off the inflated portal price.",
-    "outro3_html": "You get the privileged position of <strong>choosing only what makes sense for you.</strong>"
-  },
-  "transparency": {
-    "eyebrow": "Full transparency",
-    "title_l1": "You are not paying for the search.",
-    "title_em": "You are funding the campaign.",
-    "body1_html": "Achamos makes money in <strong>one way only</strong>: sale commission — paid by the seller, like any traditional broker.",
-    "body2_html": "The plans below <strong>are not our profit</strong>. They fund the targeted campaign we run in paid media to find the right seller for you.",
-    "body3_q": "And if we do not deliver?",
-    "body3_html": "We refund most of it as a guarantee. <strong>In writing.</strong>"
   }
 }

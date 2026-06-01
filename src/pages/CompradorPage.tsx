@@ -79,15 +79,25 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
 
   return (
     <main>
+      {/* ═══════════════════════════════════════════════════════════
+          HERO — pergunta provocativa (técnica de copywriting)
+          ═══════════════════════════════════════════════════════════ */}
       <section className="page-hero">
         <div className="container">
           <Reveal>
             <span className="eyebrow">{t('hero.eyebrow')}</span>
             <h1 className="page-hero-title">
-              {t('hero.title_l1')}<br />{t('hero.title_l2')} <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('hero.title_em')}</em>{t('hero.title_l3')}
+              {t('hero.title_question_part1')}{' '}
+              <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>
+                {t('hero.title_question_em')}
+              </em>
             </h1>
             <p className="lead" style={{ fontSize: 22 }}>
-              {t('hero.lead_part1')}<em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('hero.lead_em')}</em>{t('hero.lead_part2')}
+              {t('hero.lead_q1')}
+              <strong style={{ color: 'var(--ink)' }}>{t('hero.lead_q1_strong1')}</strong>
+              {t('hero.lead_q2')}
+              <strong style={{ color: 'var(--ink)' }}>{t('hero.lead_q2_strong2')}</strong>
+              {t('hero.lead_q3')}
             </p>
             <div style={{ display: 'flex', gap: 10, marginTop: 28, flexWrap: 'wrap' }}>
               <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
@@ -96,6 +106,134 @@ export default function CompradorPage({ navigate }: { navigate: NavigateFn }) {
               <button className="btn btn-ghost btn-lg" onClick={() => navigate('sobre')}>
                 {t('hero.cta_secondary')}
               </button>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          SEÇÃO INVERSÃO — Como a Achamos faz o contrário
+          Posts de Instagram fake como exemplos visuais
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="inversion-section">
+        <div className="container">
+          <Reveal>
+            <div className="inversion-head">
+              <span className="eyebrow">{t('inversion.eyebrow')}</span>
+              <h2 className="display inversion-title">
+                {t('inversion.title_l1')}{' '}
+                <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('inversion.title_em')}</em>
+                {t('inversion.title_l2')}
+              </h2>
+              <p
+                className="lead inversion-intro"
+                dangerouslySetInnerHTML={{ __html: t('inversion.intro_html') }}
+              />
+            </div>
+          </Reveal>
+
+          {/* 2 cards estilo post de Instagram */}
+          <Reveal delay={120}>
+            <div className="ig-cards">
+              {/* Card A — Copacabana */}
+              <article className="ig-card">
+                <header className="ig-card-head">
+                  <div className="ig-avatar" aria-hidden="true">A</div>
+                  <div className="ig-card-id">
+                    <div className="ig-handle">
+                      {t('inversion.card_a_handle')}
+                      <svg className="ig-verified" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2l2.4 1.8 3-.3 1 2.8 2.7 1.5-.7 2.9 1.5 2.6L20 14.7l-.4 3-3 .7-1.7 2.5-2.9-.8L9.4 22l-2.2-2.1-3 .2-1-2.8-2.7-1.5.7-2.9L0 10.3l1.9-2.4.3-3 3-.4 1.8-2.5 2.9.8L12 2zm-1 13l6-6-1.4-1.4-4.6 4.6-2.2-2.2L7.4 11.4 11 15z" />
+                      </svg>
+                    </div>
+                    <div className="ig-sponsor">{t('inversion.card_a_subtitle')} · {t('inversion.card_a_loc')}</div>
+                  </div>
+                  <span className="ig-more" aria-hidden="true">⋯</span>
+                </header>
+                <div
+                  className="ig-card-body"
+                  dangerouslySetInnerHTML={{ __html: t('inversion.card_a_text') }}
+                />
+                <footer className="ig-card-foot">
+                  <button className="ig-cta" onClick={() => navigate('vender')}>
+                    {t('inversion.card_a_cta')} <ArrowRight size={14} />
+                  </button>
+                  <div className="ig-actions" aria-hidden="true">
+                    <span>♡</span>
+                    <span>💬</span>
+                    <span>↗</span>
+                  </div>
+                </footer>
+              </article>
+
+              {/* Card B — Flamengo/Botafogo */}
+              <article className="ig-card">
+                <header className="ig-card-head">
+                  <div className="ig-avatar" aria-hidden="true">A</div>
+                  <div className="ig-card-id">
+                    <div className="ig-handle">
+                      {t('inversion.card_b_handle')}
+                      <svg className="ig-verified" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2l2.4 1.8 3-.3 1 2.8 2.7 1.5-.7 2.9 1.5 2.6L20 14.7l-.4 3-3 .7-1.7 2.5-2.9-.8L9.4 22l-2.2-2.1-3 .2-1-2.8-2.7-1.5.7-2.9L0 10.3l1.9-2.4.3-3 3-.4 1.8-2.5 2.9.8L12 2zm-1 13l6-6-1.4-1.4-4.6 4.6-2.2-2.2L7.4 11.4 11 15z" />
+                      </svg>
+                    </div>
+                    <div className="ig-sponsor">{t('inversion.card_b_subtitle')} · {t('inversion.card_b_loc')}</div>
+                  </div>
+                  <span className="ig-more" aria-hidden="true">⋯</span>
+                </header>
+                <div
+                  className="ig-card-body"
+                  dangerouslySetInnerHTML={{ __html: t('inversion.card_b_text') }}
+                />
+                <footer className="ig-card-foot">
+                  <button className="ig-cta" onClick={() => navigate('vender')}>
+                    {t('inversion.card_b_cta')} <ArrowRight size={14} />
+                  </button>
+                  <div className="ig-actions" aria-hidden="true">
+                    <span>♡</span>
+                    <span>💬</span>
+                    <span>↗</span>
+                  </div>
+                </footer>
+              </article>
+            </div>
+          </Reveal>
+
+          {/* Texto pós-cards */}
+          <Reveal delay={180}>
+            <div className="inversion-outro">
+              <p dangerouslySetInnerHTML={{ __html: t('inversion.outro_html') }} />
+              <p dangerouslySetInnerHTML={{ __html: t('inversion.outro2_html') }} />
+              <p dangerouslySetInnerHTML={{ __html: t('inversion.outro3_html') }} />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          SEÇÃO TRANSPARÊNCIA — quebra objeção de preço antes dos planos
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="transparency-section">
+        <div className="container">
+          <Reveal>
+            <div className="transparency-inner">
+              <span className="eyebrow">{t('transparency.eyebrow')}</span>
+              <h2 className="display transparency-title">
+                {t('transparency.title_l1')}{' '}
+                <em style={{ color: 'var(--brand)', fontStyle: 'normal' }}>{t('transparency.title_em')}</em>
+              </h2>
+              <p
+                className="lead transparency-body"
+                dangerouslySetInnerHTML={{ __html: t('transparency.body1_html') }}
+              />
+              <p
+                className="lead transparency-body"
+                dangerouslySetInnerHTML={{ __html: t('transparency.body2_html') }}
+              />
+              <div className="transparency-guarantee">
+                <strong className="transparency-q">{t('transparency.body3_q')}</strong>
+                <p dangerouslySetInnerHTML={{ __html: t('transparency.body3_html') }} />
+              </div>
             </div>
           </Reveal>
         </div>
