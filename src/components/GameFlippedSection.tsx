@@ -94,7 +94,7 @@ export default function GameFlippedSection({ navigate }: { navigate: NavigateFn 
 
         <Reveal delay={200}>
           <div className="game-flipped-cta">
-            <button className="btn btn-brand btn-lg" onClick={() => navigate('comecar')}>
+            <button className="btn btn-brand btn-lg" onClick={() => navigate('comprar')}>
               {t('game_flipped.cta')} <ArrowRight />
             </button>
           </div>
