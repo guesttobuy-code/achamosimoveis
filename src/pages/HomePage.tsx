@@ -65,10 +65,6 @@ export default function HomePage({ navigate }: { navigate: NavigateFn }) {
                 </div>
                 <div className="hero-phone-button" aria-hidden="true" />
               </div>
-              <div className="hero-phone-caption">
-                <span className="hero-phone-dot" />
-                {t('home:hero.phone_caption')}
-              </div>
             </Reveal>
           </div>
 
