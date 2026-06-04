@@ -1,9 +1,21 @@
 # 🟣 ACHAMOS IMÓVEIS — Mapa das Frentes para Vencer
 
 > **Documento mestre.** Fora a captação de investidor (Fase 16, já mapeada), estas são todas as frentes em que precisamos ganhar.
-> v1.0 · 2026-05-23 · Achamos Imóveis · BVM LTDA
+> v1.1 · 2026-05-28 · Achamos Imóveis · BVM LTDA
 
 ![Achamos Imóveis](./assets/logo_achamos.svg)
+
+---
+
+## 📌 NOVO · 2026-05-28 · Modelo de Negócio do Portal Imobiliário
+
+> **Frente 8 destravada.** O Portal Imobiliário ganhou modelo de monetização completo.
+>
+> Documento dedicado: [`/portal-modelo-negocio.html`](../../portal-modelo-negocio.html) — apresentação visual com 5 pilares de receita, 3 tiers Achamos+ Partner (Free Match · Credit Pack · Master), Seguro Fiança obrigatório, Fee Infra Digital, projeções (R$ 23M ARR M18 com 100 imobiliárias parceiras) e roadmap de 4 ondas (M0-M24).
+>
+> **Tese central:** Achamos não vende software. Vende **rede + processo + canal** pra imobiliária de médio porte virar uma "Quinto Andar com a marca dela" — sem precisar virar Quinto Andar.
+>
+> **5 decisões a travar** antes de avançar pra contrato + pricing definitivo: ver seção §13 do documento.
 
 ---
 

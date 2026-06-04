@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apresentação de vendas Portal Achamos — pra imobiliárias de médio porte que querem voltar ao jogo">
+  <title>Portal Achamos · Apresentação de Vendas · v1.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand: #6F2DE1;
+      --brand-deep: #4A14B5;
+      --brand-soft: rgba(111, 45, 225, 0.12);
+      --accent: #FF6B47;
+      --accent-soft: rgba(255, 107, 71, 0.15);
+      --gold: #D4A951;
+      --green: #10B981;
+      --green-soft: rgba(16, 185, 129, 0.15);
+      --red: #EF4444;
+      --red-soft: rgba(239, 68, 68, 0.12);
+      --bg: #0a0a0a;
+      --surface: #141214;
+      --surface-2: #1c1a1c;
+      --surface-3: #252225;
+      --ink: #F4F0EB;
+      --ink-soft: rgba(244, 240, 235, 0.72);
+      --ink-mute: rgba(244, 240, 235, 0.48);
+      --line: rgba(244, 240, 235, 0.08);
+      --line-strong: rgba(244, 240, 235, 0.18);
+      --f-display: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+      --f-body: 'Inter', system-ui, sans-serif;
+      --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    @media (max-width: 768px) { .container { padding: 0 20px; } }
+
+    /* TOPBAR */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .topbar-brand {
+      font-family: var(--f-display);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 18px;
+    }
+    .topbar-brand .dot { color: var(--brand); }
+    .topbar-meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+    }
+    .cta-mini {
+      background: var(--brand);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .cta-mini:hover { background: var(--brand-deep); }
+
+    /* HERO */
+    .hero {
+      padding: 140px 0 120px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(circle, var(--brand-soft) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--brand);
+      background: var(--brand-soft);
+      padding: 8px 16px;
+      border-radius: 999px;
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--brand);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(48px, 7.5vw, 104px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.96;
+      margin: 0 auto 32px;
+      max-width: 20ch;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--brand);
+    }
+    .hero-lead {
+      font-size: clamp(20px, 2.2vw, 26px);
+      color: var(--ink-soft);
+      max-width: 56ch;
+      line-height: 1.5;
+      margin: 0 auto 48px;
+    }
+    .hero-lead strong { color: var(--ink); font-weight: 600; }
+    .cta-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--brand);
+      color: white;
+      padding: 18px 36px;
+      border-radius: 999px;
+      font-size: 17px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 12px 40px rgba(111, 45, 225, 0.35);
+    }
+    .cta-hero:hover {
+      background: var(--brand-deep);
+      transform: translateY(-2px);
+    }
+    .cta-hero::after {
+      content: '→';
+      font-size: 20px;
+      transition: transform 0.25s ease;
+    }
+    .cta-hero:hover::after { transform: translateX(4px); }
+
+    /* SECTION */
+    section {
+      padding: 110px 0;
+      border-top: 1px solid var(--line);
+      position: relative;
+    }
+    .section-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--f-display);
+      font-size: clamp(36px, 5.5vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 32px;
+      max-width: 22ch;
+    }
+    .section-title em { font-style: normal; color: var(--brand); }
+    .section-title .strike { text-decoration: line-through; color: var(--ink-mute); }
+    .section-lead {
+      font-size: 19px;
+      color: var(--ink-soft);
+      max-width: 64ch;
+      line-height: 1.6;
+    }
+    .section-lead strong { color: var(--ink); font-weight: 600; }
+
+    /* PUNCH (frase grande sozinha) */
+    .punch {
+      padding: 140px 0;
+      text-align: center;
+      border-top: 1px solid var(--line);
+    }
+    .punch-text {
+      font-family: var(--f-display);
+      font-size: clamp(34px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      max-width: 26ch;
+      margin: 0 auto;
+    }
+    .punch-text em { font-style: normal; color: var(--brand); }
+    .punch-text .strike { text-decoration: line-through; color: var(--ink-mute); }
+    .punch-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--brand);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* DORES (grid 6) */
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 56px;
+    }
+    @media (max-width: 980px) { .pain-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .pain-grid { grid-template-columns: 1fr; } }
+    .pain {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .pain:hover {
+      border-color: var(--red);
+      background: linear-gradient(180deg, var(--red-soft) 0%, var(--surface) 50%);
+    }
+    .pain-num {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .pain-title {
+      font-family: var(--f-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .pain-body {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* VS QUINTO ANDAR */
+    .vs-table {
+      margin-top: 48px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .vs-row {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--line);
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .vs-row { grid-template-columns: 1fr; gap: 8px; padding: 16px 20px; }
+    }
+    .vs-row:last-child { border-bottom: 0; }
+    .vs-row.header {
+      background: var(--surface-2);
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      font-weight: 600;
+    }
+    .vs-row.header .brand-col { color: var(--brand); }
+    .vs-attr {
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 15px;
+    }
+    .vs-old {
+      color: var(--ink-mute);
+      font-size: 14px;
+      text-decoration: line-through;
+    }
+    .vs-new {
+      color: var(--brand);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* ASSET vs LIABILITY (2 col) */
+    .asset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 48px;
+    }
+    @media (max-width: 980px) { .asset-grid { grid-template-columns: 1fr; } }
+    .asset-col {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 36px 32px;
+    }
+    .asset-col.them { border-color: rgba(239, 68, 68, 0.25); }
+    .asset-col.you { border-color: rgba(111, 45, 225, 0.4); background: linear-gradient(180deg, var(--brand-soft) 0%, var(--surface) 60%); }
+    .asset-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .asset-col.them .asset-eyebrow { color: var(--red); }
+    .asset-col.you .asset-eyebrow { color: var(--brand); }
+    .asset-title {
+      font-family: var(--f-display);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+    .asset-list { list-style: none; padding: 0; }
+    .asset-list li {
+      padding: 14px 0;
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .asset-list li:last-child { border-bottom: 0; }
+    .asset-list strong { color: var(--ink); font-weight: 600; }
+    .asset-col.them li::before { content: '◆'; color: var(--red); flex-shrink: 0; }
+    .asset-col.you li::before { content: '★'; color: var(--brand); flex-shrink: 0; }
+
+    /* SISTEMA (modules grid) */
+    .mod-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 48px;
+    }
+    @media (max-width: 980px) { .mod-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .mod-grid { grid-template-columns: 1fr; } }
+    .mod {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.2s ease;
+    }
+    .mod:hover { border-color: var(--brand); transform: translateY(-2px); }
+    .mod-ico {
+      font-family: var(--f-display);
+      font-size: 28px;
+      color: var(--brand);
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+    .mod-title {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .mod-body {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    /* HOSPEDE BOX (Temporada) */
+    .hospede-box {
+      background: linear-gradient(135deg, rgba(255, 107, 71, 0.08) 0%, var(--surface) 60%);
+      border: 1px solid rgba(255, 107, 71, 0.3);
+      border-radius: 24px;
+      padding: 48px;
+      margin-top: 56px;
+    }
+    @media (max-width: 768px) { .hospede-box { padding: 32px 24px; } }
+    .hospede-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hospede-title {
+      font-family: var(--f-display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      max-width: 22ch;
+    }
+    .hospede-title em { font-style: normal; color: var(--accent); }
+    .hospede-lead {
+      font-size: 16px;
+      color: var(--ink-soft);
+      max-width: 62ch;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .hospede-modes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    @media (max-width: 768px) { .hospede-modes { grid-template-columns: 1fr; } }
+    .hospede-mode {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .hospede-mode-tag {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      padding: 5px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .hospede-mode h4 {
+      font-family: var(--f-display);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.015em;
+    }
+    .hospede-mode p {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    /* GUEST TO BUY PLACEHOLDER (visualmente marcado) */
+    .guest-box {
+      background: linear-gradient(135deg, var(--brand-soft) 0%, var(--surface) 60%);
+      border: 1px dashed var(--brand);
+      border-radius: 24px;
+      padding: 48px;
+      margin-top: 56px;
+      position: relative;
+    }
+    @media (max-width: 768px) { .guest-box { padding: 32px 24px; } }
+    .guest-pending {
+      position: absolute;
+      top: -14px;
+      right: 24px;
+      background: var(--brand);
+      color: white;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .guest-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--brand);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .guest-title {
+      font-family: var(--f-display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      max-width: 24ch;
+    }
+    .guest-title em { font-style: normal; color: var(--brand); }
+    .guest-lead {
+      font-size: 16px;
+      color: var(--ink-soft);
+      max-width: 62ch;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .guest-tldr {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px 24px;
+      font-size: 14px;
+      color: var(--ink-mute);
+      font-family: var(--f-mono);
+      letter-spacing: 0.05em;
+      line-height: 1.7;
+    }
+    .guest-tldr strong {
+      color: var(--brand);
+      font-family: var(--f-body);
+      letter-spacing: 0;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    /* REVENUE STREAM CARDS */
+    .rev-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    @media (max-width: 980px) { .rev-grid { grid-template-columns: 1fr; } }
+    .rev {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px 28px;
+    }
+    .rev-num {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--brand);
+      margin-bottom: 16px;
+    }
+    .rev-title {
+      font-family: var(--f-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .rev-amt {
+      font-family: var(--f-display);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--brand);
+      margin: 16px 0 10px;
+      line-height: 1;
+    }
+    .rev-meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .rev-body {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    /* NUMBERS BIG */
+    .nums-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    @media (max-width: 980px) { .nums-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .nums-grid { grid-template-columns: 1fr; } }
+    .num-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: left;
+    }
+    .num-card-lbl {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .num-card-val {
+      font-family: var(--f-display);
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .num-card-val.brand { color: var(--brand); }
+    .num-card-val.green { color: var(--green); }
+    .num-card-val.accent { color: var(--accent); }
+    .num-card-meta {
+      font-size: 12px;
+      color: var(--ink-mute);
+      margin-top: 10px;
+    }
+
+    /* STEPS (3 passos) */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    @media (max-width: 768px) { .steps { grid-template-columns: 1fr; } }
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+    }
+    .step-num {
+      font-family: var(--f-display);
+      font-size: 64px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--brand);
+      opacity: 0.18;
+      line-height: 1;
+      position: absolute;
+      top: 16px;
+      right: 24px;
+    }
+    .step-tag {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--brand);
+      margin-bottom: 16px;
+    }
+    .step-title {
+      font-family: var(--f-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .step-body {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    /* CTA FINAL */
+    .cta-final {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-deep) 100%);
+      border-radius: 32px;
+      padding: 80px 60px;
+      text-align: center;
+      margin: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) { .cta-final { padding: 56px 28px; } }
+    .cta-final h2 {
+      font-family: var(--f-display);
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: white;
+      margin-bottom: 24px;
+      max-width: 18ch;
+      margin-inline: auto;
+    }
+    .cta-final p {
+      font-size: 19px;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 50ch;
+      margin: 0 auto 40px;
+      line-height: 1.55;
+    }
+    .cta-final-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      color: var(--brand-deep);
+      padding: 20px 40px;
+      border-radius: 999px;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .cta-final-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+    .cta-final-btn::after { content: '→'; font-size: 20px; }
+
+    /* FOOTER */
+    footer {
+      padding: 60px 0 40px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--ink-mute);
+      font-family: var(--f-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+    footer a { color: var(--brand); text-decoration: none; }
+
+    /* MOTION HINT BAR (lateral) */
+    .motion-hint {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      z-index: 50;
+    }
+    @media (max-width: 768px) { .motion-hint { display: none; } }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-brand">Achamos <span class="dot">·</span> Partner Network</div>
+      <a href="#cta" class="cta-mini">Quero conhecer →</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Pra imobiliária que sobreviveu aos últimos 10 anos</div>
+      <h1 class="hero-title">Você sobreviveu. Agora vamos <em>voltar ao jogo</em>.</h1>
+      <p class="hero-lead">
+        Sua imobiliária tem <strong>relacionamento, carteira e confiança no bairro</strong> que nenhuma plataforma nacional vai ter. Falta só uma coisa: <strong>a estrutura digital</strong> pra entregar isso na mesma velocidade que o cliente passou a exigir.
+      </p>
+      <a href="#dores" class="cta-hero">Ver como vamos fazer isso</a>
+    </div>
+  </header>
+
+  <!-- 01 · DORES -->
+  <section id="dores">
+    <div class="container">
+      <div class="section-eyebrow">01 · O diagnóstico</div>
+      <h2 class="section-title">O que <em>o mercado tirou</em> da sua imobiliária.</h2>
+      <p class="section-lead">
+        Não é só "concorrência". É o jogo inteiro mudando. O cliente de hoje quer experiência de plataforma — mesmo quando contrata você. Seis dores que você reconhece em 10 segundos:
+      </p>
+
+      <div class="pain-grid">
+        <div class="pain">
+          <div class="pain-num">DOR 01</div>
+          <div class="pain-title">Cliente compara você com Quinto Andar e Loft.</div>
+          <div class="pain-body">Ele exige fiança automática, contrato digital, visita agendada por app, pagamento online. Quando você responde "vou te mandar o boleto pelo WhatsApp", ele já fechou em outra.</div>
+        </div>
+        <div class="pain">
+          <div class="pain-num">DOR 02</div>
+          <div class="pain-title">Imóvel parado 60+ dias.</div>
+          <div class="pain-body">Anuncia no OLX, Zap, ChavesNaMão. Liga muito, fecha pouco. Plataforma grande aluga em 18 dias com fiança fácil. Você fica falando que "o mercado tá fraco".</div>
+        </div>
+        <div class="pain">
+          <div class="pain-num">DOR 03</div>
+          <div class="pain-title">Fiador sumiu do mercado.</div>
+          <div class="pain-body">Inquilino bom não tem fiador. Caução ele não topa. Capitalização cliente recusa. Você perde negócio porque não tem seguro fiança plug-and-play.</div>
+        </div>
+        <div class="pain">
+          <div class="pain-num">DOR 04</div>
+          <div class="pain-title">Marketing fragmentado caro.</div>
+          <div class="pain-body">Paga R$ 600 OLX + R$ 800 Zap + R$ 400 Insta + R$ 300 ImovelWeb. Sem ROI claro. Lead vem misturado, sem qualificação, sem CRM que organize.</div>
+        </div>
+        <div class="pain">
+          <div class="pain-num">DOR 05</div>
+          <div class="pain-title">Operação manual demais.</div>
+          <div class="pain-body">Agendamento de visita por WhatsApp. Proposta por PDF. Contrato em cartório. Vistoria à mão. Time pequeno explode. Cada novo imóvel atrasa o anterior.</div>
+        </div>
+        <div class="pain">
+          <div class="pain-num">DOR 06</div>
+          <div class="pain-title">Imóveis vagos não viram dinheiro.</div>
+          <div class="pain-body">Apartamento sem inquilino há 4 meses fica R$ 0. Você poderia ter colocado no Airbnb/Booking nesse meio-tempo, mas não tem estrutura nem time pra gestão de temporada.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUNCH 1 -->
+  <div class="punch">
+    <div class="container">
+      <div class="punch-eyebrow">A pergunta que importa</div>
+      <div class="punch-text">
+        Foi <span class="strike">o Quinto Andar</span> que tirou isso de você?<br><br>
+        Em parte. Mas o jogo mudou pra <em>todo mundo</em>.
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 · O CLIENTE MUDOU -->
+  <section>
+    <div class="container">
+      <div class="section-eyebrow">02 · O cliente que você atende hoje</div>
+      <h2 class="section-title">Ele já viu <em>como podia ser</em>. E não volta atrás.</h2>
+      <p class="section-lead">
+        Antes ele aceitava boleto via WhatsApp. Hoje, depois de ter usado iFood, Nubank, Mercado Livre, Airbnb e Quinto Andar — <strong>ele acha estranho qualquer coisa que pareça "anos 2000"</strong>. Isso não é frescura. É o novo piso.
+      </p>
+
+      <div class="vs-table">
+        <div class="vs-row header">
+          <div>Expectativa do cliente</div>
+          <div>Imobiliária tradicional</div>
+          <div class="brand-col">Plataforma nacional</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-attr">Fiança em 5 minutos</div>
+          <div class="vs-old">Fiador + 2 contracheques</div>
+          <div class="vs-new">✓ Seguro auto-aprovado</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-attr">Visita agendada por app</div>
+          <div class="vs-old">"Me liga aí pra marcar"</div>
+          <div class="vs-new">✓ Calendário online</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-attr">Contrato assinado em casa</div>
+          <div class="vs-old">Cartório · 2 deslocamentos</div>
+          <div class="vs-new">✓ Assinatura digital</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-attr">Pagamento mensal Pix/cartão</div>
+          <div class="vs-old">Boleto bancário · 3 dias</div>
+          <div class="vs-new">✓ Pix automático</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-attr">Atendimento por chat</div>
+          <div class="vs-old">Telefone comercial</div>
+          <div class="vs-new">✓ Chat 24/7</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-attr">Transparência de preço</div>
+          <div class="vs-old">"Depende, me passa o perfil"</div>
+          <div class="vs-new">✓ Visível no anúncio</div>
+        </div>
+      </div>
+
+      <p class="section-lead" style="margin-top: 40px;">
+        <strong>Aqui está o ponto:</strong> ninguém espera mais que a imobiliária do bairro entregue tudo isso sozinha. Mas espera que <strong>ela entregue mesmo assim</strong>. Quem não entrega, perde o cliente.
+      </p>
+    </div>
+  </section>
+
+  <!-- PUNCH 2 -->
+  <div class="punch">
+    <div class="container">
+      <div class="punch-eyebrow">A boa notícia</div>
+      <div class="punch-text">
+        Você tem o ativo que <em>nenhuma plataforma</em><br>nacional vai ter.
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 · O ATIVO QUE VOCÊ TEM -->
+  <section>
+    <div class="container">
+      <div class="section-eyebrow">03 · O que você tem · o que eles têm</div>
+      <h2 class="section-title">O jogo <em>não é</em> destruir a imobiliária local.</h2>
+      <p class="section-lead">
+        Plataforma nacional é eficiente em escala. Mas ela <strong>não conhece o bairro</strong>. Você sim. O que você precisa é juntar os dois lados: relacionamento + estrutura digital. É exatamente isso que oferecemos.
+      </p>
+
+      <div class="asset-grid">
+        <div class="asset-col them">
+          <div class="asset-eyebrow">◆ O que a plataforma nacional tem</div>
+          <div class="asset-title">Escala digital · zero alma</div>
+          <ul class="asset-list">
+            <li><div><strong>Sistema rápido</strong> de busca, visita e contrato</div></li>
+            <li><div><strong>Fiança própria</strong> auto-aprovada</div></li>
+            <li><div><strong>Marketing nacional</strong> de R$ 50M+/ano</div></li>
+            <li><div>Mas <strong>não conhece o bairro</strong>, não conhece os condomínios, não conhece os proprietários</div></li>
+            <li><div><strong>Atendimento robotizado</strong> · cliente sente frieza</div></li>
+            <li><div><strong>Zero diferenciação local</strong> — todo imóvel parece igual</div></li>
+          </ul>
+        </div>
+
+        <div class="asset-col you">
+          <div class="asset-eyebrow">★ O que VOCÊ tem</div>
+          <div class="asset-title">Relacionamento · que dinheiro não compra</div>
+          <ul class="asset-list">
+            <li><div><strong>Carteira própria</strong> · construída em anos</div></li>
+            <li><div><strong>Relacionamento com proprietários</strong> · indicação é normal</div></li>
+            <li><div><strong>Confiança no bairro</strong> · cliente conhece sua placa há 15 anos</div></li>
+            <li><div><strong>Conhecimento técnico do território</strong> · qual prédio pega sol, qual rua é segura</div></li>
+            <li><div><strong>Atendimento humano</strong> · cliente sente cuidado</div></li>
+            <li><div>Falta apenas: <strong>a estrutura digital</strong> pra entregar tudo isso na velocidade que o cliente exige hoje</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUNCH 3 -->
+  <div class="punch">
+    <div class="container">
+      <div class="punch-eyebrow">A virada</div>
+      <div class="punch-text">
+        Vire <em>o Quinto Andar do seu bairro</em>.<br>
+        Sem deixar de ser <em>quem você é</em>.
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 · A SOLUÇÃO -->
+  <section>
+    <div class="container">
+      <div class="section-eyebrow">04 · O que oferecemos</div>
+      <h2 class="section-title">Achamos Partner · <em>infraestrutura</em> da sua imobiliária digital.</h2>
+      <p class="section-lead">
+        Você assina, sua marca aparece, sua equipe opera, seus clientes ficam com você. Nós entregamos a estrutura tecnológica + canais integrados + acesso à rede Achamos. <strong>Tudo o que Quinto Andar tem — adaptado pra você ser dono do relacionamento</strong>.
+      </p>
+
+      <div class="mod-grid">
+        <div class="mod">
+          <div class="mod-ico">◆</div>
+          <div class="mod-title">Loja com sua marca</div>
+          <div class="mod-body">Página da sua imobiliária dentro do marketplace Achamos. Logo, cores, equipe, carteira — tudo seu.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-ico">★</div>
+          <div class="mod-title">Sistema de visita</div>
+          <div class="mod-body">Cliente agenda pelo app, recebe confirmação automática, follow-up programado. Sem WhatsApp bagunçado.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-ico">⨠</div>
+          <div class="mod-title">Contrato digital</div>
+          <div class="mod-body">Proposta + contrato + assinatura eletrônica 100% no portal. Cliente assina em casa pelo celular.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-ico">◐</div>
+          <div class="mod-title">Fiança automática</div>
+          <div class="mod-body">Inquilino contrata em 1 clique. Aprovação em 5 minutos. Sem fiador. Sem caução manual.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-ico">⬡</div>
+          <div class="mod-title">Gestão de locação</div>
+          <div class="mod-body">Move-in digital, pagamento automático mensal, manutenção centralizada, risco de inadimplência monitorado, move-out documentado.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-ico">↗</div>
+          <div class="mod-title">Integração de canais</div>
+          <div class="mod-body">Lead que chega do OLX, Zap, ChavesNaMão, ImovelWeb entra direto no funil do portal. Sem retrabalho.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-ico">⌘</div>
+          <div class="mod-title">Selo Partner</div>
+          <div class="mod-body">"Imobiliária certificada pela rede Achamos" vira sinal de credibilidade no seu site, vitrine e materiais.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-ico">⚡</div>
+          <div class="mod-title">Leads premium opcional</div>
+          <div class="mod-body">Acesso ao Achamos+ · briefings de compradores qualificados que pagaram pra entrar no nosso radar.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · TEMPORADA · NOVO -->
+  <section>
+    <div class="container">
+      <div class="section-eyebrow">05 · Nova receita · temporada</div>
+      <h2 class="section-title">Você nunca precisou escolher entre <em>locação, venda ou temporada</em>.</h2>
+      <p class="section-lead">
+        Imóvel vago entre inquilinos? Antes ficava parado. Agora vira <strong>Airbnb e Booking automaticamente</strong>. Você ganha onde antes perdia dinheiro.
+      </p>
+
+      <div class="hospede-box">
+        <div class="hospede-eyebrow">Powered by Rendizy · integração nativa com OTAs</div>
+        <h3 class="hospede-title">Cada imóvel parado virando <em>R$ 4-15k/mês</em> de aluguel curto.</h3>
+        <p class="hospede-lead">
+          Nossa tecnologia Rendizy é integrada com <strong>Airbnb, Booking.com, Decolar, Expedia, Vrbo</strong> e todas as principais OTAs. Quando um imóvel da sua carteira fica vago, você pode listar em curta temporada com 2 cliques. Hospedagem cobre custo, gera margem, e mantém o imóvel ativo até a próxima locação ou venda.
+        </p>
+
+        <div class="hospede-modes">
+          <div class="hospede-mode">
+            <span class="hospede-mode-tag">MODO A · DIY</span>
+            <h4>Você gerencia</h4>
+            <p>
+              Acesso total ao sistema. Você (ou alguém da sua equipe) gerencia disponibilidade, preço, atendimento e check-in. Pega 100% da receita do aluguel curto. Achamos cobra fee fixo da gestão da OTA.
+            </p>
+          </div>
+          <div class="hospede-mode">
+            <span class="hospede-mode-tag">MODO B · GESTOR</span>
+            <h4>Anfitrião gestor Achamos</h4>
+            <p>
+              Você terceiriza. Nossa equipe de anfitriões gestores cuida de tudo: anúncio, precificação dinâmica, atendimento ao hóspede, check-in, limpeza, manutenção, fechamento mensal. Você divide receita (modelo a negociar). Zero overhead operacional pra você.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · SE HOSPEDE PARA COMPRAR · CONTEÚDO REAL -->
+  <section>
+    <div class="container">
+      <div class="section-eyebrow">06 · Nova receita · Se Hospede para Comprar</div>
+      <h2 class="section-title">Quantos proprietários estão no seu cartão de visita com imóvel parado <em>há 18 meses</em>?</h2>
+      <p class="section-lead">
+        Você sabe quem eles são. Aquele proprietário que ligou 4 vezes pedindo "alguma novidade". O que baixou o preço duas vezes. O que tá pagando IPTU + condomínio há 14 meses sem inquilino. <strong>Agora você tem uma resposta nova pra ele</strong> — e ganha junto.
+      </p>
+
+      <div class="hospede-box">
+        <div class="hospede-eyebrow">★ Produto novo · só pra imobiliárias Achamos Partner</div>
+        <h3 class="hospede-title">O imóvel parado <em>vira ativo de renda</em> durante a venda.</h3>
+        <p class="hospede-lead">
+          Você indica o proprietário, a gente opera. O imóvel é mobiliado (se precisar), recebe campanha de marketing profissional, é divulgado em vídeo, e fica disponível pra <strong>aluguel flexível pra compradores potenciais que se hospedam pra vivenciar antes de fazer oferta</strong>. Proprietário ganha renda. Você ganha indicação + comissão. Imóvel vende mais rápido com comprador convicto.
+        </p>
+
+        <div class="hospede-modes">
+          <div class="hospede-mode">
+            <span class="hospede-mode-tag">PRA VOCÊ · 10%</span>
+            <h4>Indicação dos aluguéis</h4>
+            <p>
+              Você recebe <strong>10% do valor de todos os aluguéis flexíveis</strong> que o imóvel gerar durante o programa · só por indicar o proprietário. Em imóvel R$ 800k com renda de R$ 6k/mês: <strong>R$ 600/mês de renda passiva</strong> pra você, pelo tempo todo que o imóvel estiver no programa.
+            </p>
+          </div>
+          <div class="hospede-mode">
+            <span class="hospede-mode-tag">PRA VOCÊ · 50%</span>
+            <h4>Comissão de venda</h4>
+            <p>
+              Quando o imóvel vender — e vende mais rápido com programa ativo — <strong>50% da comissão de venda é sua</strong>. Em R$ 800k: 3% × R$ 800k = <strong>R$ 24.000 pra você</strong>. Mais do que a comissão integral que você teria em meses normais (porque o imóvel vendeu).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-family: var(--f-display); font-size: 24px; font-weight: 700; margin: 56px 0 24px; letter-spacing: -0.02em;">Conta concreta · 1 imóvel · ciclo 6 meses · imóvel R$ 800k</h3>
+
+      <div class="nums-grid">
+        <div class="num-card">
+          <div class="num-card-lbl">Indicação · 10% × 6 meses de renda</div>
+          <div class="num-card-val">R$ 3.600</div>
+          <div class="num-card-meta">R$ 600/mês passivo</div>
+        </div>
+        <div class="num-card">
+          <div class="num-card-lbl">Comissão venda · 50% × 6%</div>
+          <div class="num-card-val brand">R$ 24.000</div>
+          <div class="num-card-meta">3% do imóvel</div>
+        </div>
+        <div class="num-card">
+          <div class="num-card-lbl">Ticket total · 1 imóvel · ciclo</div>
+          <div class="num-card-val green">R$ 27.600</div>
+          <div class="num-card-meta">Em 6 meses</div>
+        </div>
+        <div class="num-card" style="border-color: var(--accent);">
+          <div class="num-card-lbl">Com 5 imóveis ativos</div>
+          <div class="num-card-val accent">~R$ 138k</div>
+          <div class="num-card-meta">Em 6 meses</div>
+        </div>
+      </div>
+
+      <h3 style="font-family: var(--f-display); font-size: 24px; font-weight: 700; margin: 56px 0 24px; letter-spacing: -0.02em;">O que o proprietário ganha</h3>
+
+      <div class="hospede-box" style="margin-top: 0; background: linear-gradient(135deg, var(--brand-soft) 0%, var(--surface) 60%); border-color: rgba(111, 45, 225, 0.3);">
+        <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--brand);">✓</strong> <span><strong style="color: var(--ink);">Renda de 0,5% a 1% do valor do imóvel/mês</strong> durante a venda · estanca o sangramento de IPTU + condomínio</span></li>
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--brand);">✓</strong> <span><strong style="color: var(--ink);">Tempo médio de venda menor</strong> · 4-6 meses vs 12-18 meses · porque comprador hospedado decide convicto</span></li>
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--brand);">✓</strong> <span><strong style="color: var(--ink);">Não precisa investir</strong> em mobília · operação cobre com receita do programa</span></li>
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--brand);">✓</strong> <span><strong style="color: var(--ink);">Marketing profissional</strong> · fotos, vídeo, tráfego pago · 30-80 interessados qualificados (vs 10-25 dos portais)</span></li>
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--brand);">✓</strong> <span><strong style="color: var(--ink);">Operação completa</strong> · check-in, check-out, limpeza, manutenção, atendimento bilíngue pra estrangeiros</span></li>
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 10px; align-items: flex-start;"><strong style="color: var(--brand);">✓</strong> <span><strong style="color: var(--ink);">Poder de negociação</strong> · sem pressão de despesa, ele rejeita proposta ruim e fecha pelo valor justo</span></li>
+        </ul>
+      </div>
+
+      <h3 style="font-family: var(--f-display); font-size: 24px; font-weight: 700; margin: 56px 0 24px; letter-spacing: -0.02em;">Critérios do imóvel</h3>
+
+      <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 28px;">
+        <ul style="list-style: none; padding: 0; display: grid; gap: 14px;">
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 12px; align-items: flex-start;"><strong style="color: var(--brand);">→</strong> <span><strong style="color: var(--ink);">Único impedimento:</strong> imóvel precisa estar desocupado ou semi-desocupado · sem inquilino fixo</span></li>
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 12px; align-items: flex-start;"><strong style="color: var(--brand);">→</strong> <span><strong style="color: var(--ink);">Sem ticket mínimo</strong> · funciona pra imóvel R$ 250k até R$ 5M+</span></li>
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 12px; align-items: flex-start;"><strong style="color: var(--brand);">→</strong> <span><strong style="color: var(--ink);">Condomínio que proíbe temporada</strong> não é necessariamente impeditivo · é programa de venda, não comércio · validação caso a caso</span></li>
+          <li style="font-size: 15px; color: var(--ink-soft); display: flex; gap: 12px; align-items: flex-start;"><strong style="color: var(--brand);">→</strong> <span><strong style="color: var(--ink);">Funciona pra estrangeiro</strong> · concierge bilíngue + integração com Achamos+ Spotlight Plus pra comprador internacional</span></li>
+        </ul>
+      </div>
+
+      <p class="section-lead" style="margin-top: 40px; font-size: 17px;">
+        <strong>Comece pelo seu cliente mais frustrado.</strong> Aquele proprietário com imóvel parado há 14 meses. Apresenta o programa. Em 30 dias o imóvel tá gerando renda e em 6 meses, na média, ele vende. Você fica com indicação + comissão. <strong>Ele finalmente sai do papel.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- PUNCH 4 -->
+  <div class="punch">
+    <div class="container">
+      <div class="punch-eyebrow">Resultado prático</div>
+      <div class="punch-text">
+        Da sua mesma carteira sai<br><em>3, 4, 5 fontes de receita</em>.
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 · RECEITA EXTRA -->
+  <section>
+    <div class="container">
+      <div class="section-eyebrow">07 · O que você ganha que não ganhava antes</div>
+      <h2 class="section-title">Cinco fontes de receita <em>num só imóvel</em>.</h2>
+      <p class="section-lead">
+        Imobiliária tradicional ganha em uma coisa: comissão de venda ou locação. Quando entra na rede Achamos, o mesmo imóvel pode gerar receita por 5 caminhos diferentes — e <strong>você decide quais ativar</strong>.
+      </p>
+
+      <div class="rev-grid">
+        <div class="rev">
+          <div class="rev-num">FONTE 01</div>
+          <div class="rev-title">Locação convencional</div>
+          <div class="rev-amt">Comissão sua</div>
+          <div class="rev-meta">100% · sem take rate Achamos</div>
+          <div class="rev-body">Inquilino entra via portal, contrato digital, gestão automática. Sua comissão de locação fica integral com você.</div>
+        </div>
+        <div class="rev">
+          <div class="rev-num">FONTE 02</div>
+          <div class="rev-title">Venda convencional</div>
+          <div class="rev-amt">Comissão sua</div>
+          <div class="rev-meta">100% · sem take rate Achamos</div>
+          <div class="rev-body">Cliente comprador entra pelo OLX, Zap ou indicação, fecha no portal com proposta + contrato digital. Sua comissão integral.</div>
+        </div>
+        <div class="rev">
+          <div class="rev-num">FONTE 03</div>
+          <div class="rev-title">Temporada (Airbnb/Booking)</div>
+          <div class="rev-amt">+R$ 4-15k/mês</div>
+          <div class="rev-meta">Por imóvel ativado</div>
+          <div class="rev-body">Imóvel vago entre inquilinos vira temporada. Você gerencia ou terceiriza pra nosso anfitrião gestor. Margem que antes não existia.</div>
+        </div>
+        <div class="rev">
+          <div class="rev-num">FONTE 04</div>
+          <div class="rev-title">Achamos+ leilão</div>
+          <div class="rev-amt">+50% a 90% comissão</div>
+          <div class="rev-meta">Quando ganha briefing premium</div>
+          <div class="rev-body">Candidatar imóvel da carteira a briefings de compradores Spotlight. Você ganha a comissão dividida com Achamos conforme o tier (Free / Credit / Master).</div>
+        </div>
+        <div class="rev" style="border-color: var(--accent);">
+          <div class="rev-num" style="color: var(--accent);">FONTE 05 · NOVO</div>
+          <div class="rev-title">Se Hospede para Comprar</div>
+          <div class="rev-amt" style="color: var(--accent);">+R$ 27.600/imóvel</div>
+          <div class="rev-meta">Por ciclo de 6 meses</div>
+          <div class="rev-body">Você indica proprietário com imóvel parado, recebe 10% de todos os aluguéis flexíveis + 50% da comissão de venda quando fechar. Com 5 imóveis ativos: ~R$ 138k em 6 meses.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · PRICING REFERÊNCIA RÁPIDA -->
+  <section>
+    <div class="container">
+      <div class="section-eyebrow">08 · Quanto custa estar na rede</div>
+      <h2 class="section-title">Investimento <em>previsível</em> · receita escalável.</h2>
+      <p class="section-lead">
+        Você não paga pela venda dela. Você paga pela <strong>infraestrutura + canal + rede</strong>. Detalhamento completo no <a href="/portal-modelo-negocio.html" style="color: var(--brand); text-decoration: underline;">documento de modelo de negócio</a>.
+      </p>
+
+      <div class="nums-grid">
+        <div class="num-card">
+          <div class="num-card-lbl">Mensalidade da rede</div>
+          <div class="num-card-val brand">R$ 890</div>
+          <div class="num-card-meta">/mês · infraestrutura completa</div>
+        </div>
+        <div class="num-card">
+          <div class="num-card-lbl">Achamos+ Free Match</div>
+          <div class="num-card-val">R$ 0</div>
+          <div class="num-card-meta">2 candidaturas grátis/mês</div>
+        </div>
+        <div class="num-card">
+          <div class="num-card-lbl">Achamos+ Credit Pack</div>
+          <div class="num-card-val">R$ 990</div>
+          <div class="num-card-meta">/mês · 10 candidaturas</div>
+        </div>
+        <div class="num-card">
+          <div class="num-card-lbl">Achamos+ Master Partner</div>
+          <div class="num-card-val accent">R$ 4.900</div>
+          <div class="num-card-meta">/mês · candidaturas ilimitadas</div>
+        </div>
+      </div>
+
+      <p class="section-lead" style="margin-top: 40px;">
+        <strong>Nenhum take rate sobre as vendas e locações que você trouxe.</strong> Achamos só ganha quando entrega lead premium (Achamos+) ou serviço silencioso (seguro fiança via corretora parceira, infra digital). Modelo desenhado pra você não sentir que paga duas vezes.
+      </p>
+    </div>
+  </section>
+
+  <!-- 09 · COMO COMEÇAR -->
+  <section>
+    <div class="container">
+      <div class="section-eyebrow">09 · Os próximos 30 dias</div>
+      <h2 class="section-title">Três passos pra <em>entrar na rede</em>.</h2>
+      <p class="section-lead">
+        Sem implantação pesada. Sem consultoria longa. Você está operando no portal <strong>em 14 dias</strong>.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-tag">SEMANA 1</div>
+          <div class="step-title">Conversa de alinhamento</div>
+          <div class="step-body">30 minutos pra entender sua operação atual, sua carteira, sua marca. Você vê o portal funcionando, faz perguntas, decide se faz sentido.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-tag">SEMANA 2</div>
+          <div class="step-title">Setup da sua loja</div>
+          <div class="step-body">Onboarding digital com nosso time. Sobe identidade visual, carteira de imóveis, equipe. Integração com OLX, Zap. Treinamento dos fluxos. 5 dias úteis.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-tag">SEMANA 3+</div>
+          <div class="step-title">Você operando ao vivo</div>
+          <div class="step-body">Sua loja já aparece no marketplace. Primeiras visitas digitais, primeiros contratos digitais. Suporte humano nos primeiros 14 dias. Depois, você no piloto, nós no copiloto.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="cta" style="border-top: none; padding-top: 40px;">
+    <div class="container">
+      <div class="cta-final">
+        <h2>Pronta pra voltar ao jogo?</h2>
+        <p>
+          Conversa de 30 minutos. Sem compromisso. Você vê o portal funcionando, entende o modelo, e decide se faz sentido pra sua imobiliária.
+        </p>
+        <a href="https://wa.me/5521995885999" class="cta-final-btn">Quero conversar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      Achamos Imóveis · BVM LTDA · CNPJ 46.908.483/0001-28<br>
+      Apresentação de Vendas v1.0 · 2026-05-28 · <a href="/portal-modelo-negocio.html">Ver modelo de negócio detalhado →</a>
+    </div>
+  </footer>
+
+  <!-- MOTION HINT -->
+  <div class="motion-hint">Base pra motion design · v1.0</div>
+
+</body>
+</html>

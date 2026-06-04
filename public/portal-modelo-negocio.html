@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Modelo de negócio do Portal Imobiliário Achamos — infraestrutura + canal + status para imobiliárias de médio porte">
+  <title>Portal Achamos · Modelo de Negócio · v1.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand: #6F2DE1;
+      --brand-deep: #4A14B5;
+      --brand-soft: rgba(111, 45, 225, 0.12);
+      --accent: #FF6B47;
+      --accent-soft: rgba(255, 107, 71, 0.15);
+      --gold: #D4A951;
+      --green: #10B981;
+      --green-soft: rgba(16, 185, 129, 0.15);
+      --red: #EF4444;
+      --red-soft: rgba(239, 68, 68, 0.12);
+      --bg: #0a0a0a;
+      --surface: #141214;
+      --surface-2: #1c1a1c;
+      --surface-3: #252225;
+      --ink: #F4F0EB;
+      --ink-soft: rgba(244, 240, 235, 0.72);
+      --ink-mute: rgba(244, 240, 235, 0.48);
+      --line: rgba(244, 240, 235, 0.08);
+      --line-strong: rgba(244, 240, 235, 0.18);
+      --f-display: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+      --f-body: 'Inter', system-ui, sans-serif;
+      --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .topbar-brand {
+      font-family: var(--f-display);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 18px;
+    }
+    .topbar-brand .dot { color: var(--brand); }
+    .topbar-meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 120px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--brand-soft) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--brand);
+      background: var(--brand-soft);
+      padding: 8px 16px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--brand);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(44px, 6.5vw, 88px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.02;
+      margin-bottom: 28px;
+      max-width: 18ch;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--brand);
+    }
+    .hero-lead {
+      font-size: clamp(18px, 2vw, 22px);
+      color: var(--ink-soft);
+      max-width: 64ch;
+      line-height: 1.55;
+      margin-bottom: 40px;
+    }
+    .hero-lead strong { color: var(--ink); font-weight: 600; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+      padding: 32px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin-top: 56px;
+    }
+    .stat-num {
+      font-family: var(--f-display);
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .stat-num .small { font-size: 22px; color: var(--brand); }
+    .stat-lbl {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    /* SECTION */
+    section {
+      padding: 96px 0;
+      border-top: 1px solid var(--line);
+    }
+    .section-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--f-display);
+      font-size: clamp(34px, 4.5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      max-width: 22ch;
+    }
+    .section-title em { font-style: normal; color: var(--brand); }
+    .section-lead {
+      font-size: 18px;
+      color: var(--ink-soft);
+      max-width: 64ch;
+      line-height: 1.6;
+    }
+    .section-lead strong { color: var(--ink); font-weight: 600; }
+
+    /* CARDS */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 48px; }
+    @media (max-width: 980px) {
+      .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 981px) and (max-width: 1200px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-5 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .card:hover {
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+    .card.featured {
+      border-color: var(--brand);
+      background: linear-gradient(180deg, rgba(111, 45, 225, 0.08) 0%, var(--surface) 60%);
+    }
+    .card-num {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--brand);
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-family: var(--f-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .card-body {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* PILLAR CARDS (5 pilares) */
+    .pillar {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pillar-num {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--brand);
+      background: var(--brand-soft);
+      padding: 6px 12px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+    .pillar-title {
+      font-family: var(--f-display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .pillar-source {
+      font-size: 13px;
+      color: var(--ink-mute);
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .pillar-amt {
+      font-family: var(--f-display);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--brand);
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+    .pillar-freq {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* DETAIL DEEP DIVE */
+    .deep-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 32px;
+    }
+    .deep-box h3 {
+      font-family: var(--f-display);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+    }
+    .deep-box h3 em { font-style: normal; color: var(--brand); }
+    .deep-box .deep-lead {
+      font-size: 16px;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+      max-width: 70ch;
+    }
+    .checklist { list-style: none; padding: 0; margin: 24px 0; }
+    .checklist li {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+      color: var(--ink-soft);
+      align-items: flex-start;
+    }
+    .checklist li::before {
+      content: '✓';
+      color: var(--brand);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .checklist.warn li::before { content: '⚠'; color: var(--accent); }
+    .checklist.danger li::before { content: '⨯'; color: var(--red); }
+    .checklist strong { color: var(--ink); font-weight: 600; }
+
+    /* TIER CARDS */
+    .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+    @media (max-width: 980px) { .tier-grid { grid-template-columns: 1fr; } }
+    .tier {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .tier.recommended {
+      border-color: var(--brand);
+      box-shadow: 0 12px 36px rgba(111, 45, 225, 0.2);
+    }
+    .tier-flag {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--brand);
+      color: white;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      padding: 6px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .tier-name {
+      font-family: var(--f-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .tier-sub {
+      font-size: 13px;
+      color: var(--ink-mute);
+      margin-bottom: 24px;
+    }
+    .tier-price {
+      font-family: var(--f-display);
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .tier-price-meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+    .tier-list { list-style: none; padding: 0; margin: 0 0 24px; flex-grow: 1; }
+    .tier-list li {
+      padding: 10px 0;
+      font-size: 14px;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .tier-list li::before {
+      content: '▸';
+      color: var(--brand);
+      flex-shrink: 0;
+    }
+    .tier-list strong { color: var(--ink); font-weight: 600; }
+
+    /* TABLE */
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 40px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 720px;
+    }
+    th {
+      background: var(--surface-2);
+      text-align: left;
+      padding: 16px 18px;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      font-weight: 600;
+      border-bottom: 1px solid var(--line);
+    }
+    th.brand { color: var(--brand); }
+    td {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft);
+      vertical-align: top;
+    }
+    td.label { color: var(--ink); font-weight: 600; }
+    td.brand { color: var(--brand); font-weight: 600; }
+    td.green { color: var(--green); font-weight: 600; }
+    td.red { color: var(--red); font-weight: 500; }
+    tr:last-child td { border-bottom: 0; }
+    tr:hover td { background: var(--surface-2); }
+
+    /* NUMBERS BLOCK */
+    .nums-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .num-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .num-card-lbl {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .num-card-val {
+      font-family: var(--f-display);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .num-card-val.brand { color: var(--brand); }
+    .num-card-val.green { color: var(--green); }
+    .num-card-meta {
+      font-size: 12px;
+      color: var(--ink-mute);
+      margin-top: 8px;
+    }
+
+    /* MATRIX (2 col) */
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    @media (max-width: 980px) { .matrix { grid-template-columns: 1fr; } }
+    .matrix-col {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px;
+    }
+    .matrix-col h4 {
+      font-family: var(--f-display);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .matrix-col.you h4 { color: var(--brand); }
+    .matrix-col.them h4 { color: var(--accent); }
+    .matrix-col li {
+      list-style: none;
+      padding: 12px 0;
+      font-size: 14px;
+      color: var(--ink-soft);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--line);
+    }
+    .matrix-col li:last-child { border-bottom: 0; }
+    .matrix-col.you li::before { content: '★'; color: var(--brand); }
+    .matrix-col.them li::before { content: '◆'; color: var(--accent); }
+    .matrix-col strong { color: var(--ink); }
+
+    /* RISK BOX */
+    .risk {
+      background: var(--surface);
+      border: 1px solid var(--red-soft);
+      border-left: 3px solid var(--red);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-top: 16px;
+    }
+    .risk-title {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .risk-desc {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+    .risk-fix {
+      font-size: 14px;
+      color: var(--ink);
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .risk-fix strong { color: var(--green); }
+
+    /* TIMELINE */
+    .timeline {
+      margin-top: 40px;
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--line-strong);
+    }
+    .tl-item {
+      position: relative;
+      padding: 16px 0 24px 24px;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      top: 22px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: 2px solid var(--bg);
+    }
+    .tl-time {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--brand);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .tl-title {
+      font-family: var(--f-display);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .tl-body {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    /* DECISIONS */
+    .decision-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 32px;
+    }
+    .decision-list li {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .decision-num {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--brand);
+      background: var(--brand-soft);
+      padding: 6px 10px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+    .decision-text { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+    .decision-text strong { color: var(--ink); }
+
+    /* TOC */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px;
+      margin: 56px 0 0;
+    }
+    .toc h4 {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--brand);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .toc ol {
+      list-style: none;
+      padding: 0;
+      counter-reset: toc;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 32px;
+    }
+    @media (max-width: 768px) { .toc ol { grid-template-columns: 1fr; } }
+    .toc ol li {
+      counter-increment: toc;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .toc ol li a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      display: flex;
+      gap: 12px;
+      transition: color 0.15s ease;
+    }
+    .toc ol li a:hover { color: var(--brand); }
+    .toc ol li a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-family: var(--f-mono);
+      color: var(--brand);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 80px 0 60px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--ink-mute);
+      font-family: var(--f-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-brand">Achamos <span class="dot">·</span> Portal Imobiliário</div>
+      <div class="topbar-meta">Modelo de Negócio · v1.0 · 2026-05-28</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Documento estratégico · interno</div>
+      <h1 class="hero-title">Não vendemos software. Vendemos <em>rede, processo e canal</em>.</h1>
+      <p class="hero-lead">
+        Modelo de monetização do <strong>Portal Imobiliário Achamos</strong> — produto B2B desenhado pra imobiliária de médio porte que quer entregar uma experiência <strong>tipo Quinto Andar com a marca dela</strong>, sem precisar virar Quinto Andar. Documento serve de base pra detalhar cada pilar de receita ponto a ponto.
+      </p>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">6</div>
+          <div class="stat-lbl">Pilares de receita</div>
+        </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-lbl">Tiers Achamos+ Partner</div>
+        </div>
+        <div>
+          <div class="stat-num">R$ <span class="small">890</span></div>
+          <div class="stat-lbl">Mensalidade base</div>
+        </div>
+        <div>
+          <div class="stat-num">R$ <span class="small">26M</span></div>
+          <div class="stat-lbl">ARR projetado M18 · 6 pilares</div>
+        </div>
+      </div>
+
+      <nav class="toc">
+        <h4>Índice deste documento</h4>
+        <ol>
+          <li><a href="#posicionamento">Posicionamento estratégico</a></li>
+          <li><a href="#marcas">Reposicionamento das marcas</a></li>
+          <li><a href="#valor">Quem entrega o quê</a></li>
+          <li><a href="#pilares">Os 5 pilares de receita</a></li>
+          <li><a href="#pilar-1">Pilar 1 · Mensalidade Software</a></li>
+          <li><a href="#pilar-2">Pilar 2 · Achamos+ Partner</a></li>
+          <li><a href="#pilar-3">Pilar 3 · Seguro Fiança</a></li>
+          <li><a href="#pilar-4">Pilar 4 · Fee Infra Digital</a></li>
+          <li><a href="#pilar-5">Pilar 5 · Achamos+ Direto</a></li>
+          <li><a href="#pilar-6">Pilar 6 · Se Hospede para Comprar</a></li>
+          <li><a href="#projecao">Projeção financeira</a></li>
+          <li><a href="#riscos">Riscos e mitigações</a></li>
+          <li><a href="#roadmap">Roadmap de execução</a></li>
+          <li><a href="#decisoes">Decisões a travar</a></li>
+        </ol>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 1. POSICIONAMENTO -->
+  <section id="posicionamento">
+    <div class="container">
+      <div class="section-eyebrow">01 · Posicionamento estratégico</div>
+      <h2 class="section-title">Quinto Andar é <em>operação</em>. Nós somos <em>infraestrutura</em>.</h2>
+      <p class="section-lead">
+        A diferença entre <strong>ser uma imobiliária digital nacional</strong> e <strong>ser a empresa que permite à imobiliária local virar uma imobiliária digital</strong> é a única coisa que separa um produto de margem alta com escala humana enxuta de um produto de margem baixa com escala humana enorme. Aqui mora a tese.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">REJEITADO</div>
+          <div class="card-title">Ser o próprio Quinto Andar</div>
+          <div class="card-body">
+            Exige centenas de corretores próprios, presença física em N cidades, gestão direta de carteira gigante. Capex e opex inviáveis pra grupo Achamos hoje. Concorrência direta com Quinto Andar, Loft, QuintoAndar — perdemos antes de começar.
+          </div>
+        </div>
+        <div class="card featured">
+          <div class="card-num">ESCOLHIDO</div>
+          <div class="card-title">Ser infraestrutura das imobiliárias</div>
+          <div class="card-body">
+            Imobiliária de médio porte (10-50 imóveis ativos) usa nosso portal e oferece ao cliente dela a experiência tipo Quinto Andar — <strong>com a marca dela</strong>. Nós ficamos com infra + canal + status. Modelo escala com adição de imobiliárias parceiras, não com contratação de corretores.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. MARCAS -->
+  <section id="marcas">
+    <div class="container">
+      <div class="section-eyebrow">02 · Reposicionamento das marcas</div>
+      <h2 class="section-title">Duas marcas, dois <em>jogos diferentes</em>.</h2>
+      <p class="section-lead">
+        <strong>Achamos+</strong> e <strong>Portal Imobiliário Achamos</strong> são produtos distintos com clientes, dores e modelos de monetização diferentes. A integração entre os dois é técnica e opcional — não contratual.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-num">★ ACHAMOS+ · B2C</div>
+          <div class="card-title">Sua imobiliária digital de leilão reverso</div>
+          <div class="card-body">
+            Comprador qualificado paga Spotlight (R$ 2.500). Vendedores se candidatam ao briefing. <strong>Achamos é a imobiliária da operação</strong> — você fica com 6% de comissão na venda. Imobiliárias parceiras podem participar como candidatos opcionalmente, mas não são donas do produto.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-num">◆ PORTAL · B2B</div>
+          <div class="card-title">Infraestrutura das imobiliárias de médio porte</div>
+          <div class="card-body">
+            Imobiliária paga assinatura + serviços. Tem loja no marketplace com marca própria, sistema operacional completo (visita, proposta, contrato, gestão locação) e acesso opcional aos briefings Achamos+. <strong>Cliente B2B paga, consumidor final dela usa</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="deep-box" style="margin-top: 40px;">
+        <h3>Como os dois <em>se cruzam</em> sem se canibalizar</h3>
+        <p class="deep-lead">
+          Imobiliária parceira do Portal pode opt-in pra ver briefings ativos do Achamos+. Se um briefing matchar imóvel da carteira dela, ela candidata. Se fechar, paga comissão conforme o tier escolhido no Achamos+ Partner (50% / 20% / 10%). Sem este opt-in, ela continua usando o Portal só pra operação dela. <strong>Zero compromisso contratual entre os dois produtos</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. VALOR -->
+  <section id="valor">
+    <div class="container">
+      <div class="section-eyebrow">03 · Matriz de valor</div>
+      <h2 class="section-title">O que cada lado <em>entrega e recebe</em>.</h2>
+      <p class="section-lead">
+        A relação sustenta no longo prazo porque o que entregamos não é commodity, e o que recebemos não compete com o ganho central da imobiliária parceira.
+      </p>
+
+      <div class="matrix">
+        <div class="matrix-col you">
+          <h4>★ O que Achamos entrega</h4>
+          <li><div><strong>Infraestrutura digital completa</strong> — sistema de visita, proposta, contrato, gestão de locação ponta-a-ponta</div></li>
+          <li><div><strong>Loja no marketplace</strong> com marca da imobiliária + tráfego comum do portal</div></li>
+          <li><div><strong>Integração com canais externos</strong> (OLX, Zap Imóveis, ChavesNaMão, ImovelWeb) — lead chega e entra automatizado no funil</div></li>
+          <li><div><strong>Canal de leads premium opcional</strong> (briefings Achamos+ Spotlight)</div></li>
+          <li><div><strong>Selo Achamos Partner Certified</strong> — status de mercado + diferenciação reputacional</div></li>
+          <li><div><strong>Processo padronizado</strong> que profissionaliza a operação dela (sai do WhatsApp + planilha)</div></li>
+        </div>
+
+        <div class="matrix-col them">
+          <h4>◆ O que a imobiliária paga</h4>
+          <li><div><strong>Mensalidade fixa baixa</strong> (~R$ 890) — fee de infraestrutura</div></li>
+          <li><div><strong>Pacote Achamos+ Partner opcional</strong> (Free / Credit / Master) — pra ter direito a candidatar em leilões Spotlight</div></li>
+          <li><div><strong>Comissão dividida</strong> quando fecha venda via Achamos+ (depende do tier)</div></li>
+          <li><div><strong>Indica seguro fiança Achamos</strong> nas locações dela (ganho da nossa corretora parceira)</div></li>
+          <li><div><strong>Fee pequeno por contrato fechado</strong> no portal (~R$ 79-149 · custo de infra digital)</div></li>
+          <li><div><strong>Sem take rate sobre vendas dela</strong> que vieram de canal próprio (OLX, indicação)</div></li>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PILARES -->
+  <section id="pilares">
+    <div class="container">
+      <div class="section-eyebrow">04 · Os 6 pilares de receita</div>
+      <h2 class="section-title">Seis fontes <em>combinadas</em> que evitam dependência única.</h2>
+      <p class="section-lead">
+        Nenhum pilar isolado é o jackpot. <strong>A combinação é o que torna o modelo defensível</strong>: cliente que tenta substituir Achamos precisa replicar 6 coisas ao mesmo tempo. Concorrente novo entrega 1 ou 2 e não vence o stack.
+      </p>
+
+      <div class="grid-3" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="pillar">
+          <span class="pillar-num">PILAR 1</span>
+          <div class="pillar-title">Mensalidade Software</div>
+          <div class="pillar-source">Infraestrutura · piso de caixa previsível</div>
+          <div class="pillar-amt">R$ 890/mês</div>
+          <div class="pillar-freq">Recorrente · por imobiliária</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num">PILAR 2</span>
+          <div class="pillar-title">Achamos+ Partner</div>
+          <div class="pillar-source">3 tiers · Free / Credit / Master</div>
+          <div class="pillar-amt">R$ 0 a R$ 4.900</div>
+          <div class="pillar-freq">Variável · comissão / pacote</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num">PILAR 3</span>
+          <div class="pillar-title">Seguro Fiança</div>
+          <div class="pillar-source">Comissão corretora · 22% prêmio</div>
+          <div class="pillar-amt">~R$ 528/contrato</div>
+          <div class="pillar-freq">Por locação fechada</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num">PILAR 4</span>
+          <div class="pillar-title">Fee Infra Digital</div>
+          <div class="pillar-source">Custo de operação digital</div>
+          <div class="pillar-amt">R$ 79-149</div>
+          <div class="pillar-freq">Por contrato fechado</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num">PILAR 5</span>
+          <div class="pillar-title">Achamos+ Direto</div>
+          <div class="pillar-source">Sua imobiliária · vendedor solto</div>
+          <div class="pillar-amt">R$ 2.500 + 6%</div>
+          <div class="pillar-freq">Por leilão fechado</div>
+        </div>
+        <div class="pillar" style="border-color: var(--accent); background: linear-gradient(180deg, rgba(255, 107, 71, 0.06) 0%, var(--surface) 60%);">
+          <span class="pillar-num" style="color: var(--accent); background: rgba(255, 107, 71, 0.15);">PILAR 6 · NOVO</span>
+          <div class="pillar-title">Se Hospede para Comprar</div>
+          <div class="pillar-source">Imóvel parado vira ativo · test drive de venda</div>
+          <div class="pillar-amt" style="color: var(--accent);">~R$ 1.920/mês</div>
+          <div class="pillar-freq">Por imóvel ativo no programa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILAR 1 -->
+  <section id="pilar-1">
+    <div class="container">
+      <div class="section-eyebrow">05 · Detalhe · Pilar 1</div>
+      <h2 class="section-title">Mensalidade Software · <em>R$ 890/mês</em></h2>
+      <p class="section-lead">
+        O piso de receita. Não é onde se faz dinheiro grande — é onde se cria previsibilidade de caixa e ancora a relação. Posicionada como <strong>fee de infraestrutura</strong>, não como SaaS.
+      </p>
+
+      <div class="deep-box">
+        <h3>O que <em>entrega</em></h3>
+        <ul class="checklist">
+          <li><strong>Acesso completo ao Portal</strong> · sistema operacional ponta-a-ponta da imobiliária</li>
+          <li><strong>Loja personalizada no marketplace</strong> · página da imobiliária com marca dela, fotos, equipe, propriedades</li>
+          <li><strong>Integração com OLX, Zap Imóveis, ChavesNaMão, ImovelWeb</strong> · lead chega ali, entra automaticamente no funil do Portal</li>
+          <li><strong>Sistema de visita</strong> · agendamento, confirmação, follow-up, qualificação</li>
+          <li><strong>Proposta digital + contrato digital + assinatura eletrônica</strong></li>
+          <li><strong>Gestão de locação ponta-a-ponta</strong> · move-in, tenancy-ops, tenancy-risk, move-out, ops-intelligence</li>
+          <li><strong>Selo "Achamos Partner Certified"</strong> · pode usar em assinatura de e-mail, vitrine, materiais</li>
+          <li><strong>Suporte humano 14 dias</strong> no onboarding · depois suporte por chat</li>
+        </ul>
+
+        <h3 style="margin-top: 40px;">Posicionamento · <em>NÃO é SaaS</em></h3>
+        <p class="deep-lead">
+          O cliente não compra "software de gestão imobiliária" (commodity, troca pelo concorrente mais barato). Ele compra <strong>estar dentro da rede Achamos</strong> — acesso ao marketplace, integração de canais que ele já usa, processo padronizado. R$ 890 é o ticket de entrada nesse ecossistema, não a fatura do sistema.
+        </p>
+
+        <h3 style="margin-top: 40px;">Por que <em>não cobramos take rate</em> sobre venda dela</h3>
+        <p class="deep-lead">
+          Se cobrássemos % sobre venda que ela trouxe via OLX/Zap, ela acharia caminhos pra fechar fora do portal (anti-pulo seria pesadelo operacional). Fugindo do take rate, a relação fica limpa: ela paga infra fixa, faz o que quer com vendas próprias, e divide só onde Achamos efetivamente entregou o lead.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILAR 2 -->
+  <section id="pilar-2">
+    <div class="container">
+      <div class="section-eyebrow">06 · Detalhe · Pilar 2</div>
+      <h2 class="section-title">Achamos+ Partner · <em>3 tiers</em> de participação no leilão</h2>
+      <p class="section-lead">
+        O Pilar 2 é onde mora o <strong>upside de receita</strong>. Imobiliária escolhe quanto quer apostar no canal Achamos+ — quanto mais aposta, mais retém da comissão. Modelo opt-in resolve fricção de adoção: ninguém é obrigado a contratar pacote, mas quem fechar pouco no Free Match descobre rápido que Credit Pack vale mais.
+      </p>
+
+      <div class="tier-grid">
+        <!-- TIER FREE -->
+        <div class="tier">
+          <div class="tier-name">Free Match</div>
+          <div class="tier-sub">Porta de entrada · zero compromisso</div>
+          <div class="tier-price">R$ 0</div>
+          <div class="tier-price-meta">+ 50% comissão se fechar</div>
+          <ul class="tier-list">
+            <li><strong>2 candidaturas grátis/mês</strong> em briefings Spotlight</li>
+            <li>Divide <strong>comissão 50/50</strong> com Achamos se fechar</li>
+            <li>Vê briefings <strong>após janela exclusiva</strong> dos pagantes</li>
+            <li>Sem destaque na lista de candidatos</li>
+            <li>Sem suporte prioritário</li>
+          </ul>
+        </div>
+
+        <!-- TIER CREDIT -->
+        <div class="tier recommended">
+          <span class="tier-flag">Sweet spot</span>
+          <div class="tier-name">Credit Pack</div>
+          <div class="tier-sub">Volume previsível · margem boa</div>
+          <div class="tier-price">R$ 990<span style="font-size: 16px; color: var(--ink-mute); font-weight: 400;">/mês</span></div>
+          <div class="tier-price-meta">10 candidaturas · 20% comissão se fechar</div>
+          <ul class="tier-list">
+            <li><strong>10 créditos/mês</strong> · 1 crédito = 1 candidatura</li>
+            <li>Créditos não usados <strong>rolam 30 dias</strong></li>
+            <li>Retém <strong>80% da comissão</strong> se fechar</li>
+            <li>Acesso a briefings <strong>24h antes</strong> do Free Match</li>
+            <li>Destaque "Credit Partner" na lista de candidatos</li>
+            <li>Suporte por chat em horário comercial</li>
+          </ul>
+        </div>
+
+        <!-- TIER MASTER -->
+        <div class="tier">
+          <div class="tier-name">Master Partner</div>
+          <div class="tier-sub">Volume alto · exposição máxima</div>
+          <div class="tier-price">R$ 4.900<span style="font-size: 16px; color: var(--ink-mute); font-weight: 400;">/mês</span></div>
+          <div class="tier-price-meta">Ilimitado · 10% comissão se fechar</div>
+          <ul class="tier-list">
+            <li><strong>Candidaturas ilimitadas</strong> em todos os briefings</li>
+            <li>Retém <strong>90% da comissão</strong> se fechar</li>
+            <li><strong>Prioridade 48h</strong> · vê briefings antes de todos</li>
+            <li><strong>2 imóveis em destaque permanente</strong> no marketplace</li>
+            <li>Selo <strong>"Achamos Elite Partner"</strong></li>
+            <li>Gerente de conta nomeado</li>
+            <li><strong>Exclusividade geográfica opcional</strong> (1 por bairro/cidade pequena)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deep-box" style="margin-top: 40px;">
+        <h3>Lógica do <em>upsell automático</em></h3>
+        <p class="deep-lead">
+          Imobiliária pequena começa no Free Match (gratuito). Se fechar 1 venda por trimestre via Achamos+ (média), descobre que <strong>50% da comissão pesa</strong>. Migra pra Credit Pack pra ficar com 80%. Quando começa a fechar 2+ vendas/mês, faz a conta e percebe que Master (10%) sai melhor que Credit (20%). <strong>O cliente faz o upsell sozinho quando vê o volume</strong> — você não precisa vender.
+        </p>
+
+        <h3 style="margin-top: 40px;">Onde vai o <em>dinheiro do pacote</em></h3>
+        <p class="deep-lead">
+          70% do que entra em Credit Pack e Master Partner volta como <strong>verba de mídia paga</strong> direcionada a atrair compradores Spotlight pro Achamos+. Quanto mais imobiliárias pagam pacote, mais Achamos investe em tráfego, mais compradores ativam Spotlight, mais leilões rodam, mais imobiliárias se interessam pelo pacote. Roda em volante.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILAR 3 -->
+  <section id="pilar-3">
+    <div class="container">
+      <div class="section-eyebrow">07 · Detalhe · Pilar 3</div>
+      <h2 class="section-title">Seguro Fiança · receita <em>silenciosa</em> que escala com volume</h2>
+      <p class="section-lead">
+        Imobiliária parceira do Portal indica preferencialmente o seguro fiança da <strong>corretora Achamos parceira</strong> nas locações. Cliente final (inquilino) tem fluxo de 1 clique pra contratar — alternativas (fiador, caução, capitalização) exigem documentos + 5 dias de análise. <strong>UX vence força contratual: 70-85% das locações fecham na nossa apólice por inércia</strong>.
+      </p>
+
+      <div class="deep-box">
+        <h3>Conta unitária <em>realista</em></h3>
+        <ul class="checklist">
+          <li>Aluguel médio do Portal: <strong>R$ 3.000/mês</strong></li>
+          <li>Prêmio fiança típico: <strong>5-8% do aluguel anual</strong> = ~R$ 1.800 a R$ 2.880/ano</li>
+          <li>Comissão da corretora parceira: <strong>22% do prêmio</strong> = R$ 396 a R$ 633/contrato</li>
+          <li>Comissão média realizada: <strong>~R$ 528 por contrato</strong> de locação fechado</li>
+        </ul>
+
+        <h3 style="margin-top: 40px;">Conta agregada · <em>100 imobiliárias na rede</em></h3>
+        <div class="nums-grid">
+          <div class="num-card">
+            <div class="num-card-lbl">Imobiliárias na rede</div>
+            <div class="num-card-val">100</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Locações fechadas / mês</div>
+            <div class="num-card-val">~400</div>
+            <div class="num-card-meta">4 por imobiliária em média</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Receita fiança / mês</div>
+            <div class="num-card-val brand">R$ 211k</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Receita fiança / ano</div>
+            <div class="num-card-val green">R$ 2.5M</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 40px;">⚠ Atenção <em>regulatória</em> · não pula isso</h3>
+        <ul class="checklist warn">
+          <li><strong>Corretora de seguros exige SUSEP</strong> · sem registro, intermediação é ilegal</li>
+          <li><strong>Caminho rápido: parceria</strong> com corretora licenciada (Pottencial, Porto Aluguel, Loft Seguros, Pacaembu Seguros) · divide comissão · sem custo de licenciar</li>
+          <li><strong>Caminho mais lucrativo: abrir corretora própria</strong> · custo ~R$ 30-60k em estruturação + corretor responsável técnico licenciado · margens dobram</li>
+          <li><strong>Não pode obrigar inquilino</strong> a contratar seguradora específica (LGPD + concorrência) · pode posicionar como default de 1 clique</li>
+        </ul>
+
+        <h3 style="margin-top: 40px;">Estratégia <em>recomendada</em></h3>
+        <p class="deep-lead">
+          Começa com <strong>parceria com corretora licenciada</strong> nos primeiros 12-18 meses pra validar volume. Quando volume passar de ~200 contratos/mês, transição pra <strong>corretora própria</strong> — dobra margem (comissão sai de 22% pra ~40-45% efetivos). Investimento de R$ 50k em licenciamento paga em 2-3 meses.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILAR 4 -->
+  <section id="pilar-4">
+    <div class="container">
+      <div class="section-eyebrow">08 · Detalhe · Pilar 4</div>
+      <h2 class="section-title">Fee Infra Digital · <em>micro-cobrança</em> que escala</h2>
+      <p class="section-lead">
+        Cada contrato fechado dentro do Portal paga um <strong>fee de infraestrutura digital</strong>. Não é take rate sobre comissão da imobiliária — é custo operacional como taxa de cartório ou e-CPF. Volume escala com base, custo marginal seu é baixo, margem alta.
+      </p>
+
+      <div class="deep-box">
+        <h3>Tabela de <em>preços</em></h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Operação</th>
+                <th>Fee</th>
+                <th>O que cobre</th>
+                <th class="brand">Margem estimada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">Contrato de venda fechado</td>
+                <td class="brand">R$ 149</td>
+                <td>Assinatura digital + ITBI checklist + due diligence docs + registro digital</td>
+                <td class="green">~R$ 105 líquidos</td>
+              </tr>
+              <tr>
+                <td class="label">Contrato de locação fechado</td>
+                <td class="brand">R$ 79</td>
+                <td>Assinatura digital + checklist garantia + onboarding inquilino</td>
+                <td class="green">~R$ 55 líquidos</td>
+              </tr>
+              <tr>
+                <td class="label">Renovação de contrato locação</td>
+                <td class="brand">R$ 39</td>
+                <td>Reajuste IGPM/IPCA automático + nova assinatura digital</td>
+                <td class="green">~R$ 28 líquidos</td>
+              </tr>
+              <tr>
+                <td class="label">Vistoria de entrada/saída</td>
+                <td class="brand">R$ 199</td>
+                <td>App de vistoria + relatório digital + assinatura inquilino</td>
+                <td class="green">~R$ 140 líquidos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 40px;">Mitigação de <em>atrito</em> em imobiliárias pequenas</h3>
+        <p class="deep-lead">
+          Imobiliária pequena no Free Match pode reclamar de "mais uma cobrança". Mitigação: <strong>primeiros 5 contratos do mês isentos</strong>, do 6º em diante cobra. Quem fatura pouco não sente, quem fatura muito paga. Pricing alinhado à capacidade.
+        </p>
+
+        <h3 style="margin-top: 40px;">Posicionamento · <em>NÃO é take rate</em></h3>
+        <p class="deep-lead">
+          Crítico que isso não seja apresentado como "Achamos comendo % da comissão". Vendido como <strong>custo de operação digital obrigatória</strong> — assim como ela paga PJ pra cartório, paga Pix pra banco, paga ITBI pra prefeitura. Achamos cobra pelo registro digital padronizado.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILAR 5 -->
+  <section id="pilar-5">
+    <div class="container">
+      <div class="section-eyebrow">09 · Detalhe · Pilar 5</div>
+      <h2 class="section-title">Achamos+ Direto · sua <em>imobiliária</em> rodando paralelo</h2>
+      <p class="section-lead">
+        Achamos+ continua sendo <strong>imobiliária digital própria</strong>. Quando o vendedor candidato é um proprietário solto (não imobiliária parceira), você fica com 100% da comissão de venda. Esse é o pilar onde Achamos+ se sustenta como produto independente do Portal.
+      </p>
+
+      <div class="deep-box">
+        <h3>Receita por <em>leilão fechado</em> com vendedor direto</h3>
+        <ul class="checklist">
+          <li><strong>Spotlight do comprador</strong> · R$ 2.500 (creditável no fechamento, mas captura no início)</li>
+          <li><strong>Comissão de venda</strong> · 6% sobre valor do imóvel · 100% pra Achamos</li>
+          <li>Em venda média R$ 600k = <strong>R$ 36.000 de comissão de venda</strong></li>
+          <li>Total por leilão fechado com vendedor solto: <strong>~R$ 36k (Spotlight reverte no fechamento mas reduz CAC)</strong></li>
+        </ul>
+
+        <h3 style="margin-top: 40px;">Quando o vendedor é <em>imobiliária parceira</em>, a equação muda</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tier da imobiliária</th>
+                <th>Comissão pra ela</th>
+                <th class="brand">Comissão pra Achamos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">Free Match</td>
+                <td>50%</td>
+                <td class="brand">50%</td>
+              </tr>
+              <tr>
+                <td class="label">Credit Pack</td>
+                <td>80%</td>
+                <td class="brand">20%</td>
+              </tr>
+              <tr>
+                <td class="label">Master Partner</td>
+                <td>90%</td>
+                <td class="brand">10%</td>
+              </tr>
+              <tr>
+                <td class="label">Vendedor direto · proprietário</td>
+                <td>—</td>
+                <td class="brand">100%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 40px;">Por que <em>vendedor solto</em> é o melhor cenário</h3>
+        <p class="deep-lead">
+          Você fica com 100% da comissão (R$ 36k em venda R$ 600k) + R$ 2.500 do comprador. Imobiliária parceira ainda é boa porque adiciona <strong>oferta no leilão</strong> (aumenta a chance de fechar) e diversifica risco. Mas vendedor solto é onde a margem do Achamos+ é máxima.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILAR 6 · SE HOSPEDE PARA COMPRAR -->
+  <section id="pilar-6">
+    <div class="container">
+      <div class="section-eyebrow" style="color: var(--accent);">10 · Detalhe · Pilar 6 · NOVO</div>
+      <h2 class="section-title">Se Hospede para Comprar · <em style="color: var(--accent);">imóvel parado vira ativo</em>.</h2>
+      <p class="section-lead">
+        Pilar adicionado a partir do produto <strong>Se Hospede para Comprar</strong>. Proprietário com imóvel desocupado há meses transforma o imóvel em <strong>ativo gerador de renda durante a venda</strong>, com operação Achamos + participação da imobiliária parceira que indicou.
+      </p>
+
+      <div class="deep-box">
+        <h3>A tese · <em>vendedor pressionado aceita oferta ruim</em></h3>
+        <p class="deep-lead">
+          Imóvel à venda há 8, 12, 18 meses sangra IPTU + condomínio + luz. Proprietário pressionado por despesas baixa o preço ou aceita oferta inferior. Achamos transforma o imóvel em <strong>ativo de renda flexível durante a venda</strong>: comprador potencial hospeda 3-7 noites, sente o bairro, decide com convicção. Imóvel cobre próprios custos, proprietário ganha fôlego, fecha venda com poder de negociação.
+        </p>
+
+        <h3 style="margin-top: 40px;">Divisão de receita · <em>cenário mobiliado</em></h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Quem recebe</th>
+                <th>% receita líquida</th>
+                <th class="brand">Em receita mensal de R$ 6.000 (imóvel R$ 800k · 0.75%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">Proprietário</td>
+                <td>58%</td>
+                <td class="brand">R$ 3.480</td>
+              </tr>
+              <tr>
+                <td class="label">Imobiliária Parceira · indicação</td>
+                <td>10%</td>
+                <td class="brand">R$ 600</td>
+              </tr>
+              <tr>
+                <td class="label">Achamos · operação</td>
+                <td>32%</td>
+                <td class="brand">R$ 1.920</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 40px;">Divisão de receita · <em>cenário sem mobília</em></h3>
+        <p class="deep-lead">
+          Mobília consome 15-20% da receita líquida (média 17,5%). O restante segue divisão padrão 58 / 10 / 32. Possibilidade de venda da mobília no fechamento — receita extra 100% Achamos.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Quem recebe</th>
+                <th>% receita líquida</th>
+                <th class="brand">Em receita mensal de R$ 6.000</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">Mobília · aluguel/leasing</td>
+                <td>~17,5%</td>
+                <td class="brand">R$ 1.050</td>
+              </tr>
+              <tr>
+                <td class="label">Proprietário</td>
+                <td>~47,85%</td>
+                <td class="brand">R$ 2.871</td>
+              </tr>
+              <tr>
+                <td class="label">Imobiliária Parceira · indicação</td>
+                <td>~8,25%</td>
+                <td class="brand">R$ 495</td>
+              </tr>
+              <tr>
+                <td class="label">Achamos · operação</td>
+                <td>~26,4%</td>
+                <td class="brand">R$ 1.584</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 40px;">Quando o imóvel <em>vende</em></h3>
+        <p class="deep-lead">
+          Comissão de venda 6% sobre valor do imóvel. <strong>Divisão 50/50</strong> com imobiliária parceira (3% pra cada lado). Em imóvel R$ 800k: <strong>R$ 24.000 pra imobiliária · R$ 24.000 pra Achamos</strong>.
+        </p>
+
+        <h3 style="margin-top: 40px;">Ticket completo da <em>imobiliária parceira</em> por imóvel · ciclo 6 meses</h3>
+        <div class="nums-grid">
+          <div class="num-card">
+            <div class="num-card-lbl">Indicação · 10% × 6 meses</div>
+            <div class="num-card-val">R$ 3.600</div>
+            <div class="num-card-meta">Renda passiva</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Comissão venda · 50%</div>
+            <div class="num-card-val brand">R$ 24.000</div>
+            <div class="num-card-meta">3% do imóvel R$ 800k</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Total · 1 imóvel · 6 meses</div>
+            <div class="num-card-val green">R$ 27.600</div>
+            <div class="num-card-meta">Receita completa do ciclo</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Com 5 imóveis no programa</div>
+            <div class="num-card-val accent">~R$ 138.000</div>
+            <div class="num-card-meta">Em 6 meses · ticket forte</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 40px;">Integração com <em>Achamos+ Spotlight Plus</em></h3>
+        <p class="deep-lead">
+          Comprador Spotlight Plus (R$ 2.500 base + R$ 2.000 add-on) tem acesso a <strong>7 noites de hospedagem com diária reduzida a 65%</strong> nos imóveis finalistas, com 100% do valor abatido no fechamento. Os 35% de desconto saem da margem Achamos (custo de marketing pra acelerar conversão). Vantagem dupla: proprietário Se Hospede recebe hóspede ultra-qualificado · Achamos converte mais Spotlights em vendas.
+        </p>
+
+        <h3 style="margin-top: 40px;">Único <em>impedimento</em> operacional</h3>
+        <ul class="checklist">
+          <li><strong>Imóvel precisa estar desocupado ou semi-desocupado</strong> · sem inquilino fixo</li>
+          <li><strong>Sem ticket mínimo</strong> · funciona pra imóvel R$ 250k até R$ 5M+</li>
+          <li><strong>Condomínios que proíbem short-stay tradicional</strong> têm resistência reduzida porque é programa de venda, não temporada comercial · validação caso a caso</li>
+          <li><strong>Atendimento bilíngue</strong> disponível pra comprador estrangeiro</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJEÇÃO -->
+  <section id="projecao">
+    <div class="container">
+      <div class="section-eyebrow">11 · Projeção financeira</div>
+      <h2 class="section-title">Conta da casa · <em>por imobiliária</em> e agregada</h2>
+      <p class="section-lead">
+        Premissas conservadoras. Imobiliária média do Portal fecha 4 locações/mês + 1 venda/mês. Achamos+ ativo dispara conforme volume de Spotlights compradores.
+      </p>
+
+      <div class="deep-box">
+        <h3>Receita anual <em>por imobiliária</em></h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fonte</th>
+                <th>Cliente Free Match</th>
+                <th>Cliente Credit Pack</th>
+                <th class="brand">Cliente Master Partner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">Mensalidade · R$ 890/mês</td>
+                <td>R$ 10.680</td>
+                <td>R$ 10.680</td>
+                <td class="brand">R$ 10.680</td>
+              </tr>
+              <tr>
+                <td class="label">Pacote Achamos+</td>
+                <td>R$ 0</td>
+                <td>R$ 11.880</td>
+                <td class="brand">R$ 58.800</td>
+              </tr>
+              <tr>
+                <td class="label">Seguro fiança · 4 locações/mês</td>
+                <td>R$ 25.344</td>
+                <td>R$ 25.344</td>
+                <td class="brand">R$ 25.344</td>
+              </tr>
+              <tr>
+                <td class="label">Fee infra · ~5 contratos/mês</td>
+                <td>R$ 4.260</td>
+                <td>R$ 4.260</td>
+                <td class="brand">R$ 4.260</td>
+              </tr>
+              <tr>
+                <td class="label">Achamos+ comissão · vendas via leilão</td>
+                <td>R$ 54.000</td>
+                <td>R$ 28.800</td>
+                <td class="brand">R$ 25.200</td>
+              </tr>
+              <tr style="background: var(--brand-soft);">
+                <td class="label">TOTAL · ano · cliente médio</td>
+                <td class="brand"><strong>~R$ 94k</strong></td>
+                <td class="brand"><strong>~R$ 81k</strong></td>
+                <td class="brand"><strong>~R$ 124k</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 48px;">Projeção <em>agregada</em> · mix 100 imobiliárias na rede (M18)</h3>
+        <div class="nums-grid">
+          <div class="num-card">
+            <div class="num-card-lbl">Imobiliárias Free Match (60%)</div>
+            <div class="num-card-val">60</div>
+            <div class="num-card-meta">~R$ 5,6M ARR</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Imobiliárias Credit Pack (25%)</div>
+            <div class="num-card-val">25</div>
+            <div class="num-card-meta">~R$ 2,0M ARR</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Imobiliárias Master Partner (15%)</div>
+            <div class="num-card-val">15</div>
+            <div class="num-card-meta">~R$ 1,9M ARR</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">ARR Portal · Pilares 1-4</div>
+            <div class="num-card-val green">~R$ 9,5M</div>
+            <div class="num-card-meta">Com 100 parceiras</div>
+          </div>
+          <div class="num-card">
+            <div class="num-card-lbl">Achamos+ Direto · Pilar 5</div>
+            <div class="num-card-val brand">~R$ 13,8M</div>
+            <div class="num-card-meta">30 Spotlights/mês · ticket médio</div>
+          </div>
+          <div class="num-card" style="border-color: var(--accent);">
+            <div class="num-card-lbl">Se Hospede para Comprar · Pilar 6</div>
+            <div class="num-card-val accent">~R$ 2,7M</div>
+            <div class="num-card-meta">90 imóveis ativos · 27 vendas/ano</div>
+          </div>
+          <div class="num-card" style="border-color: var(--green);">
+            <div class="num-card-lbl">ARR total grupo · M18</div>
+            <div class="num-card-val green">~R$ 26M</div>
+            <div class="num-card-meta">6 pilares combinados</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 48px;">Detalhamento Pilar 6 · <em>premissas</em></h3>
+        <ul class="checklist">
+          <li><strong>30% das imobiliárias parceiras</strong> ativam Se Hospede para Comprar em algum imóvel da carteira (30 de 100)</li>
+          <li>Cada uma tem em média <strong>3 imóveis ativos</strong> no programa = 90 imóveis Achamos operando</li>
+          <li>Receita Achamos por imóvel mobiliado · ~R$ 1.920/mês × 90 × 12 = <strong>R$ 2,07M/ano</strong> (operação)</li>
+          <li>Taxa de venda anual · ~30% dos imóveis vendem (27 vendas) × R$ 24.000 comissão Achamos = <strong>R$ 648k/ano</strong> (fechamento)</li>
+          <li>Total Pilar 6 · ~R$ 2,72M ARR adicional · sem contar Spotlights Plus que vem do Pilar 5</li>
+        </ul>
+
+        <h3 style="margin-top: 48px;">Time mínimo pra rodar <em>esse volume</em></h3>
+        <ul class="checklist">
+          <li><strong>1 Founder/CEO</strong> · Rafael</li>
+          <li><strong>2 Operações</strong> · onboarding + suporte + relacionamento com imobiliárias</li>
+          <li><strong>2 Marketing/Performance</strong> · pool de mídia + curadoria conteúdo + SEO</li>
+          <li><strong>1 Dev/Produto part-time</strong> · manutenção e iteração do portal</li>
+          <li><strong>2 Achamos+ Operação</strong> · curadoria de briefings + intermediação de leilões</li>
+          <li><strong>1 Jurídico (PJ/parceria)</strong> · contratos, LGPD, suporte às imobiliárias</li>
+        </ul>
+        <p class="deep-lead" style="margin-top: 24px;">
+          <strong>Total: ~9 pessoas</strong> pra rodar R$ 23M ARR. Margem altíssima viabilizada porque infra técnica é Rendizy (já existe), modelo opera sem corretores próprios, mídia paga é financiada pelo próprio pool das imobiliárias Tier 2.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISCOS -->
+  <section id="riscos">
+    <div class="container">
+      <div class="section-eyebrow">12 · Riscos e mitigações</div>
+      <h2 class="section-title">Onde o modelo <em>pode quebrar</em> e como prevenir.</h2>
+      <p class="section-lead">
+        Cinco riscos identificados na crítica honesta. Cada um tem mitigação concreta. Lista exaustiva, não cosmética.
+      </p>
+
+      <div class="risk">
+        <div class="risk-title">Risco 1 · Dependência crítica do volume Achamos+</div>
+        <div class="risk-desc">
+          Toda matemática depende de Spotlight gerando leilões. Se compradores não pagam R$ 2.500, imobiliárias não candidatam, comissão dividida não vem, Master Partner não vende. Cascata negativa.
+        </div>
+        <div class="risk-fix">
+          <strong>Mitigação:</strong> roda Achamos+ direto (sua imobiliária) por 6-12 meses provando que o leilão funciona com volume. Só depois abre Portal pra imobiliárias com Spotlight já cheio de briefings. Cold start do Achamos+ ≠ cold start do Portal.
+        </div>
+      </div>
+
+      <div class="risk">
+        <div class="risk-title">Risco 2 · Free Match nunca migra pra Credit Pack</div>
+        <div class="risk-desc">
+          Se Free dá conta, ninguém compra pacote. Receita Pilar 2 estagna em zero. Cliente fica nas costas do Pilar 1 (mensalidade) e Pilar 3 (fiança).
+        </div>
+        <div class="risk-fix">
+          <strong>Mitigação:</strong> limite de 2 candidaturas grátis/mês no Free Match. Quem quer mais precisa de Credit. Cria sensação de escassez que empurra upsell sem ser agressivo na venda.
+        </div>
+      </div>
+
+      <div class="risk">
+        <div class="risk-title">Risco 3 · Seguro fiança depende de licenciamento SUSEP</div>
+        <div class="risk-desc">
+          Pilar 3 (R$ 2,5M ARR projetado) só roda se houver corretora licenciada. Sem isso, intermediação é ilegal e arrisca multa + reputação.
+        </div>
+        <div class="risk-fix">
+          <strong>Mitigação:</strong> validar parceria com Pottencial/Porto Aluguel/Loft Seguros <strong>antes</strong> de assinar primeira imobiliária parceira. Não pode haver gap entre lançar Portal e ter corretora ativa.
+        </div>
+      </div>
+
+      <div class="risk">
+        <div class="risk-title">Risco 4 · Fee infra vira fricção em imobiliária pequena</div>
+        <div class="risk-desc">
+          Imobiliária pequena com 2-3 fechamentos/mês reclama de "mais uma cobrança". Sentem como tarifa Achamos sobre cada deal. Risco de churn.
+        </div>
+        <div class="risk-fix">
+          <strong>Mitigação:</strong> primeiros 5 contratos do mês isentos · cobra do 6º em diante. Quem fatura pouco não sente, quem fatura muito paga. Alinha cobrança com capacidade.
+        </div>
+      </div>
+
+      <div class="risk">
+        <div class="risk-title">Risco 5 · Cold start do marketplace · sem tráfego, sem valor</div>
+        <div class="risk-desc">
+          Imobiliária paga R$ 890, entra no marketplace, recebe 3 visitas/semana, cancela em 60 dias. Cold start mata mesmo modelo lindo.
+        </div>
+        <div class="risk-fix">
+          <strong>Mitigação:</strong> mídia paga da operação Achamos+ direto (sua imobiliária) já gera tráfego pro Portal · mesma campanha alimenta ambos. Adicionalmente, pool dos Tier 2 (Credit + Master) financia tráfego incremental. Investimento próprio só nos primeiros 6 meses até Tier 2 escalar.
+        </div>
+      </div>
+
+      <div class="risk">
+        <div class="risk-title">Risco 6 · Se Hospede sem hóspede · imóvel parado vira imóvel parado mobiliado</div>
+        <div class="risk-desc">
+          Imóvel entra no Pilar 6, recebe mobília, marketing começa — mas hóspede não aparece. Proprietário vê custo, não vê retorno. Achamos absorve mobília depreciando. Caso pior: imobiliária parceira queima credibilidade ao indicar o programa.
+        </div>
+        <div class="risk-fix">
+          <strong>Mitigação em 3 camadas:</strong> (1) validar com 3-5 imóveis piloto em Rio antes de scale. (2) integrar Spotlight Plus do Achamos+ como demanda garantida (comprador qualificado hospedando nos finalistas). (3) regra de elegibilidade rigorosa · só imóveis com perfil cravado de aluguel curto (zona sul, alto padrão, mobília compatível, condomínio receptivo).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <div class="container">
+      <div class="section-eyebrow">13 · Roadmap de execução</div>
+      <h2 class="section-title">Lançamento em <em>3 ondas</em> · evita risco de cold start</h2>
+      <p class="section-lead">
+        Não lançamos Portal pra 100 imobiliárias no mês 1. Vamos por etapa: primeiro provando Achamos+ direto (oferta), depois piloto com 5 parceiras no Portal (validação), depois abertura comercial.
+      </p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">Onda 1 · M0 a M6 · Achamos+ Direto</div>
+          <div class="tl-title">Provar Spotlight funciona</div>
+          <div class="tl-body">
+            Site Achamos institucional + Portal funcional + chatbot mandato + KYC + matching + curadoria humana. Rodar Spotlight com sua imobiliária própria (vendedores soltos candidatando). Meta: 20 mandatos ativos, 10 leilões fechados, R$ 360k em comissões cumulativas. Sem Portal pra terceiros ainda.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">Onda 2 · M6 a M12 · Piloto Portal + Se Hospede</div>
+          <div class="tl-title">Validar com 5 imobiliárias parceiras + 3-5 imóveis Se Hospede</div>
+          <div class="tl-body">
+            Convidar 5 imobiliárias de médio porte no Rio pra piloto gratuito de 90 dias. Sem mensalidade. Acesso ao Portal completo + Achamos+ Free Match. Coletar dados de uso, fricções, NPS. Validar seguro fiança em volume real (acordo com Pottencial/Porto). <strong>Em paralelo, ativar 3-5 imóveis piloto no Pilar 6 (Se Hospede para Comprar)</strong> · validar unidade econômica + integração com Spotlight Plus. Iterar UX. Ao fim do piloto, converter pelo menos 3 em pagantes + 2-3 imóveis Se Hospede com vendas fechadas.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">Onda 3 · M12 a M18 · Abertura comercial + Se Hospede em escala</div>
+          <div class="tl-title">Lançamento público do Portal + 30+ imóveis Se Hospede</div>
+          <div class="tl-body">
+            Pricing definitivo (R$ 890 + tiers). Equipe comercial estruturada. Mídia paga ativa pro lado B2B (LinkedIn Ads + eventos imobiliários). Meta: 40 imobiliárias parceiras até M15, 80 até M18. Lançar Master Partner com exclusividade geográfica em capitais (limita 1 por bairro premium · cria disputa). <strong>Pilar 6 escala</strong> · meta 30+ imóveis ativos no Se Hospede para Comprar via indicação das parceiras + ofensiva de marketing pra proprietário direto. Lançar Spotlight Plus (R$ 2.500 + R$ 2.000 add-on hospedagem).
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">Onda 4 · M18 a M24 · Expansão geográfica</div>
+          <div class="tl-title">SP, BH, BR no playbook</div>
+          <div class="tl-body">
+            Replicar piloto + abertura em São Paulo (M18), Belo Horizonte (M21), Brasília (M24). Cada cidade: 5 parceiras piloto → 20 pagantes em 6 meses. Meta agregada M24: 150-200 imobiliárias parceiras, R$ 12-15M ARR Portal + R$ 13,8M ARR Achamos+ direto.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISÕES -->
+  <section id="decisoes">
+    <div class="container">
+      <div class="section-eyebrow">14 · Decisões a travar</div>
+      <h2 class="section-title">Cinco escolhas <em>antes</em> de avançar pra contrato e pricing definitivo.</h2>
+      <p class="section-lead">
+        Cada decisão abaixo destrava uma camada de modelagem. São perguntas estratégicas, não operacionais. Resolver isso → fica pronto pra pitch pra investidor e pra primeira imobiliária parceira piloto.
+      </p>
+
+      <ol class="decision-list">
+        <li>
+          <span class="decision-num">D1</span>
+          <div class="decision-text">
+            <strong>Quanto tempo Achamos+ direto roda sozinho</strong> antes de abrir Portal pra imobiliárias parceiras? Recomendação atual: 6 meses provando tese com sua imobiliária. Confirmar ou ajustar.
+          </div>
+        </li>
+        <li>
+          <span class="decision-num">D2</span>
+          <div class="decision-text">
+            <strong>Parceria de seguro fiança</strong> · escolher entre Pottencial, Porto Aluguel, Loft Seguros, Pacaembu ou outra. Comparar comissões, UX de integração API, tempo de aprovação de apólice. Decisão impacta lançamento.
+          </div>
+        </li>
+        <li>
+          <span class="decision-num">D3</span>
+          <div class="decision-text">
+            <strong>Limite de candidaturas Free Match</strong> · 2/mês (recomendado) ou 3/mês. Define velocidade de upsell pra Credit Pack. Mais permissivo = adoção rápida, menos receita Pilar 2.
+          </div>
+        </li>
+        <li>
+          <span class="decision-num">D4</span>
+          <div class="decision-text">
+            <strong>Fee infra · começa cobrando do contrato 1 ou do 6º?</strong> Define fricção em imobiliárias pequenas vs. receita marginal. Recomendação: 5 isentos, 6º em diante.
+          </div>
+        </li>
+        <li>
+          <span class="decision-num">D5</span>
+          <div class="decision-text">
+            <strong>Master Partner tem exclusividade geográfica?</strong> Ex: só 1 Master por bairro premium · vira disputa territorial valiosa, justifica preço de R$ 4.900. Sim ou não?
+          </div>
+        </li>
+        <li style="border-color: var(--accent);">
+          <span class="decision-num" style="color: var(--accent); background: rgba(255, 107, 71, 0.15);">D6</span>
+          <div class="decision-text">
+            <strong>Se Hospede para Comprar · parceiro de mobília</strong> · escolher fornecedor de leasing de mobília (Tok&Stok corporativo, Estilo Próprio Mob, ou parceria nova) · define unidade econômica do cenário sem mobília + viabiliza pilotos M6-M12.
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      Documento estratégico · Achamos Imóveis · BVM LTDA · v1.0 · 2026-05-28
+      <br><br>
+      Próximo passo: destrinchar ponto por ponto e travar as 5 decisões pra avançar pra contrato + pricing definitivo.
+    </div>
+  </footer>
+
+</body>
+</html>
