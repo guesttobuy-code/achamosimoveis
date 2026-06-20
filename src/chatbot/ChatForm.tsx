@@ -10,6 +10,7 @@ import {
   upsertContact,
   sendBriefingProgress,
   sendListingProgress,
+  sendAccessLink,
   writePreAuthSession,
   readPreAuthSession,
   clearPreAuthSession,
@@ -58,6 +59,13 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
   // Token preservado no estado "done" pra construir link "Acompanhar no portal".
   // Difere do preAuthRef que é limpo em clearPreAuthSession() após submit.
   const [doneToken, setDoneToken] = useState<string | null>(null)
+  // Estado do magic link enviado: null=não tentou, true=enviado, false=falhou (silencioso)
+  const [accessLinkSent, setAccessLinkSent] = useState<boolean | null>(null)
+  // Email mascarado retornado pelo sendAccessLink (ex: "jo***@gmail.com")
+  const [emailMasked, setEmailMasked] = useState<string | null>(null)
+  // Debounce de reenvio: timestamp em ms do último clique; null=nunca clicou
+  const [resendCooldownUntil, setResendCooldownUntil] = useState<number | null>(null)
+  const [resendSentAt, setResendSentAt] = useState<number | null>(null)
   // Contexto de candidatura — quando vem do Radar de Compradores logado
   const [candidature] = useState(() => readCandidatureContext())
   const bodyRef = useRef<HTMLDivElement>(null)
@@ -250,6 +258,22 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
       setDoneToken(token)
       clearPreAuthSession()
       setDone(true)
+      // ADR-006 Fase 2: envia magic link pro email coletado (handoff passwordless).
+      // Falha silenciosa — não bloqueia a tela done, botão de redirect é o fallback.
+      const emailForLink = (answers.email || '').trim() || undefined
+      sendAccessLink({
+        pre_auth_token: token,
+        email: emailForLink,
+        redirect: role === 'seller' ? '/app/radar-compradores' : '/app/oportunidades',
+      })
+        .then((result) => {
+          setEmailMasked(result.email_masked || null)
+          setAccessLinkSent(true)
+        })
+        .catch((err) => {
+          console.error('[chatbot] sendAccessLink error:', err)
+          setAccessLinkSent(false)
+        })
     } catch (err) {
       console.error('[chatbot] submitFinal error:', err)
       setSubmitError(
@@ -364,6 +388,31 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
     const portalHref = doneToken
       ? `${portalBase}/?pre_auth=${doneToken}&redirect=${encodeURIComponent(targetRoute)}`
       : `${portalBase}/signup?redirect=${encodeURIComponent(targetRoute)}`
+
+    const now = Date.now()
+    const resendCoolingDown = resendCooldownUntil !== null && now < resendCooldownUntil
+    const resendJustSent = resendSentAt !== null && now - resendSentAt < 20000
+
+    function handleResend() {
+      if (resendCoolingDown) return
+      const emailForLink = (answers.email || '').trim() || undefined
+      if (!doneToken) return
+      setResendCooldownUntil(Date.now() + 20000)
+      setResendSentAt(null)
+      sendAccessLink({
+        pre_auth_token: doneToken,
+        email: emailForLink,
+        redirect: targetRoute,
+      })
+        .then((result) => {
+          setEmailMasked(result.email_masked || emailMasked)
+          setResendSentAt(Date.now())
+        })
+        .catch((err) => {
+          console.error('[chatbot] resend sendAccessLink error:', err)
+        })
+    }
+
     return (
       <div className="chat-wrap">
         <div className="container">
@@ -405,22 +454,80 @@ export default function ChatForm({ role, navigate }: ChatFormProps) {
                   )}
                 </div>
               </div>
-              <div className="chat-confirm" style={{ flexDirection: 'column', gap: 12 }}>
-                <a
-                  className="btn btn-brand"
-                  href={portalHref}
-                  onClick={() => {
-                    // Fallback: salva também em sessionStorage caso o navegador
-                    // perca o querystring ao redirecionar (OAuth, magic link).
-                    try {
-                      sessionStorage.setItem('post_login_redirect', targetRoute)
-                    } catch { /* sem storage = sem fallback, sem problema */ }
-                  }}
-                  style={{ width: '100%', textAlign: 'center' }}
-                >
-                  {role === 'seller' ? t('ui.done_seller_cta') : t('ui.done_buyer_cta')}
-                </a>
-                <button className="btn btn-ghost" onClick={() => navigate('home')}>
+
+              {/* ── Bloco de acesso: hierarquia clara ── */}
+              <div className="chat-confirm" style={{ flexDirection: 'column', gap: 10, marginTop: 16 }}>
+
+                {/* CTA PRIMÁRIO: magic link (quando enviado com sucesso) */}
+                {accessLinkSent === true && (
+                  <div style={{
+                    padding: '14px 16px',
+                    background: 'linear-gradient(135deg, rgba(111, 45, 225, 0.08) 0%, rgba(74, 20, 181, 0.04) 100%)',
+                    border: '1px solid rgba(111, 45, 225, 0.22)',
+                    borderRadius: 12,
+                    fontSize: 14.5,
+                    lineHeight: 1.55,
+                    color: 'var(--ink)',
+                  }}>
+                    📬 {t('ui.done_magic_link_msg', { email: emailMasked || (answers.email || '').trim() })}
+                  </div>
+                )}
+
+                {/* CTA PRIMÁRIO FALLBACK: botão direto pro portal (quando link não foi enviado) */}
+                {accessLinkSent !== true && (
+                  <>
+                    <a
+                      className="btn btn-brand"
+                      href={portalHref}
+                      onClick={() => {
+                        try { sessionStorage.setItem('post_login_redirect', targetRoute) } catch { /* ignore */ }
+                      }}
+                      style={{ width: '100%', textAlign: 'center' }}
+                    >
+                      {role === 'seller' ? t('ui.done_seller_cta') : t('ui.done_buyer_cta')}
+                    </a>
+                    {accessLinkSent === false && (
+                      <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '2px 0 0', textAlign: 'center' }}>
+                        {t('ui.done_link_failed')}
+                      </p>
+                    )}
+                  </>
+                )}
+
+                {/* AÇÃO SECUNDÁRIA: reenviar link (só quando já foi enviado ao menos uma vez) */}
+                {accessLinkSent === true && (
+                  <button
+                    className="btn btn-ghost btn-sm"
+                    style={{ fontSize: 13, opacity: resendCoolingDown ? 0.55 : 1 }}
+                    disabled={resendCoolingDown}
+                    onClick={handleResend}
+                  >
+                    {resendJustSent
+                      ? t('ui.done_resent')
+                      : t('ui.done_resend')}
+                  </button>
+                )}
+
+                {/* AÇÃO TERCIÁRIA: entrar agora pelo portal (quando link foi enviado) */}
+                {accessLinkSent === true && (
+                  <a
+                    href={portalHref}
+                    onClick={() => {
+                      try { sessionStorage.setItem('post_login_redirect', targetRoute) } catch { /* ignore */ }
+                    }}
+                    style={{
+                      fontSize: 13,
+                      color: 'var(--ink-soft)',
+                      textAlign: 'center',
+                      textDecoration: 'underline',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {t('ui.done_enter_now')}
+                  </a>
+                )}
+
+                <button className="btn btn-ghost" style={{ marginTop: 4 }} onClick={() => navigate('home')}>
                   {t('ui.done_back')}
                 </button>
               </div>

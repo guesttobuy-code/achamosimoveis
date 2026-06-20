@@ -38,12 +38,19 @@
     "done_buyer_cta": "⚡ Ver mis oportunidades →",
     "done_seller_cta": "⚡ Ver compradores reales esperándote →",
     "done_back": "Volver al inicio",
-    "default_first_name": "ti"
+    "default_first_name": "ti",
+    "done_magic_link_msg": "Te envié un enlace de acceso a **{{email}}** — haz clic para entrar y ver tus oportunidades.",
+    "done_resend": "¿No lo recibiste? Reenviar enlace",
+    "done_resent": "Reenviado ✓",
+    "done_enter_now": "Prefiero entrar ahora →",
+    "done_link_failed": "No pude enviar el enlace ahora — puedes entrar usando el botón de arriba."
   },
   "validate": {
     "min_2_chars": "Mínimo 2 caracteres por favor :)",
     "valor_min": "Ingresa un valor mayor a R$ 50.000",
-    "valor_max": "Valor parece muy alto — revisa"
+    "valor_max": "Valor parece muy alto — revisa",
+    "email_required": "Necesito un email para enviarte el acceso.",
+    "email_invalid": "Ese email no parece válido."
   },
   "summary_labels": {
     "nome": "Nombre",
@@ -134,6 +141,8 @@
     "extras_sacada_g": "🍷 Balcón gourmet",
     "extras_reformado": "✨ Reformado",
     "extras_silencioso": "🤫 Barrio silencioso",
+    "email_prompt": "¿Cuál es tu mejor email, {{name}}? Ahí te envío el acceso.",
+    "email_ph": "tu@email.com",
     "whatsapp_prompt": "Casi listo, {{name}}! ¿Tu WhatsApp para llamarte cuando lo encontremos?",
     "whatsapp_ph": "+55 (21) 99999-9999",
     "summary_prompt": "Revisa si está todo bien:"
@@ -246,6 +255,8 @@
     "diferenciais_p1": "Última pregunta importante: ¿qué crees que diferencia tu inmueble?",
     "diferenciais_p2": "Todo reformado, oportunidad, inmueble de herencia bajo precio, vista privilegiada, piso alto... Detalla aquí — eso hace que el comprador se interese.",
     "diferenciais_ph": "Ej: Recién reformado 2025, vista al mar, edificio con piscina y gym, acepta permuta con inmueble menor...",
+    "email_prompt": "¿Cuál es tu mejor email? Ahí te envío el acceso.",
+    "email_ph": "tu@email.com",
     "whatsapp_prompt": "Todo listo, {{name}}. ¿Tu WhatsApp para que el equipo te contacte?",
     "whatsapp_ph": "+55 (21) 99999-9999"
   },

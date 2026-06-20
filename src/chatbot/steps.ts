@@ -151,6 +151,18 @@ export function buildBuyerSteps(t: TFunction): Step[] {
       optional: true,
     },
     {
+      id: 'email',
+      prompts: [t('buyer.email_prompt')],
+      kind: 'email',
+      placeholder: t('buyer.email_ph'),
+      validate: (v) => {
+        const trimmed = v.trim()
+        if (!trimmed) return t('validate.email_required')
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return emailRegex.test(trimmed) || t('validate.email_invalid')
+      },
+    },
+    {
       id: 'whatsapp',
       prompts: (s) => [t('buyer.whatsapp_prompt', { name: (s.nome || '').split(' ')[0] })],
       kind: 'phone',
@@ -390,6 +402,18 @@ export function buildSellerSteps(t: TFunction): Step[] {
       kind: 'text',
       placeholder: t('seller.diferenciais_ph'),
       optional: true,
+    },
+    {
+      id: 'email',
+      prompts: [t('seller.email_prompt')],
+      kind: 'email',
+      placeholder: t('seller.email_ph'),
+      validate: (v) => {
+        const trimmed = v.trim()
+        if (!trimmed) return t('validate.email_required')
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return emailRegex.test(trimmed) || t('validate.email_invalid')
+      },
     },
     {
       id: 'whatsapp',

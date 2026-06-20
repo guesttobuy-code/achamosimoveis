@@ -38,12 +38,19 @@
     "done_buyer_cta": "⚡ Ver minhas oportunidades →",
     "done_seller_cta": "⚡ Ver compradores reais te esperando →",
     "done_back": "Voltar pro início",
-    "default_first_name": "você"
+    "default_first_name": "você",
+    "done_magic_link_msg": "Te enviei um link de acesso no seu **{{email}}** — clique nele pra entrar e ver suas oportunidades.",
+    "done_resend": "Não recebeu? Reenviar link",
+    "done_resent": "Reenviado ✓",
+    "done_enter_now": "Prefiro entrar agora →",
+    "done_link_failed": "Não consegui enviar o link agora — você pode entrar pelo botão acima."
   },
   "validate": {
     "min_2_chars": "Me diz pelo menos 2 caracteres :)",
     "valor_min": "Digite um valor maior que R$ 50.000",
-    "valor_max": "Valor parece muito alto — confira"
+    "valor_max": "Valor parece muito alto — confira",
+    "email_required": "Preciso de um email pra te enviar o acesso.",
+    "email_invalid": "Esse email não parece válido."
   },
   "summary_labels": {
     "nome": "Nome",
@@ -134,6 +141,8 @@
     "extras_sacada_g": "🍷 Sacada gourmet",
     "extras_reformado": "✨ Reformado",
     "extras_silencioso": "🤫 Bairro silencioso",
+    "email_prompt": "Qual seu melhor email, {{name}}? É por ele que te mando o acesso.",
+    "email_ph": "voce@email.com",
     "whatsapp_prompt": "Quase lá, {{name}}! Qual seu WhatsApp pra gente te chamar quando achar?",
     "whatsapp_ph": "(31) 99999-9999",
     "summary_prompt": "Confere se tá tudo certo:"
@@ -246,6 +255,8 @@
     "diferenciais_p1": "Última pergunta importante: o que você acha que é diferencial do seu imóvel?",
     "diferenciais_p2": "Tudo reformado, oportunidade, imóvel de inventário abaixo do preço, vista privilegiada, andar alto... Detalha aqui — é o que vai fazer o comprador se interessar em fechar negócio com você.",
     "diferenciais_ph": "Ex: Recém reformado em 2025, vista mar, prédio com piscina e academia, aceita permuta com imóvel menor...",
+    "email_prompt": "Qual seu melhor email? É por ele que te mando o acesso.",
+    "email_ph": "voce@email.com",
     "whatsapp_prompt": "Tudo certo, {{name}}. Qual seu WhatsApp pra equipe entrar em contato?",
     "whatsapp_ph": "(31) 99999-9999"
   },

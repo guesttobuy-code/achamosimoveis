@@ -163,3 +163,16 @@ export async function sendListingProgress(input: {
 }): Promise<ProgressResult> {
   return callAchamosApi<ProgressResult>('/listing-progress', input)
 }
+
+export interface SendAccessLinkResult {
+  sent: boolean
+  email_masked: string
+}
+
+export async function sendAccessLink(input: {
+  pre_auth_token: string
+  email?: string
+  redirect?: string
+}): Promise<SendAccessLinkResult> {
+  return callAchamosApi<SendAccessLinkResult>('/send-access-link', input)
+}
