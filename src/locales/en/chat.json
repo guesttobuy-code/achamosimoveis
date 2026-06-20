@@ -38,12 +38,19 @@
     "done_buyer_cta": "⚡ See my opportunities →",
     "done_seller_cta": "⚡ See real buyers waiting for you →",
     "done_back": "Back to home",
-    "default_first_name": "you"
+    "default_first_name": "you",
+    "done_magic_link_msg": "I sent an access link to **{{email}}** — click it to log in and see your opportunities.",
+    "done_resend": "Didn't receive it? Resend link",
+    "done_resent": "Resent ✓",
+    "done_enter_now": "I prefer to log in now →",
+    "done_link_failed": "Couldn't send the link right now — you can log in using the button above."
   },
   "validate": {
     "min_2_chars": "At least 2 characters please :)",
     "valor_min": "Enter an amount above R$ 50,000",
-    "valor_max": "Amount seems too high — please check"
+    "valor_max": "Amount seems too high — please check",
+    "email_required": "I need an email to send your access.",
+    "email_invalid": "That email doesn't look valid."
   },
   "summary_labels": {
     "nome": "Name",
@@ -134,6 +141,8 @@
     "extras_sacada_g": "🍷 Gourmet balcony",
     "extras_reformado": "✨ Renovated",
     "extras_silencioso": "🤫 Quiet area",
+    "email_prompt": "What's your best email, {{name}}? That's where I'll send your access.",
+    "email_ph": "you@email.com",
     "whatsapp_prompt": "Almost done, {{name}}! What's your WhatsApp so we can reach you when we find it?",
     "whatsapp_ph": "+55 (21) 99999-9999",
     "summary_prompt": "Check if everything is right:"
@@ -246,6 +255,8 @@
     "diferenciais_p1": "Last important question: what do you think makes your property special?",
     "diferenciais_p2": "Fully renovated, opportunity, inheritance property below market, premium view, high floor... Detail here — this is what makes the buyer interested in closing with you.",
     "diferenciais_ph": "E.g. Newly renovated 2025, sea view, pool & gym, accepts exchange with smaller property...",
+    "email_prompt": "What's your best email? That's where I'll send your access.",
+    "email_ph": "you@email.com",
     "whatsapp_prompt": "All set, {{name}}. What's your WhatsApp so the team can reach you?",
     "whatsapp_ph": "+55 (21) 99999-9999"
   },
