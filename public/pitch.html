@@ -59,7 +59,7 @@
   /* problem cards */
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px;}
   .pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;}
-  .pcard .ico{font-size:26px;margin-bottom:12px;}
+  .pcard .ico{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--brand-soft);color:var(--brand-deep);font-family:var(--f-m);font-weight:600;font-size:14px;margin-bottom:14px;}
   .pcard h3{font-size:19px;margin-bottom:8px;}
   .pcard p{font-size:15px;color:var(--ink-soft);margin:0;}
 
@@ -67,8 +67,13 @@
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px;}
   .step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;position:relative;}
   .step .num{font-family:var(--f-m);font-size:13px;color:var(--brand);font-weight:600;}
-  .step h3{font-size:18px;margin:14px 0 8px;}
+  .step h3{font-size:18px;margin:14px 0 8px;color:var(--ink);}
   .step p{font-size:14.5px;color:var(--ink-soft);margin:0;}
+  /* steps ficam em cards brancos mesmo na seção escura — força cor escura */
+  .surface-dark .step h3{color:var(--ink);}
+  .surface-dark .step p{color:var(--ink-soft);}
+  .surface-dark .step .miudos{color:var(--ink-mute);}
+  .surface-dark .step .miudos b{color:var(--ink-soft);}
 
   /* two dimensions */
   .dims{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;}
@@ -186,17 +191,17 @@
     <p class="lead">Imóvel de alto padrão acabado e sem reforma é difícil de vender. E enquanto não vende, custa caro: IPTU, condomínio, contas. Tem dono endividado, tem herança travada em inventário — gente que precisa vender mas não tem dinheiro pra reformar e destravar o valor.</p>
     <div class="grid3">
       <div class="pcard">
-        <div class="ico">🏚️</div>
+        <div class="ico">01</div>
         <h3>Imóvel depreciado</h3>
         <p>Ótima localização, mas precisa de reforma completa. Do jeito que está, vende no osso ou não vende.</p>
       </div>
       <div class="pcard">
-        <div class="ico">💸</div>
+        <div class="ico">02</div>
         <h3>Dono sem caixa</h3>
         <p>Endividado, ou herdeiro de inventário sem dinheiro pra reformar. O imóvel vira um peso, não um ativo.</p>
       </div>
       <div class="pcard">
-        <div class="ico">⏳</div>
+        <div class="ico">03</div>
         <h3>Tempo é prejuízo</h3>
         <p>Cada mês parado é dinheiro saindo. E morador fixo no imóvel ainda atrapalha a visita e a venda.</p>
       </div>
@@ -227,9 +232,9 @@
     <h2 class="big">O dinheiro não fica "morto" esperando vender.</h2>
     <p class="lead">No flipping comum, dois riscos doem: você imobiliza um capitalzão comprando, e o imóvel parado só dá despesa. No nosso modelo, esses dois somem.</p>
     <div class="grid3">
-      <div class="pcard"><div class="ico">🛡️</div><h3>Garantia na matrícula</h3><p>O capital da reforma é protegido por garantia real registrada no imóvel (alienação fiduciária, Lei 9.514/97).</p></div>
-      <div class="pcard"><div class="ico">🔁</div><h3>Renda durante a espera</h3><p>O aluguel de temporada devolve o investimento mês a mês. O tempo de venda deixa de ser custo e passa a se pagar.</p></div>
-      <div class="pcard"><div class="ico">🎯</div><h3>Capital enxuto</h3><p>Não imobilizamos milhões comprando. O único valor exposto é a reforma — e ele está garantido.</p></div>
+      <div class="pcard"><div class="ico">01</div><h3>Garantia na matrícula</h3><p>O capital da reforma é protegido por garantia real registrada no imóvel (alienação fiduciária, Lei 9.514/97).</p></div>
+      <div class="pcard"><div class="ico">02</div><h3>Renda durante a espera</h3><p>O aluguel de temporada devolve o investimento mês a mês. O tempo de venda deixa de ser custo e passa a se pagar.</p></div>
+      <div class="pcard"><div class="ico">03</div><h3>Capital enxuto</h3><p>Não imobilizamos milhões comprando. O único valor exposto é a reforma — e ele está garantido.</p></div>
     </div>
   </div>
 </section>
@@ -350,7 +355,7 @@
 <footer>
   <div class="wrap">
     <div class="gtb">Guest to Buy</div>
-    <div class="small">por Sua Casa Rende Mais · Rio de Janeiro · {rascunho v1 — para revisão}</div>
+    <div class="small">por Sua Casa Rende Mais · Rio de Janeiro</div>
   </div>
 </footer>
 
