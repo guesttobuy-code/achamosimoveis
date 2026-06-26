@@ -20,65 +20,65 @@ type Q = { id: string; label: string; opts: Opt[] }
 type Dim = { id: string; name: string; weight: number; hint: string; questions: Q[] }
 
 const KILL_SWITCHES: { id: string; label: string; help: string }[] = [
-  { id: 'E1', label: 'Proprietário inscrito em dívida ativa fiscal?', help: 'Fraude à execução fiscal = presunção ABSOLUTA (Tema 290 STJ). Sua boa-fé não protege.' },
-  { id: 'E2', label: 'Penhora, arresto, indisponibilidade ou execução averbada na matrícula?', help: 'Ônus pré-existente vence a sua garantia fiduciária.' },
-  { id: 'E3', label: 'Inventário com herdeiro incapaz OU litígio entre herdeiros?', help: 'Trava o alvará judicial necessário para constituir a garantia.' },
-  { id: 'E4', label: 'Condomínio residencial proíbe temporada E é inviável locação residencial alternativa?', help: 'STJ 2026: temporada exige 2/3 em assembleia. Sem a perna de receita, o aporte fica exposto.' },
-  { id: 'E5', label: 'Laudo aponta vício estrutural grave e irremediável?', help: 'Estoura o orçamento de obra e inviabiliza a venda.' },
-  { id: 'E6', label: 'Mais-valia projetada menor que 3× o aporte?', help: 'Abaixo do piso de segurança do contrato. (calculado automaticamente se você preencher os valores acima)' },
-  { id: 'E7', label: 'Titularidade irregular, cônjuge não anui ou documentação dominial inconsistente?', help: 'Inviabiliza tanto a garantia quanto a venda.' },
+  { id: 'E1', label: 'Proprietário inscrito em dívida ativa fiscal?', help: 'Fraude à execução fiscal = presunção ABSOLUTA (Tema 290 STJ). Sua boa-fé não protege. (em miúdos: o dono está devendo imposto pro governo. Se ele deve, a justiça pode tomar o imóvel pra pagar — e seu dinheiro vai junto, mesmo que você não soubesse de nada.)' },
+  { id: 'E2', label: 'Penhora, arresto, indisponibilidade ou execução averbada na matrícula?', help: 'Ônus pré-existente vence a sua garantia fiduciária. (em miúdos: a matrícula é a certidão de nascimento do imóvel. Se já tem uma dívida anotada nela, essa dívida fura a fila e passa na frente da sua garantia.)' },
+  { id: 'E3', label: 'Inventário com herdeiro incapaz OU litígio entre herdeiros?', help: 'Trava o alvará judicial necessário para constituir a garantia. (em miúdos: o imóvel é de herança e os herdeiros estão brigando, ou tem menor de idade entre eles. Aí o juiz precisa autorizar tudo, demora muito e pode travar o negócio.)' },
+  { id: 'E4', label: 'Condomínio residencial proíbe temporada E é inviável locação residencial alternativa?', help: 'STJ 2026: temporada exige 2/3 em assembleia. Sem a perna de receita, o aporte fica exposto. (em miúdos: o prédio não deixa alugar tipo Airbnb e também não dá pra alugar pra morar. Sem aluguel, não entra dinheiro pra devolver o que você investiu.)' },
+  { id: 'E5', label: 'Laudo aponta vício estrutural grave e irremediável?', help: 'Estoura o orçamento de obra e inviabiliza a venda. (em miúdos: o engenheiro achou um problema sério na estrutura, tipo rachadura grave, que não tem conserto bom. A obra vira um buraco sem fundo.)' },
+  { id: 'E6', label: 'Mais-valia projetada menor que 3× o aporte?', help: 'Abaixo do piso de segurança do contrato. (calculado automaticamente se você preencher os valores acima) (em miúdos: o lucro esperado com a reforma é pequeno perto do que você vai gastar. Se não der pelo menos 3 vezes o que entrou, não vale o risco.)' },
+  { id: 'E7', label: 'Titularidade irregular, cônjuge não anui ou documentação dominial inconsistente?', help: 'Inviabiliza tanto a garantia quanto a venda. (em miúdos: os papéis do imóvel estão bagunçados, ou o marido/esposa do dono não concorda em vender. Sem documento certinho, não dá pra garantir nem vender.)' },
 ]
 
 const DIMENSIONS: Dim[] = [
   {
     id: 'D1', name: 'Jurídico / Dominial', weight: 25,
-    hint: 'O capital só entra em imóvel sem credor concorrente e com cadeia limpa.',
+    hint: 'O capital só entra em imóvel sem credor concorrente e com cadeia limpa. (em miúdos: só põe dinheiro em imóvel que não tem ninguém cobrando dívida e com a papelada limpa.)',
     questions: [
-      { id: 'D1q1', label: 'Pacote de certidões (CNDT, fiscais fed/est/mun, distribuidores cíveis e exec. fiscal, protesto, matrícula atualizada)', opts: [{ label: 'Completo e limpo', v: 1 }, { label: 'Parcial / pendente', v: 0.5 }, { label: 'Não verificado', v: 0 }] },
-      { id: 'D1q2', label: 'Todos os titulares e cônjuges assinam / anuem', opts: [{ label: 'Sim, todos', v: 1 }, { label: 'Parcial', v: 0.5 }, { label: 'Não', v: 0 }] },
-      { id: 'D1q3', label: 'Cadeia dominial sem ações reipersecutórias', opts: [{ label: 'Limpa', v: 1 }, { label: 'Em dúvida', v: 0.5 }, { label: 'Há ações', v: 0 }] },
+      { id: 'D1q1', label: 'Pacote de certidões (CNDT, fiscais fed/est/mun, distribuidores cíveis e exec. fiscal, protesto, matrícula atualizada) (em miúdos: aquele monte de "nada consta" que prova que nem o dono nem o imóvel têm dívida ou processo escondido)', opts: [{ label: 'Completo e limpo', v: 1 }, { label: 'Parcial / pendente', v: 0.5 }, { label: 'Não verificado', v: 0 }] },
+      { id: 'D1q2', label: 'Todos os titulares e cônjuges assinam / anuem (em miúdos: todo mundo que é dono — e os maridos/esposas — concorda e assina)', opts: [{ label: 'Sim, todos', v: 1 }, { label: 'Parcial', v: 0.5 }, { label: 'Não', v: 0 }] },
+      { id: 'D1q3', label: 'Cadeia dominial sem ações reipersecutórias (em miúdos: ninguém na justiça está tentando tomar esse imóvel de volta)', opts: [{ label: 'Limpa', v: 1 }, { label: 'Em dúvida', v: 0.5 }, { label: 'Há ações', v: 0 }] },
     ],
   },
   {
     id: 'D2', name: 'Condominial / Viabilidade da Temporada', weight: 20,
-    hint: 'A receita de temporada é o que amortiza o aporte — precisa estar liberada antes.',
+    hint: 'A receita de temporada é o que amortiza o aporte — precisa estar liberada antes. (em miúdos: é o aluguel que devolve o seu dinheiro; ele tem que estar liberado antes de começar.)',
     questions: [
-      { id: 'D2q1', label: 'A convenção do condomínio quanto à temporada', opts: [{ label: 'Permite expressamente', v: 1 }, { label: 'Omissa (precisa assembleia 2/3)', v: 0.5 }, { label: 'Proíbe', v: 0 }] },
-      { id: 'D2q2', label: 'Aprovação de 2/3 obtida OU prédio já opera temporada', opts: [{ label: 'Sim', v: 1 }, { label: 'Em andamento', v: 0.5 }, { label: 'Não', v: 0 }] },
-      { id: 'D2q3', label: 'Plano B de locação residencial viável (se temporada cair)', opts: [{ label: 'Sim', v: 1 }, { label: 'Não', v: 0 }] },
+      { id: 'D2q1', label: 'A convenção do condomínio quanto à temporada (em miúdos: as regras do prédio deixam alugar por poucos dias, tipo Airbnb?)', opts: [{ label: 'Permite expressamente', v: 1 }, { label: 'Omissa (precisa assembleia 2/3)', v: 0.5 }, { label: 'Proíbe', v: 0 }] },
+      { id: 'D2q2', label: 'Aprovação de 2/3 obtida OU prédio já opera temporada (em miúdos: a maioria dos vizinhos já aprovou, ou o prédio já faz isso?)', opts: [{ label: 'Sim', v: 1 }, { label: 'Em andamento', v: 0.5 }, { label: 'Não', v: 0 }] },
+      { id: 'D2q3', label: 'Plano B de locação residencial viável (se temporada cair) (em miúdos: se não puder Airbnb, dá pra alugar pra alguém morar mesmo assim?)', opts: [{ label: 'Sim', v: 1 }, { label: 'Não', v: 0 }] },
     ],
   },
   {
     id: 'D3', name: 'Financeiro / Mercado', weight: 25,
-    hint: 'Mais-valia por comparáveis VENDIDOS (não anunciados) e venda dentro da janela de 48m.',
+    hint: 'Mais-valia por comparáveis VENDIDOS (não anunciados) e venda dentro da janela de 48m. (em miúdos: use preços de imóveis que de fato venderam, não os que só estão anunciados — e venda dentro do prazo.)',
     questions: [
-      { id: 'D3q1', label: 'Múltiplo de mais-valia sobre o aporte', opts: [{ label: '≥ 5×', v: 1 }, { label: '3× a 5×', v: 0.6 }, { label: '< 3×', v: 0 }] },
-      { id: 'D3q2', label: 'Liquidez — comparáveis VENDIDOS na região/faixa (últimos 12m)', opts: [{ label: 'Vários', v: 1 }, { label: 'Poucos', v: 0.5 }, { label: 'Quase nenhum', v: 0 }] },
-      { id: 'D3q3', label: 'Prazo estimado de venda vs. janela de 48 meses', opts: [{ label: '≤ 24m', v: 1 }, { label: '24–36m', v: 0.6 }, { label: '> 36m', v: 0.2 }] },
+      { id: 'D3q1', label: 'Múltiplo de mais-valia sobre o aporte (em miúdos: quantas vezes o lucro é maior que o gasto da reforma?)', opts: [{ label: '≥ 5×', v: 1 }, { label: '3× a 5×', v: 0.6 }, { label: '< 3×', v: 0 }] },
+      { id: 'D3q2', label: 'Liquidez — comparáveis VENDIDOS na região/faixa (últimos 12m) (em miúdos: nessa região, imóveis assim costumam vender mesmo? Quantos venderam no último ano?)', opts: [{ label: 'Vários', v: 1 }, { label: 'Poucos', v: 0.5 }, { label: 'Quase nenhum', v: 0 }] },
+      { id: 'D3q3', label: 'Prazo estimado de venda vs. janela de 48 meses (em miúdos: em quanto tempo dá pra vender, dentro dos 4 anos do contrato?)', opts: [{ label: '≤ 24m', v: 1 }, { label: '24–36m', v: 0.6 }, { label: '> 36m', v: 0.2 }] },
     ],
   },
   {
     id: 'D4', name: 'Obra / Físico', weight: 15,
-    hint: 'Laudo antes do aporte e contingência de orçamento embutida.',
+    hint: 'Laudo antes do aporte e contingência de orçamento embutida. (em miúdos: chama o engenheiro antes de gastar e guarda uma reserva pra imprevistos.)',
     questions: [
-      { id: 'D4q1', label: 'Laudo de engenharia (estrutura / hidráulica / fachada)', opts: [{ label: 'OK', v: 1 }, { label: 'Pendências menores', v: 0.5 }, { label: 'Não feito / grave', v: 0 }] },
-      { id: 'D4q2', label: 'Orçamento fechado com contingência ≥ 25%', opts: [{ label: 'Sim', v: 1 }, { label: 'Contingência < 25%', v: 0.5 }, { label: 'Sem orçamento fechado', v: 0 }] },
+      { id: 'D4q1', label: 'Laudo de engenharia (estrutura / hidráulica / fachada) (em miúdos: um engenheiro já olhou se a estrutura, os canos e a fachada estão ok?)', opts: [{ label: 'OK', v: 1 }, { label: 'Pendências menores', v: 0.5 }, { label: 'Não feito / grave', v: 0 }] },
+      { id: 'D4q2', label: 'Orçamento fechado com contingência ≥ 25% (em miúdos: já tem o preço da obra fechado, com uma folga de 25% pra surpresas?)', opts: [{ label: 'Sim', v: 1 }, { label: 'Contingência < 25%', v: 0.5 }, { label: 'Sem orçamento fechado', v: 0 }] },
     ],
   },
   {
     id: 'D5', name: 'Receita de Temporada', weight: 10,
-    hint: 'Ocupação conservadora (≤50%) e parcela relevante do aporte amortizável na janela.',
+    hint: 'Ocupação conservadora (≤50%) e parcela relevante do aporte amortizável na janela. (em miúdos: conte com a casa alugada na metade do tempo, não cheia o ano todo.)',
     questions: [
-      { id: 'D5q1', label: 'Estimativa de ocupação / ADR', opts: [{ label: 'Documentada e conservadora', v: 1 }, { label: 'Estimativa otimista', v: 0.5 }, { label: 'Sem base', v: 0 }] },
-      { id: 'D5q2', label: '% do aporte amortizável pela temporada na janela', opts: [{ label: 'Alto', v: 1 }, { label: 'Médio', v: 0.6 }, { label: 'Baixo', v: 0.2 }] },
+      { id: 'D5q1', label: 'Estimativa de ocupação / ADR (em miúdos: a conta de quantas diárias e por quanto vai alugar é realista?)', opts: [{ label: 'Documentada e conservadora', v: 1 }, { label: 'Estimativa otimista', v: 0.5 }, { label: 'Sem base', v: 0 }] },
+      { id: 'D5q2', label: '% do aporte amortizável pela temporada na janela (em miúdos: o aluguel devolve boa parte do seu dinheiro dentro do prazo?)', opts: [{ label: 'Alto', v: 1 }, { label: 'Médio', v: 0.6 }, { label: 'Baixo', v: 0.2 }] },
     ],
   },
   {
     id: 'D6', name: 'Contraparte / Operacional', weight: 5,
-    hint: 'Dono motivado e cooperativo, com menos titulares, reduz atrito.',
+    hint: 'Dono motivado e cooperativo, com menos titulares, reduz atrito. (em miúdos: dono com pressa de vender, que ajuda e é um só, facilita tudo.)',
     questions: [
-      { id: 'D6q1', label: 'Motivação / urgência de venda do proprietário', opts: [{ label: 'Alta', v: 1 }, { label: 'Média', v: 0.6 }, { label: 'Baixa', v: 0.2 }] },
-      { id: 'D6q2', label: 'Cooperação / acesso facilitado ao imóvel', opts: [{ label: 'Sim', v: 1 }, { label: 'Parcial', v: 0.5 }, { label: 'Resistente', v: 0 }] },
+      { id: 'D6q1', label: 'Motivação / urgência de venda do proprietário (em miúdos: o dono está com pressa de vender?)', opts: [{ label: 'Alta', v: 1 }, { label: 'Média', v: 0.6 }, { label: 'Baixa', v: 0.2 }] },
+      { id: 'D6q2', label: 'Cooperação / acesso facilitado ao imóvel (em miúdos: o dono deixa você entrar e trabalhar sem complicar?)', opts: [{ label: 'Sim', v: 1 }, { label: 'Parcial', v: 0.5 }, { label: 'Resistente', v: 0 }] },
     ],
   },
 ]
