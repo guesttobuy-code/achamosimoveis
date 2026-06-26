@@ -22,6 +22,7 @@ import SobrePage from './pages/SobrePage'
 import ContatoPage from './pages/ContatoPage'
 import ComecarPage from './pages/ComecarPage'
 import ChatPage from './pages/ChatPage'
+import FlippingPage from './pages/FlippingPage'
 
 // Theme: respeita preferência salva pelo ThemeToggle (default = light).
 // Setado uma vez no mount; ThemeToggle no Nav atualiza depois.
@@ -126,6 +127,7 @@ export default function App() {
         <Route path="/comecar" element={<ComecarPage navigate={navigateById} />} />
         <Route path="/comecar/briefing" element={<ChatPage role="buyer" navigate={navigateById} />} />
         <Route path="/comecar/anunciar" element={<ChatPage role="seller" navigate={navigateById} />} />
+        <Route path="/flipping" element={<FlippingPage />} />
         <Route path="/wefoundproperties" element={<HomePage navigate={navigateById} />} />
         <Route path="*" element={<HomePage navigate={navigateById} />} />
       </Routes>
