@@ -32,6 +32,12 @@
   section{padding:clamp(56px,8vw,104px) 0;}
   .lead{font-size:clamp(18px,2.2vw,22px);color:var(--ink-soft);max-width:62ch;}
 
+  /* LANG SWITCHER */
+  .lang-switch{position:fixed;top:16px;right:16px;z-index:1000;display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(13,11,18,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(201,179,255,.25);}
+  .lang-btn{background:transparent;border:none;color:rgba(244,240,250,.7);font-family:var(--f-m);font-size:11px;font-weight:600;letter-spacing:.06em;padding:7px 11px;border-radius:999px;cursor:pointer;transition:all .15s;}
+  .lang-btn:hover{color:#fff;}
+  .lang-btn.active{background:var(--brand);color:#fff;}
+
   /* HERO */
   .hero{background:radial-gradient(ellipse 90% 60% at 50% -10%, #2A1B4D 0%, var(--dark) 55%);color:var(--dark-fg);padding:clamp(48px,7vw,80px) 0 clamp(64px,8vw,110px);}
   .brandmark{display:flex;align-items:center;gap:12px;margin-bottom:48px;}
@@ -46,7 +52,6 @@
   .hstat .n{font-family:var(--f-d);font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.03em;}
   .hstat .l{font-family:var(--f-m);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:rgba(244,240,250,.6);margin-top:6px;}
 
-  /* generic */
   .tag{display:inline-block;font-family:var(--f-m);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:16px;}
   h2.big{font-size:clamp(30px,4.6vw,54px);font-weight:700;margin-bottom:18px;}
   .surface-warm{background:var(--paper-warm);}
@@ -56,26 +61,22 @@
   .surface-dark .miudos{color:rgba(244,240,250,.6);}
   .surface-dark .miudos b{color:rgba(244,240,250,.92);}
 
-  /* problem cards */
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px;}
   .pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;}
   .pcard .ico{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;background:var(--brand-soft);color:var(--brand-deep);font-family:var(--f-m);font-weight:600;font-size:14px;margin-bottom:14px;}
   .pcard h3{font-size:19px;margin-bottom:8px;}
   .pcard p{font-size:15px;color:var(--ink-soft);margin:0;}
 
-  /* steps */
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px;}
   .step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;position:relative;}
   .step .num{font-family:var(--f-m);font-size:13px;color:var(--brand);font-weight:600;}
   .step h3{font-size:18px;margin:14px 0 8px;color:var(--ink);}
   .step p{font-size:14.5px;color:var(--ink-soft);margin:0;}
-  /* steps ficam em cards brancos mesmo na seção escura — força cor escura */
   .surface-dark .step h3{color:var(--ink);}
   .surface-dark .step p{color:var(--ink-soft);}
   .surface-dark .step .miudos{color:var(--ink-mute);}
   .surface-dark .step .miudos b{color:var(--ink-soft);}
 
-  /* two dimensions */
   .dims{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;}
   .dim{border-radius:var(--r-lg);padding:34px;border:1px solid var(--line);}
   .dim-1{background:linear-gradient(160deg,#1C1530 0%,#0D0B12 100%);color:var(--dark-fg);border-color:rgba(124,58,237,.4);}
@@ -93,7 +94,7 @@
   .dim-1 li{border-color:rgba(244,240,250,.1);color:rgba(244,240,250,.9);}
   .dim-2 li{border-color:var(--line-soft);color:var(--ink-soft);}
   .dim li:first-child{border-top:none;}
-  .dim li .k{flex-shrink:0;width:78px;font-family:var(--f-m);font-size:11px;text-transform:uppercase;letter-spacing:.04em;opacity:.65;padding-top:2px;}
+  .dim li .k{flex-shrink:0;width:84px;font-family:var(--f-m);font-size:11px;text-transform:uppercase;letter-spacing:.04em;opacity:.65;padding-top:2px;}
   .dim li .v{flex:1;}
   .dim li .v b{font-weight:700;}
   .dim-1 li .v b{color:#fff;}
@@ -105,7 +106,6 @@
   .pill-sec{background:rgba(199,119,0,.16);color:#FFC061;}
   .dim-2 .pill-sec{background:rgba(199,119,0,.12);color:var(--gold);}
 
-  /* example */
   .example{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(26px,4vw,44px);margin-top:36px;}
   .ex-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0;}
   .ex-box{text-align:center;padding:20px 12px;border-radius:var(--r);background:var(--paper-warm);}
@@ -116,18 +116,16 @@
   .ex-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
   .ex-split .s{padding:18px 20px;border-radius:var(--r);border:1px solid var(--line);}
   .ex-split .s .who{font-weight:700;font-size:15px;}
-  .ex-split .s .amt{font-family:var(--f-d);font-size:24px;font-weight:800;margin-top:4px;}
+  .ex-split .s .amt{font-family:var(--f-d);font-size:22px;font-weight:800;margin-top:4px;}
   .ex-split .s .desc{font-size:13px;color:var(--ink-mute);margin-top:4px;}
 
-  /* credibility */
   .cred{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;}
   .cred-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .cstat{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:var(--r);padding:24px;}
-  .cstat .n{font-family:var(--f-d);font-size:clamp(30px,4vw,46px);font-weight:800;color:var(--brand-deep);letter-spacing:-.03em;}
+  .cstat .n{font-family:var(--f-d);font-size:clamp(28px,4vw,42px);font-weight:800;color:var(--brand-deep);letter-spacing:-.03em;}
   .cstat .l{font-size:14px;color:var(--ink-soft);margin-top:4px;}
   .cred a{color:var(--brand-deep);font-weight:600;text-decoration:none;border-bottom:1px solid currentColor;}
 
-  /* risk table */
   .risk{margin-top:36px;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--card);}
   .risk-row{display:grid;grid-template-columns:1.1fr 1.4fr .9fr;gap:0;border-top:1px solid var(--line);}
   .risk-row:first-child{border-top:none;background:var(--dark);color:var(--dark-fg);}
@@ -138,7 +136,6 @@
   .risk-row .r-sol{color:var(--ink-soft);}
   .risk-row .r-res{color:var(--ok);font-weight:600;}
 
-  /* CTA */
   .cta-box{background:linear-gradient(160deg,#2A1B4D,#0D0B12);color:var(--dark-fg);border-radius:var(--r-lg);padding:clamp(32px,5vw,56px);text-align:center;}
   .cta-box h2{font-size:clamp(28px,4vw,46px);font-weight:800;color:#fff;margin-bottom:16px;}
   .cta-box p{color:rgba(244,240,250,.8);max-width:54ch;margin:0 auto 28px;}
@@ -153,6 +150,7 @@
   footer .gtb{font-family:var(--f-d);font-weight:800;font-size:18px;}
   footer .small{font-family:var(--f-m);font-size:12px;color:var(--ink-mute);margin-top:8px;}
 
+  @media print{.lang-switch{display:none;}}
   @media(max-width:860px){
     .grid3,.steps,.dims,.ex-flow,.cred,.cred-stats,.ex-split{grid-template-columns:1fr;}
     .hero-stats{grid-template-columns:1fr;gap:0;}
@@ -165,20 +163,27 @@
 </head>
 <body>
 
+<div class="lang-switch">
+  <button class="lang-btn active" data-lang="pt">PT</button>
+  <button class="lang-btn" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="es">ES</button>
+  <button class="lang-btn" data-lang="it">IT</button>
+</div>
+
 <!-- HERO -->
 <header class="hero">
   <div class="wrap">
     <div class="brandmark">
       <span class="gtb">Guest to Buy</span>
-      <span class="by">por Sua Casa Rende Mais</span>
+      <span class="by" data-i18n="brand_by">por Sua Casa Rende Mais</span>
     </div>
-    <h1>A gente <span class="hl">conserta, aluga e vende</span> imóveis de luxo travados — sem precisar comprá-los.</h1>
-    <p class="hero-sub">Pegamos imóveis depreciados em localização nobre, reformamos, geramos renda com aluguel de temporada durante a venda, e dividimos o lucro da valorização.</p>
-    <span class="hero-tagline">● Tese de investimento imobiliário · Rio de Janeiro</span>
+    <h1 data-i18n="hero_h1">A gente <span class="hl">conserta, aluga e vende</span> imóveis de luxo travados — sem precisar comprá-los.</h1>
+    <p class="hero-sub" data-i18n="hero_sub">Pegamos imóveis depreciados em localização nobre, reformamos, geramos renda com aluguel de temporada durante a venda, e dividimos o lucro da valorização.</p>
+    <span class="hero-tagline" data-i18n="hero_tagline">● Tese de investimento imobiliário · Rio de Janeiro</span>
     <div class="hero-stats">
-      <div class="hstat"><div class="n">+150</div><div class="l">imóveis sob gestão hoje</div></div>
-      <div class="hstat"><div class="n">2 vias</div><div class="l">de investir: ousada e conservadora</div></div>
-      <div class="hstat"><div class="n">Garantia real</div><div class="l">registrada na matrícula</div></div>
+      <div class="hstat"><div class="n" data-i18n="hero_s1n">+150</div><div class="l" data-i18n="hero_s1l">imóveis sob gestão hoje</div></div>
+      <div class="hstat"><div class="n" data-i18n="hero_s2n">2 vias</div><div class="l" data-i18n="hero_s2l">de investir: ousada e conservadora</div></div>
+      <div class="hstat"><div class="n" data-i18n="hero_s3n">Garantia real</div><div class="l" data-i18n="hero_s3l">registrada na matrícula</div></div>
     </div>
   </div>
 </header>
@@ -186,41 +191,29 @@
 <!-- O PROBLEMA -->
 <section>
   <div class="wrap">
-    <span class="tag">O problema</span>
-    <h2 class="big">Existe muito imóvel caro, lindo de localização<br>e parado, dando prejuízo pro dono.</h2>
-    <p class="lead">Imóvel de alto padrão acabado e sem reforma é difícil de vender. E enquanto não vende, custa caro: IPTU, condomínio, contas. Tem dono endividado, tem herança travada em inventário — gente que precisa vender mas não tem dinheiro pra reformar e destravar o valor.</p>
+    <span class="tag" data-i18n="prob_eyebrow">O problema</span>
+    <h2 class="big" data-i18n="prob_h2">Existe muito imóvel caro, lindo de localização<br>e parado, dando prejuízo pro dono.</h2>
+    <p class="lead" data-i18n="prob_lead">Imóvel de alto padrão acabado e sem reforma é difícil de vender. E enquanto não vende, custa caro: IPTU, condomínio, contas. Tem dono endividado, tem herança travada em inventário — gente que precisa vender mas não tem dinheiro pra reformar e destravar o valor.</p>
     <div class="grid3">
-      <div class="pcard">
-        <div class="ico">01</div>
-        <h3>Imóvel depreciado</h3>
-        <p>Ótima localização, mas precisa de reforma completa. Do jeito que está, vende no osso ou não vende.</p>
-      </div>
-      <div class="pcard">
-        <div class="ico">02</div>
-        <h3>Dono sem caixa</h3>
-        <p>Endividado, ou herdeiro de inventário sem dinheiro pra reformar. O imóvel vira um peso, não um ativo.</p>
-      </div>
-      <div class="pcard">
-        <div class="ico">03</div>
-        <h3>Tempo é prejuízo</h3>
-        <p>Cada mês parado é dinheiro saindo. E morador fixo no imóvel ainda atrapalha a visita e a venda.</p>
-      </div>
+      <div class="pcard"><div class="ico">01</div><h3 data-i18n="prob_c1h">Imóvel depreciado</h3><p data-i18n="prob_c1p">Ótima localização, mas precisa de reforma completa. Do jeito que está, vende no osso ou não vende.</p></div>
+      <div class="pcard"><div class="ico">02</div><h3 data-i18n="prob_c2h">Dono sem caixa</h3><p data-i18n="prob_c2p">Endividado, ou herdeiro de inventário sem dinheiro pra reformar. O imóvel vira um peso, não um ativo.</p></div>
+      <div class="pcard"><div class="ico">03</div><h3 data-i18n="prob_c3h">Tempo é prejuízo</h3><p data-i18n="prob_c3p">Cada mês parado é dinheiro saindo. E morador fixo no imóvel ainda atrapalha a visita e a venda.</p></div>
     </div>
   </div>
 </section>
 
-<!-- A TESE / SOLUÇÃO -->
+<!-- A TESE -->
 <section class="surface-dark">
   <div class="wrap">
-    <span class="tag">A nossa tese · Semi Flipping</span>
-    <h2 class="big">No flipping tradicional, você compra pra reformar e revender.<br>A gente pulou a parte mais cara: a compra.</h2>
-    <p class="lead">Em vez de gastar milhões comprando o imóvel, a gente só investe na reforma — e entra na matrícula como garantia. O aluguel de temporada paga o investimento enquanto o imóvel é vendido. No fim, dividimos a valorização com o dono.</p>
-    <span class="miudos"><b>Em miúdos:</b> não compramos a casa. A gente arruma a casa dos outros, com o nosso nome anotado no documento do imóvel garantindo o dinheiro, alugamos por temporada pra ir recebendo de volta, e quando vende a gente fica com uma fatia do que ela valorizou.</span>
+    <span class="tag" data-i18n="thesis_eyebrow">A nossa tese · Semi Flipping</span>
+    <h2 class="big" data-i18n="thesis_h2">No flipping tradicional, você compra pra reformar e revender.<br>A gente pulou a parte mais cara: a compra.</h2>
+    <p class="lead" data-i18n="thesis_lead">Em vez de gastar milhões comprando o imóvel, a gente só investe na reforma — e entra na matrícula como garantia. O aluguel de temporada paga o investimento enquanto o imóvel é vendido. No fim, dividimos a valorização com o dono.</p>
+    <span class="miudos" data-i18n="thesis_miudos"><b>Em miúdos:</b> não compramos a casa. A gente arruma a casa dos outros, com o nosso nome anotado no documento do imóvel garantindo o dinheiro, alugamos por temporada pra ir recebendo de volta, e quando vende a gente fica com uma fatia do que ela valorizou.</span>
     <div class="steps">
-      <div class="step"><div class="num">01</div><h3>Selecionamos</h3><p>Imóvel depreciado em local nobre, com alto potencial de valorização. Cada um passa pelo nosso sistema de análise de risco.</p></div>
-      <div class="step"><div class="num">02</div><h3>Garantimos</h3><p>Assinamos contrato e entramos na matrícula do imóvel como garantia real do capital. <span class="miudos">Em miúdos: nosso dinheiro fica protegido por lei.</span></p></div>
-      <div class="step"><div class="num">03</div><h3>Reformamos & alugamos</h3><p>Time próprio reforma; a Sua Casa Rende Mais aluga por temporada. A renda devolve o investimento e paga o marketing da venda.</p></div>
-      <div class="step"><div class="num">04</div><h3>Vendemos & dividimos</h3><p>Vendido o imóvel valorizado, dividimos o lucro com o dono. Todo mundo ganha mais do que ganharia sozinho.</p></div>
+      <div class="step"><div class="num">01</div><h3 data-i18n="step1h">Selecionamos</h3><p data-i18n="step1p">Imóvel depreciado em local nobre, com alto potencial de valorização. Cada um passa pelo nosso sistema de análise de risco.</p></div>
+      <div class="step"><div class="num">02</div><h3 data-i18n="step2h">Garantimos</h3><p data-i18n="step2p">Assinamos contrato e entramos na matrícula do imóvel como garantia real do capital. <span class="miudos">Em miúdos: nosso dinheiro fica protegido por lei.</span></p></div>
+      <div class="step"><div class="num">03</div><h3 data-i18n="step3h">Reformamos & alugamos</h3><p data-i18n="step3p">Time próprio reforma; a Sua Casa Rende Mais aluga por temporada. A renda devolve o investimento e paga o marketing da venda.</p></div>
+      <div class="step"><div class="num">04</div><h3 data-i18n="step4h">Vendemos & dividimos</h3><p data-i18n="step4p">Vendido o imóvel valorizado, dividimos o lucro com o dono. Todo mundo ganha mais do que ganharia sozinho.</p></div>
     </div>
   </div>
 </section>
@@ -228,13 +221,13 @@
 <!-- POR QUE É SEGURO -->
 <section>
   <div class="wrap">
-    <span class="tag">Por que o risco é menor</span>
-    <h2 class="big">O dinheiro não fica "morto" esperando vender.</h2>
-    <p class="lead">No flipping comum, dois riscos doem: você imobiliza um capitalzão comprando, e o imóvel parado só dá despesa. No nosso modelo, esses dois somem.</p>
+    <span class="tag" data-i18n="sec_eyebrow">Por que o risco é menor</span>
+    <h2 class="big" data-i18n="sec_h2">O dinheiro não fica "morto" esperando vender.</h2>
+    <p class="lead" data-i18n="sec_lead">No flipping comum, dois riscos doem: você imobiliza um capitalzão comprando, e o imóvel parado só dá despesa. No nosso modelo, esses dois somem.</p>
     <div class="grid3">
-      <div class="pcard"><div class="ico">01</div><h3>Garantia na matrícula</h3><p>O capital da reforma é protegido por garantia real registrada no imóvel (alienação fiduciária, Lei 9.514/97).</p></div>
-      <div class="pcard"><div class="ico">02</div><h3>Renda durante a espera</h3><p>O aluguel de temporada devolve o investimento mês a mês. O tempo de venda deixa de ser custo e passa a se pagar.</p></div>
-      <div class="pcard"><div class="ico">03</div><h3>Capital enxuto</h3><p>Não imobilizamos milhões comprando. O único valor exposto é a reforma — e ele está garantido.</p></div>
+      <div class="pcard"><div class="ico">01</div><h3 data-i18n="sec_c1h">Garantia na matrícula</h3><p data-i18n="sec_c1p">O capital da reforma é protegido por garantia real registrada no imóvel (alienação fiduciária, Lei 9.514/97).</p></div>
+      <div class="pcard"><div class="ico">02</div><h3 data-i18n="sec_c2h">Renda durante a espera</h3><p data-i18n="sec_c2p">O aluguel de temporada devolve o investimento mês a mês. O tempo de venda deixa de ser custo e passa a se pagar.</p></div>
+      <div class="pcard"><div class="ico">03</div><h3 data-i18n="sec_c3h">Capital enxuto</h3><p data-i18n="sec_c3p">Não imobilizamos milhões comprando. O único valor exposto é a reforma — e ele está garantido.</p></div>
     </div>
   </div>
 </section>
@@ -242,80 +235,78 @@
 <!-- DUAS DIMENSÕES -->
 <section class="surface-warm">
   <div class="wrap">
-    <span class="tag">Duas formas de investir</span>
-    <h2 class="big">Você escolhe o seu apetite de risco.</h2>
-    <p class="lead">A mesma máquina operacional — gestão de temporada + time de reforma — sustenta duas portas de entrada: uma mais ousada e rentável, outra mais conservadora e segura.</p>
+    <span class="tag" data-i18n="dims_eyebrow">Duas formas de investir</span>
+    <h2 class="big" data-i18n="dims_h2">Você escolhe o seu apetite de risco.</h2>
+    <p class="lead" data-i18n="dims_lead">A mesma máquina operacional — gestão de temporada + time de reforma — sustenta duas portas de entrada: uma mais ousada e rentável, outra mais conservadora e segura.</p>
     <div class="dims">
-      <!-- DIM 1 -->
       <div class="dim dim-1">
-        <span class="badge">Dimensão 1 · Ousada</span>
+        <span class="badge" data-i18n="dim1_badge">Dimensão 1 · Ousada</span>
         <h3>Semi Flipping</h3>
-        <div class="sub">Parceria com o dono. Você financia a reforma; a garantia fica na matrícula.</div>
+        <div class="sub" data-i18n="dim1_sub">Parceria com o dono. Você financia a reforma; a garantia fica na matrícula.</div>
         <ul>
-          <li><span class="k">Como</span><span class="v"><b>Não compra o imóvel.</b> Financia a reforma de imóveis selecionados e participa da valorização na venda.</span></li>
-          <li><span class="k">Garantia</span><span class="v">Capital <b>registrado na matrícula</b> como garantia real.</span></li>
-          <li><span class="k">Renda</span><span class="v">Aluguel de temporada <b>amortiza o aporte</b> durante a venda.</span></li>
-          <li><span class="k">Capital</span><span class="v">Enxuto — só a reforma, não o imóvel inteiro.</span></li>
+          <li data-i18n="dim1_li1"><span class="k">Como</span><span class="v"><b>Não compra o imóvel.</b> Financia a reforma de imóveis selecionados e participa da valorização na venda.</span></li>
+          <li data-i18n="dim1_li2"><span class="k">Garantia</span><span class="v">Capital <b>registrado na matrícula</b> como garantia real.</span></li>
+          <li data-i18n="dim1_li3"><span class="k">Renda</span><span class="v">Aluguel de temporada <b>amortiza o aporte</b> durante a venda.</span></li>
+          <li data-i18n="dim1_li4"><span class="k">Capital</span><span class="v">Enxuto — só a reforma, não o imóvel inteiro.</span></li>
         </ul>
-        <div class="pill-row"><span class="pill pill-ret">↑ Retorno maior</span><span class="pill pill-sec">Risco moderado</span></div>
+        <div class="pill-row"><span class="pill pill-ret" data-i18n="dim1_pill1">↑ Retorno maior</span><span class="pill pill-sec" data-i18n="dim1_pill2">Risco moderado</span></div>
       </div>
-      <!-- DIM 2 -->
       <div class="dim dim-2">
-        <span class="badge">Dimensão 2 · Conservadora</span>
-        <h3>Leilão & Reforma</h3>
-        <div class="sub">Compra de imóvel em leilão no Rio. Você é o dono do ativo.</div>
+        <span class="badge" data-i18n="dim2_badge">Dimensão 2 · Conservadora</span>
+        <h3 data-i18n="dim2_h3">Leilão & Reforma</h3>
+        <div class="sub" data-i18n="dim2_sub">Compra de imóvel em leilão no Rio. Você é o dono do ativo.</div>
         <ul>
-          <li><span class="k">Como</span><span class="v"><b>Compra na arrematação</b> abaixo do mercado, a gente reforma, aluga e vende.</span></li>
-          <li><span class="k">Garantia</span><span class="v"><b>A maior de todas: o imóvel é seu.</b> Você detém a propriedade.</span></li>
-          <li><span class="k">Renda</span><span class="v">Temporada gera renda enquanto valoriza e até a venda.</span></li>
-          <li><span class="k">Capital</span><span class="v">Maior (compra + reforma), porém com ativo no seu nome.</span></li>
+          <li data-i18n="dim2_li1"><span class="k">Como</span><span class="v"><b>Compra na arrematação</b> abaixo do mercado, a gente reforma, aluga e vende.</span></li>
+          <li data-i18n="dim2_li2"><span class="k">Garantia</span><span class="v"><b>A maior de todas: o imóvel é seu.</b> Você detém a propriedade.</span></li>
+          <li data-i18n="dim2_li3"><span class="k">Renda</span><span class="v">Temporada gera renda enquanto valoriza e até a venda.</span></li>
+          <li data-i18n="dim2_li4"><span class="k">Capital</span><span class="v">Maior (compra + reforma), porém com ativo no seu nome.</span></li>
         </ul>
-        <div class="pill-row"><span class="pill pill-ret">Retorno mais apertado</span><span class="pill pill-sec">↑ Segurança máxima</span></div>
+        <div class="pill-row"><span class="pill pill-ret" data-i18n="dim2_pill1">Retorno mais apertado</span><span class="pill pill-sec" data-i18n="dim2_pill2">↑ Segurança máxima</span></div>
       </div>
     </div>
-    <span class="miudos" style="margin-top:22px;"><b>Em miúdos:</b> na Dimensão 1 você empresta pra reforma e ganha uma fatia maior do bolo, com seu dinheiro protegido no documento do imóvel. Na Dimensão 2 você compra a casa baratinho num leilão e fica dono dela — ganha um pouco menos, mas dorme mais tranquilo porque a casa é sua.</span>
+    <span class="miudos" style="margin-top:22px;" data-i18n="dims_miudos"><b>Em miúdos:</b> na Dimensão 1 você empresta pra reforma e ganha uma fatia maior do bolo, com seu dinheiro protegido no documento do imóvel. Na Dimensão 2 você compra a casa baratinho num leilão e fica dono dela — ganha um pouco menos, mas dorme mais tranquilo porque a casa é sua.</span>
   </div>
 </section>
 
-<!-- EXEMPLO REAL -->
+<!-- EXEMPLO -->
 <section>
   <div class="wrap">
-    <span class="tag">Um caso real que analisamos</span>
-    <h2 class="big">Cobertura no Flamengo, 400m².</h2>
-    <p class="lead">Imóvel em inventário, avaliado em R$ 5 milhões, totalmente acabado. O vizinho, reformado, estava anunciado por R$ 11 milhões. Orçamos a reforma em R$ 500 mil. Na temporada, renderia cerca de R$ 30 mil por mês.</p>
+    <span class="tag" data-i18n="ex_eyebrow">Um caso real que analisamos</span>
+    <h2 class="big" data-i18n="ex_h2">Cobertura no Flamengo, 400m².</h2>
+    <p class="lead" data-i18n="ex_lead">Imóvel em inventário, avaliado em R$ 5 milhões, totalmente acabado. O vizinho, reformado, estava anunciado por R$ 11 milhões. Orçamos a reforma em R$ 500 mil. Na temporada, renderia cerca de R$ 30 mil por mês.</p>
     <div class="example">
       <div class="ex-flow">
-        <div class="ex-box"><div class="lbl">Valor hoje</div><div class="val">R$ 5 mi</div></div>
-        <div class="ex-box"><div class="lbl">+ Reforma</div><div class="val">R$ 500 mil</div></div>
-        <div class="ex-box"><div class="lbl">Renda temporada</div><div class="val">~R$ 30 mil/mês</div></div>
-        <div class="ex-box hl"><div class="lbl">Venda-alvo</div><div class="val">R$ 10 mi</div></div>
+        <div class="ex-box"><div class="lbl" data-i18n="ex_b1l">Valor hoje</div><div class="val" data-i18n="ex_b1v">R$ 5 mi</div></div>
+        <div class="ex-box"><div class="lbl" data-i18n="ex_b2l">+ Reforma</div><div class="val" data-i18n="ex_b2v">R$ 500 mil</div></div>
+        <div class="ex-box"><div class="lbl" data-i18n="ex_b3l">Renda temporada</div><div class="val" data-i18n="ex_b3v">~R$ 30 mil/mês</div></div>
+        <div class="ex-box hl"><div class="lbl" data-i18n="ex_b4l">Venda-alvo</div><div class="val" data-i18n="ex_b4v">R$ 10 mi</div></div>
       </div>
-      <p style="font-size:15px;color:var(--ink-soft);margin:0 0 8px;"><strong>Valorização gerada pela reforma:</strong> da ordem de R$ 4,5 milhões (já descontado o custo da obra). É essa valorização que se divide:</p>
+      <p style="font-size:15px;color:var(--ink-soft);margin:0 0 8px;" data-i18n="ex_valoriz"><strong>Valorização gerada pela reforma:</strong> da ordem de R$ 4,5 milhões (já descontado o custo da obra). É essa valorização que se divide:</p>
       <div class="ex-split">
-        <div class="s"><div class="who">Proprietário</div><div class="amt">recebe seu valor + fatia</div><div class="desc">Mantém o valor original do imóvel e ainda ganha parte da valorização — sem ter gasto nada.</div></div>
-        <div class="s"><div class="who">Investidor + Guest to Buy</div><div class="amt">fatia majoritária</div><div class="desc">Pela reforma, gestão, marketing e venda. Mais a renda de temporada recebida no caminho.</div></div>
+        <div class="s"><div class="who" data-i18n="ex_s1who">Proprietário</div><div class="amt" data-i18n="ex_s1amt">recebe seu valor + fatia</div><div class="desc" data-i18n="ex_s1desc">Mantém o valor original do imóvel e ainda ganha parte da valorização — sem ter gasto nada.</div></div>
+        <div class="s"><div class="who" data-i18n="ex_s2who">Investidor + Guest to Buy</div><div class="amt" data-i18n="ex_s2amt">fatia majoritária</div><div class="desc" data-i18n="ex_s2desc">Pela reforma, gestão, marketing e venda. Mais a renda de temporada recebida no caminho.</div></div>
       </div>
-      <span class="miudos" style="margin-top:18px;"><b>Em miúdos:</b> com R$ 500 mil de reforma, um imóvel de R$ 5 milhões pode virar R$ 10 milhões. Essa diferença de R$ 4,5 milhões é o prêmio — e ela é dividida entre quem é dono e quem fez o trabalho e botou o dinheiro.</span>
+      <span class="miudos" style="margin-top:18px;" data-i18n="ex_miudos"><b>Em miúdos:</b> com R$ 500 mil de reforma, um imóvel de R$ 5 milhões pode virar R$ 10 milhões. Essa diferença de R$ 4,5 milhões é o prêmio — e ela é dividida entre quem é dono e quem fez o trabalho e botou o dinheiro.</span>
     </div>
-    <p class="disclaim" style="text-align:left;margin-top:18px;">Números ilustrativos de um caso real analisado. Não são promessa de retorno: cada imóvel é diferente e passa pelo nosso sistema de score de risco antes de qualquer aporte. Valorização depende de reforma, mercado e prazo de venda.</p>
+    <p class="disclaim" style="text-align:left;margin-top:18px;" data-i18n="ex_disclaim">Números ilustrativos de um caso real analisado. Não são promessa de retorno: cada imóvel é diferente e passa pelo nosso sistema de score de risco antes de qualquer aporte. Valorização depende de reforma, mercado e prazo de venda.</p>
   </div>
 </section>
 
 <!-- CREDIBILIDADE -->
 <section class="surface-warm">
   <div class="wrap">
-    <span class="tag">Por que com a gente</span>
+    <span class="tag" data-i18n="cred_eyebrow">Por que com a gente</span>
     <div class="cred">
       <div>
-        <h2 class="big" style="margin-bottom:18px;">Não somos novatos. Somos uma gestora profissional de temporada.</h2>
-        <p class="lead">A <strong>Sua Casa Rende Mais</strong> já administra <strong>mais de 150 imóveis</strong> de aluguel de temporada. Temos time de reforma, <strong>empreiteiro funcionário da casa</strong> e <strong>arquiteto parceiro</strong> do negócio. A operação que faz o modelo girar já existe e roda todo dia.</p>
+        <h2 class="big" style="margin-bottom:18px;" data-i18n="cred_h2">Não somos novatos. Somos uma gestora profissional de temporada.</h2>
+        <p class="lead" data-i18n="cred_lead"><strong>Sua Casa Rende Mais</strong> já administra <strong>mais de 150 imóveis</strong> de aluguel de temporada. Temos time de reforma, <strong>empreiteiro funcionário da casa</strong> e <strong>arquiteto parceiro</strong> do negócio. A operação que faz o modelo girar já existe e roda todo dia.</p>
         <p style="margin-top:14px;"><a href="https://www.suacasarendemais.com.br" target="_blank" rel="noopener">www.suacasarendemais.com.br</a></p>
       </div>
       <div class="cred-stats">
-        <div class="cstat"><div class="n">+150</div><div class="l">imóveis sob gestão</div></div>
-        <div class="cstat"><div class="n">Time</div><div class="l">de reforma próprio</div></div>
-        <div class="cstat"><div class="n">Empreiteiro</div><div class="l">funcionário da empresa</div></div>
-        <div class="cstat"><div class="n">Arquiteto</div><div class="l">parceiro do negócio</div></div>
+        <div class="cstat"><div class="n">+150</div><div class="l" data-i18n="cred_s1l">imóveis sob gestão</div></div>
+        <div class="cstat"><div class="n" data-i18n="cred_s2n">Time</div><div class="l" data-i18n="cred_s2l">de reforma próprio</div></div>
+        <div class="cstat"><div class="n" data-i18n="cred_s3n">Empreiteiro</div><div class="l" data-i18n="cred_s3l">funcionário da empresa</div></div>
+        <div class="cstat"><div class="n" data-i18n="cred_s4n">Arquiteto</div><div class="l" data-i18n="cred_s4l">parceiro do negócio</div></div>
       </div>
     </div>
   </div>
@@ -324,15 +315,15 @@
 <!-- GESTÃO DE RISCO -->
 <section>
   <div class="wrap">
-    <span class="tag">Gestão de risco · nosso diferencial</span>
-    <h2 class="big">Conhecemos o campo minado — e temos protocolo pra cada mina.</h2>
-    <p class="lead">Investidor sério desconfia de quem só mostra o lado bom. A gente mapeou os riscos reais desse mercado e construiu um sistema próprio que dá nota a cada imóvel: <strong>vai ou não vai</strong>.</p>
+    <span class="tag" data-i18n="risk_eyebrow">Gestão de risco · nosso diferencial</span>
+    <h2 class="big" data-i18n="risk_h2">Conhecemos o campo minado — e temos protocolo pra cada mina.</h2>
+    <p class="lead" data-i18n="risk_lead">Investidor sério desconfia de quem só mostra o lado bom. A gente mapeou os riscos reais desse mercado e construiu um sistema próprio que dá nota a cada imóvel: <strong>vai ou não vai</strong>.</p>
     <div class="risk">
-      <div class="risk-row head"><div class="r-risk">Risco real</div><div class="r-sol">Nosso protocolo</div><div class="r-res">Resultado</div></div>
-      <div class="risk-row"><div class="r-risk">Dono com dívida que trava o imóvel</div><div class="r-sol">Varredura de certidões (fiscal, trabalhista, cível) antes de qualquer aporte</div><div class="r-res">Capital não entra no escuro</div></div>
-      <div class="risk-row"><div class="r-risk">Condomínio que proíbe temporada</div><div class="r-sol">Validação da convenção e do condomínio antes de entrar + plano B de locação</div><div class="r-res">Renda garantida ou não entra</div></div>
-      <div class="risk-row"><div class="r-risk">Obra que estoura o orçamento</div><div class="r-sol">Laudo de engenharia + orçamento com 25% de folga, time próprio</div><div class="r-res">Surpresa controlada</div></div>
-      <div class="risk-row"><div class="r-risk">Imóvel que não valoriza o esperado</div><div class="r-sol">Score exige no mínimo 3× de margem por comparáveis vendidos de verdade</div><div class="r-res">Só os melhores passam</div></div>
+      <div class="risk-row head"><div class="r-risk" data-i18n="risk_head1">Risco real</div><div class="r-sol" data-i18n="risk_head2">Nosso protocolo</div><div class="r-res" data-i18n="risk_head3">Resultado</div></div>
+      <div class="risk-row"><div class="r-risk" data-i18n="risk_r1risk">Dono com dívida que trava o imóvel</div><div class="r-sol" data-i18n="risk_r1sol">Varredura de certidões (fiscal, trabalhista, cível) antes de qualquer aporte</div><div class="r-res" data-i18n="risk_r1res">Capital não entra no escuro</div></div>
+      <div class="risk-row"><div class="r-risk" data-i18n="risk_r2risk">Condomínio que proíbe temporada</div><div class="r-sol" data-i18n="risk_r2sol">Validação da convenção e do condomínio antes de entrar + plano B de locação</div><div class="r-res" data-i18n="risk_r2res">Renda garantida ou não entra</div></div>
+      <div class="risk-row"><div class="r-risk" data-i18n="risk_r3risk">Obra que estoura o orçamento</div><div class="r-sol" data-i18n="risk_r3sol">Laudo de engenharia + orçamento com 25% de folga, time próprio</div><div class="r-res" data-i18n="risk_r3res">Surpresa controlada</div></div>
+      <div class="risk-row"><div class="r-risk" data-i18n="risk_r4risk">Imóvel que não valoriza o esperado</div><div class="r-sol" data-i18n="risk_r4sol">Score exige no mínimo 3× de margem por comparáveis vendidos de verdade</div><div class="r-res" data-i18n="risk_r4res">Só os melhores passam</div></div>
     </div>
   </div>
 </section>
@@ -341,23 +332,298 @@
 <section class="surface-warm">
   <div class="wrap">
     <div class="cta-box">
-      <h2>Vamos desenhar o seu jeito de entrar.</h2>
-      <p>Seja na via ousada (Semi Flipping) ou na conservadora (Leilão), o próximo passo é conversar sobre valores, estrutura e os primeiros imóveis do pipeline.</p>
+      <h2 data-i18n="cta_h2">Vamos desenhar o seu jeito de entrar.</h2>
+      <p data-i18n="cta_p">Seja na via ousada (Semi Flipping) ou na conservadora (Leilão), o próximo passo é conversar sobre valores, estrutura e os primeiros imóveis do pipeline.</p>
       <div class="cta-actions">
-        <a class="btn" href="#">Quero conversar</a>
-        <a class="btn btn-ghost" href="/flipping" target="_blank">Ver nosso sistema de análise de risco →</a>
+        <a class="btn" href="#" data-i18n="cta_btn1">Quero conversar</a>
+        <a class="btn btn-ghost" href="/flipping" target="_blank" data-i18n="cta_btn2">Ver nosso sistema de análise de risco →</a>
       </div>
     </div>
-    <p class="disclaim">Material informativo para investidores. Não constitui oferta pública de valores mobiliários nem promessa de rentabilidade. Termos, estrutura jurídica e percentuais de participação serão formalizados em contrato específico, com assessoria jurídica.</p>
+    <p class="disclaim" data-i18n="cta_disclaim">Material informativo para investidores. Não constitui oferta pública de valores mobiliários nem promessa de rentabilidade. Termos, estrutura jurídica e percentuais de participação serão formalizados em contrato específico, com assessoria jurídica.</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <div class="gtb">Guest to Buy</div>
-    <div class="small">por Sua Casa Rende Mais · Rio de Janeiro</div>
+    <div class="small" data-i18n="footer_small">por Sua Casa Rende Mais · Rio de Janeiro</div>
   </div>
 </footer>
+
+<script>
+const I18N = {
+  pt: {
+    _title:"Guest to Buy — Tese de Investimento Imobiliário", _lang:"pt-BR",
+    brand_by:"por Sua Casa Rende Mais", footer_small:"por Sua Casa Rende Mais · Rio de Janeiro",
+    hero_h1:'A gente <span class="hl">conserta, aluga e vende</span> imóveis de luxo travados — sem precisar comprá-los.',
+    hero_sub:"Pegamos imóveis depreciados em localização nobre, reformamos, geramos renda com aluguel de temporada durante a venda, e dividimos o lucro da valorização.",
+    hero_tagline:"● Tese de investimento imobiliário · Rio de Janeiro",
+    hero_s1n:"+150", hero_s1l:"imóveis sob gestão hoje", hero_s2n:"2 vias", hero_s2l:"de investir: ousada e conservadora", hero_s3n:"Garantia real", hero_s3l:"registrada na matrícula",
+    prob_eyebrow:"O problema", prob_h2:"Existe muito imóvel caro, lindo de localização<br>e parado, dando prejuízo pro dono.",
+    prob_lead:"Imóvel de alto padrão acabado e sem reforma é difícil de vender. E enquanto não vende, custa caro: IPTU, condomínio, contas. Tem dono endividado, tem herança travada em inventário — gente que precisa vender mas não tem dinheiro pra reformar e destravar o valor.",
+    prob_c1h:"Imóvel depreciado", prob_c1p:"Ótima localização, mas precisa de reforma completa. Do jeito que está, vende no osso ou não vende.",
+    prob_c2h:"Dono sem caixa", prob_c2p:"Endividado, ou herdeiro de inventário sem dinheiro pra reformar. O imóvel vira um peso, não um ativo.",
+    prob_c3h:"Tempo é prejuízo", prob_c3p:"Cada mês parado é dinheiro saindo. E morador fixo no imóvel ainda atrapalha a visita e a venda.",
+    thesis_eyebrow:"A nossa tese · Semi Flipping", thesis_h2:"No flipping tradicional, você compra pra reformar e revender.<br>A gente pulou a parte mais cara: a compra.",
+    thesis_lead:"Em vez de gastar milhões comprando o imóvel, a gente só investe na reforma — e entra na matrícula como garantia. O aluguel de temporada paga o investimento enquanto o imóvel é vendido. No fim, dividimos a valorização com o dono.",
+    thesis_miudos:'<b>Em miúdos:</b> não compramos a casa. A gente arruma a casa dos outros, com o nosso nome anotado no documento do imóvel garantindo o dinheiro, alugamos por temporada pra ir recebendo de volta, e quando vende a gente fica com uma fatia do que ela valorizou.',
+    step1h:"Selecionamos", step1p:"Imóvel depreciado em local nobre, com alto potencial de valorização. Cada um passa pelo nosso sistema de análise de risco.",
+    step2h:"Garantimos", step2p:'Assinamos contrato e entramos na matrícula do imóvel como garantia real do capital. <span class="miudos">Em miúdos: nosso dinheiro fica protegido por lei.</span>',
+    step3h:"Reformamos & alugamos", step3p:"Time próprio reforma; a Sua Casa Rende Mais aluga por temporada. A renda devolve o investimento e paga o marketing da venda.",
+    step4h:"Vendemos & dividimos", step4p:"Vendido o imóvel valorizado, dividimos o lucro com o dono. Todo mundo ganha mais do que ganharia sozinho.",
+    sec_eyebrow:"Por que o risco é menor", sec_h2:'O dinheiro não fica "morto" esperando vender.',
+    sec_lead:"No flipping comum, dois riscos doem: você imobiliza um capitalzão comprando, e o imóvel parado só dá despesa. No nosso modelo, esses dois somem.",
+    sec_c1h:"Garantia na matrícula", sec_c1p:"O capital da reforma é protegido por garantia real registrada no imóvel (alienação fiduciária, Lei 9.514/97).",
+    sec_c2h:"Renda durante a espera", sec_c2p:"O aluguel de temporada devolve o investimento mês a mês. O tempo de venda deixa de ser custo e passa a se pagar.",
+    sec_c3h:"Capital enxuto", sec_c3p:"Não imobilizamos milhões comprando. O único valor exposto é a reforma — e ele está garantido.",
+    dims_eyebrow:"Duas formas de investir", dims_h2:"Você escolhe o seu apetite de risco.",
+    dims_lead:"A mesma máquina operacional — gestão de temporada + time de reforma — sustenta duas portas de entrada: uma mais ousada e rentável, outra mais conservadora e segura.",
+    dim1_badge:"Dimensão 1 · Ousada", dim1_sub:"Parceria com o dono. Você financia a reforma; a garantia fica na matrícula.",
+    dim1_li1:'<span class="k">Como</span><span class="v"><b>Não compra o imóvel.</b> Financia a reforma de imóveis selecionados e participa da valorização na venda.</span>',
+    dim1_li2:'<span class="k">Garantia</span><span class="v">Capital <b>registrado na matrícula</b> como garantia real.</span>',
+    dim1_li3:'<span class="k">Renda</span><span class="v">Aluguel de temporada <b>amortiza o aporte</b> durante a venda.</span>',
+    dim1_li4:'<span class="k">Capital</span><span class="v">Enxuto — só a reforma, não o imóvel inteiro.</span>',
+    dim1_pill1:"↑ Retorno maior", dim1_pill2:"Risco moderado",
+    dim2_badge:"Dimensão 2 · Conservadora", dim2_h3:"Leilão & Reforma", dim2_sub:"Compra de imóvel em leilão no Rio. Você é o dono do ativo.",
+    dim2_li1:'<span class="k">Como</span><span class="v"><b>Compra na arrematação</b> abaixo do mercado, a gente reforma, aluga e vende.</span>',
+    dim2_li2:'<span class="k">Garantia</span><span class="v"><b>A maior de todas: o imóvel é seu.</b> Você detém a propriedade.</span>',
+    dim2_li3:'<span class="k">Renda</span><span class="v">Temporada gera renda enquanto valoriza e até a venda.</span>',
+    dim2_li4:'<span class="k">Capital</span><span class="v">Maior (compra + reforma), porém com ativo no seu nome.</span>',
+    dim2_pill1:"Retorno mais apertado", dim2_pill2:"↑ Segurança máxima",
+    dims_miudos:'<b>Em miúdos:</b> na Dimensão 1 você empresta pra reforma e ganha uma fatia maior do bolo, com seu dinheiro protegido no documento do imóvel. Na Dimensão 2 você compra a casa baratinho num leilão e fica dono dela — ganha um pouco menos, mas dorme mais tranquilo porque a casa é sua.',
+    ex_eyebrow:"Um caso real que analisamos", ex_h2:"Cobertura no Flamengo, 400m².",
+    ex_lead:"Imóvel em inventário, avaliado em R$ 5 milhões, totalmente acabado. O vizinho, reformado, estava anunciado por R$ 11 milhões. Orçamos a reforma em R$ 500 mil. Na temporada, renderia cerca de R$ 30 mil por mês.",
+    ex_b1l:"Valor hoje", ex_b1v:"R$ 5 mi", ex_b2l:"+ Reforma", ex_b2v:"R$ 500 mil", ex_b3l:"Renda temporada", ex_b3v:"~R$ 30 mil/mês", ex_b4l:"Venda-alvo", ex_b4v:"R$ 10 mi",
+    ex_valoriz:'<strong>Valorização gerada pela reforma:</strong> da ordem de R$ 4,5 milhões (já descontado o custo da obra). É essa valorização que se divide:',
+    ex_s1who:"Proprietário", ex_s1amt:"recebe seu valor + fatia", ex_s1desc:"Mantém o valor original do imóvel e ainda ganha parte da valorização — sem ter gasto nada.",
+    ex_s2who:"Investidor + Guest to Buy", ex_s2amt:"fatia majoritária", ex_s2desc:"Pela reforma, gestão, marketing e venda. Mais a renda de temporada recebida no caminho.",
+    ex_miudos:'<b>Em miúdos:</b> com R$ 500 mil de reforma, um imóvel de R$ 5 milhões pode virar R$ 10 milhões. Essa diferença de R$ 4,5 milhões é o prêmio — e ela é dividida entre quem é dono e quem fez o trabalho e botou o dinheiro.',
+    ex_disclaim:"Números ilustrativos de um caso real analisado. Não são promessa de retorno: cada imóvel é diferente e passa pelo nosso sistema de score de risco antes de qualquer aporte. Valorização depende de reforma, mercado e prazo de venda.",
+    cred_eyebrow:"Por que com a gente", cred_h2:"Não somos novatos. Somos uma gestora profissional de temporada.",
+    cred_lead:'<strong>Sua Casa Rende Mais</strong> já administra <strong>mais de 150 imóveis</strong> de aluguel de temporada. Temos time de reforma, <strong>empreiteiro funcionário da casa</strong> e <strong>arquiteto parceiro</strong> do negócio. A operação que faz o modelo girar já existe e roda todo dia.',
+    cred_s1l:"imóveis sob gestão", cred_s2n:"Time", cred_s2l:"de reforma próprio", cred_s3n:"Empreiteiro", cred_s3l:"funcionário da empresa", cred_s4n:"Arquiteto", cred_s4l:"parceiro do negócio",
+    risk_eyebrow:"Gestão de risco · nosso diferencial", risk_h2:"Conhecemos o campo minado — e temos protocolo pra cada mina.",
+    risk_lead:'Investidor sério desconfia de quem só mostra o lado bom. A gente mapeou os riscos reais desse mercado e construiu um sistema próprio que dá nota a cada imóvel: <strong>vai ou não vai</strong>.',
+    risk_head1:"Risco real", risk_head2:"Nosso protocolo", risk_head3:"Resultado",
+    risk_r1risk:"Dono com dívida que trava o imóvel", risk_r1sol:"Varredura de certidões (fiscal, trabalhista, cível) antes de qualquer aporte", risk_r1res:"Capital não entra no escuro",
+    risk_r2risk:"Condomínio que proíbe temporada", risk_r2sol:"Validação da convenção e do condomínio antes de entrar + plano B de locação", risk_r2res:"Renda garantida ou não entra",
+    risk_r3risk:"Obra que estoura o orçamento", risk_r3sol:"Laudo de engenharia + orçamento com 25% de folga, time próprio", risk_r3res:"Surpresa controlada",
+    risk_r4risk:"Imóvel que não valoriza o esperado", risk_r4sol:"Score exige no mínimo 3× de margem por comparáveis vendidos de verdade", risk_r4res:"Só os melhores passam",
+    cta_h2:"Vamos desenhar o seu jeito de entrar.", cta_p:"Seja na via ousada (Semi Flipping) ou na conservadora (Leilão), o próximo passo é conversar sobre valores, estrutura e os primeiros imóveis do pipeline.",
+    cta_btn1:"Quero conversar", cta_btn2:"Ver nosso sistema de análise de risco →",
+    cta_disclaim:"Material informativo para investidores. Não constitui oferta pública de valores mobiliários nem promessa de rentabilidade. Termos, estrutura jurídica e percentuais de participação serão formalizados em contrato específico, com assessoria jurídica."
+  },
+  en: {
+    _title:"Guest to Buy — Real Estate Investment Thesis", _lang:"en",
+    brand_by:"by Sua Casa Rende Mais", footer_small:"by Sua Casa Rende Mais · Rio de Janeiro",
+    hero_h1:'We <span class="hl">renovate, rent and sell</span> stuck luxury properties — without having to buy them.',
+    hero_sub:"We take run-down properties in prime locations, renovate them, generate income with short-term rentals while they sell, and share the profit from the appreciation.",
+    hero_tagline:"● Real estate investment thesis · Rio de Janeiro",
+    hero_s1n:"+150", hero_s1l:"properties under management today", hero_s2n:"2 ways", hero_s2l:"to invest: bold and conservative", hero_s3n:"Real security", hero_s3l:"registered on the title",
+    prob_eyebrow:"The problem", prob_h2:"There are plenty of expensive properties, in great locations<br>and sitting idle, costing the owner money.",
+    prob_lead:"A high-end property that is worn out and unrenovated is hard to sell. And while it doesn’t sell, it costs a lot: property tax, condo fees, bills. There are indebted owners, estates stuck in probate — people who need to sell but don’t have the money to renovate and unlock the value.",
+    prob_c1h:"Run-down property", prob_c1p:"Great location, but it needs a full renovation. As-is, it sells for a pittance or doesn’t sell at all.",
+    prob_c2h:"Owner with no cash", prob_c2p:"Indebted, or an heir in probate with no money to renovate. The property becomes a burden, not an asset.",
+    prob_c3h:"Time is a loss", prob_c3p:"Every idle month is money going out. And a permanent tenant makes viewings and the sale harder.",
+    thesis_eyebrow:"Our thesis · Semi Flipping", thesis_h2:"In traditional flipping, you buy to renovate and resell.<br>We skipped the most expensive part: buying.",
+    thesis_lead:"Instead of spending millions buying the property, we only invest in the renovation — and we’re registered on the title as security. Short-term rentals pay back the investment while the property is being sold. In the end, we share the appreciation with the owner.",
+    thesis_miudos:'<b>In plain words:</b> we don’t buy the house. We fix up someone else’s house, with our name noted on the property’s title securing the money, rent it short-term to get paid back along the way, and when it sells we keep a slice of how much it went up in value.',
+    step1h:"We select", step1p:"A run-down property in a prime area with high appreciation potential. Each one goes through our risk-analysis system.",
+    step2h:"We secure", step2p:'We sign a contract and are registered on the property’s title as real security for the capital. <span class="miudos">In plain words: our money is protected by law.</span>',
+    step3h:"We renovate & rent", step3p:"Our own team renovates; Sua Casa Rende Mais rents it short-term. The income pays back the investment and funds the sale’s marketing.",
+    step4h:"We sell & share", step4p:"Once the upgraded property sells, we share the profit with the owner. Everyone earns more than they would alone.",
+    sec_eyebrow:"Why the risk is lower", sec_h2:'The money doesn’t sit “dead” waiting for a sale.',
+    sec_lead:"In ordinary flipping, two risks hurt: you tie up a lot of capital buying, and the idle property only generates expenses. In our model, both of these disappear.",
+    sec_c1h:"Security on the title", sec_c1p:"The renovation capital is protected by a real security registered on the property (fiduciary security under Brazilian Law 9.514/97).",
+    sec_c2h:"Income during the wait", sec_c2p:"Short-term rentals pay back the investment month by month. The selling period stops being a cost and starts paying for itself.",
+    sec_c3h:"Lean capital", sec_c3p:"We don’t tie up millions buying. The only amount at risk is the renovation — and it’s secured.",
+    dims_eyebrow:"Two ways to invest", dims_h2:"You choose your risk appetite.",
+    dims_lead:"The same operational machine — short-term rental management + renovation team — supports two entry doors: one bolder and more profitable, the other more conservative and safer.",
+    dim1_badge:"Dimension 1 · Bold", dim1_sub:"Partnership with the owner. You finance the renovation; the security sits on the title.",
+    dim1_li1:'<span class="k">How</span><span class="v"><b>You don’t buy the property.</b> You finance the renovation of selected properties and share in the appreciation at sale.</span>',
+    dim1_li2:'<span class="k">Security</span><span class="v">Capital <b>registered on the title</b> as real security.</span>',
+    dim1_li3:'<span class="k">Income</span><span class="v">Short-term rentals <b>amortize the investment</b> during the sale.</span>',
+    dim1_li4:'<span class="k">Capital</span><span class="v">Lean — only the renovation, not the whole property.</span>',
+    dim1_pill1:"↑ Higher return", dim1_pill2:"Moderate risk",
+    dim2_badge:"Dimension 2 · Conservative", dim2_h3:"Auction & Renovation", dim2_sub:"Buying a property at auction in Rio. You own the asset.",
+    dim2_li1:'<span class="k">How</span><span class="v"><b>You buy at auction</b> below market; we renovate, rent and sell.</span>',
+    dim2_li2:'<span class="k">Security</span><span class="v"><b>The strongest of all: the property is yours.</b> You hold ownership.</span>',
+    dim2_li3:'<span class="k">Income</span><span class="v">Short-term rentals generate income while it appreciates and until the sale.</span>',
+    dim2_li4:'<span class="k">Capital</span><span class="v">Higher (purchase + renovation), but with the asset in your name.</span>',
+    dim2_pill1:"Tighter return", dim2_pill2:"↑ Maximum safety",
+    dims_miudos:'<b>In plain words:</b> in Dimension 1 you lend for the renovation and get a bigger slice of the pie, with your money protected on the property’s title. In Dimension 2 you buy the house cheap at auction and own it — you earn a bit less, but sleep better because the house is yours.',
+    ex_eyebrow:"A real case we analyzed", ex_h2:"A penthouse in Flamengo, 400 m².",
+    ex_lead:"A property in probate, valued at R$ 5 million, completely worn out. The neighbor’s unit, renovated, was listed at R$ 11 million. We estimated the renovation at R$ 500 thousand. As a short-term rental, it would earn around R$ 30 thousand per month.",
+    ex_b1l:"Value today", ex_b1v:"R$ 5M", ex_b2l:"+ Renovation", ex_b2v:"R$ 500K", ex_b3l:"Rental income", ex_b3v:"~R$ 30K/mo", ex_b4l:"Target sale", ex_b4v:"R$ 10M",
+    ex_valoriz:'<strong>Appreciation created by the renovation:</strong> on the order of R$ 4.5 million (already net of the construction cost). It’s this appreciation that gets split:',
+    ex_s1who:"Owner", ex_s1amt:"gets their value + a share", ex_s1desc:"Keeps the original property value and still earns part of the appreciation — without having spent a thing.",
+    ex_s2who:"Investor + Guest to Buy", ex_s2amt:"majority share", ex_s2desc:"For the renovation, management, marketing and sale. Plus the rental income earned along the way.",
+    ex_miudos:'<b>In plain words:</b> with R$ 500 thousand of renovation, a R$ 5 million property can become R$ 10 million. That R$ 4.5 million difference is the prize — and it’s split between the owner and whoever did the work and put up the money.',
+    ex_disclaim:"Illustrative figures from a real case analyzed. Not a promise of return: every property is different and goes through our risk-score system before any investment. Appreciation depends on the renovation, the market and the time to sell.",
+    cred_eyebrow:"Why with us", cred_h2:"We’re not newcomers. We’re a professional short-term rental manager.",
+    cred_lead:'<strong>Sua Casa Rende Mais</strong> already manages <strong>more than 150 short-term rental properties</strong>. We have a renovation team, an <strong>in-house contractor on staff</strong> and a <strong>partner architect</strong>. The operation that makes the model run already exists and works every day.',
+    cred_s1l:"properties under management", cred_s2n:"Team", cred_s2l:"in-house renovation", cred_s3n:"Contractor", cred_s3l:"on staff", cred_s4n:"Architect", cred_s4l:"business partner",
+    risk_eyebrow:"Risk management · our edge", risk_h2:"We know the minefield — and we have a protocol for every mine.",
+    risk_lead:'A serious investor distrusts anyone who only shows the upside. We mapped the real risks of this market and built our own system that scores each property: <strong>go or no-go</strong>.',
+    risk_head1:"Real risk", risk_head2:"Our protocol", risk_head3:"Result",
+    risk_r1risk:"Owner with debt that locks the property", risk_r1sol:"Sweep of certificates (tax, labor, civil) before any investment", risk_r1res:"Capital doesn’t go in blind",
+    risk_r2risk:"Building that bans short-term rentals", risk_r2sol:"Validation of the bylaws and the building before entering + backup rental plan", risk_r2res:"Income secured or we don’t enter",
+    risk_r3risk:"Renovation that blows the budget", risk_r3sol:"Engineering survey + budget with 25% buffer, in-house team", risk_r3res:"Surprises under control",
+    risk_r4risk:"Property that doesn’t appreciate as expected", risk_r4sol:"Score requires at least a 3× margin based on actually-sold comparables", risk_r4res:"Only the best pass",
+    cta_h2:"Let’s design your way in.", cta_p:"Whether the bold route (Semi Flipping) or the conservative one (Auction), the next step is to talk about amounts, structure and the first properties in the pipeline.",
+    cta_btn1:"Let’s talk", cta_btn2:"See our risk-analysis system →",
+    cta_disclaim:"Informational material for investors. It does not constitute a public offering of securities or a promise of return. Terms, legal structure and participation percentages will be formalized in a specific contract, with legal counsel."
+  },
+  es: {
+    _title:"Guest to Buy — Tesis de Inversión Inmobiliaria", _lang:"es",
+    brand_by:"por Sua Casa Rende Mais", footer_small:"por Sua Casa Rende Mais · Río de Janeiro",
+    hero_h1:'Nosotros <span class="hl">reformamos, alquilamos y vendemos</span> inmuebles de lujo estancados — sin tener que comprarlos.',
+    hero_sub:"Tomamos inmuebles deteriorados en ubicaciones privilegiadas, los reformamos, generamos ingresos con alquiler vacacional durante la venta y repartimos la ganancia de la revalorización.",
+    hero_tagline:"● Tesis de inversión inmobiliaria · Río de Janeiro",
+    hero_s1n:"+150", hero_s1l:"inmuebles bajo gestión hoy", hero_s2n:"2 vías", hero_s2l:"de invertir: audaz y conservadora", hero_s3n:"Garantía real", hero_s3l:"inscrita en el registro",
+    prob_eyebrow:"El problema", prob_h2:"Hay muchos inmuebles caros, con gran ubicación<br>y parados, dando pérdidas al dueño.",
+    prob_lead:"Un inmueble de alto nivel deteriorado y sin reformar es difícil de vender. Y mientras no se vende, cuesta caro: impuestos, gastos de comunidad, facturas. Hay dueños endeudados, herencias trabadas en sucesión — gente que necesita vender pero no tiene dinero para reformar y desbloquear el valor.",
+    prob_c1h:"Inmueble deteriorado", prob_c1p:"Excelente ubicación, pero necesita una reforma completa. Tal como está, se vende muy barato o no se vende.",
+    prob_c2h:"Dueño sin liquidez", prob_c2p:"Endeudado, o heredero en sucesión sin dinero para reformar. El inmueble se vuelve una carga, no un activo.",
+    prob_c3h:"El tiempo es pérdida", prob_c3p:"Cada mes parado es dinero que se va. Y un inquilino fijo dificulta las visitas y la venta.",
+    thesis_eyebrow:"Nuestra tesis · Semi Flipping", thesis_h2:"En el flipping tradicional, compras para reformar y revender.<br>Nosotros nos saltamos la parte más cara: la compra.",
+    thesis_lead:"En vez de gastar millones comprando el inmueble, solo invertimos en la reforma — y quedamos inscritos en el registro como garantía. El alquiler vacacional devuelve la inversión mientras se vende el inmueble. Al final, repartimos la revalorización con el dueño.",
+    thesis_miudos:'<b>En pocas palabras:</b> no compramos la casa. Arreglamos la casa de otros, con nuestro nombre anotado en el registro del inmueble garantizando el dinero, la alquilamos por temporada para ir recuperando, y cuando se vende nos quedamos con una parte de lo que se revalorizó.',
+    step1h:"Seleccionamos", step1p:"Inmueble deteriorado en zona privilegiada, con alto potencial de revalorización. Cada uno pasa por nuestro sistema de análisis de riesgo.",
+    step2h:"Garantizamos", step2p:'Firmamos contrato y quedamos inscritos en el registro del inmueble como garantía real del capital. <span class="miudos">En pocas palabras: nuestro dinero queda protegido por ley.</span>',
+    step3h:"Reformamos y alquilamos", step3p:"Nuestro propio equipo reforma; Sua Casa Rende Mais alquila por temporada. Los ingresos devuelven la inversión y pagan el marketing de la venta.",
+    step4h:"Vendemos y repartimos", step4p:"Vendido el inmueble revalorizado, repartimos la ganancia con el dueño. Todos ganan más de lo que ganarían solos.",
+    sec_eyebrow:"Por qué el riesgo es menor", sec_h2:'El dinero no queda “muerto” esperando la venta.',
+    sec_lead:"En el flipping común, duelen dos riesgos: inmovilizas mucho capital comprando, y el inmueble parado solo genera gastos. En nuestro modelo, ambos desaparecen.",
+    sec_c1h:"Garantía en el registro", sec_c1p:"El capital de la reforma está protegido por una garantía real inscrita en el inmueble (garantía fiduciaria, Ley brasileña 9.514/97).",
+    sec_c2h:"Ingresos durante la espera", sec_c2p:"El alquiler vacacional devuelve la inversión mes a mes. El tiempo de venta deja de ser un costo y pasa a pagarse solo.",
+    sec_c3h:"Capital ajustado", sec_c3p:"No inmovilizamos millones comprando. El único importe expuesto es la reforma — y está garantizado.",
+    dims_eyebrow:"Dos formas de invertir", dims_h2:"Tú eliges tu apetito de riesgo.",
+    dims_lead:"La misma máquina operativa — gestión de alquiler vacacional + equipo de reforma — sostiene dos puertas de entrada: una más audaz y rentable, otra más conservadora y segura.",
+    dim1_badge:"Dimensión 1 · Audaz", dim1_sub:"Alianza con el dueño. Financias la reforma; la garantía queda en el registro.",
+    dim1_li1:'<span class="k">Cómo</span><span class="v"><b>No compras el inmueble.</b> Financias la reforma de inmuebles seleccionados y participas de la revalorización en la venta.</span>',
+    dim1_li2:'<span class="k">Garantía</span><span class="v">Capital <b>inscrito en el registro</b> como garantía real.</span>',
+    dim1_li3:'<span class="k">Renta</span><span class="v">El alquiler vacacional <b>amortiza el aporte</b> durante la venta.</span>',
+    dim1_li4:'<span class="k">Capital</span><span class="v">Ajustado — solo la reforma, no el inmueble entero.</span>',
+    dim1_pill1:"↑ Mayor retorno", dim1_pill2:"Riesgo moderado",
+    dim2_badge:"Dimensión 2 · Conservadora", dim2_h3:"Subasta & Reforma", dim2_sub:"Compra de inmueble en subasta en Río. Tú eres el dueño del activo.",
+    dim2_li1:'<span class="k">Cómo</span><span class="v"><b>Compras en la subasta</b> por debajo del mercado; nosotros reformamos, alquilamos y vendemos.</span>',
+    dim2_li2:'<span class="k">Garantía</span><span class="v"><b>La mayor de todas: el inmueble es tuyo.</b> Tú tienes la propiedad.</span>',
+    dim2_li3:'<span class="k">Renta</span><span class="v">El alquiler vacacional genera ingresos mientras se revaloriza y hasta la venta.</span>',
+    dim2_li4:'<span class="k">Capital</span><span class="v">Mayor (compra + reforma), pero con el activo a tu nombre.</span>',
+    dim2_pill1:"Retorno más ajustado", dim2_pill2:"↑ Seguridad máxima",
+    dims_miudos:'<b>En pocas palabras:</b> en la Dimensión 1 prestas para la reforma y te llevas una porción mayor del pastel, con tu dinero protegido en el registro del inmueble. En la Dimensión 2 compras la casa barata en subasta y eres su dueño — ganas un poco menos, pero duermes más tranquilo porque la casa es tuya.',
+    ex_eyebrow:"Un caso real que analizamos", ex_h2:"Un ático en Flamengo, 400 m².",
+    ex_lead:"Inmueble en sucesión, tasado en R$ 5 millones, totalmente deteriorado. El vecino, reformado, estaba anunciado por R$ 11 millones. Presupuestamos la reforma en R$ 500 mil. Como alquiler vacacional, rendiría unos R$ 30 mil al mes.",
+    ex_b1l:"Valor hoy", ex_b1v:"R$ 5 M", ex_b2l:"+ Reforma", ex_b2v:"R$ 500 mil", ex_b3l:"Renta alquiler", ex_b3v:"~R$ 30 mil/mes", ex_b4l:"Venta objetivo", ex_b4v:"R$ 10 M",
+    ex_valoriz:'<strong>Revalorización generada por la reforma:</strong> del orden de R$ 4,5 millones (ya descontado el costo de la obra). Es esta revalorización la que se reparte:',
+    ex_s1who:"Dueño", ex_s1amt:"recibe su valor + parte", ex_s1desc:"Mantiene el valor original del inmueble y además gana parte de la revalorización — sin haber gastado nada.",
+    ex_s2who:"Inversor + Guest to Buy", ex_s2amt:"parte mayoritaria", ex_s2desc:"Por la reforma, gestión, marketing y venta. Más los ingresos de alquiler recibidos en el camino.",
+    ex_miudos:'<b>En pocas palabras:</b> con R$ 500 mil de reforma, un inmueble de R$ 5 millones puede convertirse en R$ 10 millones. Esa diferencia de R$ 4,5 millones es el premio — y se reparte entre quien es dueño y quien hizo el trabajo y puso el dinero.',
+    ex_disclaim:"Cifras ilustrativas de un caso real analizado. No son promesa de retorno: cada inmueble es diferente y pasa por nuestro sistema de score de riesgo antes de cualquier aporte. La revalorización depende de la reforma, el mercado y el plazo de venta.",
+    cred_eyebrow:"Por qué con nosotros", cred_h2:"No somos novatos. Somos una gestora profesional de alquiler vacacional.",
+    cred_lead:'<strong>Sua Casa Rende Mais</strong> ya administra <strong>más de 150 inmuebles</strong> de alquiler vacacional. Tenemos equipo de reforma, <strong>contratista empleado de la empresa</strong> y <strong>arquitecto socio</strong> del negocio. La operación que hace funcionar el modelo ya existe y opera todos los días.',
+    cred_s1l:"inmuebles bajo gestión", cred_s2n:"Equipo", cred_s2l:"de reforma propio", cred_s3n:"Contratista", cred_s3l:"empleado de la empresa", cred_s4n:"Arquitecto", cred_s4l:"socio del negocio",
+    risk_eyebrow:"Gestión de riesgo · nuestro diferencial", risk_h2:"Conocemos el campo minado — y tenemos un protocolo para cada mina.",
+    risk_lead:'Un inversor serio desconfía de quien solo muestra el lado bueno. Mapeamos los riesgos reales de este mercado y construimos un sistema propio que califica cada inmueble: <strong>va o no va</strong>.',
+    risk_head1:"Riesgo real", risk_head2:"Nuestro protocolo", risk_head3:"Resultado",
+    risk_r1risk:"Dueño con deuda que traba el inmueble", risk_r1sol:"Barrido de certificados (fiscal, laboral, civil) antes de cualquier aporte", risk_r1res:"El capital no entra a ciegas",
+    risk_r2risk:"Edificio que prohíbe el alquiler vacacional", risk_r2sol:"Validación del reglamento y del edificio antes de entrar + plan B de alquiler", risk_r2res:"Renta asegurada o no entramos",
+    risk_r3risk:"Obra que se pasa del presupuesto", risk_r3sol:"Informe de ingeniería + presupuesto con 25% de margen, equipo propio", risk_r3res:"Sorpresa controlada",
+    risk_r4risk:"Inmueble que no se revaloriza lo esperado", risk_r4sol:"El score exige al menos 3× de margen según comparables realmente vendidos", risk_r4res:"Solo los mejores pasan",
+    cta_h2:"Diseñemos tu forma de entrar.", cta_p:"Ya sea la vía audaz (Semi Flipping) o la conservadora (Subasta), el siguiente paso es hablar de montos, estructura y los primeros inmuebles del pipeline.",
+    cta_btn1:"Quiero conversar", cta_btn2:"Ver nuestro sistema de análisis de riesgo →",
+    cta_disclaim:"Material informativo para inversores. No constituye una oferta pública de valores ni una promesa de rentabilidad. Los términos, la estructura jurídica y los porcentajes de participación se formalizarán en un contrato específico, con asesoría jurídica."
+  },
+  it: {
+    _title:"Guest to Buy — Tesi di Investimento Immobiliare", _lang:"it",
+    brand_by:"di Sua Casa Rende Mais", footer_small:"di Sua Casa Rende Mais · Rio de Janeiro",
+    hero_h1:'Noi <span class="hl">ristrutturiamo, affittiamo e vendiamo</span> immobili di lusso bloccati — senza doverli comprare.',
+    hero_sub:"Prendiamo immobili degradati in zone di pregio, li ristrutturiamo, generiamo reddito con affitti brevi durante la vendita e dividiamo il guadagno della rivalutazione.",
+    hero_tagline:"● Tesi di investimento immobiliare · Rio de Janeiro",
+    hero_s1n:"+150", hero_s1l:"immobili in gestione oggi", hero_s2n:"2 vie", hero_s2l:"per investire: audace e conservativa", hero_s3n:"Garanzia reale", hero_s3l:"iscritta nel registro",
+    prob_eyebrow:"Il problema", prob_h2:"Ci sono molti immobili costosi, in ottima posizione<br>e fermi, che fanno perdere soldi al proprietario.",
+    prob_lead:"Un immobile di pregio rovinato e non ristrutturato è difficile da vendere. E finché non si vende, costa caro: imposte, spese condominiali, bollette. Ci sono proprietari indebitati, eredità bloccate in successione — persone che devono vendere ma non hanno i soldi per ristrutturare e sbloccare il valore.",
+    prob_c1h:"Immobile degradato", prob_c1p:"Ottima posizione, ma serve una ristrutturazione completa. Così com’è, si vende a poco o non si vende.",
+    prob_c2h:"Proprietario senza liquidità", prob_c2p:"Indebitato, o erede in successione senza soldi per ristrutturare. L’immobile diventa un peso, non un bene.",
+    prob_c3h:"Il tempo è una perdita", prob_c3p:"Ogni mese fermo è denaro che se ne va. E un inquilino fisso complica le visite e la vendita.",
+    thesis_eyebrow:"La nostra tesi · Semi Flipping", thesis_h2:"Nel flipping tradizionale, compri per ristrutturare e rivendere.<br>Noi abbiamo saltato la parte più costosa: l’acquisto.",
+    thesis_lead:"Invece di spendere milioni per comprare l’immobile, investiamo solo nella ristrutturazione — e siamo iscritti nel registro come garanzia. Gli affitti brevi ripagano l’investimento mentre l’immobile viene venduto. Alla fine, dividiamo la rivalutazione con il proprietario.",
+    thesis_miudos:'<b>In parole povere:</b> non compriamo la casa. Sistemiamo la casa di altri, con il nostro nome annotato nel registro dell’immobile a garanzia del denaro, la affittiamo per brevi periodi per rientrare man mano, e quando si vende teniamo una fetta di quanto è aumentata di valore.',
+    step1h:"Selezioniamo", step1p:"Immobile degradato in zona di pregio, con alto potenziale di rivalutazione. Ognuno passa dal nostro sistema di analisi del rischio.",
+    step2h:"Garantiamo", step2p:'Firmiamo un contratto e veniamo iscritti nel registro dell’immobile come garanzia reale del capitale. <span class="miudos">In parole povere: i nostri soldi sono protetti dalla legge.</span>',
+    step3h:"Ristrutturiamo e affittiamo", step3p:"Il nostro team ristruttura; Sua Casa Rende Mais affitta per brevi periodi. Il reddito ripaga l’investimento e finanzia il marketing della vendita.",
+    step4h:"Vendiamo e dividiamo", step4p:"Venduto l’immobile rivalutato, dividiamo il guadagno con il proprietario. Tutti guadagnano più di quanto farebbero da soli.",
+    sec_eyebrow:"Perché il rischio è minore", sec_h2:'Il denaro non resta “fermo” in attesa della vendita.',
+    sec_lead:"Nel flipping classico, due rischi fanno male: immobilizzi molto capitale comprando, e l’immobile fermo genera solo spese. Nel nostro modello, entrambi spariscono.",
+    sec_c1h:"Garanzia nel registro", sec_c1p:"Il capitale della ristrutturazione è protetto da una garanzia reale iscritta sull’immobile (garanzia fiduciaria, Legge brasiliana 9.514/97).",
+    sec_c2h:"Reddito durante l’attesa", sec_c2p:"Gli affitti brevi ripagano l’investimento mese dopo mese. Il tempo di vendita smette di essere un costo e inizia a ripagarsi.",
+    sec_c3h:"Capitale snello", sec_c3p:"Non immobilizziamo milioni comprando. L’unico importo esposto è la ristrutturazione — ed è garantito.",
+    dims_eyebrow:"Due modi di investire", dims_h2:"Scegli tu la tua propensione al rischio.",
+    dims_lead:"La stessa macchina operativa — gestione affitti brevi + team di ristrutturazione — sostiene due porte d’ingresso: una più audace e redditizia, l’altra più conservativa e sicura.",
+    dim1_badge:"Dimensione 1 · Audace", dim1_sub:"Partnership con il proprietario. Finanzi la ristrutturazione; la garanzia resta nel registro.",
+    dim1_li1:'<span class="k">Come</span><span class="v"><b>Non compri l’immobile.</b> Finanzi la ristrutturazione di immobili selezionati e partecipi alla rivalutazione alla vendita.</span>',
+    dim1_li2:'<span class="k">Garanzia</span><span class="v">Capitale <b>iscritto nel registro</b> come garanzia reale.</span>',
+    dim1_li3:'<span class="k">Reddito</span><span class="v">Gli affitti brevi <b>ammortizzano l’apporto</b> durante la vendita.</span>',
+    dim1_li4:'<span class="k">Capitale</span><span class="v">Snello — solo la ristrutturazione, non l’intero immobile.</span>',
+    dim1_pill1:"↑ Rendimento maggiore", dim1_pill2:"Rischio moderato",
+    dim2_badge:"Dimensione 2 · Conservativa", dim2_h3:"Asta & Ristrutturazione", dim2_sub:"Acquisto di immobile all’asta a Rio. Sei il proprietario del bene.",
+    dim2_li1:'<span class="k">Come</span><span class="v"><b>Compri all’asta</b> sotto mercato; noi ristrutturiamo, affittiamo e vendiamo.</span>',
+    dim2_li2:'<span class="k">Garanzia</span><span class="v"><b>La più forte di tutte: l’immobile è tuo.</b> Detieni la proprietà.</span>',
+    dim2_li3:'<span class="k">Reddito</span><span class="v">Gli affitti brevi generano reddito mentre si rivaluta e fino alla vendita.</span>',
+    dim2_li4:'<span class="k">Capitale</span><span class="v">Maggiore (acquisto + ristrutturazione), ma con il bene a tuo nome.</span>',
+    dim2_pill1:"Rendimento più contenuto", dim2_pill2:"↑ Sicurezza massima",
+    dims_miudos:'<b>In parole povere:</b> nella Dimensione 1 presti per la ristrutturazione e prendi una fetta più grande della torta, con i tuoi soldi protetti nel registro dell’immobile. Nella Dimensione 2 compri la casa a poco all’asta e ne sei proprietario — guadagni un po’ meno, ma dormi più sereno perché la casa è tua.',
+    ex_eyebrow:"Un caso reale che abbiamo analizzato", ex_h2:"Un attico a Flamengo, 400 m².",
+    ex_lead:"Immobile in successione, valutato R$ 5 milioni, completamente rovinato. L’unità vicina, ristrutturata, era in vendita a R$ 11 milioni. Abbiamo stimato la ristrutturazione in R$ 500 mila. Come affitto breve, renderebbe circa R$ 30 mila al mese.",
+    ex_b1l:"Valore oggi", ex_b1v:"R$ 5 mln", ex_b2l:"+ Ristrutturazione", ex_b2v:"R$ 500 mila", ex_b3l:"Reddito affitto", ex_b3v:"~R$ 30 mila/mese", ex_b4l:"Vendita obiettivo", ex_b4v:"R$ 10 mln",
+    ex_valoriz:'<strong>Rivalutazione generata dalla ristrutturazione:</strong> nell’ordine di R$ 4,5 milioni (già al netto del costo dei lavori). È questa rivalutazione che viene divisa:',
+    ex_s1who:"Proprietario", ex_s1amt:"riceve il suo valore + quota", ex_s1desc:"Mantiene il valore originale dell’immobile e guadagna anche parte della rivalutazione — senza aver speso nulla.",
+    ex_s2who:"Investitore + Guest to Buy", ex_s2amt:"quota maggioritaria", ex_s2desc:"Per ristrutturazione, gestione, marketing e vendita. Più il reddito da affitto incassato lungo il percorso.",
+    ex_miudos:'<b>In parole povere:</b> con R$ 500 mila di ristrutturazione, un immobile da R$ 5 milioni può diventare R$ 10 milioni. Quella differenza di R$ 4,5 milioni è il premio — e viene divisa tra chi è proprietario e chi ha fatto il lavoro e messo i soldi.',
+    ex_disclaim:"Cifre illustrative di un caso reale analizzato. Non sono una promessa di rendimento: ogni immobile è diverso e passa dal nostro sistema di scoring del rischio prima di ogni apporto. La rivalutazione dipende dalla ristrutturazione, dal mercato e dai tempi di vendita.",
+    cred_eyebrow:"Perché con noi", cred_h2:"Non siamo alle prime armi. Siamo un gestore professionale di affitti brevi.",
+    cred_lead:'<strong>Sua Casa Rende Mais</strong> gestisce già <strong>più di 150 immobili</strong> in affitto breve. Abbiamo un team di ristrutturazione, un <strong>imprenditore edile dipendente</strong> e un <strong>architetto partner</strong> dell’attività. La macchina che fa girare il modello esiste già e lavora ogni giorno.',
+    cred_s1l:"immobili in gestione", cred_s2n:"Team", cred_s2l:"di ristrutturazione interno", cred_s3n:"Imprenditore", cred_s3l:"edile dipendente", cred_s4n:"Architetto", cred_s4l:"partner dell’attività",
+    risk_eyebrow:"Gestione del rischio · il nostro punto di forza", risk_h2:"Conosciamo il campo minato — e abbiamo un protocollo per ogni mina.",
+    risk_lead:'Un investitore serio diffida di chi mostra solo il lato positivo. Abbiamo mappato i rischi reali di questo mercato e costruito un sistema proprio che dà un punteggio a ogni immobile: <strong>si fa o non si fa</strong>.',
+    risk_head1:"Rischio reale", risk_head2:"Il nostro protocollo", risk_head3:"Risultato",
+    risk_r1risk:"Proprietario con debiti che bloccano l’immobile", risk_r1sol:"Verifica dei certificati (fiscale, lavoro, civile) prima di ogni apporto", risk_r1res:"Il capitale non entra al buio",
+    risk_r2risk:"Condominio che vieta gli affitti brevi", risk_r2sol:"Verifica del regolamento e del condominio prima di entrare + piano B di affitto", risk_r2res:"Reddito assicurato o non entriamo",
+    risk_r3risk:"Lavori che sforano il budget", risk_r3sol:"Perizia tecnica + budget con margine del 25%, team interno", risk_r3res:"Sorprese sotto controllo",
+    risk_r4risk:"Immobile che non si rivaluta come previsto", risk_r4sol:"Lo score richiede almeno 3× di margine su comparabili realmente venduti", risk_r4res:"Passano solo i migliori",
+    cta_h2:"Disegniamo il tuo modo di entrare.", cta_p:"Che sia la via audace (Semi Flipping) o quella conservativa (Asta), il prossimo passo è parlare di importi, struttura e dei primi immobili in pipeline.",
+    cta_btn1:"Parliamone", cta_btn2:"Vedi il nostro sistema di analisi del rischio →",
+    cta_disclaim:"Materiale informativo per investitori. Non costituisce un’offerta pubblica di strumenti finanziari né una promessa di rendimento. Termini, struttura giuridica e percentuali di partecipazione saranno formalizzati in un contratto specifico, con assistenza legale."
+  }
+};
+
+function setLang(lang){
+  const dict = I18N[lang]; if(!dict) return;
+  document.documentElement.setAttribute('lang', dict._lang || lang);
+  if(dict._title) document.title = dict._title;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if(dict[k] != null) el.innerHTML = dict[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+  });
+  try{ localStorage.setItem('gtb-pitch-lang', lang); }catch(e){}
+}
+
+document.querySelectorAll('.lang-btn').forEach(function(b){
+  b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
+});
+
+(function(){
+  var saved = null;
+  try{ saved = localStorage.getItem('gtb-pitch-lang'); }catch(e){}
+  var nav = (navigator.language || 'pt').slice(0,2).toLowerCase();
+  var auto = (['en','es','it'].indexOf(nav) >= 0) ? nav : 'pt';
+  setLang(saved && I18N[saved] ? saved : auto);
+})();
+</script>
 
 </body>
 </html>
