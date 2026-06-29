@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/pitch", "destination": "/pitch.html" },
+    { "source": "/redeprotagonista", "destination": "/pitch-protagonista.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
