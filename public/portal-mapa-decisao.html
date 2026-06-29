@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mapa de Decisão · Portal Achamos · Resistência × Rentabilidade na linha do tempo · simulador interativo de modelo de monetização">
+  <title>Mapa de Decisão · Resistência × Rentabilidade · Portal Achamos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand: #6F2DE1;
+      --brand-deep: #4A14B5;
+      --brand-soft: rgba(111, 45, 225, 0.12);
+      --accent: #FF6B47;
+      --accent-soft: rgba(255, 107, 71, 0.14);
+      --gold: #D4A951;
+      --green: #10B981;
+      --green-soft: rgba(16, 185, 129, 0.13);
+      --red: #EF4444;
+      --red-soft: rgba(239, 68, 68, 0.12);
+      --blue: #3B82F6;
+      --bg: #0a0a0a;
+      --surface: #141214;
+      --surface-2: #1c1a1c;
+      --surface-3: #242124;
+      --ink: #F4F0EB;
+      --ink-soft: rgba(244, 240, 235, 0.72);
+      --ink-mute: rgba(244, 240, 235, 0.45);
+      --line: rgba(244, 240, 235, 0.08);
+      --line-strong: rgba(244, 240, 235, 0.18);
+      --f-display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --f-body: 'Inter', system-ui, sans-serif;
+      --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --cA: #3B82F6;
+      --cB: #FF6B47;
+      --cC: #6F2DE1;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1680px; margin: 0 auto; padding: 0 28px 80px; }
+    @media (max-width: 768px) { .wrap { padding: 0 14px 60px; } }
+
+    /* ===== TOPBAR ===== */
+    .topbar {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 28px;
+    }
+    .topbar-inner {
+      max-width: 1680px; margin: 0 auto;
+      display: flex; align-items: center; gap: 20px;
+      padding: 14px 28px; flex-wrap: wrap;
+    }
+    .tb-brand {
+      font-family: var(--f-display); font-weight: 800; font-size: 17px; letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .tb-brand .dot { color: var(--brand); }
+    .tb-sub {
+      font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink-mute); white-space: nowrap;
+    }
+    .scen-pills { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+    .scen-pill {
+      border: 1px solid var(--line-strong); background: var(--surface);
+      color: var(--ink-soft); font-family: var(--f-body); font-weight: 600;
+      font-size: 13px; padding: 9px 18px; border-radius: 999px; cursor: pointer;
+      transition: all .18s ease; display: flex; align-items: center; gap: 8px;
+    }
+    .scen-pill .sw { width: 9px; height: 9px; border-radius: 50%; }
+    .scen-pill[data-s="A"] .sw { background: var(--cA); }
+    .scen-pill[data-s="B"] .sw { background: var(--cB); }
+    .scen-pill[data-s="C"] .sw { background: var(--cC); }
+    .scen-pill.active[data-s="A"] { border-color: var(--cA); background: rgba(59,130,246,0.12); color: var(--ink); }
+    .scen-pill.active[data-s="B"] { border-color: var(--cB); background: var(--accent-soft); color: var(--ink); }
+    .scen-pill.active[data-s="C"] { border-color: var(--cC); background: var(--brand-soft); color: var(--ink); }
+    .btn-premissas {
+      border: 1px dashed var(--line-strong); background: transparent; color: var(--ink-mute);
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em;
+      padding: 9px 16px; border-radius: 999px; cursor: pointer; text-transform: uppercase;
+    }
+    .btn-premissas:hover { color: var(--ink); border-color: var(--ink-mute); }
+
+    /* ===== HERO COMPACTO ===== */
+    .hero {
+      padding: 26px 0 8px;
+    }
+    .hero h1 {
+      font-family: var(--f-display); font-size: clamp(28px, 3.6vw, 46px);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; max-width: 30ch;
+    }
+    .hero h1 em { font-style: normal; color: var(--brand); }
+    .hero p {
+      margin-top: 12px; color: var(--ink-soft); font-size: 15px; max-width: 86ch;
+    }
+    .hero p strong { color: var(--ink); }
+
+    /* ===== PREMISSAS (sliders) ===== */
+    .premissas {
+      display: none;
+      background: var(--surface); border: 1px solid var(--line-strong);
+      border-radius: 18px; padding: 22px 24px; margin: 18px 0 6px;
+    }
+    .premissas.open { display: block; }
+    .premissas h4 {
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.16em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 16px;
+    }
+    .sliders {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px 28px;
+    }
+    .sl label {
+      display: flex; justify-content: space-between; font-size: 12.5px;
+      color: var(--ink-soft); margin-bottom: 7px;
+    }
+    .sl label b { color: var(--ink); font-family: var(--f-mono); font-weight: 600; }
+    .sl input[type=range] {
+      width: 100%; appearance: none; height: 4px; border-radius: 4px;
+      background: var(--surface-3); outline: none;
+    }
+    .sl input[type=range]::-webkit-slider-thumb {
+      appearance: none; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--brand); cursor: pointer; border: 2px solid var(--bg);
+    }
+    .sl .tag { font-family: var(--f-mono); font-size: 9.5px; color: var(--ink-mute); letter-spacing: 0.08em; }
+    .premissas-fixas {
+      margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line);
+      font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-mute);
+      letter-spacing: 0.03em; line-height: 1.9;
+    }
+
+    /* ===== KPI ROW ===== */
+    .kpis {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px; margin: 20px 0 14px;
+    }
+    .kpi {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 14px; padding: 16px 18px;
+    }
+    .kpi .l { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ink-mute); text-transform: uppercase; margin-bottom: 6px; }
+    .kpi .v { font-family: var(--f-display); font-size: 26px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+    .kpi .m { font-size: 11px; color: var(--ink-mute); margin-top: 5px; }
+    .kpi.hl { border-color: var(--scen-color, var(--brand)); }
+    .kpi.hl .v { color: var(--scen-color, var(--brand)); }
+
+    /* ===== BOARD GRID ===== */
+    .board { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 1100px) { .board { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 18px; padding: 22px 24px; overflow: hidden;
+    }
+    .card.full { grid-column: 1 / -1; }
+    .card h3 {
+      font-family: var(--f-display); font-size: 19px; font-weight: 700;
+      letter-spacing: -0.015em; margin-bottom: 4px;
+    }
+    .card h3 em { font-style: normal; color: var(--brand); }
+    .card .sub {
+      font-size: 12.5px; color: var(--ink-mute); margin-bottom: 16px;
+    }
+    .card svg { width: 100%; height: auto; display: block; }
+
+    /* legenda dos charts */
+    .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+    .legend span { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ink-soft); font-family: var(--f-mono); }
+    .legend i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+
+    /* ===== IMPACTOS ===== */
+    .impact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 6px; }
+    @media (max-width: 980px) { .impact-grid { grid-template-columns: 1fr; } }
+    .imp {
+      border: 1px solid var(--line); border-radius: 14px; padding: 18px;
+      background: var(--surface-2);
+    }
+    .imp h5 {
+      font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .imp.win h5 { color: var(--green); }
+    .imp.lose h5 { color: var(--red); }
+    .imp.risk h5 { color: var(--gold); }
+    .imp ul { list-style: none; }
+    .imp li {
+      font-size: 13.5px; color: var(--ink-soft); padding: 7px 0;
+      border-bottom: 1px solid var(--line); display: flex; gap: 9px; line-height: 1.45;
+    }
+    .imp li:last-child { border-bottom: 0; }
+    .imp.win li::before { content: '↑'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .imp.lose li::before { content: '↓'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+    .imp.risk li::before { content: '⚠'; color: var(--gold); flex-shrink: 0; }
+    .imp li strong { color: var(--ink); font-weight: 600; }
+    .scen-title-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em;
+      padding: 6px 14px; border-radius: 999px; text-transform: uppercase;
+      margin-bottom: 12px; font-weight: 600;
+    }
+
+    /* ===== TABELA ===== */
+    .tbl-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px; }
+    th {
+      background: var(--surface-2); text-align: right; padding: 11px 14px;
+      font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em;
+      color: var(--ink-mute); text-transform: uppercase; border-bottom: 1px solid var(--line);
+    }
+    th:first-child { text-align: left; }
+    td { padding: 11px 14px; border-bottom: 1px solid var(--line); color: var(--ink-soft); text-align: right; font-family: var(--f-mono); font-size: 12.5px; }
+    td:first-child { text-align: left; font-family: var(--f-body); font-weight: 600; color: var(--ink); }
+    tr:last-child td { border-bottom: 0; }
+    td.pos { color: var(--green); }
+    td.neg { color: var(--red); }
+    .row-A td:first-child::before { content: '● '; color: var(--cA); }
+    .row-B td:first-child::before { content: '● '; color: var(--cB); }
+    .row-C td:first-child::before { content: '● '; color: var(--cC); }
+
+    /* ===== PRINCÍPIOS ===== */
+    .princ-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; margin-top: 8px; }
+    .princ {
+      background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px;
+      padding: 18px; display: flex; gap: 14px; align-items: flex-start;
+    }
+    .princ .n {
+      font-family: var(--f-display); font-size: 26px; font-weight: 800;
+      color: var(--brand); line-height: 1; flex-shrink: 0; opacity: 0.85;
+    }
+    .princ .t { font-weight: 700; font-size: 14.5px; margin-bottom: 4px; color: var(--ink); }
+    .princ .b { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+    /* ===== RECOMENDAÇÃO ===== */
+    .reco {
+      background: linear-gradient(135deg, var(--brand-soft) 0%, var(--surface) 55%);
+      border: 1px solid var(--brand);
+      border-radius: 20px; padding: 30px;
+    }
+    .reco h3 { font-family: var(--f-display); font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .reco h3 em { font-style: normal; color: var(--brand); }
+    .reco p { font-size: 14.5px; color: var(--ink-soft); max-width: 100ch; line-height: 1.65; }
+    .reco p strong { color: var(--ink); }
+    .fases { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px; }
+    @media (max-width: 980px) { .fases { grid-template-columns: 1fr; } }
+    .fase { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+    .fase .f { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; color: var(--brand); text-transform: uppercase; margin-bottom: 8px; }
+    .fase .t { font-weight: 700; font-size: 14.5px; margin-bottom: 6px; }
+    .fase .b { font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; }
+
+    /* ===== COMPARATIVO QUINTOANDAR ===== */
+    .cmp td.qa { color: rgba(244,240,235,0.5); font-family: var(--f-body); font-size: 12.5px; text-align: left; }
+    .cmp td.ach { color: var(--ink); font-family: var(--f-body); font-size: 12.5px; font-weight: 500; text-align: left; }
+    .cmp td.ach strong { color: var(--brand); }
+    .cmp th.colqa { color: rgba(244,240,235,0.45); }
+    .cmp th.colach { color: var(--brand); }
+    .cmp td:first-child { min-width: 150px; }
+    .conta {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: center;
+      background: var(--surface-2); border: 1px solid var(--line); border-radius: 16px;
+      padding: 26px 28px; margin-top: 18px;
+    }
+    @media (max-width: 860px) { .conta { grid-template-columns: 1fr; text-align: center; } }
+    .conta .side .who { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 8px; }
+    .conta .side .big { font-family: var(--f-display); font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .conta .side .big.bad { color: rgba(244,240,235,0.45); }
+    .conta .side .big.good { color: var(--green); }
+    .conta .side .det { font-size: 12px; color: var(--ink-mute); margin-top: 8px; line-height: 1.5; }
+    .conta .vs { font-family: var(--f-display); font-size: 22px; font-weight: 800; color: var(--brand); }
+    .conta-pitch {
+      margin-top: 14px; font-size: 14.5px; color: var(--ink-soft); line-height: 1.6;
+    }
+    .conta-pitch strong { color: var(--ink); }
+    .src-note { margin-top: 14px; font-family: var(--f-mono); font-size: 9.5px; color: var(--ink-mute); letter-spacing: 0.04em; line-height: 1.7; }
+
+    /* ===== FLUXO DO DINHEIRO (operação C) ===== */
+    .money-flow {
+      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 10px; align-items: stretch;
+      margin: 18px 0 8px;
+    }
+    @media (max-width: 980px) { .money-flow { grid-template-columns: 1fr; } .mf-arrow { transform: rotate(90deg); margin: -4px auto; } }
+    .mf-box {
+      background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; padding: 18px;
+    }
+    .mf-box.hl { border-color: var(--brand); background: var(--brand-soft); }
+    .mf-box .t { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 8px; }
+    .mf-box .v { font-family: var(--f-display); font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+    .mf-box .d { font-size: 11.5px; color: var(--ink-soft); margin-top: 6px; line-height: 1.5; }
+    .mf-arrow { display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 22px; font-weight: 800; }
+    .mf-splits { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+    @media (max-width: 860px) { .mf-splits { grid-template-columns: 1fr; } }
+    .mf-split { border: 1px dashed var(--line-strong); border-radius: 12px; padding: 14px; }
+    .mf-split .w { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+    .mf-split .a { font-family: var(--f-display); font-size: 19px; font-weight: 800; }
+    .mf-split .n { font-size: 11px; color: var(--ink-mute); margin-top: 4px; line-height: 1.45; }
+    .op-stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 18px; }
+    .op-layer { background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+    .op-layer .h { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+    .op-layer ul { list-style: none; }
+    .op-layer li { font-size: 12.5px; color: var(--ink-soft); padding: 4px 0; line-height: 1.45; display: flex; gap: 7px; }
+    .op-layer li::before { content: '·'; color: var(--brand); font-weight: 800; }
+
+    /* ===== SEVERIDADE ===== */
+    .sev { display: inline-block; font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.1em; padding: 4px 10px; border-radius: 999px; font-weight: 700; white-space: nowrap; }
+    .sev.alta { background: var(--red-soft); color: var(--red); border: 1px solid rgba(239,68,68,0.35); }
+    .sev.media { background: rgba(212,169,81,0.12); color: var(--gold); border: 1px solid rgba(212,169,81,0.35); }
+    .sev.baixa { background: var(--green-soft); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+    .risk-tbl td { text-align: left; font-family: var(--f-body); font-size: 12.5px; }
+    .risk-tbl td:first-child { font-weight: 600; color: var(--ink); }
+    .risk-tbl td.mit { color: var(--ink-soft); }
+    .risk-tbl td.mit strong { color: var(--green); }
+
+    footer {
+      margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line);
+      text-align: center; color: var(--ink-mute);
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em;
+    }
+    footer a { color: var(--brand); text-decoration: none; }
+
+    /* svg text */
+    .svg-lbl { font-family: var(--f-mono); font-size: 10px; fill: var(--ink-mute); }
+    .svg-lbl-strong { font-family: var(--f-body); font-weight: 600; font-size: 12px; fill: var(--ink); }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <div class="tb-brand">Achamos <span class="dot">·</span> Mapa de Decisão</div>
+      <div class="tb-sub">Resistência × Rentabilidade · M1→M24 · simulador v1.1 · benchmark QuintoAndar</div>
+    </div>
+    <div class="scen-pills">
+      <button class="scen-pill" data-s="A"><span class="sw"></span>A · Mensalidade</button>
+      <button class="scen-pill" data-s="B"><span class="sw"></span>B · Success Fee</button>
+      <button class="scen-pill active" data-s="C"><span class="sw"></span>C · Sócio no Fluxo ★</button>
+      <button class="btn-premissas" id="btnPrem">⚙ Mexer as pedras</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>A pedra é uma só: <em>de onde sai o dinheiro</em>.</h1>
+    <p>
+      Três formas de monetizar o uso core do Portal (locação + venda). Tudo o mais — fiança, Achamos+, Se Hospede, temporada — é <strong>igual nos três cenários</strong>.
+      O que muda é a pedra central: <strong>boleto mensal</strong> (A) · <strong>fatura no fechamento</strong> (B) · <strong>split invisível no repasse do aluguel</strong> (C).
+      Selecione o cenário no topo e mexa as pedras em <strong>⚙ Premissas</strong> — o mapa inteiro recalcula.
+    </p>
+  </div>
+
+  <!-- PREMISSAS -->
+  <div class="premissas" id="premissas">
+    <h4>⚙ Premissas móveis — mexa e veja o impacto em tempo real</h4>
+    <div class="sliders">
+      <div class="sl">
+        <label>Locações novas /mês /imobiliária <b id="v_locMes">2.5</b></label>
+        <input type="range" id="s_locMes" min="1" max="4" step="0.25" value="2.5">
+        <div class="tag">REALISMO DA OPERAÇÃO MÉDIA</div>
+      </div>
+      <div class="sl">
+        <label>A · Mensalidade (R$/mês) <b id="v_mensA">890</b></label>
+        <input type="range" id="s_mensA" min="290" max="1490" step="50" value="890">
+        <div class="tag">CENÁRIO A · BOLETO</div>
+      </div>
+      <div class="sl">
+        <label>B · Success fee por locação (R$) <b id="v_succB">900</b></label>
+        <input type="range" id="s_succB" min="500" max="1500" step="50" value="900">
+        <div class="tag">CENÁRIO B · FATURA NO FECHAMENTO</div>
+      </div>
+      <div class="sl">
+        <label>B · Taxa de pulo em M24 (%) <b id="v_puloB">45</b></label>
+        <input type="range" id="s_puloB" min="20" max="60" step="5" value="45">
+        <div class="tag">LEAKAGE · CRESCE DE 15% ATÉ ESTE VALOR</div>
+      </div>
+      <div class="sl">
+        <label>C · Fee por contrato vivo (R$/mês) <b id="v_feeC">30</b></label>
+        <input type="range" id="s_feeC" min="10" max="60" step="5" value="30">
+        <div class="tag">CENÁRIO C · SPLIT NO REPASSE (~1% DO ALUGUEL)</div>
+      </div>
+      <div class="sl">
+        <label>C · Repasse da fiança à imobiliária (%) <b id="v_repC">25</b></label>
+        <input type="range" id="s_repC" min="0" max="50" step="5" value="25">
+        <div class="tag">ELA RECEBE NO MÊS 1 · CAC VIRA DIVIDENDO</div>
+      </div>
+    </div>
+    <div class="premissas-fixas">
+      FIXAS (iguais nos 3): aluguel médio R$ 3.000 · fiança R$ 528/contrato (penetração 80%) · Achamos+ blend R$ 400/ativa/mês · Se Hospede blend R$ 576/ativa/mês · rampa de maturidade 70% · churn de carteira 3%/mês · custo fixo R$ 60k/mês + R$ 150/ativa · adoção: A lenta (110 ativas M24) · B/C rápidas (350/340 ativas M24). Ordem de grandeza p/ decisão — não é planilha contábil.
+    </div>
+  </div>
+
+  <!-- KPIS -->
+  <div class="kpis" id="kpis"></div>
+
+  <!-- BOARD -->
+  <div class="board">
+
+    <!-- FLUXOGRAMA -->
+    <div class="card">
+      <h3>O ecossistema e <em>a pedra</em></h3>
+      <div class="sub">5 dutos fixos + 1 pedra móvel. A venda própria da imobiliária é intocável nos 3 cenários.</div>
+      <svg id="flowSvg" viewBox="0 0 980 560" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- QUADRANTE -->
+    <div class="card">
+      <h3>Quadrante · Resistência × <em>Rentabilidade</em></h3>
+      <div class="sub">Bolhas = M6 → M12 → M24 (rentabilidade cresce no tempo). Seta no B: a resistência migra da entrada pro uso.</div>
+      <svg id="quadSvg" viewBox="0 0 980 560" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- RECEITA -->
+    <div class="card">
+      <h3>Receita mensal · <em>M1 → M24</em></h3>
+      <div class="sub">Portal completo (pedra + fiança + Achamos+ + Se Hospede). Compare as três curvas.</div>
+      <div class="legend">
+        <span><i style="background:var(--cA)"></i> A · Mensalidade</span>
+        <span><i style="background:var(--cB)"></i> B · Success Fee</span>
+        <span><i style="background:var(--cC)"></i> C · Sócio no Fluxo</span>
+      </div>
+      <svg id="revSvg" viewBox="0 0 980 480" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- CAIXA -->
+    <div class="card">
+      <h3>Caixa acumulado · <em>vale da morte</em></h3>
+      <div class="sub">Receita − custo, acumulado. O Pilar Achamos+ direto (fora deste mapa) banca o vale inicial.</div>
+      <div class="legend">
+        <span><i style="background:var(--cA)"></i> A</span>
+        <span><i style="background:var(--cB)"></i> B</span>
+        <span><i style="background:var(--cC)"></i> C</span>
+        <span><i style="background:rgba(244,240,235,0.3)"></i> zero</span>
+      </div>
+      <svg id="cashSvg" viewBox="0 0 980 480" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- IMPACTOS -->
+    <div class="card full">
+      <div id="impTitle"></div>
+      <h3>Mexi a pedra: <em>o que acontece</em></h3>
+      <div class="sub">Impactos do cenário selecionado — bons, ruins e o risco que mata.</div>
+      <div class="impact-grid" id="impactGrid"></div>
+    </div>
+
+    <!-- TABELA -->
+    <div class="card full">
+      <h3>Projeção lado a lado · <em>M6 / M12 / M18 / M24</em></h3>
+      <div class="sub">Receita mensal do Portal e caixa acumulado por cenário, com as premissas atuais dos sliders.</div>
+      <div class="tbl-wrap"><table id="projTable"></table></div>
+    </div>
+
+    <!-- BENCHMARK QUINTOANDAR -->
+    <div class="card full">
+      <h3>QuintoAndar × Rede Achamos · <em>ponto a ponto</em></h3>
+      <div class="sub">Dados públicos jun/2026 (central de ajuda QuintoAndar, Reclame Aqui, Procon-SP). Coluna Achamos = modelo C operando via imobiliária parceira.</div>
+      <div class="tbl-wrap">
+        <table class="cmp">
+          <tr><th>Dimensão</th><th class="colqa">QuintoAndar (operação própria)</th><th class="colach">Rede Achamos (modelo C)</th></tr>
+          <tr>
+            <td>Quem opera a locação</td>
+            <td class="qa">Eles. A imobiliária local foi desintermediada; o corretor virou freelancer por tarefa.</td>
+            <td class="ach"><strong>A imobiliária local</strong>, com a marca dela. Nós somos infraestrutura invisível.</td>
+          </tr>
+          <tr>
+            <td>Corretagem do 1º aluguel</td>
+            <td class="qa">1 aluguel completo — fica com o QA. O corretor parceiro recebe 20-35% disso.</td>
+            <td class="ach"><strong>100% fica com a imobiliária.</strong> Achamos: R$ 0.</td>
+          </tr>
+          <tr>
+            <td>Taxa de administração mensal</td>
+            <td class="qa">9,3% sobre o repasse (mín. R$ 160/mês) — fica com o QA.</td>
+            <td class="ach">A imobiliária define e retém a dela (8-10%). Nosso fee: <strong>R$ 30/contrato no split</strong> (~1%).</td>
+          </tr>
+          <tr>
+            <td>Garantia do aluguel</td>
+            <td class="qa">Proteção própria: repasse dia 12 até a desocupação. Risco de crédito no balanço deles.</td>
+            <td class="ach">Fiança 1-clique via seguradora (LMI ~30 meses): repasse garantido <strong>sem risco no nosso balanço</strong> — e a imobiliária ainda recebe % da comissão da apólice.</td>
+          </tr>
+          <tr>
+            <td>Atendimento</td>
+            <td class="qa">IA + fila: ~2 dias por interação, 30 mil+ reclamações ativas, multa Procon-SP 2025 (R$ 563,9 mil) por cláusulas abusivas.</td>
+            <td class="ach"><strong>Humano e do bairro</strong> (a imobiliária), com infra digital por trás. A maior fraqueza deles é a maior força dela.</td>
+          </tr>
+          <tr>
+            <td>Vistoria & manutenção</td>
+            <td class="qa">Laudos contestados e demora em reparos — reclamação recorrente de proprietários.</td>
+            <td class="ach">App de vistoria + execução local pela imobiliária e prestadores do bairro.</td>
+          </tr>
+          <tr>
+            <td>Venda</td>
+            <td class="qa">Corretagem de até 6% — igual mercado, sem inovação de preço.</td>
+            <td class="ach">100% da comissão fica com a imobiliária. Achamos: fee infra R$ 149/contrato.</td>
+          </tr>
+          <tr>
+            <td>O que o profissional local ganha</td>
+            <td class="qa">Corretor parceiro: R$ ~500/captação + 20-35% da corretagem. Comissão de locação caiu de 30% → 20%. "Pouco valorizado" (Glassdoor).</td>
+            <td class="ach"><strong>Imobiliária dona do contrato:</strong> corretagem integral + taxa adm integral + % fiança + carteira recorrente que compõe.</td>
+          </tr>
+          <tr>
+            <td>Geografia</td>
+            <td class="qa">Forte em capitais; rasa em cidades médias e interior.</td>
+            <td class="ach">Entra onde a imobiliária local é forte — exatamente onde o QA não chega.</td>
+          </tr>
+          <tr>
+            <td>Dados & relação com o cliente</td>
+            <td class="qa">Do QA. Proprietário e inquilino são da plataforma.</td>
+            <td class="ach"><strong>Da imobiliária</strong> (white-label). Nós monetizamos o fluxo, não a relação.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="conta">
+        <div class="side">
+          <div class="who">Corretor parceiro do QuintoAndar · contrato de R$ 3.000 × 30 meses</div>
+          <div class="big bad">~R$ 1,5 mil</div>
+          <div class="det">R$ ~500 na captação + 20-35% da corretagem no fechamento. One-shot. Zero recorrência. A carteira é do QA.</div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="side">
+          <div class="who">Imobiliária na Rede Achamos · mesmo contrato</div>
+          <div class="big good">~R$ 9,4 mil</div>
+          <div class="det">Corretagem integral (R$ 3.000) + taxa adm 8% × 30m (R$ 7.200) − fee split (R$ 900) + repasse fiança (~R$ 130). E a carteira é DELA.</div>
+        </div>
+      </div>
+      <p class="conta-pitch">
+        <strong>A mesma operação rende ~6× mais pro profissional local na nossa rede.</strong> Esse número é a campanha de aquisição inteira: o QuintoAndar provou que o modelo digital funciona — e comoditizou quem o executa. Nós entregamos a mesma infraestrutura (garantia, cobrança automática, contrato digital, repasse em dia) <strong>devolvendo a propriedade do negócio pra imobiliária</strong>. E o QA não pode copiar isso sem canibalizar a própria operação e o exército de parceiros a 20% — dilema do inovador clássico.
+      </p>
+      <div class="src-note">
+        FONTES · jun/2026: help.quintoandar.com.br (taxas de corretagem e administração 9,3% mín. R$ 160 · corretagem venda até 6%) · proprietario.quintoandar.com.br · mkt.quintoandar.com.br/corretor (comissões parceiro 20-35% · R$ 500/captação) · sobre.quintoandar.com.br/garantia (repasse dia 12 até desocupação) · reclameaqui.com.br (30 mil+ reclamações · atendimento ~2 dias) · Procon-SP 2025 (multa R$ 563,9 mil). Posições de benchmark ilustrativas.
+      </div>
+    </div>
+
+    <!-- OPERAÇÃO DO MODELO C -->
+    <div class="card full">
+      <h3>Operação do Modelo C · <em>quem cobra é a plataforma</em>, quem aparece é a marca dela</h3>
+      <div class="sub">O split só existe se o dinheiro passar pela infraestrutura. Inquilino paga com a marca da imobiliária na frente; PSP liquida; ninguém emite boleto contra ninguém.</div>
+
+      <div class="money-flow">
+        <div class="mf-box">
+          <div class="t">Inquilino paga · dia 5</div>
+          <div class="v">R$ 3.000</div>
+          <div class="d">Pix automático / cartão / boleto. Cobrança white-label: "Imobiliária X · powered by Achamos". Régua: lembrete D-5 · multa D+2 · fiança acionada D+15.</div>
+        </div>
+        <div class="mf-arrow">→</div>
+        <div class="mf-box hl">
+          <div class="t">PSP · split automático · D+1</div>
+          <div class="v">3 contas</div>
+          <div class="d">Asaas / Pagar.me / Iugu / Stark — subcontas com KYC. O PSP é o regulado: <strong>não precisamos de licença BACEN</strong>. Dinheiro nunca para na mão de ninguém.</div>
+        </div>
+        <div class="mf-arrow">→</div>
+        <div class="mf-box">
+          <div class="t">Liquidação simultânea</div>
+          <div class="v">D+1</div>
+          <div class="d">Proprietário vê extrato em tempo real. Imobiliária não persegue boleto nem concilia planilha. Recibos e informe de IR automáticos.</div>
+        </div>
+      </div>
+      <div class="mf-splits">
+        <div class="mf-split" style="border-color: rgba(212,169,81,0.45);">
+          <div class="w" style="color: var(--gold);">→ Imobiliária</div>
+          <div class="a">R$ 300</div>
+          <div class="n">Taxa de administração dela (10% — preço que ELA define). Cai na conta no D+1 sem ela fazer nada.</div>
+        </div>
+        <div class="mf-split" style="border-color: rgba(111,45,225,0.5);">
+          <div class="w" style="color: var(--brand);">→ Achamos</div>
+          <div class="a">R$ 30</div>
+          <div class="n">Fee por contrato vivo (~1%). Linha do split — nunca fatura, nunca boleto. Margem líquida ~R$ 26-27 após custo PSP.</div>
+        </div>
+        <div class="mf-split" style="border-color: rgba(16,185,129,0.4);">
+          <div class="w" style="color: var(--green);">→ Proprietário</div>
+          <div class="a">R$ 2.670</div>
+          <div class="n">Repasse direto. Se o inquilino atrasar, a SEGURADORA indeniza (sub-rogação) — o repasse não para e ninguém vira cobrador.</div>
+        </div>
+      </div>
+
+      <div class="op-stack">
+        <div class="op-layer">
+          <div class="h">Camada 1 · Motor financeiro (o build crítico)</div>
+          <ul>
+            <li>Cobrança recorrente + régua completa</li>
+            <li>Split automático na liquidação</li>
+            <li>Reajuste IGP-M/IPCA automático</li>
+            <li>Conciliação, recibos, informe de IR</li>
+          </ul>
+        </div>
+        <div class="op-layer">
+          <div class="h">Camada 2 · Esteira do contrato</div>
+          <ul>
+            <li>Análise de crédito via API (Serasa/SPC)</li>
+            <li>Fiança em 1 clique (API seguradora)</li>
+            <li>Contrato + assinatura digital</li>
+            <li>Vistoria app (R$ 199) · renovação · distrato</li>
+          </ul>
+        </div>
+        <div class="op-layer">
+          <div class="h">Camada 3 · Tenancy-ops (telas já modeladas)</div>
+          <ul>
+            <li>Chamados de manutenção no app</li>
+            <li>Comunicação centralizada</li>
+            <li>Inadimplência → aciona apólice, não briga</li>
+          </ul>
+        </div>
+        <div class="op-layer">
+          <div class="h">Camada 4 · Demanda</div>
+          <ul>
+            <li>Loja no marketplace + OLX/Zap integrados</li>
+            <li>Funil lead→visita→proposta→contrato→cobrança</li>
+            <li>Achamos+ / Se Hospede / temporada opt-in</li>
+          </ul>
+        </div>
+      </div>
+      <p class="conta-pitch" style="margin-top: 16px;">
+        <strong>Divisão do trabalho:</strong> a imobiliária fica só com o que ela é boa — relação, captação, visita, negociação, execução local. Todo o resto (cobrança, split, garantia, reajuste, IR, papelada) é infraestrutura. E um argumento de venda escondido: <strong>ela nunca mais toca no dinheiro do proprietário</strong> — sem risco de caixa misturado, sem conciliação manual, e o proprietário confia mais nela por isso. Build do MVP: integração PSP + esteira de fiança + régua v1 — o resto (Rendizy) já existe.
+      </p>
+    </div>
+
+    <!-- RISCOS OPERACIONAIS -->
+    <div class="card full">
+      <h3>Riscos operacionais do C · <em>severidade × impacto × mitigação</em></h3>
+      <div class="sub">Os riscos novos que a camada operacional introduz — além dos riscos de modelo já mapeados no painel de impactos.</div>
+      <div class="tbl-wrap">
+        <table class="risk-tbl">
+          <tr><th>Risco</th><th>Impacto se acontecer</th><th>Severidade</th><th>Mitigação</th></tr>
+          <tr>
+            <td>Dependência do PSP</td>
+            <td>Split fora do ar = repasse atrasa = a promessa central quebra na frente do proprietário.</td>
+            <td><span class="sev alta">ALTA</span></td>
+            <td class="mit"><strong>Contrato com SLA + segundo PSP homologado</strong> desde o dia 1. Fallback manual documentado pros primeiros 100 contratos.</td>
+          </tr>
+          <tr>
+            <td>Gap de garantia (contrato sem fiança)</td>
+            <td>Inquilino recusou a apólice, atrasa, e o proprietário descobre que "repasse garantido" não valia pra ele.</td>
+            <td><span class="sev alta">ALTA</span></td>
+            <td class="mit"><strong>Regra de produto, não de venda:</strong> repasse garantido SÓ existe com apólice ativa. Sem fiança = fluxo normal sem promessa. Comunicar sempre como "garantido pela apólice" — nunca "garantido pela Achamos" (risco de balanço).</td>
+          </tr>
+          <tr>
+            <td>Reação do QuintoAndar</td>
+            <td>Corte de taxas, programa agressivo pra imobiliárias, ou aquisição de concorrente de infra.</td>
+            <td><span class="sev media">MÉDIA-ALTA</span></td>
+            <td class="mit">Nosso cliente é quem o QA <strong>estruturalmente não serve</strong> — servir a imobiliária canibaliza a operação própria deles. Acelerar lock-in de carteira (contratos vivos no split) antes de qualquer resposta deles.</td>
+          </tr>
+          <tr>
+            <td>Jurídico / CRECI da administração</td>
+            <td>Questionamento sobre quem "administra" a locação e intermedia valores.</td>
+            <td><span class="sev media">MÉDIA</span></td>
+            <td class="mit">A administração formal é da <strong>imobiliária CRECI local</strong>; Achamos presta tecnologia + orquestração de pagamento via PSP regulado; fiança via corretora SUSEP parceira. Parecer jurídico no M0 — desenho regulatoriamente mais leve que o do QA (que carrega tudo).</td>
+          </tr>
+          <tr>
+            <td>Migração da carteira legada lenta</td>
+            <td>Carteira antiga não migra; o MRR-de-carteira demora mais que o projetado.</td>
+            <td><span class="sev media">MÉDIA</span></td>
+            <td class="mit"><strong>Não brigar pelo legado no início:</strong> o C compõe pelos contratos novos (4/mês = 40+ sob gestão em 1 ano). Migração vira campanha M12+ com incentivo (app, score, parcelamento).</td>
+          </tr>
+          <tr>
+            <td>MED do Pix / chargeback</td>
+            <td>Devoluções contestadas travam repasses e geram disputa entre as 3 pontas.</td>
+            <td><span class="sev baixa">BAIXA</span></td>
+            <td class="mit">Termos de uso + trilha de auditoria por contrato + reserva técnica de liquidação (D+1 → D+2 nos primeiros meses se necessário).</td>
+          </tr>
+          <tr>
+            <td>Base inchada de inativas</td>
+            <td>Centenas de lojas mortas sujam métrica e suporte.</td>
+            <td><span class="sev baixa">BAIXA</span></td>
+            <td class="mit">Custo marginal ~zero, mas <strong>descadastro automático aos 90 dias</strong> sem contrato ativo. Métrica oficial: imobiliárias COM contrato sob gestão.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRINCÍPIOS -->
+    <div class="card full">
+      <h3>A pergunta de ouro: o que faz um corretor <em>nem pensar em resistir</em>?</h3>
+      <div class="sub">Os 7 princípios da resistência zero — extraídos de Airbnb, Booking, QuintoAndar e da sua própria operação de temporada (20% no resultado, zero entrada).</div>
+      <div class="princ-grid">
+        <div class="princ"><div class="n">1</div><div><div class="t">Entrada custa zero — pra sempre</div><div class="b">Não existe boleto de mensalidade na porta. A conversa nunca começa com "quanto custa".</div></div></div>
+        <div class="princ"><div class="n">2</div><div><div class="t">Ele RECEBE no primeiro mês</div><div class="b">Repasse de parte da comissão de fiança (~R$ 130/contrato). A primeira fatura é a nosso débito. Resistência negativa.</div></div></div>
+        <div class="princ"><div class="n">3</div><div><div class="t">A venda dele é sagrada</div><div class="b">0% sobre comissão de venda própria — hoje e sempre, por cláusula. A vaca sagrada do corretor fica intocada.</div></div></div>
+        <div class="princ"><div class="n">4</div><div><div class="t">Cobrança sai de DENTRO do fluxo</div><div class="b">Split automático no repasse do aluguel — nunca do bolso. Mesma psicologia dos 15% do Airbnb que ninguém reclama.</div></div></div>
+        <div class="princ"><div class="n">5</div><div><div class="t">A marca é dele</div><div class="b">White-label: a loja, o cliente e a relação são da imobiliária. Nós somos infraestrutura invisível.</div></div></div>
+        <div class="princ"><div class="n">6</div><div><div class="t">Receita que ele não tinha</div><div class="b">Fiança comissionada de volta, temporada Rendizy, Se Hospede, leilão Achamos+ — tudo opt-in, tudo dinheiro novo.</div></div></div>
+        <div class="princ"><div class="n">7</div><div><div class="t">Liberdade total</div><div class="b">Sem fidelidade, sem multa. Ele fica porque a carteira viva mora no portal — lock-in por valor, não por contrato.</div></div></div>
+      </div>
+    </div>
+
+    <!-- RECOMENDAÇÃO -->
+    <div class="card full reco">
+      <h3>Leitura do mapa: <em>B vence o sprint, C vence a maratona</em> — e sem guerra com o cliente.</h3>
+      <p>
+        <strong>A (mensalidade)</strong> tem caixa cedo mas teto baixo: vira SaaS na cabeça do cliente, compete com Vista/Jetimob por preço e morre na planilha do dono no primeiro mês fraco.
+        <strong>B (success fee)</strong> escancara a porta, mas cobra alto no momento mais feliz do cliente — e isso ensina o mercado a pular: a taxa de fuga cresce com o tempo e o anti-pulo vira centro de custo e de briga.
+        <strong>C (sócio no fluxo)</strong> troca o MRR-de-boleto pelo <strong>MRR-de-carteira</strong>: R$ 30/contrato vivo saindo do repasse, invisível, que compõe mês a mês — a imobiliária jamais pagaria R$ 1.500 de mensalidade, mas nem sente 50 contratos × R$ 30 saindo de um fluxo que só existe porque o portal gere.
+        Pra investidor, a métrica não some — migra: <strong>GMV, take rate e NRR&gt;100%</strong> (a receita por cliente cresce sozinha com a carteira). É o mesmo modelo que você já opera na temporada — aplicado à locação residencial.
+      </p>
+      <div class="fases">
+        <div class="fase"><div class="f">Fase 1 · M0–M6</div><div class="t">Achamos+ direto banca o caixa</div><div class="b">O leilão reverso (Spotlight) já fatura e cobre o vale da morte do Portal. Nenhuma imobiliária ainda — só prova de demanda.</div></div>
+        <div class="fase"><div class="f">Fase 2 · M6–M9</div><div class="t">5 pilotos no modelo C</div><div class="b">Zero mensalidade, fiança com repasse, split no repasse. Meta: 100+ contratos sob gestão e 1 caso público por bairro.</div></div>
+        <div class="fase"><div class="f">Fase 3 · M9+</div><div class="t">Escala com prova social + premium opcional</div><div class="b">Abertura comercial. Mensalidade só aparece DEPOIS, como tier premium opcional (BI avançado, white-label total) — nunca como pedágio de entrada.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    Mapa de Decisão · Portal Achamos · BVM LTDA · v1.1 · 2026-06-11 · inclui benchmark QuintoAndar + operação do Modelo C + riscos operacionais<br><br>
+    Companion de <a href="/portal-modelo-negocio.html">portal-modelo-negocio.html</a> — este mapa testa a pedra central antes de fixar o pricing.
+  </footer>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ========= STATE ========= */
+  var P = {
+    locMes: 2.5, mensA: 890, succB: 900, puloB24: 0.45,
+    feeC: 30, repC: 0.25,
+    fianca: 528, fiancaPen: 0.8,
+    achamos: 400, sehospede: 576,
+    rampa: 0.7, churnCart: 0.03,
+    custoBase: 60000, custoAtiva: 150,
+    feeInfraA: 95
+  };
+  var SCEN = 'C';
+  var M = 24;
+
+  var ADOPT = {
+    A: [[0,0],[3,5],[6,15],[12,40],[18,75],[24,110]],
+    B: [[0,0],[3,15],[6,45],[12,130],[18,240],[24,350]],
+    C: [[0,0],[3,12],[6,40],[12,120],[18,230],[24,340]]
+  };
+  var COLORS = { A: '#3B82F6', B: '#FF6B47', C: '#6F2DE1' };
+  var NAMES = { A: 'A · Mensalidade (SaaS First)', B: 'B · Success Fee (Resultado Puro)', C: 'C · Sócio no Fluxo (Split no Repasse)' };
+
+  function lerp(pts, x){
+    if (x <= pts[0][0]) return pts[0][1];
+    for (var i=1;i<pts.length;i++){
+      if (x <= pts[i][0]){
+        var a=pts[i-1], b=pts[i];
+        return a[1] + (b[1]-a[1]) * (x-a[0])/(b[0]-a[0]);
+      }
+    }
+    return pts[pts.length-1][1];
+  }
+
+  /* ========= ENGINE ========= */
+  function compute(s){
+    var rev=[], cash=[], cart=0, acc=0, ativasArr=[], cartArr=[], breakeven=null;
+    for (var m=1; m<=M; m++){
+      var ativas = lerp(ADOPT[s], m);
+      var fechBrutas = ativas * P.locMes * P.rampa;
+      var pulo = (s==='B') ? lerp([[1,0.15],[24,P.puloB24]], m) : 0;
+      var fech = fechBrutas * (1-pulo);
+      cart = cart * (1-P.churnCart) + fech;
+
+      var pedra = 0;
+      if (s==='A') pedra = ativas*P.mensA + fech*P.feeInfraA;
+      if (s==='B') pedra = fech*P.succB;
+      if (s==='C') pedra = cart*P.feeC;
+
+      var comFi = (s==='C') ? P.fianca*(1-P.repC) : P.fianca;
+      var fi = fech * comFi * P.fiancaPen;
+      var comuns = ativas * P.rampa * (P.achamos + P.sehospede);
+
+      var receita = pedra + fi + comuns;
+      var custo = P.custoBase + ativas*P.custoAtiva;
+      acc += (receita - custo);
+      if (breakeven===null && receita>=custo) breakeven = m;
+
+      rev.push(receita); cash.push(acc); ativasArr.push(ativas); cartArr.push(cart);
+    }
+    return { rev: rev, cash: cash, ativas: ativasArr, cart: cartArr, breakeven: breakeven };
+  }
+
+  function computeAll(){
+    return { A: compute('A'), B: compute('B'), C: compute('C') };
+  }
+
+  /* ========= FORMAT ========= */
+  function fmtK(v){
+    if (Math.abs(v)>=1e6) return (v/1e6).toFixed(1).replace('.',',')+'M';
+    if (Math.abs(v)>=1e3) return Math.round(v/1e3)+'k';
+    return Math.round(v)+'';
+  }
+  function fmtR(v){ return 'R$ ' + fmtK(v); }
+
+  /* ========= SVG HELPERS ========= */
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent){
+    var e=document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function txt(parent, x, y, str, opts){
+    opts=opts||{};
+    var t=el('text',{x:x,y:y,fill:opts.fill||'rgba(244,240,235,0.45)','font-size':opts.size||10,'font-family':opts.mono===false?'Inter,sans-serif':'JetBrains Mono,monospace','text-anchor':opts.anchor||'start','font-weight':opts.weight||400},parent);
+    t.textContent=str;
+    return t;
+  }
+  function clearSvg(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+
+  /* ========= LINE CHART ========= */
+  function drawLines(svgId, seriesAll, opts){
+    opts = opts || {};
+    var svg=document.getElementById(svgId);
+    clearSvg(svg);
+    var W=980,H=480, padL=70,padR=20,padT=20,padB=42;
+    var iw=W-padL-padR, ih=H-padT-padB;
+
+    var min=0, max=0;
+    seriesAll.forEach(function(s){ s.data.forEach(function(v){ if(v>max)max=v; if(v<min)min=v; }); });
+    if (opts.zeroLine && min>0) min=0;
+    var span=max-min||1; max+=span*0.06; if(min<0) min-=span*0.06;
+    span=max-min;
+
+    function X(m){ return padL + (m-1)/(M-1)*iw; }
+    function Y(v){ return padT + (1-(v-min)/span)*ih; }
+
+    // gridlines
+    var steps=5;
+    for(var g=0; g<=steps; g++){
+      var gv=min+span*g/steps, gy=Y(gv);
+      el('line',{x1:padL,y1:gy,x2:W-padR,y2:gy,stroke:'rgba(244,240,235,0.06)','stroke-width':1},svg);
+      txt(svg, padL-8, gy+3, fmtR(gv), {anchor:'end', size:9.5});
+    }
+    // zero line
+    if (min<0){
+      var zy=Y(0);
+      el('line',{x1:padL,y1:zy,x2:W-padR,y2:zy,stroke:'rgba(244,240,235,0.3)','stroke-width':1,'stroke-dasharray':'4 4'},svg);
+    }
+    // x labels
+    [1,6,12,18,24].forEach(function(m){
+      txt(svg, X(m), H-padB+18, 'M'+m, {anchor:'middle', size:9.5});
+      el('line',{x1:X(m),y1:padT,x2:X(m),y2:H-padB,stroke:'rgba(244,240,235,0.04)','stroke-width':1},svg);
+    });
+
+    seriesAll.forEach(function(s){
+      var pts=s.data.map(function(v,i){ return X(i+1)+','+Y(v); }).join(' ');
+      var isActive = s.key===SCEN;
+      el('polyline',{points:pts,fill:'none',stroke:s.color,'stroke-width':isActive?3.5:1.8,opacity:isActive?1:0.45,'stroke-linejoin':'round','stroke-linecap':'round'},svg);
+      // end label
+      var lastV=s.data[s.data.length-1];
+      txt(svg, W-padR-2, Y(lastV)-6, fmtR(lastV), {anchor:'end', fill:s.color, size:10.5, weight:600});
+      // marcador breakeven (somente receita chart não tem; cash chart usa opts)
+    });
+  }
+
+  /* ========= QUADRANT ========= */
+  function drawQuadrant(all){
+    var svg=document.getElementById('quadSvg');
+    clearSvg(svg);
+    var W=980,H=560,padL=60,padR=30,padT=30,padB=56;
+    var iw=W-padL-padR, ih=H-padT-padB;
+
+    // máximo Y entre cenários (receita M24)
+    var maxY=0;
+    ['A','B','C'].forEach(function(s){ var v=all[s].rev[M-1]; if(v>maxY)maxY=v; });
+    maxY*=1.15;
+
+    function X(res){ return padL + (res/10)*iw; }
+    function Y(v){ return padT + (1-v/maxY)*ih; }
+
+    // axes
+    el('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'rgba(244,240,235,0.2)','stroke-width':1},svg);
+    el('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'rgba(244,240,235,0.2)','stroke-width':1},svg);
+    txt(svg, W-padR, H-padB+34, 'RESISTÊNCIA DO CLIENTE →', {anchor:'end', size:10, fill:'rgba(244,240,235,0.55)'});
+    txt(svg, padL, padT-10, '↑ RECEITA/MÊS (M24)', {size:10, fill:'rgba(244,240,235,0.55)'});
+
+    // zona ideal
+    var zone=el('rect',{x:X(0),y:padT,width:X(3)-X(0),height:ih,fill:'rgba(16,185,129,0.05)'},svg);
+    txt(svg, X(1.5), padT+16, 'ZONA IDEAL', {anchor:'middle', size:9, fill:'rgba(16,185,129,0.6)'});
+
+    // benchmarks (ilustrativos)
+    var bm=[
+      {n:'Airbnb',x:1,y:0.62},{n:'Booking',x:1.2,y:0.58},{n:'QuintoAndar',x:1.8,y:0.7},
+      {n:'Vista/Jetimob (SaaS)',x:7.2,y:0.18},{n:'Zap/OLX (anúncio)',x:5,y:0.3}
+    ];
+    bm.forEach(function(b){
+      var cy=padT+(1-b.y)*ih;
+      el('circle',{cx:X(b.x),cy:cy,r:5,fill:'rgba(244,240,235,0.18)'},svg);
+      txt(svg, X(b.x)+9, cy+3, b.n, {size:9, fill:'rgba(244,240,235,0.35)'});
+    });
+
+    // cenários: trajetória M6→M12→M24
+    var posX={A:7.5, B:3.0, C:1.5};
+    var marks=[6,12,24];
+    ['A','B','C'].forEach(function(s){
+      var c=COLORS[s], isA=s===SCEN;
+      var pts=marks.map(function(m){ return {x:X(posX[s]), y:Y(all[s].rev[m-1]), m:m, v:all[s].rev[m-1]}; });
+      // linha vertical da trajetória
+      el('line',{x1:pts[0].x,y1:pts[0].y,x2:pts[2].x,y2:pts[2].y,stroke:c,'stroke-width':isA?2.5:1.2,opacity:isA?0.7:0.3,'stroke-dasharray':'3 4'},svg);
+      pts.forEach(function(p,i){
+        var r=6+i*5;
+        el('circle',{cx:p.x,cy:p.y,r:r,fill:c,opacity:(isA?0.85:0.35)-(i===2?0:0.1)},svg);
+        if(i===2){
+          txt(svg, p.x, p.y-r-8, NAMES[s].split(' · ')[0]+' · '+fmtR(p.v), {anchor:'middle', fill:c, size:11, weight:700});
+        }
+      });
+      // labels M6 M12 M24 no cenário ativo
+      if(isA){
+        pts.forEach(function(p,i){ txt(svg, p.x+(6+i*5)+6, p.y+3, 'M'+p.m, {size:8.5, fill:c}); });
+      }
+    });
+
+    // seta B: resistência migra
+    var byM24=Y(all.B.rev[M-1]);
+    el('line',{x1:X(3.4),y1:byM24,x2:X(6.4),y2:byM24,stroke:COLORS.B,'stroke-width':1.5,'stroke-dasharray':'5 4',opacity:0.55},svg);
+    el('path',{d:'M '+(X(6.4))+' '+byM24+' l -8 -4 l 0 8 z',fill:COLORS.B,opacity:0.55},svg);
+    txt(svg, X(4.9), byM24-8, 'a resistência do B migra pro USO (hora de pagar)', {anchor:'middle', size:8.5, fill:COLORS.B});
+  }
+
+  /* ========= FLOW ========= */
+  var PEDRA_LBL = {
+    A: ['MENSALIDADE R$ '+'890'+'/mês + fee/contrato', 'BOLETO · sai do bolso, antes do resultado'],
+    B: ['SUCCESS FEE por locação fechada', 'FATURA · visível, no momento do fechamento'],
+    C: ['SPLIT no repasse · R$/contrato vivo/mês', 'INVISÍVEL · sai do fluxo, depois do resultado']
+  };
+  function drawFlow(){
+    var svg=document.getElementById('flowSvg');
+    clearSvg(svg);
+    var W=980;
+
+    function box(x,y,w,h,label,sub,color,dash){
+      var g=el('g',{},svg);
+      el('rect',{x:x,y:y,width:w,height:h,rx:12,fill:'rgba(28,26,28,1)',stroke:color||'rgba(244,240,235,0.18)','stroke-width':1.5,'stroke-dasharray':dash||'none'},g);
+      txt(g, x+w/2, y+(sub?h/2-4:h/2+4), label, {anchor:'middle', fill:'#F4F0EB', size:12.5, weight:700, mono:false});
+      if(sub) txt(g, x+w/2, y+h/2+15, sub, {anchor:'middle', size:9});
+      return g;
+    }
+    function arrow(x1,y1,x2,y2,color,label,dy){
+      el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:color||'rgba(244,240,235,0.25)','stroke-width':1.5},svg);
+      el('path',{d:'M '+x2+' '+y2+' l -9 -4 l 1 8 z',fill:color||'rgba(244,240,235,0.25)'},svg);
+      if(label) txt(svg,(x1+x2)/2,(y1+y2)/2+(dy||-7),label,{anchor:'middle',size:8.5,fill:color||'rgba(244,240,235,0.4)'});
+    }
+
+    // atores
+    box(20,40,180,52,'PROPRIETÁRIO','vende · aluga');
+    box(20,130,180,52,'INQUILINO','aluga · paga fiança');
+    box(20,220,180,52,'COMPRADOR','Spotlight · Se Hospede');
+
+    // imobiliária
+    box(330,118,250,80,'IMOBILIÁRIA PARCEIRA','marca DELA na frente · white-label','#D4A951');
+
+    // portal
+    box(720,98,236,120,'PORTAL ACHAMOS','infra · canais · marketplace','#6F2DE1');
+
+    arrow(200,66,330,140,null,'capta');
+    arrow(200,156,330,158,null,'aluga');
+    arrow(200,246,330,176,null,'compra');
+    arrow(580,158,720,158,'#6F2DE1','opera dentro');
+
+    // dutos de receita (verticais à direita)
+    var dutos=[
+      {y:300, t:'VENDA PRÓPRIA DA IMOBILIÁRIA', v:'R$ 0 · INTOCÁVEL — sempre', c:'#10B981'},
+      {y:348, t:'SEGURO FIANÇA (default 1-clique)', v:'R$ 528/contrato · no C, parte volta pra ela', c:'rgba(244,240,235,0.5)'},
+      {y:396, t:'ACHAMOS+ LEILÃO (opt-in)', v:'comissão dividida · Free/Credit/Master', c:'rgba(244,240,235,0.5)'},
+      {y:444, t:'SE HOSPEDE + TEMPORADA (opt-in)', v:'split no resultado · 58/10/32 · 20%', c:'rgba(244,240,235,0.5)'}
+    ];
+    txt(svg, 330, 282, 'DUTOS FIXOS — iguais nos 3 cenários:', {size:10, fill:'rgba(244,240,235,0.55)', weight:600});
+    dutos.forEach(function(d){
+      el('circle',{cx:340,cy:d.y-4,r:4,fill:d.c},svg);
+      txt(svg, 356, d.y, d.t, {size:10.5, fill:'#F4F0EB', weight:600});
+      txt(svg, 356, d.y+14, d.v, {size:9, fill:'rgba(244,240,235,0.45)'});
+    });
+
+    // A PEDRA
+    var pl=PEDRA_LBL[SCEN];
+    var g=el('g',{},svg);
+    el('rect',{x:330,y:486,width:626,height:58,rx:14,fill:'rgba(111,45,225,0.10)',stroke:COLORS[SCEN],'stroke-width':2.5},g);
+    txt(g, 348, 510, '◆ A PEDRA — uso core (locação no portal):', {size:10, fill:COLORS[SCEN], weight:700});
+    txt(g, 348, 528, pl[0]+'  ·  '+pl[1], {size:11, fill:'#F4F0EB', weight:600, mono:false});
+    el('line',{x1:838,y1:218,x2:838,y2:486,stroke:COLORS[SCEN],'stroke-width':1.5,'stroke-dasharray':'4 4'},svg);
+  }
+
+  /* ========= IMPACTS ========= */
+  var IMPACTS = {
+    A: {
+      win: [
+        '<strong>Caixa previsível desde M1</strong> — MRR clássico, fácil de mostrar pra investidor (ARR).',
+        '<strong>Base engajada:</strong> quem paga, usa. Filtra curiosos.',
+        'Custo de servir coberto independente de resultado.'
+      ],
+      lose: [
+        '<strong>Vira SaaS na cabeça do cliente</strong> — comparação direta com Vista/Jetimob/Tecimob por preço. Exatamente o medo que motivou este mapa.',
+        '<strong>Ciclo de venda 3-6× mais longo:</strong> cada real de boleto adiciona semanas de convencimento.',
+        'Churn estrutural: no mês fraco, mensalidade é a primeira linha cortada da planilha.',
+        'Teto de adoção baixo (~110 ativas em M24) — o GMV menor encolhe TODAS as outras receitas (fiança, Achamos+, Se Hospede).'
+      ],
+      risk: [
+        '<strong>Risco que mata:</strong> commodity. Concorrente lança "igual por R$ 390" e a conversa vira leilão de preço.',
+        '<strong>Mitigação:</strong> só sustentável se o portal entregar lead exclusivo que ninguém mais tem — aí a mensalidade vira "pedágio de canal", não software.'
+      ]
+    },
+    B: {
+      win: [
+        '<strong>Porta escancarada:</strong> adoção ~3× mais rápida que A. "Só pago se fechar" desarma a objeção inicial.',
+        '<strong>Ticket alto por transação</strong> (R$ ~900/locação) — receita forte enquanto o uso é honesto.',
+        'Narrativa alinhada: "ganhamos juntos".'
+      ],
+      lose: [
+        '<strong>Cobra no momento mais feliz do cliente</strong> — a fatura chega junto com a comemoração do fechamento. Atrito recorrente.',
+        '<strong>Ensina o mercado a pular:</strong> cada burla bem-sucedida vira case no WhatsApp dos corretores. Modelamos leakage crescendo de 15% → 45% em M24.',
+        'Anti-pulo vira centro de custo: auditoria, contrato, cobrança, briga — e cada briga queima a relação.',
+        'Receita volátil — mês fraco do mercado = mês fraco seu, sem amortecedor.'
+      ],
+      risk: [
+        '<strong>Risco que mata:</strong> a taxa de pulo passa de 50% e o modelo vira ficção — você tem a base, o custo e não tem a receita.',
+        '<strong>Mitigação:</strong> reduzir o fee até doer menos que o risco jurídico de pular… o que converge pro cenário C com passos extras.'
+      ]
+    },
+    C: {
+      win: [
+        '<strong>Resistência ~zero:</strong> entrada grátis + ela RECEBE repasse de fiança no mês 1. A conversa inverte: "quanto eu ganho?"',
+        '<strong>MRR não morre — migra:</strong> de boleto pra carteira. R$ 30 × contratos vivos compõe mês a mês e nunca aparece como custo na planilha dela.',
+        '<strong>Cobrança invisível</strong> (split no repasse) — mesma psicologia dos 15% do Airbnb que você mesmo aceita pagar sem dor.',
+        '<strong>Lock-in por valor:</strong> sair = reassumir manualmente a gestão de dezenas de contratos vivos. Ninguém sai.',
+        '<strong>NRR&gt;100%:</strong> a receita por cliente cresce sozinha com a carteira — a métrica que investidor de marketplace ama.'
+      ],
+      lose: [
+        '<strong>Vale da morte M1-M8:</strong> receita da pedra começa perto de zero (carteira ainda não existe).',
+        'MRR demora a aparecer no gráfico — investidor de SaaS clássico precisa ser reeducado pra GMV/take-rate.',
+        'Base pode encher de imobiliárias inativas (custo ~zero, mas suja métrica — descadastrar inativas a cada 90 dias).'
+      ],
+      risk: [
+        '<strong>Risco que mata:</strong> fôlego de caixa nos 6-9 primeiros meses.',
+        '<strong>Mitigação dupla:</strong> (1) Pilar Achamos+ direto banca o vale — já fatura desde M1; (2) fiança gera caixa IMEDIATO por contrato fechado (R$ ~400 líquidos), antes da carteira compor.'
+      ]
+    }
+  };
+
+  function renderImpacts(){
+    var grid=document.getElementById('impactGrid');
+    var d=IMPACTS[SCEN];
+    var chip='<span class="scen-title-chip" style="background:'+COLORS[SCEN]+'22;color:'+COLORS[SCEN]+';border:1px solid '+COLORS[SCEN]+'55">'+NAMES[SCEN]+'</span>';
+    document.getElementById('impTitle').innerHTML=chip;
+    function block(cls, title, items){
+      return '<div class="imp '+cls+'"><h5>'+title+'</h5><ul>'+items.map(function(i){return '<li><span>'+i+'</span></li>';}).join('')+'</ul></div>';
+    }
+    grid.innerHTML =
+      block('win','O que ganho', d.win) +
+      block('lose','O que perco', d.lose) +
+      block('risk','Risco & mitigação', d.risk);
+  }
+
+  /* ========= KPIs ========= */
+  function renderKpis(all){
+    var d=all[SCEN];
+    var c=COLORS[SCEN];
+    var k=document.getElementById('kpis');
+    var revM24=d.rev[M-1], cashM24=d.cash[M-1];
+    var ativas=Math.round(d.ativas[M-1]);
+    var porAtiva=ativas? revM24/ativas : 0;
+    var items=[
+      {l:'Receita /mês em M24', v:fmtR(revM24), m:'Portal completo', hl:true},
+      {l:'Caixa acumulado M24', v:fmtR(cashM24), m: cashM24>=0?'positivo':'vale da morte', hl:false},
+      {l:'Breakeven', v: d.breakeven? 'M'+d.breakeven : '—', m:'receita ≥ custo', hl:false},
+      {l:'Imobiliárias ativas M24', v: ativas, m:'curva de adoção do cenário', hl:false},
+      {l:'Receita /ativa /mês M24', v:fmtR(porAtiva), m:'unit economics', hl:false}
+    ];
+    if (SCEN==='C') items.push({l:'Contratos sob gestão M24', v: fmtK(d.cart[M-1]), m:'o MRR-de-carteira', hl:true});
+    if (SCEN==='B') items.push({l:'Taxa de pulo em M24', v: Math.round(P.puloB24*100)+'%', m:'leakage modelado', hl:true});
+    if (SCEN==='A') items.push({l:'Mensalidade', v:'R$ '+P.mensA, m:'o boleto na planilha dela', hl:true});
+    k.innerHTML = items.map(function(i){
+      return '<div class="kpi'+(i.hl?' hl':'')+'" style="--scen-color:'+c+'"><div class="l">'+i.l+'</div><div class="v">'+i.v+'</div><div class="m">'+i.m+'</div></div>';
+    }).join('');
+  }
+
+  /* ========= TABLE ========= */
+  function renderTable(all){
+    var t=document.getElementById('projTable');
+    var ms=[6,12,18,24];
+    var head='<tr><th>Cenário</th>'+ms.map(function(m){return '<th>Receita M'+m+'</th>';}).join('')+ms.map(function(m){return '<th>Caixa M'+m+'</th>';}).join('')+'</tr>';
+    var rows=['A','B','C'].map(function(s){
+      var d=all[s];
+      var r='<tr class="row-'+s+'"><td>'+NAMES[s].split(' (')[0]+'</td>';
+      ms.forEach(function(m){ r+='<td>'+fmtR(d.rev[m-1])+'</td>'; });
+      ms.forEach(function(m){ var v=d.cash[m-1]; r+='<td class="'+(v>=0?'pos':'neg')+'">'+fmtR(v)+'</td>'; });
+      return r+'</tr>';
+    }).join('');
+    t.innerHTML=head+rows;
+  }
+
+  /* ========= MASTER RENDER ========= */
+  function renderAll(){
+    var all=computeAll();
+    renderKpis(all);
+    drawFlow();
+    drawQuadrant(all);
+    drawLines('revSvg', [
+      {key:'A',color:COLORS.A,data:all.A.rev},
+      {key:'B',color:COLORS.B,data:all.B.rev},
+      {key:'C',color:COLORS.C,data:all.C.rev}
+    ]);
+    drawLines('cashSvg', [
+      {key:'A',color:COLORS.A,data:all.A.cash},
+      {key:'B',color:COLORS.B,data:all.B.cash},
+      {key:'C',color:COLORS.C,data:all.C.cash}
+    ], {zeroLine:true});
+    renderImpacts();
+    renderTable(all);
+  }
+
+  /* ========= LISTENERS ========= */
+  document.querySelectorAll('.scen-pill').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.scen-pill').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+      SCEN=b.getAttribute('data-s');
+      renderAll();
+    });
+  });
+  document.getElementById('btnPrem').addEventListener('click', function(){
+    document.getElementById('premissas').classList.toggle('open');
+  });
+
+  function bindSlider(id, valId, key, fmt, transform){
+    var s=document.getElementById(id), v=document.getElementById(valId);
+    s.addEventListener('input', function(){
+      var raw=parseFloat(s.value);
+      P[key]= transform? transform(raw) : raw;
+      v.textContent= fmt? fmt(raw) : raw;
+      // atualiza label dinâmico da pedra A
+      PEDRA_LBL.A[0]='MENSALIDADE R$ '+P.mensA+'/mês + fee/contrato';
+      renderAll();
+    });
+  }
+  bindSlider('s_locMes','v_locMes','locMes');
+  bindSlider('s_mensA','v_mensA','mensA');
+  bindSlider('s_succB','v_succB','succB');
+  bindSlider('s_puloB','v_puloB','puloB24', null, function(x){return x/100;});
+  bindSlider('s_feeC','v_feeC','feeC');
+  bindSlider('s_repC','v_repC','repC', null, function(x){return x/100;});
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
