@@ -275,6 +275,34 @@
     .pact-v strong { color: var(--ink); font-weight: 600; }
     .pact-item.danger .pact-v strong { color: #fca5a5; }
 
+    /* PLANOS (a gangorra justa) */
+    .gangorra-lead { margin-top: 40px; font-size: 17px; color: var(--ink-soft); max-width: 72ch; line-height: 1.62; }
+    .gangorra-lead strong { color: var(--ink); font-weight: 600; }
+    .gangorra-lead em { font-style: normal; color: var(--brand); font-weight: 600; }
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 34px; align-items: stretch; }
+    @media (max-width: 900px) { .plans { grid-template-columns: 1fr; } }
+    .plan { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 34px 30px; display: flex; flex-direction: column; }
+    .plan.featured { border-color: var(--brand); background: linear-gradient(160deg, var(--brand-soft) 0%, var(--surface) 58%); box-shadow: 0 16px 48px rgba(111,45,225,0.18); }
+    .plan-badge { align-self: flex-start; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand); background: var(--brand-soft); padding: 5px 12px; border-radius: 999px; margin-bottom: 18px; font-weight: 600; }
+    .plan.featured .plan-badge { background: var(--brand); color: #fff; }
+    .plan-name { font-family: var(--f-display); font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .plan-who { font-size: 13.5px; color: var(--ink-mute); line-height: 1.5; margin-bottom: 20px; }
+    @media (min-width: 901px) { .plan-who { min-height: 42px; } }
+    .plan-price { display: flex; align-items: baseline; gap: 5px; }
+    .plan-price .cur { font-size: 18px; color: var(--ink-mute); font-weight: 600; }
+    .plan-price .num { font-family: var(--f-display); font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .plan-price .per { font-size: 15px; color: var(--ink-mute); font-weight: 500; }
+    .plan-pricelbl { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand); margin-bottom: 9px; }
+    .plan-fix { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); margin-top: 9px; line-height: 1.4; }
+    .plan-rows-lbl { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand); margin-bottom: 4px; }
+    .plan-rows { list-style: none; }
+    .plan-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+    .plan-row:last-child { border-bottom: 0; }
+    .plan-row .rk { font-size: 14px; color: var(--ink-soft); line-height: 1.35; }
+    .plan-row .rv { font-family: var(--f-display); font-weight: 700; color: var(--ink); font-size: 17px; letter-spacing: -0.01em; white-space: nowrap; }
+    .plan-row.key .rv { color: var(--brand); }
+    .plan-row .rv.sm { font-size: 12.5px; font-family: var(--f-body); font-weight: 600; color: var(--ink-soft); white-space: normal; text-align: right; }
+
     /* STEPS */
     .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 52px; }
     @media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; } }
@@ -645,17 +673,75 @@
       <div class="section-eyebrow">07 · A proposta</div>
       <h2 class="section-title">Tudo isso por <em>menos do que um lead avulso</em> te custa.</h2>
       <p class="section-lead">
-        As techs gastam, num único dia de marketing, mais do que você vai investir num ano inteiro. Você não precisa desse orçamento — você precisa entrar na rede que já o tem.
+        As techs gastam, num único dia de marketing, mais do que você investiria num ano inteiro. Você não precisa ter esse orçamento — precisa <strong>entrar na rede que já o tem</strong>. O que você paga não é mensalidade de software: é a sua <strong>Verba no Pool de Marketing</strong> — a rede inteira pagando junta o que ninguém pagaria sozinho.
       </p>
 
-      <div class="prop-box">
-        <div class="prop-pre">A partir de</div>
-        <div class="prop-price"><span class="cur">R$</span>490<span class="per">/mês</span></div>
-        <p class="prop-sub">As três armas, a tecnologia conectada e a cota no marketing da rede. <strong>Sem fidelidade longa, sem time de TI, sem milhões em mídia.</strong></p>
-        <div class="prop-compare">
-          As grandes plataformas gastam isso em <b>marketing a cada poucos segundos</b>.<br>
-          Você passa a ter a mesma estrutura — com o território que elas nunca vão conhecer.
+      <p class="gangorra-lead">
+        São <strong>três planos</strong>, com uma lógica só: <em>quanto mais forte a sua imobiliária, menos a rede leva na comissão.</em> Quem é maior e mais estruturada coloca uma <strong>verba um pouco maior no pool</strong> e divide menos — porque já caminha com as próprias pernas. Quem está começando entra com uma verba menor e divide um pouco mais, porque usa mais a máquina da rede. <strong>Conforme você cresce, você sobe de plano e a fatia da rede cai.</strong>
+      </p>
+
+      <div class="plans">
+        <!-- LIGHT -->
+        <div class="plan">
+          <span class="plan-badge">Light · entrada</span>
+          <div class="plan-name">Light</div>
+          <div class="plan-who">Pra imobiliária enxuta ou começando agora na rede.</div>
+          <div class="plan-pricelbl">Verba no Pool de Marketing</div>
+          <div class="plan-price"><span class="cur">R$</span><span class="num">290</span><span class="per">/mês</span></div>
+          <div class="plan-fix">A sua cota de entrada no pool</div>
+          <div class="plan-rows-lbl">A fatia da rede</div>
+          <ul class="plan-rows">
+            <li class="plan-row key"><span class="rk">Lead de venda <span style="opacity:0.6">(porta da rede)</span></span><span class="rv">35%</span></li>
+            <li class="plan-row"><span class="rk">Temporada</span><span class="rv">40%</span></li>
+            <li class="plan-row"><span class="rk">Seguro fiança</span><span class="rv">30%</span></li>
+            <li class="plan-row"><span class="rk">Se Hospede</span><span class="rv sm">0,5%/mês + 3% na venda</span></li>
+          </ul>
         </div>
+
+        <!-- PRO -->
+        <div class="plan featured">
+          <span class="plan-badge">Pro · mais escolhido</span>
+          <div class="plan-name">Pro</div>
+          <div class="plan-who">Pra imobiliária em crescimento, que já roda volume.</div>
+          <div class="plan-pricelbl">Verba no Pool de Marketing</div>
+          <div class="plan-price"><span class="cur">R$</span><span class="num">590</span><span class="per">/mês</span></div>
+          <div class="plan-fix">Equilíbrio entre verba e comissão</div>
+          <div class="plan-rows-lbl">A fatia da rede</div>
+          <ul class="plan-rows">
+            <li class="plan-row key"><span class="rk">Lead de venda <span style="opacity:0.6">(porta da rede)</span></span><span class="rv">30%</span></li>
+            <li class="plan-row"><span class="rk">Temporada</span><span class="rv">35%</span></li>
+            <li class="plan-row"><span class="rk">Seguro fiança</span><span class="rv">25%</span></li>
+            <li class="plan-row"><span class="rk">Se Hospede</span><span class="rv sm">0,5%/mês + 3% na venda</span></li>
+          </ul>
+        </div>
+
+        <!-- MASTER -->
+        <div class="plan">
+          <span class="plan-badge">Master · estrutura</span>
+          <div class="plan-name">Master</div>
+          <div class="plan-who">Pra imobiliária grande, estruturada e com time próprio.</div>
+          <div class="plan-pricelbl">Verba no Pool de Marketing</div>
+          <div class="plan-price"><span class="cur">R$</span><span class="num">990</span><span class="per">/mês</span></div>
+          <div class="plan-fix">Mais verba no pool, comissão mínima</div>
+          <div class="plan-rows-lbl">A fatia da rede</div>
+          <ul class="plan-rows">
+            <li class="plan-row key"><span class="rk">Lead de venda <span style="opacity:0.6">(porta da rede)</span></span><span class="rv">20%</span></li>
+            <li class="plan-row"><span class="rk">Temporada</span><span class="rv">28%</span></li>
+            <li class="plan-row"><span class="rk">Seguro fiança</span><span class="rv">18%</span></li>
+            <li class="plan-row"><span class="rk">Se Hospede</span><span class="rv sm">0,5%/mês + 3% na venda</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="doors-note" style="margin-top: 28px;">
+        <strong>Como ler:</strong> a sua <strong>Verba no Pool de Marketing</strong> é o que ativa as três armas e te dá cota no marketing coletivo da rede. A <strong>fatia da rede</strong> só incide quando a rede trabalha por você — a comissão de <strong>lead de venda</strong> vale apenas sobre o cliente que entra pela <em>porta da rede</em>; o que entra pela sua porta continua <strong>100% seu</strong>. Os produtos (temporada, seguro, Se Hospede) a rede opera junto sempre que vendidos pela plataforma.
+        <br><br>
+        <span style="color: var(--ink-mute); font-size: 14px;">Valores e percentuais iniciais, pra você enxergar a lógica — o plano e os números finais são fechados na proposta, conforme o porte e o foco da sua imobiliária.</span>
+      </div>
+
+      <div class="prop-compare" style="margin-top: 26px;">
+        As grandes plataformas gastam uma verba dessas em <b>marketing a cada poucos segundos</b>.<br>
+        Você passa a ter a mesma estrutura — com o território que elas nunca vão conhecer.
       </div>
     </div>
   </section>
@@ -708,11 +794,11 @@
   <footer>
     <div class="container">
       Achamos Imóveis · BVM LTDA · CNPJ 46.908.483/0001-28<br>
-      Pitch para parceiros · versão protagonista · v2.2 · 2026-06-29
+      Pitch para parceiros · versão protagonista · v2.3 · 2026-06-29
     </div>
   </footer>
 
-  <div class="motion-hint">Rascunho de pitch · Protagonista v2.2</div>
+  <div class="motion-hint">Rascunho de pitch · Protagonista v2.3</div>
 
 </body>
 </html>
