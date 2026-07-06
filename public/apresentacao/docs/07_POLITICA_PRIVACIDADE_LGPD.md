@@ -38,9 +38,9 @@ Tratamento de dados pessoais sob a LGPD requer:
 
 ## 1. QUEM SOMOS
 
-**Razão social:** Bora Vender Muito BVM Aceleradora de Vendas LTDA
+**Razão social:** [Razão social a definir]
 **Marca:** ACHAMOS IMÓVEIS
-**CNPJ:** 46.908.483/0001-28
+**CNPJ:** [a definir]
 **Sede:** [Endereço completo]
 **CRECI:** [nº]
 **Encarregado de Proteção de Dados (DPO):**

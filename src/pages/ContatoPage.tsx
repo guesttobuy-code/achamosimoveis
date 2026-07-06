@@ -73,19 +73,6 @@ export default function ContatoPage({ navigate }: { navigate: NavigateFn }) {
                   <div className="eyebrow" style={{ marginBottom: 16 }}>{t('info.office_label')}</div>
                   <div>
                     <div style={{ fontWeight: 600, fontSize: 16, fontFamily: 'var(--f-display)', letterSpacing: '-0.015em' }}>{t('info.office_city')}</div>
-                    <div style={{ color: 'var(--ink-soft)', fontSize: 14, marginTop: 4 }}>{t('info.office_addr1')}</div>
-                    <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>{t('info.office_addr2')}</div>
-                  </div>
-                  <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--line-soft)' }}>
-                    <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-mute)', marginBottom: 6 }}>
-                      {t('info.razao_label')}
-                    </div>
-                    <div style={{ fontSize: 13.5, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
-                      {t('info.razao_name')}
-                    </div>
-                    <div style={{ fontFamily: 'var(--f-mono)', fontSize: 12, color: 'var(--ink-mute)', marginTop: 4 }}>
-                      {t('info.razao_cnpj')}
-                    </div>
                   </div>
                   <div style={{ marginTop: 14, fontFamily: 'var(--f-mono)', fontSize: 11.5, color: 'var(--brand)', letterSpacing: '0.04em' }}>
                     {t('info.coverage')}

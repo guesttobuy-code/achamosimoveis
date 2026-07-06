@@ -44,7 +44,7 @@ Contrato de adesão regulado pelo Código Civil (art. 423-424) e Código de Defe
 
 | Termo | Definição |
 |---|---|
-| **Achamos / Achamos Imóveis** | A marca operacional da Bora Vender Muito BVM Aceleradora de Vendas LTDA (CNPJ 46.908.483/0001-28) |
+| **Achamos / Achamos Imóveis** | A marca operacional da [Razão social a definir] (CNPJ [a definir]) |
 | **Portal** | O site achamosimoveis.com.br e suas extensões (app, API, painéis) |
 | **Usuário** | Pessoa física ou jurídica que acessa o Portal |
 | **Comprador** | Usuário que ativa um Mandato de Busca |
@@ -371,7 +371,7 @@ Ao clicar em **"Li e concordo com os Termos de Uso"** durante o cadastro ou ao u
 ---
 
 **BORA VENDER MUITO BVM ACELERADORA DE VENDAS LTDA**
-CNPJ 46.908.483/0001-28
+CNPJ [a definir]
 Marca: ACHAMOS IMÓVEIS
 CRECI [nº]
 
