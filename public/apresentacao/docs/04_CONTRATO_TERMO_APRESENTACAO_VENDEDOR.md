@@ -37,8 +37,8 @@ Contrato de **prestação de serviços de corretagem com cláusula de proteção
 
 **CONTRATADA:**
 **BORA VENDER MUITO BVM ACELERADORA DE VENDAS LTDA**
-Razão social: Bora Vender Muito BVM Aceleradora de Vendas LTDA
-CNPJ: 46.908.483/0001-28
+Razão social: [Razão social a definir]
+CNPJ: [a definir]
 Marca operacional: ACHAMOS IMÓVEIS
 Sede: [Endereço completo]
 CRECI [nº de inscrição]
@@ -134,7 +134,7 @@ WhatsApp: [Telefone]
 4.2. **Forma de pagamento.** A comissão será paga pelo CONTRATANTE-VENDEDOR à CONTRATADA:
 - (a) No ato da assinatura do compromisso de compra e venda, OU
 - (b) No ato da escritura definitiva, conforme acordado entre as Partes,
-- (c) Mediante TED, PIX ou depósito em conta corrente da CONTRATADA (CNPJ 46.908.483/0001-28).
+- (c) Mediante TED, PIX ou depósito em conta corrente da CONTRATADA (CNPJ [a definir]).
 
 4.3. **Base de cálculo.** A comissão incide sobre o valor total da venda (preço bruto), antes de quaisquer descontos, abatimentos, retenções ou ITBI.
 
@@ -288,7 +288,7 @@ WhatsApp: [Telefone]
 **CONTRATADA — BVM LTDA**
 
 ___________________________________________
-**Bora Vender Muito BVM Aceleradora de Vendas LTDA**
+**[Razão social a definir]**
 Por: Rafael [sobrenome completo], sócio administrador
 CPF: [CPF]
 CRECI: [nº]

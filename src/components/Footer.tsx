@@ -65,18 +65,6 @@ export default function Footer({ navigate }: FooterProps) {
           </div>
         </div>
 
-        <div className="foot-legal">
-          <div className="foot-legal-block">
-            <div className="foot-legal-title">Bora Vender Muito BVM Aceleradora de Vendas LTDA</div>
-            <div className="foot-legal-line">CNPJ 46.908.483/0001-28</div>
-          </div>
-          <div className="foot-legal-block">
-            <div className="foot-legal-title">{t('footer.address_label')}</div>
-            <div className="foot-legal-line">{t('footer.address_line1')}</div>
-            <div className="foot-legal-line">{t('footer.address_line2')}</div>
-          </div>
-        </div>
-
         <div className="foot-bottom">
           <span>{t('footer.copyright')}</span>
           <span>{t('footer.operated_by')}</span>

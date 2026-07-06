@@ -37,8 +37,8 @@ Este é um contrato de **prestação de serviços de corretagem de imóveis** so
 
 **CONTRATADA:**
 **BORA VENDER MUITO BVM ACELERADORA DE VENDAS LTDA**
-Razão social: Bora Vender Muito BVM Aceleradora de Vendas LTDA
-CNPJ: 46.908.483/0001-28
+Razão social: [Razão social a definir]
+CNPJ: [a definir]
 Marca operacional: ACHAMOS IMÓVEIS
 Sede: [Endereço completo]
 CRECI [nº de inscrição]
@@ -297,7 +297,7 @@ Por estarem assim justas e contratadas, as Partes assinam o presente contrato el
 **CONTRATADA — BVM LTDA**
 
 ___________________________________________
-**Bora Vender Muito BVM Aceleradora de Vendas LTDA**
+**[Razão social a definir]**
 Por: Rafael [sobrenome completo], sócio administrador
 CPF: [CPF]
 CRECI: [nº]

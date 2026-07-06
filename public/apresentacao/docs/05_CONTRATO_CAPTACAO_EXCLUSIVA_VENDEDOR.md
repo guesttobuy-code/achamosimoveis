@@ -29,7 +29,7 @@ Contrato de **prestação de serviços de corretagem com exclusividade** sob art
 
 **CONTRATADA:**
 **BORA VENDER MUITO BVM ACELERADORA DE VENDAS LTDA**
-CNPJ: 46.908.483/0001-28
+CNPJ: [a definir]
 Marca: ACHAMOS IMÓVEIS
 Sede: [Endereço completo]
 CRECI [nº]
@@ -237,7 +237,7 @@ Caso a CONTRATADA não consiga garantir 3 visitas qualificadas em 90 dias (imóv
 **CONTRATADA — BVM LTDA**
 
 ___________________________________________
-**Bora Vender Muito BVM Aceleradora de Vendas LTDA**
+**[Razão social a definir]**
 Por: Rafael [sobrenome completo], sócio administrador
 CRECI: [nº]
 
