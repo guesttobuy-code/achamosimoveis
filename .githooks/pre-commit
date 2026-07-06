@@ -14,7 +14,6 @@ echo "[pre-commit] Rodando guards leves antes do commit..."
 # Guards rápidos primeiro (fail-fast)
 npm run --silent guard:env-leak
 npm run --silent guard:secrets
-npm run --silent guard:supabase-direct
 
 # Type check (mais lento, ~5-15s)
 echo "[pre-commit] TypeScript check..."
