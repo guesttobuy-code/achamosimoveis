@@ -1,3 +1,28 @@
+Software Rendizy PMS gestor de imobiliárias
+
+www.rendizy.com
+
+Sou autodidata e desenvolvi o Rendizy com essas caracteristicas:
+
+Arquitetura hexagonal em 4 camadas em código real — interface/application/domain/infrastructure com CONTRACT.md por módulo. Diferencial: PME europeia raramente tem isso fora do slide.
+75 ADRs numerados + LEIs internas versionadas — cultura de decisão documentada nível big-tech, protocolo de reserva de número para evitar colisão entre branches paralelas.
+CI proprietário com ~121 guards e diff-scope no servidor — bloqueia só o débito que este PR introduz, não teatro de CI. Pouco time europeu de PME opera assim.
+Compliance de assinatura eletrônica (Lei 14.063/2020) — hash SHA-256 verificável, endpoint público de validação, certificado PDF on-demand. Lê como eIDAS para recrutador italiano.
+Multi-tenancy real com RLS Postgres + policies duplas (auth.uid + service_role). SaaS multi-tenant bem feito ao nível de banco é gargalo de contratação na Europa.
+Padrão Outbox transacional completo — claim atômico via RPC, retry exponencial, dead-letter, classificação de erro por StatusID. Isso é senioridade em sistemas distribuídos.
+pg_cron autenticado via Supabase Vault — nada de secret em current_setting. Detalhe pequeno que denuncia maturidade de segurança.
+Guards proprietários de código: XSS innerHTML, PostgREST filter injection, token-log redaction, storage business em modo ratchet monotônico. Cultura DevSecOps.
+Data governance com dicionário canônico + matriz de proveniência (CMC) exigidos no PR template. Isso é GDPR-friendly e vende sozinho na UE.
+Monorepo com 3 frontends React/Vite coordenados sobre 2 Supabases com "Contrato Canônico de Ambientes" e matriz Portal↔CRM machine-readable. Complexidade real de plataforma, não CRUD.
+Bônus que vale mencionar
+Refactor do App.tsx de monolito → 40 linhas delegando para router + cápsulas — cultura de refactor seguro sob LEI 65 ("snapshot antes, proibido remover sem substituir").
+48 testes de contrato comportamental nos módulos críticos (Reservations, Channex, Chat, Automations) rodados com node --test + c8.
+Registry de estabilização de módulos (experimental → beta → stable → locked) com invariantes e backstop tests exigidos por nível.
+Integrações complexas: Channex (REST/JSON), Rentals United (XML), ZAP/OLX/ImóvelWeb, WAHA/WhatsApp Cloud API, Amplitude.
+
+
+O Portal Achamos Imóveis, funciona com backend conectado ao Rendizy
+
 # Achamos Imóveis — Site institucional
 
 Site público da Achamos Imóveis. Identidade preta + roxa, foco na narrativa "o vendedor te procura".
