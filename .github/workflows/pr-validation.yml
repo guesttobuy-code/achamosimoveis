@@ -1,0 +1,26 @@
+name: PR Validation
+
+# CI do site Achamos — fecha o buraco de "sem CI no GitHub".
+# Roda os guards locais (secrets + env-leak) e o typecheck em cada PR pra main/staging.
+on:
+  pull_request:
+    branches: [main, staging]
+  workflow_dispatch:
+
+concurrency:
+  group: pr-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Guards + Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: full-check (guards + typecheck)
+        run: npm run full-check
